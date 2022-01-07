@@ -55,7 +55,6 @@ Dorisoy.Pan 是基于.net core5的跨平台文档管理系统，使用 MS SQL 20
 <img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(7).png"/>
 <img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(6).png"/>
 <img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(5).png"/>
-<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(4).png"/>
 <img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(3).png"/>
 <img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(2).png"/>
 <img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(1).png"/>
