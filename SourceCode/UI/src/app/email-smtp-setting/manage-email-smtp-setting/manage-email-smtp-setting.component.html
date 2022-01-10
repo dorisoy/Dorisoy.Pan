@@ -1,0 +1,99 @@
+<div class="row align-items-center justify-content-between">
+  <div class="col-md-auto col-sm-auto">
+    <div class="content-header">
+      <h1 *ngIf="!isEditMode">
+        Add Email SMTP Setting
+      </h1>
+      <h1 *ngIf="isEditMode">
+        Edit Email SMTP Setting
+      </h1>
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="smtpSettingForm">
+  <div class="box box-primary">
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group ">
+            <label> Host</label>
+            <input formControlName="host" class="form-control" type="text">
+            <div *ngIf="smtpSettingForm.get('host').touched && smtpSettingForm.get('host').errors">
+              <div class="text-danger" *ngIf="smtpSettingForm.get('host').errors?.required">
+                Host is Required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group ">
+            <label> Port</label>
+            <input formControlName="port" class="form-control" type="number">
+            <div *ngIf="smtpSettingForm.get('port').touched && smtpSettingForm.get('port').errors">
+              <div class="text-danger" *ngIf="smtpSettingForm.get('port').errors?.required">
+                Port is Required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group ">
+            <label>User Name</label>
+            <input formControlName="userName" class="form-control" type="text">
+            <div *ngIf="smtpSettingForm.get('userName').touched && smtpSettingForm.get('userName').errors">
+              <div class="text-danger" *ngIf="smtpSettingForm.get('userName').errors?.required">
+                User Name is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Password</label>
+            <input autocomplete="new-password" formControlName="password" class="form-control" type="password">
+            <div *ngIf="smtpSettingForm.get('password').touched && smtpSettingForm.get('password').errors">
+              <div class="text-danger" *ngIf="smtpSettingForm.get('password').errors?.required">
+                Password is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-6 status-switch">
+          <mat-slide-toggle formControlName="isEnableSSL">
+            <span *ngIf="smtpSettingForm.get('isEnableSSL').value">
+              Enable SSL
+            </span>
+            <span *ngIf="!smtpSettingForm.get('isEnableSSL').value">
+              Enable SSL
+            </span>
+          </mat-slide-toggle>
+        </div>
+        <div class="form-group col-md-6 status-switch">
+          <mat-slide-toggle formControlName="isDefault">
+            <span *ngIf="smtpSettingForm.get('isDefault').value">
+              Is Default
+            </span>
+            <span *ngIf="!smtpSettingForm.get('isDefault').value">
+              Is Default
+            </span>
+          </mat-slide-toggle>
+        </div>
+        <div class="m-top-10 col-md-12">
+          <ng-container *ngIf="isEditMode">
+            <button class="btn btn-success btn-sm m-right-10" (click)="saveEmailSMTPSetting()" cdkFocusInitial><i
+                class="fas fa-save"></i> Save</button>
+          </ng-container>
+          <ng-container *ngIf="!isEditMode">
+            <button class="btn btn-success btn-sm m-right-10" (click)="saveEmailSMTPSetting()" cdkFocusInitial><i
+                class="fas fa-save"></i> Save</button>
+          </ng-container>
+          <button type="button" class="btn btn-danger btn-sm" [routerLink]="['/admin/email-smtp']"><i
+              class="fas fa-times-circle"></i>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

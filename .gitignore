@@ -35,3 +35,5 @@ msbuild.wrn
 /YourDrive.API/Documents
 /YourDrive.API/wwwroot/Documents/1
 /YourDrive.API/wwwroot/Documents
+SourceCode/Src/Dorisoy.Pan.API/Documents/
+SourceCode/Src/Dorisoy.Pan.API/wwwroot/

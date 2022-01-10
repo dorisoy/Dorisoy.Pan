@@ -1,0 +1,35 @@
+.badge {
+    font-weight: normal;
+    padding: 0.50em 0.6em;
+}
+.mat-table__wrapper .mat-table {
+  min-width: auto !important;
+  width: 100% !important;
+}
+
+.mat-header-row {
+  width: 100%;
+}
+
+.mat-row {
+  width: 100%;
+}
+.mat-column-email {
+  flex: 0 0 25% !important;
+  min-width: 173px !important;
+}
+.mat-column-firstName {
+  flex: 0 0 25% !important;
+  min-width: 173px !important;
+}
+.mat-column-phoneNumber {
+  flex: 0 0 25% !important;
+  min-width: 104px !important;
+}
+.mat-column-isActive {
+  flex: 0 0 25% !important;
+  min-width: 104px !important;
+}
+.mat-footer-cell{
+  padding: 0px !important;
+}

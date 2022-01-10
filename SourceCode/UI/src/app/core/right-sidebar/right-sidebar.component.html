@@ -1,0 +1,163 @@
+<div class="right-sidebar">
+  <ng-container *ngIf="selectedFolder">
+    <div class="folder-name text-dark fw-500">
+      {{selectedFolder.name}}
+    </div>
+    <div class="share-btn">
+      <div class="dropdown upload-dropdown">
+        <button *hasClaim="'IsSharedFileFolder'" class="btn btn-secondary" (click)="onSharedFolder()" type="button"
+          aria-expanded="false">
+          <span class="material-icons-outlined mr-2">
+            share
+          </span>
+          共享
+        </button>
+      </div>
+    </div>
+    <div class="folder-details">
+      <div class="d-flex align-items-center">
+        <span class="material-icons-outlined mr-2 text-dark">
+          info
+        </span>
+        <div class="text-dark fw-500">
+          信息
+        </div>
+      </div>
+      <div class="large-folder">
+        <span *ngIf="!selectedFolder?.isShared" class="material-icons-outlined">
+          folder
+        </span>
+        <span *ngIf="selectedFolder?.isShared" class="material-icons-outlined">
+          <span class="folder_shared">
+            <img src="/assets/images/share-icon.svg" class="share-folder-large">
+          </span>
+        </span>
+        <div class="text-dark fw-500">
+          {{selectedFolder.name}}
+        </div>
+      </div>
+      <div class="folder-info">
+        <div class="row align-items-center mt-3">
+          <div class="col-md-12">
+            <h6 class="text-muted">用户管理</h6>
+            <ul class="list-group-flush px-0 align-items-center">
+              <li class="list-group-item px-0" *ngFor="let user of selectedFolder.users">
+                <div class="form-row align-items-center">
+                  <div class="col-md-auto col-auto">
+                    <img class="user-pic" [src]="user.profilePhoto" alt="Profile">
+                  </div>
+                  <div class="col-md col">
+                    {{user.firstName}} {{user.lastName}}
+                  </div>
+                  <div class="col-md-auto col-auto">
+                    <span class="badge badge-primary badge-pill" *ngIf="user.isOwner">所有</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row align-items-center mt-3">
+          <div class="col-md-12">
+            <h6 class="text-muted"> 创建时间</h6>
+            <ul class="list-group">
+              <li class="list-group-item">
+                {{selectedFolder?.createdDate | date:'MM/dd/yyyy hh:mm:ss'}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="selectedDocument">
+    <div class="folder-name text-dark fw-500">
+      {{selectedDocument.name}}
+    </div>
+    <div class="share-btn">
+      <div class="dropdown upload-dropdown">
+        <button *hasClaim="'IsSharedFileFolder'" class="btn btn-secondary" (click)="onSharedDocument()" type="button"
+          aria-expanded="false">
+          <span class="material-icons-outlined mr-2">
+            share
+          </span>
+          共享
+        </button>
+      </div>
+    </div>
+    <div class="folder-details">
+      <div class="d-flex align-items-center">
+        <span class="material-icons-outlined mr-2 text-dark">
+          info
+        </span>
+        <div class="text-dark fw-500">
+          信息
+        </div>
+      </div>
+      <div class="large-folder">
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <img [src]="selectedDocument.thumbnailPath" class="img-fluid" [alt]="selectedDocument.name" class="mr-2">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 text-center mt-1">
+            <div class="text-dark fw-500">
+              {{selectedDocument.name | limitTo: 20}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="folder-info">
+        <div class="row align-items-center mt-3">
+          <div class="col-md-12">
+            <h6 class="text-muted">用户</h6>
+            <ul class="list-group-flush px-0 align-items-center">
+              <li class="list-group-item px-0" *ngFor="let user of selectedDocument.users">
+                <div class="form-row align-items-center">
+                  <div class="col-md-auto col-auto">
+
+                    <img class="user-pic" [src]="user.profilePhoto" alt="Profile">
+                  </div>
+                  <div class="col-md col">
+                    {{user.firstName}} {{user.lastName}}
+                  </div>
+                  <div class="col-md-auto col-auto">
+                    <span class="badge badge-primary badge-pill" *ngIf="user.isOwner">Owner</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <h6 class="text-muted">上次修改日期</h6>
+            <ul class="list-group">
+              <li class="list-group-item">
+                {{selectedDocument?.modifiedDate | date:'MM/dd/yyyy hh:mm:ss'}}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row align-items-center mt-3">
+          <div class="col-md-12">
+            <span class="text-muted h6">大小: </span> {{selectedDocument?.size | filesize}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!selectedDocument && !selectedFolder">
+    <div class="d-flex align-items-center">
+      <div class="large-folder">
+        <span class="material-icons-outlined">
+          folder
+        </span>
+        <div class="text-dark fw-500">
+          全部
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

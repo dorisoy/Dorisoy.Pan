@@ -1,0 +1,5 @@
+<div *ngIf="isLinkExpired" class="center-screen">
+    <h2>Opps, this is Link is Expired</h2>
+    <h3>This url is not valid anymore</h3>
+    <a class="btn btn-primary" [routerLink]="['/']">Go to Home</a>
+</div>

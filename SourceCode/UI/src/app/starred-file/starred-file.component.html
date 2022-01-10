@@ -1,0 +1,138 @@
+<div class="row align-items-center justify-content-between">
+  <div class="col-md-auto col-sm-auto">
+    <div class="content-header mt-2">
+      <h1>收藏夹</h1>
+    </div>
+  </div>
+</div>
+<div class="box box-primary">
+  <div class="box-body">
+    <div class="table-responsive" *ngIf="folders.length >0 || documents.length>0">
+      <table class="table">
+        <thead>
+          <tr class="d-flex">
+            <th class="col">名称</th>
+            <th class="d-none d-md-inline-flex col-3" scope="col">上次修改时间</th>
+            <th class="d-none d-md-inline-flex col-2">可见成员</th>
+            <th class="col-1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let folder of folders" class="d-flex">
+            <td class="col-10 col-md">
+              <a role="button" class="d-flex align-items-center" (click)="onFolderClick(folder)">
+                <span *ngIf="!folder.isShared" class="material-icons folder_shared">
+                  folder
+                </span>
+                <span class="material-icons" *ngIf="folder.isShared">
+                  <span class="folder_shared">
+                    <img src="/assets/images/folder-users.svg" class="shared-icon">
+                  </span>
+                </span> {{folder.name | limitTo: 50}}
+              </a>
+            </td>
+            <td class="d-none d-md-inline-flex col-3">
+              <i class="fas fa-star mr-2" matTooltip="取消关注" role="button" (click)="removeFolderStarred(folder)"></i>
+              {{folder.createdDate | date:"dd/MM/yyyy hh:mm a"}}
+            </td>
+            <td class="d-none d-md-inline-flex  col-2">
+              <span [matTooltip]="getTooltip(folder.users)">
+                {{folder.users.length}} 可见成员
+              </span>
+            </td>
+            <td class="col-1"></td>
+          </tr>
+          <tr *ngFor="let document of documents" class="d-flex">
+            <td class="col-10 col-md">
+              <div (click)="onDocumentView(document)" class="d-flex align-items-center" role="button">
+                <img [src]="document.thumbnailPath" alt="" class="mr-2">
+                {{document.name | limitTo: 25}}
+              </div>
+            </td>
+            <td class="d-none d-md-inline-flex col-3">
+              <i class="fas fa-star mr-2" matTooltip="取消关注" role="button" (click)="removeDocumentStarred(document)"></i>
+              {{document.modifiedDate | date:"dd/MM/yyyy hh:mm a"}}
+            </td>
+            <td class="d-none d-md-inline-flex col-2">
+              <ng-container *ngIf="document.users.length == 1">
+                <span>私有</span>
+              </ng-container>
+              <ng-container *ngIf="document.users.length > 1">
+                <span [matTooltip]="getTooltip(document.users)">
+                  {{document.users.length}} 可见成员
+                </span>
+              </ng-container>
+            </td>
+            <td class="col-1">
+              <button mat-icon-button color="primary" matTooltip="更多" [matMenuTriggerFor]="documentMenu"
+                aria-label="Menu">
+                <mat-icon> more_horiz</mat-icon>
+              </button>
+              <mat-menu #documentMenu="matMenu">
+                <button mat-menu-item (click)="onShared(document,'file')">
+                  <mat-icon> shared</mat-icon>
+                  共享
+                </button>
+                <button mat-menu-item (click)="onCreateShareableLink(document)">
+                  <mat-icon> link</mat-icon>
+                  创建可共享链接
+                </button>
+                <button mat-menu-item (click)="onDocumentView(document)">
+                  <mat-icon> remove_red_eye</mat-icon>
+                  预览
+                </button>
+                <button mat-menu-item (click)="onCopied(document)">
+                  <mat-icon> content_copy</mat-icon>
+                  拷贝
+                </button>
+                <button mat-menu-item (click)="downloadDocument(document)">
+                  <mat-icon> download</mat-icon>
+                  下载
+                </button>
+                <button mat-menu-item (click)="sendEmail(document)">
+                  <mat-icon> forward_to_inbox</mat-icon>
+                  发送邮件
+                </button>
+                <button mat-menu-item (click)="onCommentClick(document)">
+                  <mat-icon> chat</mat-icon>
+                  评论
+                </button>
+                <button mat-menu-item (click)="deleteDocument(document)">
+                  <mat-icon> delete</mat-icon>
+                  删除
+                </button>
+                <button mat-menu-item (click)="onVersionHistoryClick(document)">
+                  <mat-icon> history</mat-icon>
+                  历史版本
+                </button>
+              </mat-menu>
+            </td>
+            <div class="showme" (click)="onShared(document,'file')">
+              <span class="material-icons-outlined text-main cursor-pointer">
+                share
+              </span>
+            </div>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="folders.length == 0 && documents.length == 0" class="card border-primary text-center empty-folder mt-1">
+      <div class="card-body">
+        <div>
+          <p>
+            <span class="material-icons-outlined text-primary fa-5x" aria-hidden="true">
+              star_border
+            </span>
+          </p>
+          <h5 class="text-dark">
+            空空如也！
+          </h5>
+          <span>为文件和文件夹添加星标，它们将显示在此处以便于访问.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="loading-shade" *ngIf="isDocumentLoading || isFolderLoading">
+  <mat-spinner></mat-spinner>
+</div>

@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.6" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dorisoy.Pan.Common\Dorisoy.Pan.Common.csproj" />
+    <ProjectReference Include="..\Dorisoy.Pan.Data\Dorisoy.Pan.Data.csproj" />
+    <ProjectReference Include="..\Dorisoy.Pan.Domain\Dorisoy.Pan.Domain.csproj" />
+    <ProjectReference Include="..\Dorisoy.Pan.Helper\Dorisoy.Pan.Helper.csproj" />
+    <ProjectReference Include="..\Dorisoy.Pan.Repository\Dorisoy.Pan.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

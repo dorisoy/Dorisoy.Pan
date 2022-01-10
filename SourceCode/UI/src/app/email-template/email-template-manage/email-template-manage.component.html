@@ -1,0 +1,87 @@
+<div class="row align-items-center justify-content-between">
+  <div class="col-md-auto col-sm-auto">
+    <div class="content-header">
+      <h1 *ngIf="!emailTemplate">
+        添加邮件模板
+      </h1>
+      <h1 *ngIf="emailTemplate">
+        编辑邮件模板
+      </h1>
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="emailTemplateForm">
+  <div class="box box-primary">
+    <div class="box-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group ">
+            <label>名称</label>
+            <input formControlName="name" class="form-control" type="text">
+            <div *ngIf="emailTemplateForm.get('name').dirty && emailTemplateForm.get('name').errors">
+              <div class="text-danger" *ngIf="emailTemplateForm.get('name').errors?.required">
+                邮件模板名称不能为空
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group ">
+            <label>标题</label>
+            <input formControlName="subject" class="form-control" type="text">
+            <div *ngIf="emailTemplateForm.get('subject').dirty && emailTemplateForm.get('subject').errors">
+              <div class="text-danger" *ngIf="emailTemplateForm.get('subject').errors?.required">
+                标题不能为空.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group ">
+            <label>
+              正文
+              <span class="text-danger">
+                (特殊/系统关键字词必须以##开头和结尾. 例如 ##UserName## )
+              </span>
+            </label>
+            <div class="NgxEditor__Wrapper">
+              <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+              <ngx-editor [editor]="editor" formControlName="body">
+              </ngx-editor>
+            </div>
+            <div *ngIf="emailTemplateForm.get('body').dirty && emailTemplateForm.get('body').errors">
+              <div class="text-danger" *ngIf="emailTemplateForm.get('body').errors?.required">
+                正文不能为空.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="mt-2 col-md-12">
+          <ng-container *ngIf="emailTemplate">
+            <button class="btn btn-success btn-sm m-right-10" (click)="addUpdateEmailTemplate()" cdkFocusInitial><i
+                class="las la-save"></i>
+              保存
+            </button>
+          </ng-container>
+          <ng-container *ngIf="!emailTemplate">
+            <button class="btn btn-success btn-sm m-right-10" (click)="addUpdateEmailTemplate()" cdkFocusInitial><i
+                class="las la-save"></i>
+              保存
+            </button>
+          </ng-container>
+          <button type="button" class="btn btn-danger btn-sm" [routerLink]="['/admin/email-template']">
+            <i class="las la-times-circle"></i>
+            取消
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

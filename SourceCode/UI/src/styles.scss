@@ -1,0 +1,388 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "./assets/styles/colors.scss";
+@import "~ng-pick-datetime-ex/assets/style/picker.min.css";
+
+// hide button in mobile page
+@media (min-width: 576px) {
+  .d-sm-inline {
+    display: unset !important;
+  }
+}
+
+.m-left-0 {
+  margin-left: 0px !important;
+}
+
+.m-right-10 {
+  margin-right: 10px !important;
+}
+
+.m-right-5 {
+  margin-right: 5px !important;
+}
+
+.m-top-10 {
+  margin-top: 10px !important;
+}
+
+.m-bottom-10 {
+  margin-bottom: 10px !important;
+}
+
+.m-bottom-20 {
+  margin-bottom: 20px !important;
+}
+
+.margin-left-10 {
+  margin-left: 10px;
+}
+
+.p-top-10 {
+  padding-top: 10px !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-container {
+  position: relative;
+  overflow: auto;
+  max-height: calc(100vh - 150px);
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-header-cell {
+  font-weight: bold !important;
+  font-size: medium;
+}
+
+.table thead th {
+  border-bottom: none;
+}
+
+.content-header {
+  color: #3c8dbc;
+}
+
+.flexbox {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 5px;
+  /* this */
+  flex-wrap: wrap;
+}
+
+.column {
+  flex: 1 1 15%;
+  text-align: center;
+  margin: 5px;
+  background-color: #1976d2;
+  padding: 20px;
+  display: flex;
+  color: #fff;
+  border: 1px solid#1976d2;
+  flex-direction: column;
+  max-width: 15%;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #fff;
+    border: 1px solid #cacaca;
+    color: #1976d2;
+
+    .column-text {
+      color: blue;
+    }
+  }
+
+  i {
+    font-size: 40px;
+  }
+
+  .column-text {
+    font-weight: 600;
+    color: #fff;
+
+    &:hover {
+      color: blue;
+    }
+  }
+}
+
+tr.mat-row {
+  height: 38px !important;
+}
+
+tr.mat-header-row {
+  height: 45px !important;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+}
+
+.table td {
+  display: inline-flex;
+  align-items: center;
+}
+
+.mat-checkbox-layout {
+  margin-bottom: 0 !important;
+}
+
+// mat toggle css
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: #1976d2 !important;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: rgb(25 118 210 / 31%) !important;
+}
+
+.mat-slide-toggle.mat-checked .mat-ripple-element {
+  background-color: #1976d2 !important;
+}
+
+.mat-tooltip {
+  background: #000;
+  font-size: 14px;
+}
+
+.table td,
+.table th {
+  vertical-align: middle !important;
+}
+
+body {
+  font-size: 0.9rem;
+}
+
+.ps__thumb-y {
+  background-color: #fff !important;
+  width: 6px !important;
+  border-radius: 0px !important;
+  opacity: 0.5;
+}
+
+.close-btn-modal {
+  cursor: pointer;
+  width: 24px;
+  background-color: #e41e26;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  right: -10px;
+  top: -11px;
+  z-index: 55555;
+  overflow: hidden;
+  border-radius: 50%;
+  color: #fff;
+  margin-left: auto;
+
+  i {
+    font-size: 14px;
+  }
+}
+
+.mat-dialog-container {
+  overflow: initial !important;
+  padding: 20px !important;
+}
+
+.box.box-primary {
+  border-top-color: $primary;
+}
+
+.box {
+  position: relative;
+  border-radius: 3px;
+  background: #ffffff;
+  border-top: 0px solid #d2d6de;
+  margin-bottom: 20px;
+  width: 100%;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+}
+
+.box-body {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  padding: 10px;
+  padding-left: 0;
+}
+
+.content-header h1 {
+  font-size: 1.25rem !important;
+  margin-bottom: 0;
+}
+
+.w-90 {
+  width: 90% !important;
+}
+
+.full-width-dialog .mat-dialog-container {
+  max-width: 80vw !important;
+}
+
+.min-width-dialog .mat-dialog-container {
+  min-width: 80vw !important;
+}
+
+.cdk-overlay-container {
+  z-index: 1039;
+}
+
+.file-preview-overlay-container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.cdk-overlay-pane {
+  display: block !important;
+}
+
+.white-background {
+  background-color: #fff;
+}
+.light-black-background {
+  background-color: rgb(0, 0, 0, 9);
+}
+
+.black-background {
+  background-color: #000;
+}
+
+.background-none {
+  background-color: none;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 0 0.75em 0 0.75em;
+  margin-top: 0;
+  position: relative;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  top: 0.75em;
+}
+
+.dispaly-none {
+  display: none !important;
+}
+
+.text-primary {
+  color: $primary !important;
+}
+
+.list-img {
+  width: 30px;
+}
+
+.grid-img {
+  width: 80px;
+}
+
+// override css
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: $primary !important;
+}
+
+.mat-menu-item .mat-icon-no-color,
+.mat-menu-item-submenu-trigger::after {
+  color: $primary !important;
+}
+
+.center-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: calc(100vh - 60px);
+}
+
+.mat-expansion-panel-header.mat-expanded {
+  height: 44px;
+  position: relative;
+}
+
+.panel-close-icon {
+  position: absolute;
+  right: 12px;
+  font-size: 16px;
+}
+
+.mat-expansion-panel-header {
+  height: 44px;
+}
+
+.mat-expansion-indicator {
+  margin-right: 17px;
+}
+
+.blockquote-footer::before {
+  content: "";
+}
+
+.border-primary {
+  border-color: $primary !important;
+}
+
+@media (max-width: 640px) {
+  .box-body {
+    padding: 0px;
+  }
+
+  .box {
+    margin-bottom: 0;
+  }
+
+  .w-80 {
+    width: 80%;
+  }
+
+  .content-header h1 {
+    margin-bottom: 5px;
+  }
+}
+
+.share-folder-large {
+  width: 65px;
+  margin-top: -30px;
+}
+
+.link-button {
+  color: $primary;
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -1,0 +1,39 @@
+<div class="dialog-header">
+  <div class="folder-dialog-info">
+    <span class="material-icons">
+      folder
+    </span>
+    <div>
+      <div class="fw-600 fs-17 text-dark">创建新文件夹</div>
+    </div>
+  </div>
+  <div class="close-icon" (click)="closeDialog()">
+    <span class="material-icons cursor-pointer">
+      close
+    </span>
+  </div>
+</div>
+<div class="d-content">
+  <form [formGroup]="folderForm">
+    <div class="form-group ">
+      <label>文件夹名称</label>
+      <input class="form-control" formControlName="name" type="text">
+      <div *ngIf="folderForm.get('name').touched && folderForm.get('name').errors">
+        <div class="text-danger" *ngIf="folderForm.get('name').errors?.required">
+          名称不能为空.
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="addFolder()" type="submit" class="btn btn-primary btn-sm m-right-10" cdkFocusInitial>
+        <i class="fas fa-save"></i>保存
+      </button>
+      <button class="btn btn-danger btn-sm" (click)="closeDialog()"><i class="fas fa-times-circle"></i>
+        取消
+      </button>
+    </div>
+  </form>
+</div>
+<div class="loading-shade" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>

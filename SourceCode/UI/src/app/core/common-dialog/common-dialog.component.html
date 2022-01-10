@@ -1,0 +1,20 @@
+<div class="dialog-header">
+  <div class="folder-dialog-info">
+    <div>
+      <div class="fw-600 fs-17 text-dark">{{primaryMessage}}</div>
+    </div>
+  </div>
+  <div class="close-icon mt-1 ml-2 text-primary" (click)="clickHandler(false)">
+    <span class="material-icons cursor-pointer">
+      close
+    </span>
+  </div>
+</div>
+<div class="d-content">
+  <div mat-dialog-actions class="mt-2 d-flex">
+    <button class="btn btn-primary btn-sm m-right-10" (click)="clickHandler(true)"><i class="fas fa-check"></i>
+      确认</button>
+    <button class="btn btn-danger btn-sm" (click)="clickHandler(false)"><i class="fas fa-times-circle"></i>
+      取消</button>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+@import 'colors.scss';
+.badge-pilled {
+    border-radius: 50px;
+    padding: 4px 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.badge-secondary {
+    background-color: $regular;
+    color: #fff;
+}
+
+.btn {
+    padding: 0.25rem 1rem;
+}
+
+.btn-green-success {
+    background-color: $success;
+    border-color: $success;
+    color: #fff;
+}
+
+.btn-green-success:hover {
+    background-color: darken($color: $success, $amount: 5%);
+}
+.badge-primary {
+    color: #fff;
+    background-color: $primary;
+    border-color: $primary;
+}
+.btn-primary {
+    background-color: $primary;
+    border-color: $primary;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-secondary {
+    display: flex;
+    justify-content: space-between;
+    background: #c81de5;
+}
+
+.btn-primary:hover {
+    background-color: darken($color: $primary, $amount: 5%);
+    border-color: darken($color: $primary, $amount: 5%);
+}
+
+.btn-upload {
+    padding: 5px 40px 5px 15px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    .material-icons-outlined {
+        font-size: 18px;
+        margin-right: 5px;
+    }
+}
+
+.btn-no-style {
+    background-color: transparent;
+    border: none;
+    padding: 5px;
+}
+
+@media (max-width: 640px) {
+    .btn {
+        padding: 0.25rem 0.4rem;
+    }
+}

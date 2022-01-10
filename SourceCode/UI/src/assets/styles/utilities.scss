@@ -1,0 +1,160 @@
+.text-dark {
+    color: $dark;
+}
+.text-main {
+    color: $primary;
+}
+.text-red {
+    color: $danger;
+}
+.text-green {
+    color: $success;
+}
+.text-regular {
+    color: $regular;
+}
+
+//backgroun colors
+.bg-dark {
+    background-color: $dark;
+}
+.bg-main {
+    background-color: $primary;
+}
+.bg-red {
+    background-color: $danger;
+}
+.bg-green {
+    background-color: $success;
+}
+.bg-regular {
+    background-color: $regular;
+}
+.bg-light-gray {
+    background-color: $light;
+}
+
+//font sizes
+.fs-11 {
+    font-size: 11px;
+}
+.fs-12 {
+    font-size: 12px;
+}
+.fs-13 {
+    font-size: 13px;
+}
+.fs-14 {
+    font-size: 14px;
+}
+.fs-15 {
+    font-size: 15px;
+}
+.fs-16 {
+    font-size: 16px;
+}
+.fs-17 {
+    font-size: 17px;
+}
+.fs-18 {
+    font-size: 18px;
+}
+.fs-19 {
+    font-size: 19px;
+}
+.fs-20 {
+    font-size: 20px;
+}
+.fs-35 {
+    font-size: 35px;
+}
+//borders
+.b-round-primary-2x {
+    border: 2px solid #5ebfe3;
+}
+.br-circle {
+    border-radius: 50px;
+}
+
+.br-dark {
+    border-color: $dark;
+}
+.br-main {
+    border-color: $primary;
+}
+.br-red {
+    border-color: $danger;
+}
+.br-green {
+    border-color: $success;
+}
+.br-regular {
+    border-color: $regular;
+}
+.br-light {
+    border-color: #e6e9ee;
+}
+//pading
+.p-all-5 {
+    padding: 5px;
+}
+
+//margin
+.mt-20 {
+    margin-top: 20px;
+}
+.mt-30 {
+    margin-top: 30px;
+}
+
+.my-10 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.my-14 {
+    margin-top: 14px;
+    margin-bottom: 14px;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.fw-300 {
+    font-weight: 500;
+}
+
+.fw-400 {
+    font-weight: 500;
+}
+
+.fw-500 {
+    font-weight: 500;
+}
+
+.fw-600 {
+    font-weight: 500;
+}
+
+.heading-large {
+    font-size: 23px;
+}
+.heading-medium {
+    font-size: 18px;
+}
+.heading-small {
+    font-size: 16px;
+}
+.box-header {
+    font-size: 18px;
+    font-weight: 500;
+    color: $dark;
+}
+.secondary-label {
+    font-size: 14px;
+    color: $regular;
+}
+.global-box {
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+}

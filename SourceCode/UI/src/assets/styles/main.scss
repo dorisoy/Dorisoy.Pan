@@ -1,0 +1,334 @@
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+@import 'blue-theme.scss';
+@import 'colors.scss';
+@import 'base.scss';
+@import 'buttons.scss';
+@import 'sidebar.scss';
+@import 'header.scss';
+@import 'utilities.scss';
+
+a:hover {
+    text-decoration: none !important;
+}
+
+.screening-progress {
+    .color-info-main {
+        display      : inline-block;
+        width        : 15px;
+        height       : 15px;
+        background   : #fff;
+        border-width : 3px;
+        border-style : solid;
+        border-radius: 50%;
+        margin-right : 5px;
+    }
+
+    .progress-bar {
+        width        : 90px;
+        height       : 8px;
+        border-radius: 10px;
+    }
+
+    .pb-half {
+        background: linear-gradient(to right, $regular 50%, $light 50% 100%);
+    }
+
+    .dot-menu {
+        line-height: 0;
+    }
+
+    .p-data {
+        position: relative;
+
+        &::before {
+            position        : absolute;
+            width           : 1px;
+            height          : 85%;
+            background-color: $light;
+            content         : '';
+            left            : 30px;
+            top             : 50%;
+            transform       : translateY(-50%);
+        }
+    }
+}
+
+.folder-name {
+    padding: 20px 0;
+}
+
+.folder-details {
+    margin    : 20px -20px;
+    padding   : 20px;
+    border-top: 1px solid #dbdbdb;
+}
+
+.large-folder {
+    margin: 20px auto;
+    width : fit-content;
+
+    .material-icons-outlined {
+        color    : $primary;
+        font-size: 100px;
+    }
+}
+
+.folder-info {
+    font-size: 12px;
+}
+
+.footer {
+    padding: 0 10px;
+}
+
+.showme {
+    display : none !important;
+    position: absolute;
+}
+
+tr {
+    position: relative;
+}
+
+td {
+    img {
+        max-height: 24px;
+    }
+
+    .folder-list {
+        font-size: 24px;
+    }
+}
+
+@media (min-width: 640px) {
+    .list-group-item:hover .showme {
+        display: block !important;
+    }
+}
+
+.list-group-item:hover .showme {
+    span {
+        color    : #fff;
+        font-size: 18px;
+    }
+
+    display         : block;
+    position        : absolute;
+    right           : 8%;
+    top             : 12px;
+    background-color: #ff9800;
+    border-radius   : 5px;
+    padding         : 7px 10px 3px 6px;
+}
+
+.fa-star {
+    color: #ff9800;
+}
+
+.folder_shared {
+    color       : #ff9800;
+    font-size   : 30px;
+    margin-top  : 0;
+    float       : left;
+    margin-right: 0.5rem !important;
+}
+
+.mat-button.mat-primary,
+.mat-icon-button.mat-primary,
+.mat-stroked-button.mat-primary {
+    color: #ff9800;
+}
+
+::ng-deep .mat-tooltip {
+    background-color: #000;
+    opacity         : 1;
+    color           : yellow;
+}
+
+.mat-tooltip .mat-content {
+    background-color: #000;
+    opacity         : 1;
+}
+
+.bread-nav {
+    display    : flex;
+    align-items: center;
+
+    .btn-link {
+        padding  : 0;
+        // font-size: 20px;
+    }
+}
+
+.no-arrow {
+    .dropdown-toggle::after {
+        display: none;
+    }
+}
+
+.mat-icon-button {
+    height     : 30px !important;
+    line-height: 30px !important;
+}
+
+.dialog-header {
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+    border-bottom  : 1px solid #d4d4d4;
+    margin         : -20px;
+    padding        : 10px 20px;
+}
+
+.folder-dialog-info {
+    display        : flex;
+    justify-content: start;
+    align-items    : center;
+
+    span {
+        margin-right: 10px;
+
+        font-size: 40px;
+        color    : #ff9800;
+    }
+}
+
+.d-content {
+    padding-top: 40px;
+
+    h3 {
+        font-size: 20px;
+    }
+}
+
+.box-view {
+
+    .cdk-drag,
+    .drag-drop {
+        width: 100% !important;
+    }
+
+    .f-icon {
+        font-size: 80px;
+    }
+
+    .row-ex {
+        display  : flex;
+        flex-wrap: wrap;
+    }
+
+    .col-ex-5 {
+        flex           : 1 0 23%;
+        max-width      : 24%;
+        margin         : 5px !important;
+        background     : fff;
+        border         : 1px solid #e8e8e8;
+        border-radius  : 5px;
+        display        : flex;
+        align-items    : center;
+        justify-content: center;
+    }
+}
+
+.hover-data {
+    display: none;
+
+    .c-box {
+        position: absolute;
+        top     : 10px;
+        left    : 10px;
+        cursor  : pointer;
+    }
+
+    .m-icon {
+        position: absolute;
+        top     : 5px;
+        right   : 10px;
+        cursor  : pointer;
+    }
+
+    .star-icon {
+        position: absolute;
+        bottom  : 10px;
+        right   : 10px;
+        cursor  : pointer;
+    }
+}
+
+.show-on-hover {
+    width     : 100%;
+    margin    : 0 auto;
+    text-align: center;
+    padding   : 10px;
+}
+
+.show-on-hover .hover-data {
+    display: block !important;
+}
+
+.list-group-flush>.list-group-item:last-child {
+    border-bottom-width: 1px;
+}
+
+.mat-list-item-content {
+    padding-left : 0 !important;
+    padding-right: 0 !important;
+}
+
+.mat-expansion-panel-header-title,
+.mat-expansion-indicator {
+    color: #fff !important;
+}
+
+.mat-expansion-panel-header-description,
+.mat-expansion-indicator::after {
+    color: #fff !important;
+}
+
+.custom-modalbox {
+    min-width: 600px;
+}
+
+.custom-modalbox-450 {
+    min-width: 450px;
+}
+
+@media (max-width: 640px) {
+    .box-view {
+        .col-ex-5 {
+            flex     : 1 0 45%;
+            max-width: 45%;
+        }
+    }
+
+    h5 {
+        font-size: small;
+    }
+
+    .hover-data {
+        .c-box {
+            top : 7px;
+            left: -15px;
+        }
+
+        .m-icon {
+            top  : 1px;
+            right: 1px;
+        }
+
+        .star-icon {
+            bottom: 7px;
+            right : 8px;
+        }
+    }
+
+    .custom-modalbox,
+    .custom-modalbox-450 {
+        min-width: 97%;
+    }
+}

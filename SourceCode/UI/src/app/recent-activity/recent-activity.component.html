@@ -1,0 +1,139 @@
+<div class="row align-items-center justify-content-between">
+  <div class="col-md-auto col-sm-auto">
+    <div class="content-header mt-2">
+      <h1>近期使用</h1>
+    </div>
+  </div>
+</div>
+<div class="box box-primary">
+  <div class="box-body">
+    <div class="table-responsive" *ngIf="recentActivities.length>0">
+      <table class="table">
+        <thead>
+          <tr class="d-flex">
+            <th class="col">名称</th>
+            <th class="d-none d-md-inline-flex col-2">可见成员</th>
+            <th class="col-1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container>
+            <tr *ngFor="let recentActivity of recentActivities" class="d-flex">
+              <ng-container *ngIf="recentActivity.folderId">
+                <td class="col-10 col-md">
+                  <blockquote class="blockquote mb-0">
+                    <a role="button" class="d-flex align-items-center" title="{{recentActivity.name}}"
+                      (click)="onFolderClick(recentActivity)">
+                      <div class="form-row align-items-center">
+                        <div class="col-md-auto col-auto">
+                          <i *ngIf="!recentActivity.isShared" class="fas fa-folder folder-list text-main mr-2"></i>
+                          <span class="material-icons" *ngIf="recentActivity.isShared">
+                            <span class="folder_shared">
+                              <img src="/assets/images/folder-users.svg" class="shared-icon">
+                            </span>
+                          </span>
+                        </div>
+                        <div class="col-md col">
+                          <div class="row">
+                            <div class="col-md col fs-17">
+                              {{recentActivity.name | limitTo: 50}}
+                              <div class="blockquote-footer fs-13"
+                                title="{{recentActivity.createdDate | date:'dd MMM yyyy hh:mm a'}}">
+                                {{recentActivity.action===0? 'Open': 'Created'}} {{recentActivity.createdDate |
+                                dateAgo}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </blockquote>
+                </td>
+                <td class="d-none d-md-inline-flex col-2">
+                  <span [matTooltip]="getTooltip(recentActivity.users)">
+                    {{recentActivity.users.length | members}}
+                  </span>
+                </td>
+                <td class="col-1 d-none d-md-inline-flex"></td>
+              </ng-container>
+              <ng-container *ngIf="!recentActivity.folderId">
+                <td class="col-10 col-md">
+                  <blockquote class="blockquote mb-0">
+                    <div class="form-row align-items-center" (click)="onDocumentView(recentActivity.document)"
+                      role="button">
+                      <div class="col-md-auto col-auto">
+                        <img [src]="mainUrl + recentActivity.thumbnailPath" alt="" class="mr-2">
+                      </div>
+                      <div class="col-md col">
+                        <div class="row">
+                          <div class="col-md col fs-17">
+                            {{recentActivity.name | limitTo: 50}}
+                            <div class="blockquote-footer fs-13"
+                              title="{{recentActivity.createdDate | date:'dd MMM yyyy hh:mm a'}}">
+                              {{recentActivity.action===0? 'Open': 'Created'}} {{recentActivity.createdDate | dateAgo}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                    </div>
+                  </blockquote>
+                </td>
+                <td class="d-none d-md-inline-flex col-2">
+                  <span [matTooltip]="getTooltip(recentActivity?.users)">
+                    {{recentActivity.users.length | members}}
+                  </span>
+                </td>
+                <td class="col-1">
+                  <button mat-icon-button color="primary" matTooltip="更多" [matMenuTriggerFor]="documentMenu"
+                    aria-label="Menu">
+                    <mat-icon> more_horiz</mat-icon>
+                  </button>
+                  <mat-menu #documentMenu="matMenu">
+                    <button mat-menu-item (click)="onOperationCommand(recentActivity,'comments')">
+                      <mat-icon> chat</mat-icon>
+                      评论
+                    </button>
+                    <button *hasClaim="'IsDownloadFile'" mat-menu-item
+                      (click)="onOperationCommand(recentActivity,'download')">
+                      <mat-icon> download</mat-icon>
+                      下载
+                    </button>
+                    <button mat-menu-item (click)="onDocumentView(recentActivity.document)">
+                      <mat-icon> remove_red_eye</mat-icon>
+                      预览
+                    </button>
+                  </mat-menu>
+                </td>
+                <!-- <div class="showme" (click)="onOperationCommand(recentActivity,'share')">
+                  <span class="material-icons-outlined text-main cursor-pointer">
+                    share
+                  </span>
+                </div> -->
+              </ng-container>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+    <div class="card border-primary text-center empty-folder mt-1" *ngIf="recentActivities.length == 0  && !isLoading">
+      <div class="card-body">
+        <div>
+          <p>
+            <span>
+              <i class="fa fa-history text-primary fa-5x" aria-hidden="true"></i>
+            </span>
+          </p>
+          <h5 class="text-dark">
+            空空如也！
+          </h5>
+          <span>您尚未上载任何文件或文件夹.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="loading-shade" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>

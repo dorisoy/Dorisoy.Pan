@@ -1,0 +1,35 @@
+<div class="dialog-header">
+  <div class="folder-dialog-info">
+    <span class="material-icons">
+      folder
+    </span>
+    <div>
+      <div class="fw-600 fs-17 text-dark">Prevent Shared Folder</div>
+    </div>
+  </div>
+  <div class="close-icon" (click)="onCancel()">
+    <span class="material-icons cursor-pointer">
+      close
+    </span>
+  </div>
+</div>
+<div class="d-content">
+  <p *ngIf="data.isFolderShared && data.isFolder">You can not <b> {{data.operation}} {{data.name}}</b> Folder because it's
+    already <b>shared</b>.
+  </p>
+  <p *ngIf="data.isParentShared && data.isFolder">You can not <b> {{data.operation}} {{data.name}}</b> Folder because it's any hierarchy
+    parent
+    already <b>shared</b>. </p>
+  <p *ngIf="data.isChildShared  && data.isFolder">You can not <b> {{data.operation}} {{data.name}}</b> Folder because it's any hierarchy
+    child already
+    <b>shared </b>.
+  </p>
+  <p *ngIf="(data.isParentShared || data.isFolderShared)  && !data.isFolder">You can not <b> {{data.operation}} {{data.name}}</b> Document because it's any hierarchy
+    parent Folder
+    already <b>shared</b>. </p>
+  <p *ngIf="data.isChildShared && !data.isFolder">You can not <b> {{data.operation}} {{data.name}}</b> Document because it's any hierarchy
+    child already
+    <b>shared </b>.
+  </p>
+
+</div>

@@ -1,0 +1,44 @@
+body {
+    margin          : 0;
+    padding         : 0;
+    box-sizing      : border-box;
+    font-family     : 'Rubik', sans-serif !important;
+    background-color: #fff;
+    color           : $regular;
+}
+
+input {
+    font-family: 'Rubik', sans-serif !important;
+}
+
+.shared-icon {
+    max-height: 21px;
+    margin-top: -14px;
+}
+
+.user-pic {
+    width   : 25px;
+    height: 25px;
+    border       : 1px solid #cacaca;
+    border-radius: 50px;
+}
+
+.empty-folder {
+    min-height: calc(100vh - 150px);
+
+    .card-body {
+        display        : flex;
+        align-items    : center;
+        justify-content: center;
+    }
+}
+
+.upload-file-folder {
+    min-height: 300px;
+
+    .card-body {
+        display        : flex;
+        align-items    : center;
+        justify-content: center;
+    }
+}

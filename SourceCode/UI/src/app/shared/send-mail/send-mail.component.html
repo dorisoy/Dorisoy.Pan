@@ -1,0 +1,115 @@
+<div class="dialog-header">
+  <div class="folder-dialog-info">
+    <div class="row align-items-center justify-content-between ml-1 mt-1">
+      <ng-container *ngIf="data.type == 'file'">
+        <img class="thumbnail" [src]="data.document.thumbnailPath" alt="">
+      </ng-container>
+      <ng-container *ngIf="data.type != 'file'">
+        <span class="material-icons">
+          folder
+        </span>
+      </ng-container>
+      <div class="col-md-auto col-sm-auto">
+        <div class="content-header">
+          <h5>发送邮件</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="close-icon" (click)="closeDialog()">
+    <span class="material-icons cursor-pointer">
+      close
+    </span>
+  </div>
+</div>
+<div class="d-content">
+  <div class="box box-primary">
+    <div class="box-body">
+      <form [formGroup]="emailForm">
+        <div class="row">
+          <div class="col-md-12 pb-1">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="toAddress">
+                  收件人
+                </span>
+              </div>
+              <input formControlName="toAddress" type="text" class="form-control" placeholder="Comma separated emails"
+                aria-label="To" aria-describedby="toAddress">
+            </div>
+            <div *ngIf="emailForm.get('toAddress').touched && emailForm.get('toAddress').errors">
+              <div class="text-danger" *ngIf="emailForm.get('toAddress').errors?.required">
+                收件人不能为空
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 pb-1">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="toAddress">
+                  抄送人
+                </span>
+              </div>
+              <input formControlName="cCAddress" type="text" class="form-control" placeholder="Comma separated emails"
+                aria-label="To" aria-describedby="toAddress">
+            </div>
+            <div *ngIf="emailForm.get('cCAddress').touched && emailForm.get('cCAddress').errors">
+              <div class="text-danger" *ngIf="emailForm.get('cCAddress').errors?.required">
+                抄送人不能为空
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 pb-1">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="subject">
+                  标题
+                </span>
+              </div>
+              <input formControlName="subject" type="text" class="form-control" placeholder="Subject" aria-label="To"
+                aria-describedby="subject">
+            </div>
+            <div *ngIf="emailForm.get('subject').touched && emailForm.get('subject').errors">
+              <div class="text-danger" *ngIf="emailForm.get('subject').errors?.required">
+                标题不能为空
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="font-weight-bold">
+                消息
+              </label>
+              <div class="NgxEditor__Wrapper">
+                <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+                <ngx-editor [editor]="editor" formControlName="body">
+                </ngx-editor>
+              </div>
+              <div *ngIf="emailForm.get('body').touched && emailForm.get('body').errors">
+                <div class="text-danger" *ngIf="emailForm.get('body').errors?.required">
+                  消息不能为空
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mt-1 row ml-2 mb-2">
+            <img *ngIf="data.type == 'file'" class="thumbnail mr-2" [src]="data.document.thumbnailPath" alt="">
+            <span class="material-icons text-primary mr-2" *ngIf="data.type != 'file'">
+              folder
+            </span>
+            {{data.type=='file' ? fileName : fileName + '.zip'}}
+          </div>
+          <div class="col-md-12 mt-1">
+            <button (click)="sendEmail()" type="submit" class="btn btn-success">
+              <i class="fas fa-paper-plane"></i>
+              发送
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="loading-shade" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
