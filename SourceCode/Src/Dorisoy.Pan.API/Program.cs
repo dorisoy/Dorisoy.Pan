@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
-
+using Microsoft.Extensions.DependencyInjection;
 namespace Dorisoy.Pan.API
 {
     public class Program
@@ -16,7 +16,9 @@ namespace Dorisoy.Pan.API
             try
             {
 
+
                 logger.Debug("Starting host...");
+
 
                 Console.WriteLine("");
                 Console.WriteLine(" Starting host...");

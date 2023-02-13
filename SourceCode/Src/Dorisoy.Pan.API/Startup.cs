@@ -65,6 +65,7 @@ namespace Dorisoy.Pan.API
             //数据库
             services.AddDbContextPool<DocumentContext>(options =>
             {
+                //MySQl
                 var serverVersion = new MySqlServerVersion(new Version(8, 0, 26));
                 options.UseMySql(Configuration.GetConnectionString("DocumentDbConnectionString"), serverVersion)
                 .EnableSensitiveDataLogging();
@@ -271,7 +272,7 @@ namespace Dorisoy.Pan.API
                 c.DefaultModelsExpandDepth(-1);
             });
 
-       
+
             app.UseStaticFiles(new StaticFileOptions()
             {
                 //FileProvider = new PhysicalFileProvider(
@@ -280,7 +281,7 @@ namespace Dorisoy.Pan.API
             });
 
 
-     
+
             //使用 Https 重定向
             //app.UseHttpsRedirection();
 
@@ -292,10 +293,10 @@ namespace Dorisoy.Pan.API
             //});
 
             app.UseRouting();
-        
+
             app.UseResponseCompression();
 
-       
+
             //SpaStartup.Configure(app);
 
             app.UseStaticFiles();
@@ -304,7 +305,7 @@ namespace Dorisoy.Pan.API
             //使用spa 静态文件
             app.UseSpaStaticFiles();
 
-   
+
 
             app.UseSpa(spa =>
             {
