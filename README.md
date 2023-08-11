@@ -51,13 +51,13 @@ Dorisoy.Pan 是基于.net core5的跨平台文档管理系统，使用 MS SQL 20
 
 ### 截图 ###
 
-<img src="https://bitbucket.org/mschen_/dorisoy.pan/raw/62f4c5b7b9cd317006662d7a49ec22ce8a0d2c5f/s%20(4).png"/>
-<img src="https://bitbucket.org/mschen_/dorisoy.pan/raw/62f4c5b7b9cd317006662d7a49ec22ce8a0d2c5f/s%20(7).png"/>
-<img src="https://bitbucket.org/mschen_/dorisoy.pan/raw/62f4c5b7b9cd317006662d7a49ec22ce8a0d2c5f/s%20(6).png"/>
-<img src="https://bitbucket.org/mschen_/dorisoy.pan/raw/62f4c5b7b9cd317006662d7a49ec22ce8a0d2c5f/s%20(5).png"/>
-<img src="https://bitbucket.org/mschen_/dorisoy.pan/raw/62f4c5b7b9cd317006662d7a49ec22ce8a0d2c5f/s%20(3).png"/>
-<img src="https://bitbucket.org/mschen_/dorisoy.pan/raw/62f4c5b7b9cd317006662d7a49ec22ce8a0d2c5f/s%20(2).png"/>
-<img src="https://bitbucket.org/mschen_/dorisoy.pan/raw/62f4c5b7b9cd317006662d7a49ec22ce8a0d2c5f/s%20(1).png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(1).png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(2).png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(3).png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(4).png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(5).png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(6).png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(7).png"/>
 
                         
 
