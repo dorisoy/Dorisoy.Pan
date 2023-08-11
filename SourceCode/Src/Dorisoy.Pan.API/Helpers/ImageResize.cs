@@ -4,6 +4,7 @@ using SixLabors.ImageSharp.Processing;
 using System;
 using System.IO;
 using System.Linq;
+using ImageInfo = Dorisoy.Pan.Data.ImageInfo;
 
 namespace Dorisoy.Pan.API.Helpers
 {

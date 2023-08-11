@@ -45,7 +45,11 @@ namespace Dorisoy.Pan.API
         public void ConfigureServices(IServiceCollection services)
         {
             var assembly = AppDomain.CurrentDomain.Load("Dorisoy.Pan.MediatR");
-            services.AddMediatR(assembly);
+            services.AddMediatR(c =>
+            {
+                c.RegisterServicesFromAssembly(assembly);
+            });
+
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddValidatorsFromAssemblies(Enumerable.Repeat(assembly, 1));
 
@@ -216,11 +220,11 @@ namespace Dorisoy.Pan.API
             //    c.RootPath = "ClientApp/dist";
             //});
 
-            services.AddSpaStaticFiles(configuration =>
-            {
-                //这里设置路由
-                configuration.RootPath = "ClientApp";
-            });
+            //services.AddSpaStaticFiles(configuration =>
+            //{
+            //    //这里设置路由
+            //    configuration.RootPath = "ClientApp";
+            //});
 
 
         }
@@ -302,20 +306,20 @@ namespace Dorisoy.Pan.API
             app.UseStaticFiles();
 
 
-            //使用spa 静态文件
-            app.UseSpaStaticFiles();
+            ////使用spa 静态文件
+            //app.UseSpaStaticFiles();
 
 
 
-            app.UseSpa(spa =>
-            {
-                //这里是angular项目的根目录
-                spa.Options.SourcePath = "ClientApp";
-                //if (env.IsDevelopment())
-                //{
-                //    spa.UseAngularCliServer(npmScript: "start");
-                //}
-            });
+            //app.UseSpa(spa =>
+            //{
+            //    //这里是angular项目的根目录
+            //    spa.Options.SourcePath = "ClientApp";
+            //    //if (env.IsDevelopment())
+            //    //{
+            //    //    spa.UseAngularCliServer(npmScript: "start");
+            //    //}
+            //});
 
 
             app.UseCors("ExposeResponseHeaders");
