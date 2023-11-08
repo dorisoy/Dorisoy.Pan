@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="1280"
+             d:DesignHeight="720"
+             Background="#FFFFFF"
+             RenderOptions.BitmapInterpolationMode="HighQuality"
+             x:Class="Dorisoy.PanClient.Views.MainAppSplashContent">
+    <UserControl.Resources>
+        <ImageBrush x:Key="BackgroundBrush"
+                    Source="avares://Dorisoy.PanClient/Assets/Images/login_bg.png"
+                    AlignmentY="Top"
+                    AlignmentX="Left"
+                    Stretch="UniformToFill">
+        </ImageBrush>
+    </UserControl.Resources>
+    <Grid RowDefinitions="*">
+        <Panel Grid.Row="0">
+
+            <Image Source="avares://Dorisoy.PanClient/Assets/logo.png"
+                   Stretch="Fill"
+                   Width="748"
+                   Height="649"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+        </Panel>
+    </Grid>
+</UserControl>

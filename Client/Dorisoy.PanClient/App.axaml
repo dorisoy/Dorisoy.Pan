@@ -1,0 +1,94 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sty="using:FluentAvalonia.Styling"
+             xmlns:local="using:Dorisoy.PanClient"
+             xmlns:conv="using:Dorisoy.PanClient.Converters"
+             x:Class="Dorisoy.PanClient.App">
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <FontFamily x:Key="MainFontFamily">Microsoft YaHei,Simsun,苹方-简,宋体-简</FontFamily>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://Dorisoy.PanClient/Styling/Resources.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--自定义颜色-->
+            <SolidColorBrush x:Key="PrimaryColor">#2181ff</SolidColorBrush>
+            <SolidColorBrush x:Key="PrimaryColorLight">#3191ff</SolidColorBrush>
+            <SolidColorBrush x:Key="RedColor">#eb3324</SolidColorBrush>
+            <SolidColorBrush x:Key="BlueColor">#00a2e8</SolidColorBrush>
+            <SolidColorBrush x:Key="GreenColor">#f7901a</SolidColorBrush>
+            <SolidColorBrush x:Key="YellowColor">#fff200</SolidColorBrush>
+            <SolidColorBrush x:Key="OrangeColor">#ff7f27</SolidColorBrush>
+            <SolidColorBrush x:Key="PurpleColor">#a349a4</SolidColorBrush>
+            <SolidColorBrush x:Key="PinkColor">#ffaec9</SolidColorBrush>
+            <SolidColorBrush x:Key="GrayColor">#c3c3c3</SolidColorBrush>
+
+            <conv:StringConverter x:Key="StringConverter"/>
+        </ResourceDictionary>
+    </Application.Resources>
+
+    <Application.Styles>
+        
+        <!-- 从preview5开始，这些属性现在默认为false -->
+        <sty:FluentAvaloniaTheme PreferSystemTheme="True"
+                                 PreferUserAccentColor="True" />
+        <!--当前控件-->
+        <StyleInclude Source="avares://Dorisoy.PanClient/Styling/CustomControlsStyles.axaml" />
+        <!--画图板-->
+        <StyleInclude Source="avares://Dorisoy.PanClient/Assets/Icons.axaml" />
+
+        <Style Selector="TextBox">
+            <Setter Property="CornerRadius"
+                    Value="5" />
+            <Setter Property="SelectionBrush"
+                    Value="#bdf" />
+            <Setter Property="FontSize"
+                    Value="16" />
+        </Style>
+        <Style Selector="TextBlock:lable">
+            <Setter Property="FontSize"
+                    Value="16" />
+            <Setter Property="Foreground"
+                    Value="#004883" />
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="Cursor"
+                    Value="Hand" />
+            <Setter Property="FontSize"
+                    Value="16" />
+            <Setter Property="Foreground"
+                    Value="#FFFFFF" />
+            <Setter Property="Background"
+                    Value="#004883" />
+        </Style>
+        
+        <Style Selector="Button.Warning">
+            <Setter Property="FontSize"
+                    Value="16" />
+            <Setter Property="Foreground"
+                    Value="#FFFFFF" />
+            <Setter Property="Background"
+                    Value="#D68100" />
+        </Style>
+
+        <Style Selector="Button.Delete">
+            <Setter Property="Background"
+                    Value="#f44336" />
+            <Setter Property="Foreground"
+                    Value="#FFFFFF" />
+        </Style>
+
+        <Style Selector="Button.Info">
+            <Setter Property="Background"
+                    Value="#f7901a" />
+            <Setter Property="Foreground"
+                    Value="#FFFFFF" />
+        </Style>
+        
+    </Application.Styles>
+</Application>

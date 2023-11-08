@@ -1,0 +1,125 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
+             xmlns:lc="using:Dorisoy.PanClient.Localization"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             xmlns:local="using:Dorisoy.PanClient.Controls"
+             xmlns:conv="using:Dorisoy.PanClient.Converters"
+             xmlns:manager="using:LocalizationManager"
+             xmlns:pg="clr-namespace:Dorisoy.PanClient.Pages;assembly=Dorisoy.PanClient"
+             mc:Ignorable="d"
+             d:DesignWidth="1280"
+             d:DesignHeight="720"
+             x:Class="Dorisoy.PanClient.Views.MainView"
+             x:DataType="vm:MainViewViewModel"
+             x:CompileBindings="True"
+             x:Name="CurrentContentPage">
+
+    <UserControl.Resources>
+        <conv:EnumDescriptionConverter x:Key="EnumConverter" />
+    </UserControl.Resources>
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!--标题栏-->
+        <Grid x:Name="TitleBarHost"
+              Grid.Row="0"
+              ColumnDefinitions="Auto,*,50,50,Auto"
+              Background="Transparent"  >
+
+            <!--logo-->
+            <Image Margin="12 4"
+                   IsHitTestVisible="False"
+                   Source="/Assets/logo.ico"
+                   Width="18"
+                   Height="18"
+                   DockPanel.Dock="Left"
+                   Name="WindowIcon"
+                   RenderOptions.BitmapInterpolationMode="HighQuality">
+                <Image.IsVisible>
+                    <OnPlatform Default="False">
+                        <On Options="Windows"
+                            Content="True" />
+                    </OnPlatform>
+                </Image.IsVisible>
+            </Image>
+
+            <!--标题-->
+            <TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                       FontSize="12"
+                       Foreground="#FFFFFF"
+                       IsHitTestVisible="False"
+                       VerticalAlignment="Center"
+                       Grid.Column="1">
+                <TextBlock.IsVisible>
+                    <OnPlatform Default="False">
+                        <On Options="Windows"
+                            Content="True" />
+                    </OnPlatform>
+                </TextBlock.IsVisible>
+            </TextBlock>
+
+            <!--语言-->
+            <Panel Grid.Column="2">
+                <Button Content="&#xF8079;"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        BorderBrush="Transparent"
+                        Margin="0,10,0,0" >
+                    <Button.Flyout>
+                        <ui:FAMenuFlyout Placement="BottomEdgeAlignedLeft" >
+                            <ui:MenuFlyoutItem Text="英语（美国）"
+                                               IconSource="GlobeFilled"
+                                               Command="{Binding SelectLanguage}"
+                                               CommandParameter="en"/>
+                            <ui:MenuFlyoutItem Text="中文（中国大陆）"
+                                               IconSource="GlobeFilled"
+                                               Command="{Binding SelectLanguage}"
+                                               CommandParameter="zh"/>
+                        </ui:FAMenuFlyout>
+                    </Button.Flyout>
+                </Button>
+            </Panel>
+
+            <!--用户状态-->
+            <Panel Grid.Column="3">
+                <Button Content="&#xea8c;"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        BorderBrush="Transparent"
+                        FontFamily="{StaticResource SymbolThemeFontFamily}"
+                        Margin="0,10,10,0" >
+                    <Button.Flyout>
+                        <ui:FAMenuFlyout Placement="BottomEdgeAlignedLeft">
+                            <!--<ui:MenuFlyoutItem Text="资料"
+                                               IconSource="IconPreviewLink" />-->
+                            <ui:MenuFlyoutItem Text="注销"
+                                               IconSource="IconPowerButton"
+                                               Command="{Binding Logout}"/>
+                        </ui:FAMenuFlyout>
+                    </Button.Flyout>
+                </Button>
+            </Panel>
+
+        </Grid>
+
+        <!--导航-->
+        <ui:NavigationView AlwaysShowHeader="False"
+                           PaneDisplayMode="Left"
+                           Grid.RowSpan="2"
+                           x:Name="NavView"
+                           MenuItemsSource="{Binding MenuItems}"
+                           FooterMenuItemsSource="{Binding FooterItems}"
+                           IsSettingsVisible="False"
+                           IsBackEnabled="{Binding #FrameView.CanGoBack}" >
+            <ui:Frame Name="FrameView"
+                      Background="Transparent" />
+        </ui:NavigationView>
+
+
+    </Grid>
+</UserControl>

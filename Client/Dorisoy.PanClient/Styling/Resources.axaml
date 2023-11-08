@@ -1,0 +1,96 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ui="using:FluentAvalonia.UI.Controls" >
+
+    <ui:SymbolIconSource x:Key="SaveIcon" Symbol="Save" />
+    <ui:FontIconSource x:Key="FontIcon" Glyph="F" />
+    <ui:PathIconSource x:Key="PathIcon" Data="M0,0 L 50,0 L 25,50Z" />
+    <ui:BitmapIconSource x:Key="BmpIcon" UriSource="avares://Dorisoy.PanClient/Assets/logo.ico" />
+
+    <!-- Override this so content doesn't appear in title bar area -->
+    <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
+
+    <ui:SymbolIconSource Symbol="Home" x:Key="HomeIcon" />
+    <ui:SymbolIconSource Symbol="HomeFilled" x:Key="HomeIconFilled" />
+    
+    <ui:SymbolIconSource Symbol="StarFilled" x:Key="StarFilledIcon" />
+
+    <!--文件夹-->
+    <ui:SymbolIconSource Symbol="Folder"
+                         x:Key="FolderIcon" />
+    <ui:SymbolIconSource Symbol="FolderFilled"
+                         x:Key="FolderIconFilled" />
+
+    <!--编辑-->
+    <ui:SymbolIconSource Symbol="Edit"
+                         x:Key="ResourcesIcon" />
+    <ui:SymbolIconSource Symbol="EditFilled"
+                         x:Key="ResourcesIconFilled" />
+
+
+
+    <!--配置-->
+    <ui:SymbolIconSource Symbol="Settings"
+                         x:Key="SettingsIcon" />
+    <ui:SymbolIconSource Symbol="SettingsFilled"
+                         x:Key="SettingsIconFilled" />
+
+    <!--视频-->
+    <ui:SymbolIconSource Symbol="Video"
+                         x:Key="VideoIcon" />
+    <ui:SymbolIconSource Symbol="VideoFilled"
+                         x:Key="VideoIconFilled" />
+
+    <!--用户-->
+    <ui:SymbolIconSource Symbol="People"
+                         x:Key="PeopleIcon" />
+    <ui:SymbolIconSource Symbol="PeopleFilled"
+                         x:Key="PeopleIconFilled" />
+
+
+    <!--角色-->
+    <ui:SymbolIconSource Symbol="SpeechSolidBold"
+                         x:Key="SpeechSolidBoldIcon" />
+    <ui:SymbolIconSource Symbol="Speech"
+                         x:Key="SpeechSolidBoldIconFilled" />
+    
+    <!--权限-->
+    <ui:SymbolIconSource Symbol="IconContact"
+                         x:Key="DefenderAppIcon" />
+    <ui:SymbolIconSource Symbol="IconContactSolid"
+                         x:Key="DefenderAppIconFilled" />
+
+    <!--照片库-->
+    <ui:SymbolIconSource Symbol="Image"
+                         x:Key="ImageIcon" />
+    <ui:SymbolIconSource Symbol="ImageFilled"
+                         x:Key="ImageIconFilled" />
+
+    <!--预览-->
+    <ui:SymbolIconSource Symbol="PlaybackRateOther"
+                         x:Key="PlaybackRateOtherIcon" />
+    <ui:SymbolIconSource Symbol="PlaybackRateOtherFilled"
+                         x:Key="PlaybackRateOtherIconFilled" />
+
+    <!--镜像-->
+    <ui:SymbolIconSource Symbol="IconFolderLink"
+                         x:Key="IconFolderLinkIcon" />
+    <ui:SymbolIconSource Symbol="IconFolderLinkFilled"
+                         x:Key="IconFolderLinkIconFilled" />
+
+    <!--回收站-->
+    <ui:SymbolIconSource Symbol="Delete"
+                         x:Key="DeleteIcon" />
+    <ui:SymbolIconSource Symbol="DeleteFilled"
+                         x:Key="DeleteIconFilled" />
+    
+    <!--协作-->
+    <ui:SymbolIconSource Symbol="Restore"
+                         x:Key="RestoreIcon" />
+    <ui:SymbolIconSource Symbol="RestoreFilled"
+                         x:Key="RestoreIconFilled" />
+
+    <Thickness x:Key="SampleAppPageMargin">20 20 20 0</Thickness>
+    
+
+</ResourceDictionary>

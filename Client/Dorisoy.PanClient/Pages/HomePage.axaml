@@ -1,0 +1,1092 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             xmlns:local="using:Dorisoy.PanClient.Controls"
+             xmlns:conv="using:Dorisoy.PanClient.Converters"
+             mc:Ignorable="d"
+             d:DesignWidth="700"
+             d:DesignHeight="700"
+             x:Class="Dorisoy.PanClient.Pages.HomePage"
+             x:DataType="vm:HomePageViewModel"
+             x:CompileBindings="True">
+
+    <UserControl.Resources>
+        <ImageBrush x:Key="HomeBackgroundBrush"
+                    Source="avares://Dorisoy.PanClient/Assets/Images/pa1.png"
+                    AlignmentY="Bottom"
+                    AlignmentX="Left"
+                    Opacity="1"
+                    Stretch="UniformToFill">
+        </ImageBrush>
+        <ImageBrush x:Key="BrushPannel1"
+                    Source="avares://Dorisoy.PanClient/Assets/Images/pannel1.png"
+                    AlignmentY="Bottom"
+                    AlignmentX="Right"
+                    Opacity="1"
+                    Stretch="UniformToFill">
+        </ImageBrush>
+        <ImageBrush x:Key="BrushPannel2"
+                    Source="avares://Dorisoy.PanClient/Assets/Images/pannel2.png"
+                    AlignmentY="Bottom"
+                    AlignmentX="Right"
+                    Opacity="1"
+                    Stretch="UniformToFill">
+        </ImageBrush>
+        <ImageBrush x:Key="BrushPannel3"
+                    Source="avares://Dorisoy.PanClient/Assets/Images/pannel3.png"
+                    AlignmentY="Bottom"
+                    AlignmentX="Right"
+                    Opacity="1"
+                    Stretch="UniformToFill">
+        </ImageBrush>
+        <ImageBrush x:Key="BrushPannel4"
+                    Source="avares://Dorisoy.PanClient/Assets/Images/pannel4.png"
+                    AlignmentY="Bottom"
+                    AlignmentX="Right"
+                    Opacity="1"
+                    Stretch="UniformToFill">
+        </ImageBrush>
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <!--toptitle-->
+
+        <Style Selector="TextBlock.toptitle">
+            <Setter Property="Foreground"
+                    Value="#00aaeb" />
+        </Style>
+        <Style Selector="TextBlock.topdes">
+            <Setter Property="Foreground"
+                    Value="#00aaeb" />
+        </Style>
+        <Style Selector="TextBlock.topvalue">
+            <Setter Property="Foreground"
+                    Value="#f7901a" />
+        </Style>
+
+
+        <!--bottomvalue-->
+        <Style Selector="TextBlock.bottomtitle">
+            <Setter Property="Foreground"
+                    Value="#00aaeb" />
+        </Style>
+        <Style Selector="TextBlock.bottomdes">
+            <Setter Property="Foreground"
+                    Value="#00aaeb" />
+        </Style>
+        <Style Selector="TextBlock.bottomvalue">
+            <Setter Property="Foreground"
+                    Value="#f7901a" />
+        </Style>
+
+        <!--cards-->
+
+        <Style Selector="Border.cards Button.cardbtn TextBlock.title">
+            <Setter Property="Foreground"
+                    Value="#00aaeb" />
+        </Style>
+        <Style Selector="Border.cards Button.cardbtn Border.imgBorder">
+            <Setter Property="Width"
+                    Value="70" />
+            <Setter Property="Height"
+                    Value="70" />
+            <Setter Property="RenderTransform"
+                    Value="scale(1)"/>
+        </Style>
+        <Style Selector="Border.cards Button.cardbtn TextBlock.des">
+            <Setter Property="Foreground"
+                    Value="#00aaeb" />
+        </Style>
+        <Style Selector="Border.cards Button.cardbtn TextBlock.number">
+            <Setter Property="Foreground"
+                    Value="#f7901a" />
+            <Setter Property="RenderTransform"
+                    Value="scale(1)"/>
+        </Style>
+        <Style Selector="Border.cards Button.cardbtn ui|SymbolIcon.icon">
+            <Setter Property="Foreground"
+                    Value="#FFFFFF" />
+            <Setter Property="FontSize"
+                    Value="30" />
+        </Style>
+
+        <!--pointerover-->
+
+        <Style Selector="Border.cards Button.cardbtn:pointerover">
+            <Setter Property="Background"
+                    Value="#FFFFFF" />
+            <Style Selector="^ /template/ ui|FABorder#Root">
+                <Setter Property="Background"
+                        Value="#FFFFFF" />
+                <Setter Property="BorderBrush"
+                        Value="#004883" />
+            </Style>
+        </Style>
+        <Style Selector="Border.cards Button.cardbtn:pointerover TextBlock.title">
+            <Setter Property="Foreground"
+                    Value="#000000" />
+        </Style>
+        <Style Selector="Border.cards Button.cardbtn:pointerover TextBlock.des">
+            <Setter Property="Foreground"
+                    Value="#000000" />
+        </Style>
+        <Style Selector="Border.cards Button.cardbtn:pointerover TextBlock.number">
+            <Setter Property="Foreground"
+                    Value="#f7901a" />
+            <Setter Property="FontSize"
+                    Value="40" />
+            <Setter Property="RenderTransform"
+                    Value="scale(1.5)"/>
+        </Style>
+        <Style Selector="Border.cards Button.cardbtn:pointerover Border.imgBorder">
+            <Setter Property="Width"
+                    Value="40" />
+            <Setter Property="Height"
+                    Value="40" />
+            <Setter Property="RenderTransform"
+                    Value="scale(.5)"/>
+        </Style>
+        <Style Selector="Border.cards Button.cardbtn:pointerover ui|SymbolIcon.icon">
+            <Setter Property="Foreground"
+                    Value="#f7901a" />
+            <Style.Animations>
+                <Animation Duration="0:0:0.5"
+                           IterationCount="INFINITE">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity"
+                                Value="0.0"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity"
+                                Value="1.0"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="70,100,*,100">
+
+        <!--页头-->
+        <StackPanel Grid.Row="0"
+                    Orientation="Vertical"
+                    Spacing="0"
+                    VerticalAlignment="Center">
+            <TextBlock Text="{Binding Welecom}"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="50,0,0,0"/>
+        </StackPanel>
+
+        <!--内容-->
+        <Grid ColumnDefinitions="*,*,*,*"
+              Margin="50,10,50,0"
+              Grid.Row="1">
+            <Border
+                Grid.Column="0"
+                Background="{DynamicResource BrushPannel1}"
+                RenderOptions.BitmapInterpolationMode="HighQuality"
+                CornerRadius="8"
+                BorderBrush="#DDDDDD"
+                BorderThickness="1"
+                Padding="10"
+                Margin="0,0,25,0">
+
+                <Grid ColumnDefinitions="40,Auto,*"
+                      Margin="15,0,15,0">
+
+                    <StackPanel  Grid.Column="0"
+                                 Margin="0"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center">
+
+                        <Border
+                            ClipToBounds="True"
+                            Padding="0"
+                            Background="#000"
+                            CornerRadius="15"
+                            Width="40"
+                            Height="40">
+                            <Panel>
+                                <Button
+                                    BorderThickness="0"
+                                    CornerRadius="15"
+                                    Padding="0"
+                                    Background="Transparent"
+                                    Cursor="Hand">
+                                    <Image
+                                        Stretch="Uniform"
+                                        Source="avares://Dorisoy.PanClient/Assets/Images/Setting.png"
+                                        Height="40">
+                                    </Image>
+                                </Button>
+                            </Panel>
+                        </Border>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="12 8"
+                                Spacing="4"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="{LocalizedXamlString RunTimeTitle}"
+                                   FontWeight="Bold"
+                                   Classes="toptitle"/>
+                        <TextBlock Text="{LocalizedXamlString RunTime}"
+                                   Classes="topdes"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right">
+
+                        <DockPanel Margin="0,0,0,0"
+                                   HorizontalAlignment="Right">
+                            <TextBlock Text="{Binding RunTime}"
+                                       Classes="topvalue"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       FontWeight="Bold"
+                                       FontSize="20"
+                                       Margin="0,0,0,0"/>
+                        </DockPanel>
+
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+            <Border
+                Grid.Column="1"
+                CornerRadius="8"
+                Background="{DynamicResource BrushPannel2}"
+                RenderOptions.BitmapInterpolationMode="HighQuality"
+                BorderThickness="1"
+                Padding="10"
+                Margin="25,0,25,0">
+
+                <Grid ColumnDefinitions="40,Auto,*"
+                      Margin="15,0,15,0">
+
+                    <StackPanel  Grid.Column="0"
+                                 Margin="0"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center">
+
+                        <Border
+                            ClipToBounds="True"
+                            Padding="0"
+                            Background="#000"
+                            CornerRadius="15"
+                            Width="40"
+                            Height="40">
+                            <Panel>
+                                <Button
+                                    BorderThickness="0"
+                                    CornerRadius="15"
+                                    Padding="0"
+                                    Background="Transparent"
+                                    Cursor="Hand">
+                                    <Image
+                                        Stretch="Uniform"
+                                        Source="avares://Dorisoy.PanClient/Assets/Images/Setting.png"
+                                        Height="40">
+                                    </Image>
+                                </Button>
+                            </Panel>
+                        </Border>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="12 8"
+                                Spacing="4"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="{LocalizedXamlString CpuRateTitle}"
+                                   FontWeight="Bold"
+                                   Classes="toptitle"/>
+                        <TextBlock Text="{LocalizedXamlString CpuRate}"
+                                   Classes="topdes"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right">
+
+                        <DockPanel Margin="0,0,0,0"
+                                   HorizontalAlignment="Right">
+                            <TextBlock Text="{Binding CpuRate}"
+                                       Classes="topvalue"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       FontWeight="Bold"
+                                       FontSize="20"
+                                       Margin="0,0,0,0"/>
+                        </DockPanel>
+
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+            <Border
+                Grid.Column="2"
+                Background="{DynamicResource BrushPannel3}"
+                RenderOptions.BitmapInterpolationMode="HighQuality"
+                CornerRadius="8"
+                BorderBrush="#DDDDDD"
+                BorderThickness="1"
+                Padding="10"
+                Margin="25,0,25,0">
+
+                <Grid ColumnDefinitions="40,Auto,*"
+                      Margin="15,0,15,0">
+
+                    <StackPanel  Grid.Column="0"
+                                 Margin="0"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center">
+
+                        <Border
+                            ClipToBounds="True"
+                            Padding="0"
+                            Background="#000"
+                            CornerRadius="15"
+                            Width="40"
+                            Height="40">
+                            <Panel>
+                                <Button
+                                    BorderThickness="0"
+                                    CornerRadius="15"
+                                    Padding="0"
+                                    Background="Transparent"
+                                    Cursor="Hand">
+                                    <Image
+                                        Stretch="Uniform"
+                                        Source="avares://Dorisoy.PanClient/Assets/Images/Setting.png"
+                                        Height="40">
+                                    </Image>
+                                </Button>
+                            </Panel>
+                        </Border>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="12 8"
+                                Spacing="4"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="{LocalizedXamlString CpuCoreTitle}"
+                                   FontWeight="Bold"
+                                   Classes="toptitle"/>
+                        <TextBlock Text="{LocalizedXamlString CpuCore}"
+                                   Classes="topdes"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right">
+
+                        <DockPanel Margin="0,0,0,0"
+                                   HorizontalAlignment="Right">
+                            <TextBlock Text="{Binding CpuCore}"
+                                       Classes="topvalue"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       FontWeight="Bold"
+                                       FontSize="20"
+                                       Margin="0,0,0,0"/>
+                        </DockPanel>
+
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+            <Border
+                Grid.Column="3"
+                Background="{DynamicResource BrushPannel4}"
+                RenderOptions.BitmapInterpolationMode="HighQuality"
+                CornerRadius="8"
+                BorderBrush="#DDDDDD"
+                BorderThickness="1"
+                Padding="10"
+                Margin="25,0,0,0">
+
+                <Grid ColumnDefinitions="40,Auto,*"
+                      Margin="15,0,15,0">
+
+                    <StackPanel  Grid.Column="0"
+                                 Margin="0"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center">
+
+                        <Border
+                            ClipToBounds="True"
+                            Padding="0"
+                            Background="#000"
+                            CornerRadius="15"
+                            Width="40"
+                            Height="40">
+                            <Panel>
+                                <Button
+                                    BorderThickness="0"
+                                    CornerRadius="15"
+                                    Padding="0"
+                                    Background="Transparent"
+                                    Cursor="Hand">
+                                    <Image
+                                        Stretch="Uniform"
+                                        Source="avares://Dorisoy.PanClient/Assets/Images/Setting.png"
+                                        Height="40">
+                                    </Image>
+                                </Button>
+                            </Panel>
+                        </Border>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="12 8"
+                                Spacing="4"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="{LocalizedXamlString MemeryRateTitle}"
+                                   FontWeight="Bold"
+                                   Classes="toptitle"/>
+                        <TextBlock Text="{LocalizedXamlString MemeryRate}"
+                                   Classes="topdes"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right">
+
+                        <DockPanel Margin="0,0,0,0"
+                                   HorizontalAlignment="Right">
+                            <TextBlock Text="{Binding MemeryRate}"
+                                       Classes="topvalue"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       FontWeight="Bold"
+                                       FontSize="20"
+                                       Margin="0,0,0,0"/>
+                        </DockPanel>
+
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+        </Grid>
+
+
+        <Grid ColumnDefinitions="*,*,*,*"
+              Margin="50,50,50,50"
+              Grid.Row="2">
+
+            <Border Grid.Column="0"
+                    Classes="cards"
+                    Background="#FFFFFF"
+                    CornerRadius="8"
+                    BorderBrush="#DDDDDD"
+                    BorderThickness="1"
+                    Padding="0"
+                    Margin="0,0,25,0">
+
+
+                <Button
+                    Classes="cardbtn"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    BorderThickness="0"
+                    CornerRadius="8"
+                    Cursor="Hand"
+                    Command="{Binding VideoCountCommand}"
+                    Background="{DynamicResource HomeBackgroundBrush}">
+
+                    <Grid ColumnDefinitions="*"
+                          RowDefinitions="100,*"
+                          Margin="0">
+
+                        <StackPanel  Grid.Column="0"
+                                     Margin="0,0,0,50"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center">
+                            <Border
+                                Classes="imgBorder"
+                                ClipToBounds="True"
+                                Padding="0"
+                                Background="#000"
+                                CornerRadius="15"
+                                Width="70"
+                                Height="70"
+                                Margin="0,0,0,10"
+                                HorizontalAlignment="Center">
+                                <Panel>
+                                    <Button
+                                        BorderThickness="0"
+                                        CornerRadius="15"
+                                        Padding="0"
+                                        Background="Transparent"
+                                        Cursor="Hand">
+                                        <Image
+                                            Stretch="Uniform"
+                                            Source="avares://Dorisoy.PanClient/Assets/Images/Came.png"
+                                            Height="70">
+                                        </Image>
+                                    </Button>
+                                </Panel>
+                                <Border.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform"
+                                                                       Duration="0:0:0.2"/>
+                                    </Transitions>
+                                </Border.Transitions>
+                            </Border>
+
+                            <TextBlock Text="{LocalizedXamlString VideoManagePage}"
+                                       Classes="title"
+                                       FontWeight="Bold"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,0,0,8"/>
+                            <TextBlock Text="{LocalizedXamlString VideoCount}"
+                                       Classes="des"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+
+
+                        <StackPanel Grid.Row="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+
+                            <TextBlock Text="{Binding VideoCount}"
+                                       Classes="number"
+                                       FontSize="35"
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,70,0,50">
+                                <TextBlock.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform"
+                                                                       Duration="0:0:0.2"/>
+                                    </Transitions>
+                                </TextBlock.Transitions>
+                            </TextBlock>
+
+                            <ui:SymbolIcon Symbol="More"
+                                           Classes="icon"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,50,0,0">
+                            </ui:SymbolIcon>
+
+                        </StackPanel>
+
+
+                    </Grid>
+
+                </Button>
+
+            </Border>
+
+            <Border Grid.Column="1"
+                    Background="#FFFFFF"
+                    CornerRadius="8"
+                    BorderBrush="#DDDDDD"
+                    Classes="cards"
+                    BorderThickness="1"
+                    Margin="25,0,25,0">
+
+                <!--Source="avares://Dorisoy.PanClient/Assets/Images/Patient.png"-->
+                <Button
+                    Classes="cardbtn"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    BorderThickness="0"
+                    CornerRadius="8"
+                    Cursor="Hand"
+                    Command="{Binding UserCountCommand}"
+                    Background="{DynamicResource HomeBackgroundBrush}">
+
+                    <Grid ColumnDefinitions="*"
+                          RowDefinitions="100,*"
+                          Margin="0">
+
+                        <StackPanel  Grid.Column="0"
+                                     Margin="0,0,0,50"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center">
+                            <Border
+                                Classes="imgBorder"
+                                ClipToBounds="True"
+                                Padding="0"
+                                Background="#000"
+                                CornerRadius="15"
+                                Width="70"
+                                Height="70"
+                                Margin="0,0,0,10"
+                                HorizontalAlignment="Center">
+                                <Panel>
+                                    <Button
+                                        BorderThickness="0"
+                                        CornerRadius="15"
+                                        Padding="0"
+                                        Background="Transparent"
+                                        Cursor="Hand">
+                                        <Image
+                                            Stretch="Uniform"
+                                            Source="avares://Dorisoy.PanClient/Assets/Images/User.png"
+                                            Height="70">
+                                        </Image>
+                                    </Button>
+                                </Panel>
+                                <Border.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform"
+                                                                       Duration="0:0:0.2"/>
+                                    </Transitions>
+                                </Border.Transitions>
+                            </Border>
+
+                            <TextBlock Text="{LocalizedXamlString UserCountTitle}"
+                                       FontWeight="Bold"
+                                       Classes="title"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,0,0,8"/>
+                            <TextBlock Text="{LocalizedXamlString UserCount}"
+                                       Classes="des"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+
+
+                        <StackPanel Grid.Row="1"
+                                    
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+
+                            <TextBlock Text="{Binding UserCount}"
+                                       FontSize="35"
+                                       FontWeight="Bold"
+                                       Classes="number"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,70,0,50">
+                                <TextBlock.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform"
+                                                                       Duration="0:0:0.2"/>
+                                    </Transitions>
+                                </TextBlock.Transitions>
+                            </TextBlock>
+
+                            <ui:SymbolIcon Symbol="More"
+                                           Classes="icon"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,50,0,0"/>
+
+                        </StackPanel>
+
+
+                    </Grid>
+
+                </Button>
+
+
+
+
+            </Border>
+
+            <Border Grid.Column="2"
+                    Background="#FFFFFF"
+                    CornerRadius="8"
+                    BorderBrush="#DDDDDD"
+                    Classes="cards"
+                    BorderThickness="1"
+                    Margin="25,0,25,0">
+
+                <Button
+                    Classes="cardbtn"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    BorderThickness="0"
+                    CornerRadius="8"
+                    Cursor="Hand"
+                    Command="{Binding DocumentCountCommand}"
+                    Background="{DynamicResource HomeBackgroundBrush}">
+
+                    <Grid ColumnDefinitions="*"
+                          RowDefinitions="100,*"
+                          Margin="0">
+
+                        <StackPanel  Grid.Column="0"
+                                     Margin="0,0,0,50"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center">
+                            <Border
+                                Classes="imgBorder"
+                                ClipToBounds="True"
+                                Padding="0"
+                                Background="#000"
+                                CornerRadius="15"
+                                Width="70"
+                                Height="70"
+                                Margin="0,0,0,10"
+                                HorizontalAlignment="Center">
+                                <Panel>
+                                    <Button
+                                        BorderThickness="0"
+                                        CornerRadius="15"
+                                        Padding="0"
+                                        Background="Transparent"
+                                        Cursor="Hand">
+                                        <Image
+                                            Stretch="Uniform"
+                                            Source="avares://Dorisoy.PanClient/Assets/Images/Doc.png"
+                                            Height="70">
+                                        </Image>
+                                    </Button>
+                                </Panel>
+                                <Border.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform"
+                                                                       Duration="0:0:0.2"/>
+                                    </Transitions>
+                                </Border.Transitions>
+                            </Border>
+
+                            <TextBlock Text="{LocalizedXamlString DocumentCountTitle}"
+                                       FontWeight="Bold"
+                                       Classes="title"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,0,0,8"/>
+                            <TextBlock Text="{LocalizedXamlString DocumentCount}"
+                                       Classes="des"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+
+
+                        <StackPanel Grid.Row="1"
+                                    
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+
+                            <TextBlock Text="{Binding DocumentCount}"
+                                       FontSize="35"
+                                       FontWeight="Bold"
+                                       Classes="number"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,70,0,50">
+                                <TextBlock.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform"
+                                                                       Duration="0:0:0.2"/>
+                                    </Transitions>
+                                </TextBlock.Transitions>
+                            </TextBlock>
+
+                            <ui:SymbolIcon Symbol="More"
+                                           Classes="icon"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,50,0,0"/>
+
+                        </StackPanel>
+
+
+                    </Grid>
+
+                </Button>
+
+
+            </Border>
+
+            <Border Grid.Column="3"
+                    Background="#FFFFFF"
+                    CornerRadius="8"
+                    BorderBrush="#DDDDDD"
+                    Classes="cards"
+                    BorderThickness="1"
+                    Margin="25,0,0,0">
+
+                <Button
+                    Classes="cardbtn"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    BorderThickness="0"
+                    CornerRadius="8"
+                    Cursor="Hand"
+                    Command="{Binding DepmentCountCommand}"
+                    Background="{DynamicResource HomeBackgroundBrush}">
+
+                    <Grid ColumnDefinitions="*"
+                          RowDefinitions="100,*"
+                          Margin="0">
+
+                        <StackPanel  Grid.Column="0"
+                                     Margin="0,0,0,50"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center">
+                            <Border
+                                Classes="imgBorder"
+                                ClipToBounds="True"
+                                Padding="0"
+                                Background="#000"
+                                CornerRadius="15"
+                                Width="70"
+                                Height="70"
+                                Margin="0,0,0,10"
+                                HorizontalAlignment="Center">
+                                <Panel>
+                                    <Button
+                                        BorderThickness="0"
+                                        CornerRadius="15"
+                                        Padding="0"
+                                        Background="Transparent"
+                                        Cursor="Hand">
+                                        <Image
+                                            Stretch="Uniform"
+                                            Source="avares://Dorisoy.PanClient/Assets/Images/Image.png"
+                                            Height="70">
+                                        </Image>
+                                    </Button>
+                                </Panel>
+                                <Border.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform"
+                                                                       Duration="0:0:0.2"/>
+                                    </Transitions>
+                                </Border.Transitions>
+                            </Border>
+
+                            <TextBlock Text="{LocalizedXamlString OnlineUsersTitle}"
+                                       FontWeight="Bold"
+                                       Classes="title"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,0,0,8"/>
+                            <TextBlock Text="{LocalizedXamlString OnlineUsers}"
+                                       Classes="des"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+
+
+                        <StackPanel Grid.Row="1"
+                                    
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+
+                            <TextBlock Text="{Binding OnlineUsers}"
+                                       FontSize="35"
+                                       FontWeight="Bold"
+                                       Classes="number"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,70,0,50">
+                                <TextBlock.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform"
+                                                                       Duration="0:0:0.2"/>
+                                    </Transitions>
+                                </TextBlock.Transitions>
+                            </TextBlock>
+
+                            <ui:SymbolIcon Symbol="More"
+                                           Classes="icon"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,50,0,0"/>
+
+                        </StackPanel>
+
+
+                    </Grid>
+
+                </Button>
+
+
+
+            </Border>
+        </Grid>
+
+        <!--页尾-->
+        <Grid
+            Grid.Row="3"
+            ColumnDefinitions="*,*"
+            Margin="50,0,50,50"
+            Height="100">
+
+            <Border
+                Grid.Column="0"
+                Background="{DynamicResource BrushPannel1}"
+                CornerRadius="8"
+                BorderBrush="#DDDDDD"
+                BorderThickness="1"
+                Padding="25"
+                Margin="0,0,25,0">
+
+                <Grid ColumnDefinitions="40,Auto,*"
+                      Margin="0">
+
+                    <StackPanel  Grid.Column="0"
+                                 Margin="0"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center">
+
+                        <Border
+                            ClipToBounds="True"
+                            Padding="0"
+                            Background="#000"
+                            CornerRadius="15"
+                            Width="40"
+                            Height="40">
+                            <Panel>
+                                <Button
+                                    BorderThickness="0"
+                                    CornerRadius="15"
+                                    Padding="0"
+                                    Background="Transparent"
+                                    Cursor="Hand">
+                                    <Image
+                                        Stretch="Uniform"
+                                        Source="avares://Dorisoy.PanClient/Assets/Images/Data.png"
+                                        Height="40">
+                                    </Image>
+                                </Button>
+                            </Panel>
+                        </Border>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="12 8"
+                                Spacing="4"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="{LocalizedXamlString VideoStorageSpaceTitle}"
+                                   FontWeight="Bold"
+                                   Classes="bottomtitle"/>
+                        <TextBlock Text="{LocalizedXamlString VideoStorageSpaceDes}"
+                                   Classes="bottomdes"/>
+                    </StackPanel>
+
+                    <DockPanel Margin="0,0,0,0"
+                               Grid.Column="2"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right">
+                        <ProgressBar Name="VideoStorageSpaceBar"
+                                     MaxWidth="500"
+                                     MaxHeight="50"
+                                     Value="50"
+                                     Maximum="70"
+                                     Foreground="#f7901a"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Stretch"
+                                     Orientation="Horizontal" />
+                        <TextBlock Text="50%"
+                                   FontWeight="Bold"
+                                   Classes="bottomvalue"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="15,0,15,0"/>
+                    </DockPanel>
+
+                </Grid>
+
+            </Border>
+
+            <Border
+                Grid.Column="1"
+                Background="{DynamicResource BrushPannel2}"
+                CornerRadius="8"
+                BorderBrush="#DDDDDD"
+                
+                BorderThickness="1"
+                Padding="25"
+                Margin="25,0,0,0">
+
+                <Grid ColumnDefinitions="40,Auto,*"
+                      Margin="0">
+
+                    <StackPanel  Grid.Column="0"
+                                 Margin="0"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center">
+
+                        <Border
+                            ClipToBounds="True"
+                            Padding="0"
+                            Background="#000"
+                            CornerRadius="15"
+                            Width="40"
+                            Height="40">
+                            <Panel>
+                                <Button
+                                    BorderThickness="0"
+                                    CornerRadius="15"
+                                    Padding="0"
+                                    Background="Transparent"
+                                    Cursor="Hand">
+                                    <Image
+                                        Stretch="Uniform"
+                                        Source="avares://Dorisoy.PanClient/Assets/Images/Data.png"
+                                        Height="40">
+                                    </Image>
+                                </Button>
+                            </Panel>
+                        </Border>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                Margin="12 8"
+                                Spacing="4"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="{LocalizedXamlString ImageStorageSpaceTitle}"
+                                   FontWeight="Bold"
+                                   Classes="bottomtitle"/>
+                        <TextBlock Text="{LocalizedXamlString ImageStorageSpaceDes}"
+                                   Classes="bottomdes"/>
+                    </StackPanel>
+
+                    <DockPanel Margin="0,0,0,0"
+                               Grid.Column="2"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right">
+                        <ProgressBar Name="ImageStorageSpaceBar"
+                                     MaxWidth="500"
+                                     MaxHeight="50"
+                                     Value="50"
+                                     Maximum="70"
+                                     Foreground="#f7901a"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Stretch"
+                                     Orientation="Horizontal" />
+                        <TextBlock Text="50%"
+                                   FontWeight="Bold"
+                                   Classes="bottomvalue"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="15,0,15,0"/>
+                    </DockPanel>
+                </Grid>
+
+            </Border>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

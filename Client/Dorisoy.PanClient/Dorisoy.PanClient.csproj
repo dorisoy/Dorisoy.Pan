@@ -1,0 +1,202 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <NoWarn>$(NoWarn);NU1507;CA1416</NoWarn>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="Assets\Sound\dialtone.mp3" />
+    <AvaloniaResource Include="Assets\Sound\ringtone.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaXaml Remove="Server\Interop\**" />
+    <Compile Remove="Server\Interop\**" />
+    <EmbeddedResource Remove="Server\Interop\**" />
+    <None Remove="Server\Interop\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaXaml Remove="Assets\Icons.axaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controls\SampleCodePresenter.cs" />
+    <Compile Remove="Hub\ChatServer.cs" />
+    <Compile Remove="Hub\TcpChatClient.cs" />
+    <Compile Remove="Network\AkavacheCacheHandler.cs" />
+    <Compile Remove="Network\ICacheHandler.cs" />
+    <Compile Remove="Properties\Language.Designer.cs" />
+    <Compile Remove="Properties\ResourceProvider.cs" />
+    <Compile Remove="Utils\Deserializer.cs" />
+    <Compile Remove="Utils\HttpProxy.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Properties\Language.en.resx" />
+    <EmbeddedResource Remove="Properties\Language.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\dialtone.mp3" />
+    <None Remove="Assets\Images\Accept.png" />
+    <None Remove="Assets\Images\CameraOff.png" />
+    <None Remove="Assets\Images\CameraOn.png" />
+    <None Remove="Assets\Images\Decline.png" />
+    <None Remove="Assets\Images\Message.png" />
+    <None Remove="Assets\Images\MicrophoneOff.png" />
+    <None Remove="Assets\Images\MicrophoneOn.png" />
+    <None Remove="Assets\Outgoing.gif" />
+    <None Remove="Assets\ringtone.mp3" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <None Remove="Assets\Avatar.png" />
+    <None Remove="Assets\login_bg.jpg" />
+    <None Remove="Assets\logo.png" />
+    <None Remove="Assets\plogo.png" />
+    <None Remove="Assets\QRcode.png" />
+    <None Remove="Assets\screen.png" />
+    <None Remove="Assets\sinol.png" />
+    <None Remove="Assets\Sound\dialtone.mp3" />
+    <None Remove="Assets\Sound\ringtone.mp3" />
+    <None Remove="Player\Styles.xaml" />
+  </ItemGroup>-->
+
+  <ItemGroup>
+    <Content Include="Assets\Images\Cursors\brush-black.png" />
+    <Content Include="Assets\Images\Cursors\brush-blue.png" />
+    <Content Include="Assets\Images\Cursors\brush-gray.png" />
+    <Content Include="Assets\Images\Cursors\brush-green.png" />
+    <Content Include="Assets\Images\Cursors\brush-orange.png" />
+    <Content Include="Assets\Images\Cursors\brush-pink.png" />
+    <Content Include="Assets\Images\Cursors\brush-purple.png" />
+    <Content Include="Assets\Images\Cursors\brush-red.png" />
+    <Content Include="Assets\Images\Cursors\brush-yellow.png" />
+    <Content Include="Assets\Images\Cursors\eraser-10.png" />
+    <Content Include="Assets\Images\Cursors\eraser-2.png" />
+    <Content Include="Assets\Images\Cursors\eraser-4.png" />
+    <Content Include="Assets\Images\Cursors\eraser-50.png" />
+    <Content Include="Assets\Images\Cursors\eraser-6.png" />
+    <Content Include="Assets\Images\Cursors\eraser-8.png" />
+    <Content Include="Assets\Images\Cursors\eraser.bmp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Deadpikle.AvaloniaProgressRing" />
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.AvaloniaEdit" />
+    <PackageReference Include="AvaloniaEdit.TextMate" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
+    <PackageReference Include="Emgu.CV" />
+    <PackageReference Include="Emgu.CV.Bitmap" />
+    <PackageReference Include="Emgu.CV.runtime.windows" />
+    <PackageReference Include="EPPlus" />
+    <PackageReference Include="JetBrains.Annotations" />
+    <PackageReference Include="OpenCvSharp4" />
+    <PackageReference Include="PdfSharpCore" />
+    <PackageReference Include="System.Management" />
+
+    <!--v2.0-->
+    <PackageReference Include="Avalonia.Skia" />
+    <PackageReference Include="SkiaSharp" />
+    
+    <PackageReference Include="TouchSocket" />
+
+    <PackageReference Include="NAudio.WinMM" />
+    <PackageReference Include="NAudio" />
+    <PackageReference Include="NAudio.Wasapi" />
+
+    <PackageReference Include="AsyncImageLoader.Avalonia" />
+    <PackageReference Include="Avalonia.Controls.PanAndZoom" />
+    <PackageReference Include="VideoLAN.LibVLC.Windows" />
+    <PackageReference Include="AsyncAwaitBestPractices" />
+    <PackageReference Include="Polly.Extensions.Http" />
+    <PackageReference Include="Refit" />
+    <PackageReference Include="Refit.Newtonsoft.Json" />
+    <PackageReference Include="Splat.Serilog" />
+
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" />
+    <PackageReference Include="Clowd.Clipboard.Avalonia" />
+    
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" />
+    
+    <PackageReference Include="XamlNameReferenceGenerator" />
+    <PackageReference Include="CSharpFunctionalExtensions" />
+    <PackageReference Include="LibVLCSharp" />
+    <PackageReference Include="FFMpegCore" />
+    <PackageReference Include="ImageProcessor.Core" />
+    <PackageReference Include="OpenCvSharp4.Extensions" />
+    <PackageReference Include="OpenCvSharp4.Windows" />
+    <PackageReference Include="Avalonia.Direct2D1" />
+    <PackageReference Include="JerryShaw.DirectShowLib" />
+    <PackageReference Include="System.Drawing.Common" />
+    <PackageReference Include="ReactiveUI.Validation" />
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="Avalonia.ReactiveUI" />
+    <PackageReference Include="Crc32.NET" />
+    <PackageReference Include="DynamicData" />
+    <PackageReference Include="MessageBox.Avalonia" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="ReactiveUI.Fody" />
+    <PackageReference Include="VideoLAN.LibVLC.Windows" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Extensions.Options" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+    <PackageReference Include="Serilog.Extensions.Logging" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" />
+    
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Update="Assets\Icons.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controls\NullDataView.axaml.cs">
+      <DependentUpon>NullDataView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Upload\CommentsView.axaml.cs">
+      <DependentUpon>CommentsView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Upload\AddCommentView.axaml.cs">
+      <DependentUpon>AddCommentView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Upload\AddFolderView.axaml.cs">
+      <DependentUpon>AddFolderView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\PermissionPage.axaml.cs">
+      <DependentUpon>PermissionPage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\DocumentPage.axaml.cs">
+      <DependentUpon>DocumentPage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\RolePage.axaml.cs">
+      <DependentUpon>RolePage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UserPage.axaml.cs">
+      <DependentUpon>UserPage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\LoginView.axaml.cs">
+      <DependentUpon>LoginView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="AvaloniaGif\" />
+  </ItemGroup>
+</Project>
