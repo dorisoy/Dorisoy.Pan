@@ -10,7 +10,7 @@ Dorisoy.Pan 是基于.net core5的跨平台文档管理系统，使用 MS SQL 20
 
 ### 安装步骤 ###
 
-1.使用 visual studio 2019，打开解决方案文件 "Dorisoy.Pan.sln"。
+1.使用 visual studio 2019+，打开解决方案文件 "Dorisoy.Pan.sln"。
 
 2.右键单击解决方案资源管理器并还原 nuget 软件包。
 
@@ -20,7 +20,7 @@ Dorisoy.Pan 是基于.net core5的跨平台文档管理系统，使用 MS SQL 20
 
 5.在package manager控制台中，选择默认项目为 “Dorisoy.Pan.Domain”。
 
-6.在package manager控制台中运行“Update-Package”命令，创建数据库并插入初始数据。
+6.在package manager控制台中运行“Update-Database”命令，创建数据库并插入初始数据。
 
 7.在解决方案资源管理器中，右键单击“Dorisoy.Pan.API" 然后从菜单中单击 `设置为启动项`。
 
@@ -51,13 +51,21 @@ Dorisoy.Pan 是基于.net core5的跨平台文档管理系统，使用 MS SQL 20
 
 ### 截图 ###
 
-<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(1).png"/>
-<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(2).png"/>
-<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(3).png"/>
-<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(4).png"/>
-<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(5).png"/>
-<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(6).png"/>
-<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/s%20(7).png"/>
+## Desktop 客户端示例
+
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/desktop1.png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/desktop2.png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/desktop3.png"/>
+
+## Web客户端示例
+
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/s%20(1).png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/s%20(2).png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/s%20(3).png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/s%20(4).png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/s%20(5).png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/s%20(6).png"/>
+<img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/s%20(7).png"/>
 
                         
 
