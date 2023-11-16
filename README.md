@@ -4,7 +4,7 @@
 Dorisoy.Pan 是基于.net core5的跨平台文档管理系统，使用 MS SQL 2012 / MySql8.0（或更高版本）后端数据库，您可以在Windows、Linux 或Mac上运行它,项目中的所有方法都是异步的,支持令牌基身份验证,项目体系结构遵循著名的软件模式和最佳安全实践。源代码是完全可定制的,热插拔且清晰的体系结构,使开发定制功能和遵循任何业务需求变得容易。
 系统使用最新的Microsoft技术，高性能稳定性和安全性。
 
-![Alt](https://repobeats.axiom.co/api/embed/3c2942efd4f5d9716379ac02c516e36d5770c80f.svg "Repobeats analytics image")
+![Alt](https://repobeats.axiom.co/api/embed/a90264f1241cb8587575422b724f1b3bdc2e3783.svg "Repobeats analytics image")
 
 
 ### 先决条件 ###
