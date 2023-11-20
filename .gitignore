@@ -51,3 +51,6 @@ Thumbs.db
 SourceCode/Src/Dorisoy.Pan.API/wwwroot/
 SourceCode/Src/Dorisoy.Pan.API/Documents/
 SourceCode/UI/.vs/
+Src/Dorisoy.Pan.API/Documents/
+Src/Dorisoy.Pan.API/wwwroot/Documents/
+UI/src/app/

@@ -1,17 +1,13 @@
+## Dorisoy.Pan
 
-##  Dorisoy.Pan v1.0 ##
+Dorisoy.Pan 是基于.net core8 的跨平台文档管理系统，使用 MS SQL 2012 / MySql8.0（或更高版本）后端数据库，您可以在 Windows、Linux 或 Mac 上运行它,项目中的所有方法都是异步的,支持令牌基身份验证,项目体系结构遵循著名的软件模式和最佳安全实践。源代码是完全可定制的,热插拔且清晰的体系结构,使开发定制功能和遵循任何业务需求变得容易。
+系统使用最新的 Microsoft 技术，高性能稳定性和安全性。
 
-Dorisoy.Pan 是基于.net core5的跨平台文档管理系统，使用 MS SQL 2012 / MySql8.0（或更高版本）后端数据库，您可以在Windows、Linux 或Mac上运行它,项目中的所有方法都是异步的,支持令牌基身份验证,项目体系结构遵循著名的软件模式和最佳安全实践。源代码是完全可定制的,热插拔且清晰的体系结构,使开发定制功能和遵循任何业务需求变得容易。
-系统使用最新的Microsoft技术，高性能稳定性和安全性。
+### 先决条件
 
-![Alt](https://repobeats.axiom.co/api/embed/a90264f1241cb8587575422b724f1b3bdc2e3783.svg "Repobeats analytics image")
+.NET 7.0+ SDK and VISUAL STUDIO 2019, SQL SERVER, MySQL 8.0
 
-
-### 先决条件 ###
-
-.NET 5.0 SDK and VISUAL STUDIO 2019, SQL SERVER, MySQL 8.0 
-
-### 安装步骤 ###
+### 服务端启动步骤
 
 1.使用 visual studio 2019+，打开解决方案文件 "Dorisoy.Pan.sln"。
 
@@ -19,18 +15,34 @@ Dorisoy.Pan 是基于.net core5的跨平台文档管理系统，使用 MS SQL 20
 
 3.在"Dorisoy.Pan.API 项目中更改“appsettings”中的数据库连接字符串。
 
-4.从“visual studio菜单-->工具-->nuget软件包管理器-->软件包管理器控制台”打开软件包管理器控制台。
+4.从“visual studio 菜单-->工具-->nuget 软件包管理器-->软件包管理器控制台”打开软件包管理器控制台。
 
-5.在package manager控制台中，选择默认项目为 “Dorisoy.Pan.Domain”。
+5.在 package manager 控制台中，选择默认项目为 “Dorisoy.Pan.Domain”。
 
-6.在package manager控制台中运行“Update-Database”命令，创建数据库并插入初始数据。
+6.在 package manager 控制台中运行“Update-Database”命令，创建数据库并插入初始数据。
 
 7.在解决方案资源管理器中，右键单击“Dorisoy.Pan.API" 然后从菜单中单击 `设置为启动项`。
 
-8.按F5键运行项目。
+8.按 F5 键运行项目。
 
+### 前端启动步骤
 
-###   项目结构 ### 
+如果您还没有安装 nodejs，请下载并全局安装 nodejs: https://nodejs.org ,确保您的 nodejs 版本>= 4.0 且 NPM >= 3 同时全局安装 TypeScript。
+全局安装 Angular-CLI 命令：npm install -g @angular/cli
+
+1.使用 visual code 打开项目目录 "\UI"。
+
+2.新建：终端-> "npm install" 初始化安装依赖。
+
+3.终端-> "npm run start" 启动 Angular Server。
+
+4. 当 ** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ ** 监听时在浏览器运行。
+
+5. 默认账号/密码：admin@gmail.com admin@123
+
+要在生产模式下运行本地副本并构建源，请执行 "ng build --prod" ，这将生成应用程序的生产版本，所有 html，css 和 js 代码都被缩小并放入 dist 文件夹。此文件夹可以在发布应用程序时放入生产服务器。
+
+### 项目结构
 
 <pre class="prettyprint">
 
@@ -52,7 +64,7 @@ Dorisoy.Pan 是基于.net core5的跨平台文档管理系统，使用 MS SQL 20
 
 </pre>
 
-### 截图 ###
+### 截图
 
 ## Desktop 客户端示例
 
@@ -60,7 +72,7 @@ Dorisoy.Pan 是基于.net core5的跨平台文档管理系统，使用 MS SQL 20
 <img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/desktop2.png"/>
 <img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/desktop3.png"/>
 
-## Web客户端示例
+## Web 客户端示例
 
 <img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/s%20(1).png"/>
 <img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/s%20(2).png"/>
@@ -69,7 +81,3 @@ Dorisoy.Pan 是基于.net core5的跨平台文档管理系统，使用 MS SQL 20
 <img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/s%20(5).png"/>
 <img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/s%20(6).png"/>
 <img src="https://github.com/dorisoy/Dorisoy.Pan/blob/main/Screen/s%20(7).png"/>
-
-                        
-
- 

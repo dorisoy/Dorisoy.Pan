@@ -1,8 +1,0 @@
-<iframe class="preview-object" *ngIf="isLive" #iframe style="width: 100%;height: 100%;"></iframe>
-<div *ngIf="!isLive" style="text-align: center;">
-    <img class="m-5" src="../../../assets/images/file-preview.png" alt="">
-    <h5 class="text-light">Office视图不支持本地主机,请托管 REST API，然后重试.</h5>
-</div>
-<div class="loading-shade" *ngIf="isLoading">
-    <mat-spinner></mat-spinner>
-</div>
