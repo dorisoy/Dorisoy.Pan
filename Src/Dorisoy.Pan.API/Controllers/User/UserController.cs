@@ -167,6 +167,7 @@ namespace Dorisoy.Pan.API.Controllers
             {
                 return ReturnFormattedResponse(result);
             }
+
             if (!string.IsNullOrWhiteSpace(result.Data.ProfilePhoto))
             {
                 result.Data.ProfilePhoto = $"Users/{result.Data.ProfilePhoto}";

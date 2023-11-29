@@ -88,8 +88,7 @@
 				},
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
-					"options": {
-					},
+					"options": {},
 					"configurations": {
 						"production": {
 							"browserTarget": "your-drive:build:production"
@@ -163,7 +162,7 @@
 	"defaultProject": "your-drive",
 	"schematics": {
 		"@schematics/angular:component": {
-		  "style": "scss"
+			"style": "scss"
 		}
 	},
 	"cli": {

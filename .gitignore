@@ -54,3 +54,4 @@ SourceCode/UI/.vs/
 Src/Dorisoy.Pan.API/Documents/
 Src/Dorisoy.Pan.API/wwwroot/Documents/
 UI/src/app/
+Src/Dorisoy.Pan.API/appsettings.Development.json
