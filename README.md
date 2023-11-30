@@ -39,9 +39,13 @@ Dorisoy.Pan 是基于.net core8 的跨平台文档管理系统，使用 MS SQL 2
 
 4.当 ** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ ** 监听时在浏览器运行。
 
-5.默认账号：admin@gmail.com  密码：admin@123
-
 要在生产模式下运行本地副本并构建源，请执行 "ng build --prod" ，这将生成应用程序的生产版本，所有 html，css 和 js 代码都被缩小并放入 dist 文件夹。此文件夹可以在发布应用程序时放入生产服务器。
+
+### Demo
+
+演示地址：[http://pan.dorisoy.com/](http://pan.dorisoy.com/)
+
+默认账号：admin@gmail.com  密码：admin@123
 
 ### 项目结构
 
