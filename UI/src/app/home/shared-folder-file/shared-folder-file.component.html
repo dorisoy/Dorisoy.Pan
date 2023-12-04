@@ -1,0 +1,89 @@
+<form [formGroup]="sharedForm">
+  <div class="dialog-header">
+    <div class="folder-dialog-info">
+      <span class="material-icons" *ngIf="data.type==='folder'">
+        folder
+      </span>
+      <span class="material-icons" *ngIf="data.type !=='folder'">
+        article
+      </span>
+      <div>
+        <div class="fw-600 fs-17 text-dark" *ngIf="data.type==='folder'">{{data.folder.name | limitTo: 30}}</div>
+        <div class="fw-600 fs-17 text-dark" *ngIf="data.type !=='folder'">{{data.document.name | limitTo: 30}}</div>
+        <div class="folder-desc text-dark">
+          <div class="row">
+            <div class="col cursor-pointer">
+
+              <ng-container *ngIf="data.type==='folder'">
+                <ng-container *ngIf="data.folder.users.length===1">
+                  只有仅自己访问
+                </ng-container>
+                <a *ngIf="data.folder.users.length>1" (click)="onFolderUsers()" class="stretched-link">
+                  {{data.folder.users.length}} people have access
+                </a>
+              </ng-container>
+              <ng-container *ngIf="data.type !=='folder'">
+                <ng-container *ngIf="data.document.users.length===1">
+                  只有仅自己访问
+                </ng-container>
+                <a *ngIf="data.document.users.length>1" (click)="onDocumentUsers()" class="stretched-link">
+                  {{data.document.users.length}} people have access
+                </a>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="close-icon" (click)="onCancel()">
+      <span class="material-icons cursor-pointer">
+        close
+      </span>
+    </div>
+  </div>
+  <div class="d-content">
+    <h3 *ngIf="data.type ==='folder'">
+      共享该文件夹
+    </h3>
+    <h3 *ngIf="data.type !=='folder'">
+      共享该文件
+    </h3>
+    <div class="row mt-3 user-search">
+      <div class="col-md-12">
+        <div class="form-group">
+          <input class="form-control" placeholder="搜索用户" [matAutocomplete]="autoForUser"
+            formControlName="userName" />
+        </div>
+        <mat-autocomplete #autoForUser="matAutocomplete">
+          <mat-option (click)="selectUser(user)" *ngFor="let user of users$ | async" [value]="user">
+            <span>{{ user.firstName }} {{ user.lastName }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+      <div class="col-md-12" formArrayName="usersArray">
+        <span class="mb-3" *ngIf="usersArray.controls.length">Selected User:</span>
+        <mat-chip-list>
+          <mat-chip *ngFor="let user of usersArray.controls; let i=index">
+            <ng-container [formGroupName]="i">
+              <span>{{ user.get('firstName').value }} {{ user.get('lastName').value}}
+              </span>
+              <i class="material-icons cursor-pointer" (click)="removedUser(i)">
+                clear
+              </i>
+            </ng-container>
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button class="btn btn-primary btn-sm m-right-10" (click)="onSharedDocument()" cdkFocusInitial><i
+          class="fas fa-save"></i> 共享
+      </button>
+      <button class="btn btn-danger btn-sm" (click)="onCancel()"><i class="fas fa-times-circle"></i> 取消
+      </button>
+    </div>
+  </div>
+</form>
+<div class="loading-shade" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>

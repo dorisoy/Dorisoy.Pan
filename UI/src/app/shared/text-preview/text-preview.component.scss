@@ -1,0 +1,20 @@
+.text-div {
+  word-wrap: break-word;
+}
+
+.text-main-div {
+  overflow        : auto;
+  height          : 75vh;
+  background-color: #fff;
+  padding: 20px;
+}
+
+pre {
+  display    : block;
+  white-space: pre-wrap;
+  word-wrap  : break-word;
+  margin     : 0;
+  padding    : 0px !important;
+  font-size  : 1rem;
+  font-family: inherit;
+}

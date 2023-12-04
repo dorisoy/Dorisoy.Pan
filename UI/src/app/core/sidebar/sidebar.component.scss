@@ -1,0 +1,25 @@
+// .treeview_root {
+//   max-height: 300px;
+//   overflow-y: scroll;
+//   padding: 3px;
+//   box-sizing: border-box;
+//   width: 226px;
+// }
+// .mat-tree-node {
+//   min-height: 26px !important;
+// }
+// .cursor {
+//   cursor: pointer;
+// }
+
+.nav-extra {
+    position: relative;
+    .arrow-icon {
+        position: absolute;
+        top: 12px;
+        left: 8px;
+    }
+    .nav-extra {
+        padding-left: 35px;
+    }
+}

@@ -1,0 +1,14 @@
+<app-file-preview-toolbar (onMoveOrDelete)="onMoveDeleteItem($event)"  (onNexPreivewClick)="onDocumentView($event)" [documentsPreview]="data">
+</app-file-preview-toolbar>
+<ng-container [ngSwitch]="type">
+    <app-image-preview [document]="currentDoc" *ngSwitchCase="'image'"></app-image-preview>
+    <app-audio-preview [document]="currentDoc" *ngSwitchCase="'audio'"></app-audio-preview>
+    <app-office-viewer [document]="currentDoc" *ngSwitchCase="'office-preview'"></app-office-viewer>
+    <app-pdf-viewer [document]="currentDoc" *ngSwitchCase="'pdf'"></app-pdf-viewer>
+    <app-text-preview [document]="currentDoc" *ngSwitchCase="'text'"></app-text-preview>
+    <app-video-preview [document]="currentDoc" *ngSwitchCase="'video'"></app-video-preview>
+    <app-no-preview-available [document]="currentDoc" *ngSwitchDefault></app-no-preview-available>
+</ng-container>
+<div class="loading-shade" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>

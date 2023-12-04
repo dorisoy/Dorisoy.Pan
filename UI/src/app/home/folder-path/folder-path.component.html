@@ -1,0 +1,14 @@
+<div class="row align-items-center justify-content-between">
+  <div class="col-md-auto col-sm-auto">
+    <div class="content-header bread-nav">
+      <ng-container *ngFor="let path of folderPaths; let last = last;">
+        <button type="button" [title]="path.name" (click)="onPathClick(path)" class="btn btn-link" color="primary">
+          {{path.name | limitTo: 15}}
+        </button>
+        <span *ngIf="!last" class="material-icons-outlined small-arrow">
+          arrow_right
+        </span>
+      </ng-container>
+    </div>
+  </div>
+</div>

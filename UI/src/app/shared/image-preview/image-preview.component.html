@@ -1,0 +1,6 @@
+<div class="center-img m-5" *ngIf="imageUrl">
+    <img class="img-fluid" [src]="imageUrl" [alt]="document.name">
+</div>
+<div class="loading-shade" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+</div>

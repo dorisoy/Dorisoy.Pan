@@ -1,0 +1,66 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr class="d-flex">
+        <th class="col">Name</th>
+        <th class="d-none d-sm-table-cell col-3" scope="col">Last Modified</th>
+        <th class="d-none d-sm-table-cell col-2">Members</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let folder of folders" class="d-flex">
+        <td class="col">
+          <a role="button" class="d-flex align-items-center" (click)="onFolderClick(folder)">
+            <i *ngIf="!folder.isShared" class="fas fa-folder folder-list text-main mr-2"></i>
+            <span class="material-icons" *ngIf="folder.isShared">
+              <span class="folder_shared">
+                <img src="/assets/images/folder-users.svg" class="shared-icon">
+              </span>
+            </span> {{folder.name | limitTo: 50}}
+          </a>
+        </td>
+        <td class="d-none d-sm-table-cell col-3">
+          {{folder.createdDate | date:"dd/MM/yyyy hh:mm a"}}
+        </td>
+        <td class="d-sm-table-cell col-2">
+          <span [matTooltip]="getTooltip(folder.users)">
+            {{folder.users.length}} Members
+          </span>
+        </td>
+      </tr>
+      <tr *ngFor="let document of documents" class="d-flex">
+        <td class="col">
+          <div (click)="onDocumentView(document)" class="d-flex align-items-center" role="button">
+            <img [src]="document.thumbnailPath" alt="" class="mr-2">
+            {{document.name | limitTo: 25}}
+          </div>
+        </td>
+        <td class="d-none d-sm-table-cell col-3">
+          <i class="fas fa-star mr-2" matTooltip="取消关注" role="button" (click)="toggleDocumentStarred(document)"
+            *ngIf="document.isStarred"></i>
+          <i class="far fa-star mr-2" role="button" matTooltip="添加关注" (click)="toggleDocumentStarred(document)"
+            *ngIf="!document.isStarred"></i>
+          {{document.modifiedDate | date:"dd/MM/yyyy hh:mm a"}}
+        </td>
+        <td class="d-none d-sm-table-cell col-2">
+          <ng-container *ngIf="document.users.length == 1">
+            <span>仅自己</span>
+          </ng-container>
+          <ng-container *ngIf="document.users.length > 1">
+            <span [matTooltip]="getTooltip(document.users)">
+              {{document.users.length}} Members
+            </span>
+          </ng-container>
+        </td>
+        <div class="showme" (click)="onShared(document,'file')">
+          <span class="material-icons-outlined text-main cursor-pointer">
+            share
+          </span>
+        </div>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="loading-shade" *ngIf="isDocumentLoading || isFolderLoading">
+  <mat-spinner></mat-spinner>
+</div>

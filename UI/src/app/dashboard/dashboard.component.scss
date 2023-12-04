@@ -1,0 +1,52 @@
+.bg-aqua {
+    background-color: #00c0ef !important;
+}
+
+.bg-green {
+    background-color: #00a65a !important;
+}
+
+.bg-yellow {
+    background-color: #f39c12 !important;
+}
+
+.bg-red {
+    background-color: #dd4b39 !important;
+}
+
+.small-box {
+    border-radius: 5px;
+    position     : relative;
+    display      : block;
+    margin-bottom: 20px;
+    box-shadow   : 0 1px 1px rgb(0 0 0 / 10%);
+    color        : white;
+}
+
+.small-box>.inner {
+    padding: 20px;
+}
+
+.small-box h3 {
+    font-size  : 38px;
+    font-weight: bold;
+    margin     : 0 0 10px 0;
+    white-space: nowrap;
+    padding    : 0;
+}
+
+.small-box p {
+    font-size: 15px;
+}
+
+.small-box .icon {
+    -webkit-transition: all .3s linear;
+    -o-transition     : all .3s linear;
+    transition        : all .3s linear;
+    position          : absolute;
+    top               : 5px;
+    right             : 10px;
+    z-index           : 0;
+    font-size         : 90px;
+    color             : rgba(0, 0, 0, 0.15);
+}

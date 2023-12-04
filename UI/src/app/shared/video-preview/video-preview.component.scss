@@ -1,0 +1,13 @@
+.video-div {
+    display        : flex;
+    flex-direction : column;
+    justify-content: center;
+    align-items    : center;
+    text-align     : center;
+    min-height     : calc(100vh - 60px);;
+    background     : #343232a1;
+}
+
+video {
+    width: 65vw;
+}

@@ -1,0 +1,52 @@
+<div class="dialog-header">
+    <div class="folder-dialog-info">
+        <span class="material-icons">
+            folder
+        </span>
+        <div>
+            <div class="fw-600 fs-17 text-dark">评论</div>
+        </div>
+    </div>
+    <div class="close-icon" (click)="closeDialog()">
+        <span class="material-icons cursor-pointer">
+            close
+        </span>
+    </div>
+</div>
+<div class="d-content">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+            <div class="content-header">
+                <h3>{{data.name}} 评论</h3>
+            </div>
+        </div>
+    </div>
+    <div class="box box-primary">
+        <div class="box-body">
+            <div class="list-group">
+                <div *ngFor="let comment of data.documentComments" class="list-group-item list-group-item-action"
+                    aria-current="true">
+                    <p class="mb-1">
+                        {{comment.comment}}
+                    </p>
+                    <div class="w-100">
+                        <small class="mr-2">
+                            {{comment.createdDate | date:"dd/MM/yyyy hh:mm a"}}
+                        </small>
+                        <small class="text-primary">
+                          {{comment.userName}}
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <form [formGroup]="commentForm" class="mt-3">
+                <div class="form-group">
+                    <textarea class="form-control" formControlName="comment" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" (click)="addComment()">
+                    Add Comment
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

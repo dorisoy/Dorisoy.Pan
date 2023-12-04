@@ -1,0 +1,85 @@
+<div class="dialog-header">
+  <div class="folder-dialog-info">
+    <span class="material-icons">
+      people
+    </span>
+    <div>
+      <div class="fw-600 fs-17 text-dark" *ngIf="data.type==='folder'">People with access to {{data.folder.name |
+        limitTo: 30}}</div>
+      <div class="fw-600 fs-17 text-dark" *ngIf="data.type !=='folder'">People with access to {{data.document.name |
+        limitTo: 30}}
+      </div>
+    </div>
+  </div>
+  <div class="close-icon" (click)="onCancel()">
+    <span class="material-icons cursor-pointer">
+      close
+    </span>
+  </div>
+</div>
+<div mat-dialog-content>
+  <div class="d-content">
+    <ng-container *ngIf="data.type==='folder'">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let user of data.folder.users">
+          <div class="row align-items-center">
+            <div class="col-md col">
+              <div class="media">
+                <img class="mr-2 rounded-circle border" style="max-height: 43px;" [src]="user.profilePhoto"
+                  alt="Profile">
+                <div class="media-body">
+                  <h5 class="mt-0 mb-0">{{user.firstName}} {{user.lastName}}</h5>
+                  {{user.email}}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-auto col">
+              <span matTooltip="Remove User" *ngIf="!user.isOwner" class="material-icons cursor-pointer text-danger"
+                (click)="onFolderUserRemoved(user)">
+                delete
+              </span>
+              <span *ngIf="user.isOwner" class="badge badge-pill badge-info">
+                Owner
+              </span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </ng-container>
+    <ng-container *ngIf="data.type==='file'">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let user of data.document.users">
+          <div class="row align-items-center">
+            <div class="col-md col">
+              <div class="media">
+                <img class="mr-2 rounded-circle border" style="max-height: 43px;" [src]="user.profilePhoto"
+                  alt="Profile">
+                <div class="media-body">
+                  <h5 class="mt-0 mb-0">{{user.firstName}} {{user.lastName}}</h5>
+                  {{user.email}}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-auto col">
+              <span *ngIf="!user.isOwner" matTooltip="Remove User" class="material-icons cursor-pointer text-danger"
+                (click)="onDocumentUserRemoved(user)">
+                delete
+              </span>
+              <span *ngIf="user.isOwner" class="badge badge-pill badge-info">
+                Owner
+              </span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </ng-container>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button class="btn btn-danger btn-sm" (click)="onCancel()"><i class="fas fa-times-circle"></i> Close
+  </button>
+</div>
+
+<div class="loading-shade" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
