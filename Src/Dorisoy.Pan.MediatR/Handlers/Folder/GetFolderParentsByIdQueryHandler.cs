@@ -3,6 +3,7 @@ using Dorisoy.Pan.Data;
 using Dorisoy.Pan.MediatR.Queries;
 using Dorisoy.Pan.Repository;
 using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,9 +21,18 @@ namespace Dorisoy.Pan.MediatR.Handlers
             _virtualFolderRepository = virtualFolderRepository;
             _mapper = mapper;
         }
+
+
         public async Task<IEnumerable<HierarchyFolder>> Handle(GetFolderParentsByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _virtualFolderRepository.GetParentsHierarchyById(request.Id);
+            try
+            {
+                return await _virtualFolderRepository.GetParentsHierarchyById(request.Id);
+            }
+            catch (Exception)
+            { 
+                return [];
+            }
         }
     }
 }

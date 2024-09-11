@@ -53,6 +53,8 @@ namespace Dorisoy.Pan.API.Controllers.Folder
             var result = await _mediator.Send(getActionQuery);
             return Ok(result);
         }
+
+
         [HttpGet("totalSize")]
         public async Task<IActionResult> GetTotalSizes()
         {
