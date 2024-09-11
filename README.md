@@ -21,9 +21,11 @@ Dorisoy.Pan 是基于.net core8 的跨平台文档管理系统，使用 MS SQL 2
 
 6.在 package manager 控制台中运行“Update-Database”命令，创建数据库并插入初始数据。
 
-7.在解决方案资源管理器中，右键单击“Dorisoy.Pan.API" 然后从菜单中单击 `设置为启动项`。
+7.如果你的数据库为MySQL（示例），请附加SQL/下的SQL脚步 PROCEDURE-MySQL.sql 并重建存储过程。
 
-8.按 F5 键运行项目。
+8.在解决方案资源管理器中，右键单击“Dorisoy.Pan.API" 然后从菜单中单击 `设置为启动项`。
+
+9.按 F5 键运行项目。
 
 ### 前端启动步骤
 
