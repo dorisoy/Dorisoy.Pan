@@ -45,7 +45,7 @@ Dorisoy.Pan 是基于.net core8 的跨平台文档管理系统，使用 MS SQL 2
 
 ### Demo
 
-演示地址：[http://pan.dorisoy.com/](http://pan.dorisoy.com/)
+演示地址：[http://pan.doriso.cn/](http://pan.doriso.cn/)
 
 默认账号：admin@gmail.com  密码：admin@123
 
