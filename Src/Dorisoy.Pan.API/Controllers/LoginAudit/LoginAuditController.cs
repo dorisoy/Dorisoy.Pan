@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Dorisoy.Pan.Data.Resources;
 using Dorisoy.Pan.MediatR.Queries;
 using Dorisoy.Pan.Repository;
+using Microsoft.AspNetCore.Http;
 
 namespace Dorisoy.Pan.API.Controllers.LoginAudit
 {
@@ -40,7 +41,7 @@ namespace Dorisoy.Pan.API.Controllers.LoginAudit
                 skip = result.Skip,
                 totalPages = result.TotalPages
             };
-            Response.Headers.Add("X-Pagination",
+            Response.Headers.Append("X-Pagination",
                 Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
             return Ok(result);
         }

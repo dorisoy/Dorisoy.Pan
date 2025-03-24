@@ -3,6 +3,7 @@ using Dorisoy.Pan.MediatR.Commands;
 using Dorisoy.Pan.MediatR.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -52,7 +53,7 @@ namespace Dorisoy.Pan.API.Controllers.UserNotification
                 skip = result.Skip,
                 totalPages = result.TotalPages
             };
-            Response.Headers.Add("X-Pagination",
+            Response.Headers.Append("X-Pagination",
                 Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
             return Ok(result);
         }

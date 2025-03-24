@@ -78,7 +78,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogError(ex.Message);
             }
         }
     }

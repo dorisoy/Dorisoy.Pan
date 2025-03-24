@@ -5,14 +5,15 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
-using Microsoft.Extensions.DependencyInjection;
+using NLog;
 namespace Dorisoy.Pan.API
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+           
+            var logger = NLog.LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
             try
             {
 
@@ -77,7 +78,7 @@ namespace Dorisoy.Pan.API
               {
                   //ÒÆ³ýÄ¬ÈÏProvider
                   logging.ClearProviders();
-                  logging.SetMinimumLevel(LogLevel.Trace);
+                  logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
               })
               .UseNLog();
     }

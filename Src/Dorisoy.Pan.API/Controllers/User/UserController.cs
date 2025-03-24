@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using Dorisoy.Pan.Data.Resources;
 using Dorisoy.Pan.Repository;
+using Microsoft.AspNetCore.Http;
 
 namespace Dorisoy.Pan.API.Controllers
 {
@@ -29,6 +30,7 @@ namespace Dorisoy.Pan.API.Controllers
         /// </summary>
         /// <param name="mediator"></param>
         /// <param name="userInfo"></param>
+        /// <param name="webHostEnvironment"></param>
         public UserController(
             IMediator mediator,
             UserInfoToken userInfo,
@@ -91,7 +93,7 @@ namespace Dorisoy.Pan.API.Controllers
                 skip = result.Skip,
                 totalPages = result.TotalPages
             };
-            Response.Headers.Add("X-Pagination",
+            Response.Headers.Append("X-Pagination",
                 Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
             return Ok(result);
         }
@@ -131,7 +133,7 @@ namespace Dorisoy.Pan.API.Controllers
                 skip = result.Skip,
                 totalPages = result.TotalPages
             };
-            Response.Headers.Add("X-Pagination",
+            Response.Headers.Append("X-Pagination",
                 Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
             return Ok(result);
         }
@@ -217,7 +219,6 @@ namespace Dorisoy.Pan.API.Controllers
         /// <summary>
         /// Update Profile
         /// </summary>
-        /// <param name="id"></param>
         /// <param name="updateUserProfileCommand"></param>
         /// <returns></returns>
         [HttpPut("profile")]

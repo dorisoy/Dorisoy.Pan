@@ -28,18 +28,18 @@ namespace Dorisoy.Pan.API.Controllers.Folder
             _pathHelper = pathHelper;
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Gets the folders.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        //[HttpGet("{id}", Name = "GetFolders")]
-        //public async Task<IActionResult> GetFolders(Guid id)
-        //{
-        //    var getActionQuery = new GetVirtualFoldersQuery { Id = id };
-        //    var result = await _mediator.Send(getActionQuery);
-        //    return Ok(result);
-        //}
+        [HttpGet("{id}", Name = "GetFolders")]
+        public async Task<IActionResult> GetFolders(Guid id)
+        {
+            var getActionQuery = new GetVirtualFoldersQuery { Id = id };
+            var result = await _mediator.Send(getActionQuery);
+            return Ok(result);
+        }*/
 
         /// <summary>
         /// Get Folder Parents by Id

@@ -58,7 +58,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                 loginAudit.Status = LoginStatus.Success.ToString();
                 await _loginAuditRepository.LoginAudit(loginAudit);
                 var claims = await _userManager.GetClaimsAsync(userInfo);
-                var authUser = await _userRepository.BuildUserAuthObject(userInfo, claims);
+                var authUser = _userRepository.BuildUserAuthObject(userInfo, claims);
                 var onlineUser = new UserInfoToken
                 {
                     Email = authUser.Email,

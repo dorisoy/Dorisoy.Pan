@@ -45,7 +45,7 @@ namespace Dorisoy.Pan.Helper
                         image.Save(path);
                         return Path.Combine(userId, $"_thumbnail_{name}");
                     }
-                    catch (Exception e)
+                    catch
                     {
                         return Path.Combine("Thumbnails", "image.png");
                     }

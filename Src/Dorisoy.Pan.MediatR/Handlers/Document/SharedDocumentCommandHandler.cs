@@ -45,7 +45,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             if (lstSharedDocumentUser.Count() > 0)
             {
                 _documentSharedUserRepository.AddRange(lstSharedDocumentUser);
-                await _userNotificationRepository.SaveUserNotification(null, request.Id, request.Users, ActionEnum.Shared);
+                _userNotificationRepository.SaveUserNotification(null, request.Id, request.Users, ActionEnum.Shared);
                 if (await _uow.SaveAsync() <= 0)
                 {
                     return false;

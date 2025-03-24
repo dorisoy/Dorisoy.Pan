@@ -132,7 +132,7 @@ namespace Dorisoy.Pan.Repository
                 );
         }
 
-        public async Task<UserAuthDto> BuildUserAuthObject(User appUser, IList<Claim> claims)
+        public UserAuthDto BuildUserAuthObject(User appUser, IList<Claim> claims)
         {
             UserAuthDto ret = new UserAuthDto();
             // Set User Properties
