@@ -23,6 +23,23 @@ INSERT INTO `__efmigrationshistory` VALUES ('20210822054753_Initial','5.0.7'),('
 UNLOCK TABLES;
 
 --
+-- Table structure for table `aspnetroles`
+--
+
+DROP TABLE IF EXISTS `aspnetroles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `aspnetroles` (
+  `Id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `Name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `NormalizedName` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `ConcurrencyStamp` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `RoleNameIndex` (`NormalizedName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `aspnetroleclaims`
 --
 
@@ -49,22 +66,7 @@ LOCK TABLES `aspnetroleclaims` WRITE;
 /*!40000 ALTER TABLE `aspnetroleclaims` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `aspnetroles`
---
 
-DROP TABLE IF EXISTS `aspnetroles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `aspnetroles` (
-  `Id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `Name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `NormalizedName` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `ConcurrencyStamp` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  PRIMARY KEY (`Id`),
-  UNIQUE KEY `RoleNameIndex` (`NormalizedName`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `aspnetroles`
@@ -73,6 +75,59 @@ CREATE TABLE `aspnetroles` (
 LOCK TABLES `aspnetroles` WRITE;
 /*!40000 ALTER TABLE `aspnetroles` DISABLE KEYS */;
 /*!40000 ALTER TABLE `aspnetroles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `Id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `FirstName` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `LastName` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `IsDeleted` tinyint(1) NOT NULL,
+  `IsActive` tinyint(1) NOT NULL,
+  `ProfilePhoto` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `Provider` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `Address` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `CreatedDate` datetime NOT NULL,
+  `CreatedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `ModifiedDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ModifiedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `DeletedDate` datetime DEFAULT NULL,
+  `DeletedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `IsAdmin` tinyint(1) NOT NULL,
+  `UserName` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `NormalizedUserName` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Email` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `NormalizedEmail` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `EmailConfirmed` tinyint(1) NOT NULL,
+  `PasswordHash` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `SecurityStamp` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `ConcurrencyStamp` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `PhoneNumber` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `PhoneNumberConfirmed` tinyint(1) NOT NULL,
+  `TwoFactorEnabled` tinyint(1) NOT NULL,
+  `LockoutEnd` datetime(6) DEFAULT NULL,
+  `LockoutEnabled` tinyint(1) NOT NULL,
+  `AccessFailedCount` int NOT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UserNameIndex` (`NormalizedUserName`),
+  KEY `EmailIndex` (`NormalizedEmail`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES ('1a5cf5b9-ead8-495c-8719-2d8be776f452','Norman','Russell',0,1,'user-profile.jpg',NULL,NULL,'2021-01-09 16:00:55',NULL,'2021-04-09 22:13:04','4b352b37-332a-40c6-ab05-e38fcf109719',NULL,NULL,1,'employee@gmail.com','EMPLOYEE@GMAIL.COM','employee@gmail.com','EMPLOYEE@GMAIL.COM',0,'AQAAAAEAACcQAAAAEKWs5TYpiKZTo10GsYT3ydUD92Xv9PzHyaE6IlWewhVAcBXpQ92H1g7zz9r2wNXTTw==','C6DDSWCQJIFOEWSOC2IEIDGXZ7YOHGAC','542d648b-582f-464b-9264-4efd2a4f8b1a','7684012345',0,0,NULL,1,0),('4b352b37-332a-40c6-ab05-e38fcf109719','Frederic','Holland',0,1,'user-profile.jpg',NULL,NULL,'2021-01-09 16:00:55',NULL,'2021-04-09 22:13:30','4b352b37-332a-40c6-ab05-e38fcf109719',NULL,NULL,1,'admin@gmail.com','ADMIN@GMAIL.COM','admin@gmail.com','ADMIN@GMAIL.COM',0,'AQAAAAEAACcQAAAAEEkx5K65gWhkIDvtcI3QVCom8fFRVWBIVlDWGqPujKdUWwSs2/0bB2fFzTaAq8z3pA==','EZNIRU4TFNZUE4VWL4CLRBHP7VMTICHA','56223fd5-d4f1-4811-a806-bf8bdff9bb5c','3360123459',0,0,NULL,1,0);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -126,6 +181,87 @@ CREATE TABLE `aspnetuserroles` (
 LOCK TABLES `aspnetuserroles` WRITE;
 /*!40000 ALTER TABLE `aspnetuserroles` DISABLE KEYS */;
 /*!40000 ALTER TABLE `aspnetuserroles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `physicalfolders`
+--
+
+DROP TABLE IF EXISTS `physicalfolders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `physicalfolders` (
+  `Id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `SystemFolderName` bigint NOT NULL AUTO_INCREMENT,
+  `ParentId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `Size` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `CreatedDate` datetime NOT NULL,
+  `CreatedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `ModifiedDate` datetime NOT NULL,
+  `ModifiedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `DeletedDate` datetime DEFAULT NULL,
+  `DeletedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `IsDeleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `AK_PhysicalFolder` (`SystemFolderName`),
+  KEY `IX_PhysicalFolders_Name_IsDeleted_ParentId` (`Name`,`IsDeleted`,`ParentId`),
+  KEY `IX_PhysicalFolders_ParentId` (`ParentId`),
+  CONSTRAINT `FK_PhysicalFolders_PhysicalFolders_ParentId` FOREIGN KEY (`ParentId`) REFERENCES `physicalfolders` (`Id`) ON DELETE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `physicalfolders`
+--
+
+LOCK TABLES `physicalfolders` WRITE;
+/*!40000 ALTER TABLE `physicalfolders` DISABLE KEYS */;
+INSERT INTO `physicalfolders` VALUES ('79073ec1-51e2-4772-95e6-9b06075a174b','All Files',1,NULL,NULL,'2021-06-01 00:00:00','4b352b37-332a-40c6-ab05-e38fcf109719','2021-06-01 00:00:00','4b352b37-332a-40c6-ab05-e38fcf109719',NULL,NULL,0);
+/*!40000 ALTER TABLE `physicalfolders` ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table `documents`
+--
+
+DROP TABLE IF EXISTS `documents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `documents` (
+  `Id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `PhysicalFolderId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `Extension` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `Path` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `Size` bigint NOT NULL,
+  `ThumbnailPath` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `CreatedDate` datetime NOT NULL,
+  `CreatedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `ModifiedDate` datetime NOT NULL,
+  `ModifiedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `DeletedDate` datetime DEFAULT NULL,
+  `DeletedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `IsDeleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `IX_Documents_CreatedBy` (`CreatedBy`),
+  KEY `IX_Documents_DeletedBy` (`DeletedBy`),
+  KEY `IX_Documents_ModifiedBy` (`ModifiedBy`),
+  KEY `IX_Documents_Name_IsDeleted_PhysicalFolderId` (`Name`,`IsDeleted`,`PhysicalFolderId`),
+  KEY `IX_Documents_PhysicalFolderId` (`PhysicalFolderId`),
+  CONSTRAINT `FK_Documents_PhysicalFolders_PhysicalFolderId` FOREIGN KEY (`PhysicalFolderId`) REFERENCES `physicalfolders` (`Id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_Documents_Users_CreatedBy` FOREIGN KEY (`CreatedBy`) REFERENCES `users` (`Id`),
+  CONSTRAINT `FK_Documents_Users_DeletedBy` FOREIGN KEY (`DeletedBy`) REFERENCES `users` (`Id`),
+  CONSTRAINT `FK_Documents_Users_ModifiedBy` FOREIGN KEY (`ModifiedBy`) REFERENCES `users` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `documents`
+--
+
+LOCK TABLES `documents` WRITE;
+/*!40000 ALTER TABLE `documents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `documents` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -274,49 +410,6 @@ LOCK TABLES `documentreminders` WRITE;
 /*!40000 ALTER TABLE `documentreminders` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `documents`
---
-
-DROP TABLE IF EXISTS `documents`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `documents` (
-  `Id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `PhysicalFolderId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `Extension` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `Path` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `Size` bigint NOT NULL,
-  `ThumbnailPath` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `CreatedDate` datetime NOT NULL,
-  `CreatedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `ModifiedDate` datetime NOT NULL,
-  `ModifiedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `DeletedDate` datetime DEFAULT NULL,
-  `DeletedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
-  `IsDeleted` tinyint(1) NOT NULL,
-  PRIMARY KEY (`Id`),
-  KEY `IX_Documents_CreatedBy` (`CreatedBy`),
-  KEY `IX_Documents_DeletedBy` (`DeletedBy`),
-  KEY `IX_Documents_ModifiedBy` (`ModifiedBy`),
-  KEY `IX_Documents_Name_IsDeleted_PhysicalFolderId` (`Name`,`IsDeleted`,`PhysicalFolderId`),
-  KEY `IX_Documents_PhysicalFolderId` (`PhysicalFolderId`),
-  CONSTRAINT `FK_Documents_PhysicalFolders_PhysicalFolderId` FOREIGN KEY (`PhysicalFolderId`) REFERENCES `physicalfolders` (`Id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_Documents_Users_CreatedBy` FOREIGN KEY (`CreatedBy`) REFERENCES `users` (`Id`),
-  CONSTRAINT `FK_Documents_Users_DeletedBy` FOREIGN KEY (`DeletedBy`) REFERENCES `users` (`Id`),
-  CONSTRAINT `FK_Documents_Users_ModifiedBy` FOREIGN KEY (`ModifiedBy`) REFERENCES `users` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `documents`
---
-
-LOCK TABLES `documents` WRITE;
-/*!40000 ALTER TABLE `documents` DISABLE KEYS */;
-/*!40000 ALTER TABLE `documents` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `documentshareablelinks`
@@ -637,43 +730,7 @@ LOCK TABLES `nlog` WRITE;
 /*!40000 ALTER TABLE `nlog` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `physicalfolders`
---
 
-DROP TABLE IF EXISTS `physicalfolders`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `physicalfolders` (
-  `Id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `SystemFolderName` bigint NOT NULL AUTO_INCREMENT,
-  `ParentId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
-  `Size` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `CreatedDate` datetime NOT NULL,
-  `CreatedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `ModifiedDate` datetime NOT NULL,
-  `ModifiedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `DeletedDate` datetime DEFAULT NULL,
-  `DeletedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
-  `IsDeleted` tinyint(1) NOT NULL,
-  PRIMARY KEY (`Id`),
-  UNIQUE KEY `AK_PhysicalFolder` (`SystemFolderName`),
-  KEY `IX_PhysicalFolders_Name_IsDeleted_ParentId` (`Name`,`IsDeleted`,`ParentId`),
-  KEY `IX_PhysicalFolders_ParentId` (`ParentId`),
-  CONSTRAINT `FK_PhysicalFolders_PhysicalFolders_ParentId` FOREIGN KEY (`ParentId`) REFERENCES `physicalfolders` (`Id`) ON DELETE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `physicalfolders`
---
-
-LOCK TABLES `physicalfolders` WRITE;
-/*!40000 ALTER TABLE `physicalfolders` DISABLE KEYS */;
-INSERT INTO `physicalfolders` VALUES ('79073ec1-51e2-4772-95e6-9b06075a174b','All Files',1,NULL,NULL,'2021-06-01 00:00:00','4b352b37-332a-40c6-ab05-e38fcf109719','2021-06-01 00:00:00','4b352b37-332a-40c6-ab05-e38fcf109719',NULL,NULL,0);
-/*!40000 ALTER TABLE `physicalfolders` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `physicalfolderusers`
@@ -699,6 +756,47 @@ CREATE TABLE `physicalfolderusers` (
 LOCK TABLES `physicalfolderusers` WRITE;
 /*!40000 ALTER TABLE `physicalfolderusers` DISABLE KEYS */;
 /*!40000 ALTER TABLE `physicalfolderusers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
+-- Table structure for table `virtualfolders`
+--
+
+DROP TABLE IF EXISTS `virtualfolders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `virtualfolders` (
+  `Id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `ParentId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `Size` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `IsShared` tinyint(1) NOT NULL,
+  `PhysicalFolderId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `CreatedDate` datetime NOT NULL,
+  `CreatedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `ModifiedDate` datetime NOT NULL,
+  `ModifiedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `DeletedDate` datetime DEFAULT NULL,
+  `DeletedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
+  `IsDeleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `IX_VirtualFolders_Name_IsDeleted_ParentId_PhysicalFolderId` (`Name`,`IsDeleted`,`ParentId`,`PhysicalFolderId`),
+  KEY `IX_VirtualFolders_ParentId` (`ParentId`),
+  KEY `IX_VirtualFolders_PhysicalFolderId` (`PhysicalFolderId`),
+  CONSTRAINT `FK_VirtualFolders_PhysicalFolders_PhysicalFolderId` FOREIGN KEY (`PhysicalFolderId`) REFERENCES `physicalfolders` (`Id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_VirtualFolders_VirtualFolders_ParentId` FOREIGN KEY (`ParentId`) REFERENCES `virtualfolders` (`Id`) ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `virtualfolders`
+--
+
+LOCK TABLES `virtualfolders` WRITE;
+/*!40000 ALTER TABLE `virtualfolders` DISABLE KEYS */;
+INSERT INTO `virtualfolders` VALUES ('a4d06132-d76c-49b5-8472-2bf78ac4147e','All FIles',NULL,NULL,0,'79073ec1-51e2-4772-95e6-9b06075a174b','2021-06-01 00:00:00','4b352b37-332a-40c6-ab05-e38fcf109719','2021-06-01 00:00:00','4b352b37-332a-40c6-ab05-e38fcf109719',NULL,NULL,0);
+/*!40000 ALTER TABLE `virtualfolders` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -795,98 +893,7 @@ LOCK TABLES `usernotifications` WRITE;
 /*!40000 ALTER TABLE `usernotifications` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `users`
---
 
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
-  `Id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `FirstName` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `LastName` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `IsDeleted` tinyint(1) NOT NULL,
-  `IsActive` tinyint(1) NOT NULL,
-  `ProfilePhoto` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `Provider` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `Address` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `CreatedDate` datetime NOT NULL,
-  `CreatedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
-  `ModifiedDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `ModifiedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
-  `DeletedDate` datetime DEFAULT NULL,
-  `DeletedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
-  `IsAdmin` tinyint(1) NOT NULL,
-  `UserName` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `NormalizedUserName` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `Email` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `NormalizedEmail` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `EmailConfirmed` tinyint(1) NOT NULL,
-  `PasswordHash` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `SecurityStamp` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `ConcurrencyStamp` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `PhoneNumber` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `PhoneNumberConfirmed` tinyint(1) NOT NULL,
-  `TwoFactorEnabled` tinyint(1) NOT NULL,
-  `LockoutEnd` datetime(6) DEFAULT NULL,
-  `LockoutEnabled` tinyint(1) NOT NULL,
-  `AccessFailedCount` int NOT NULL,
-  PRIMARY KEY (`Id`),
-  UNIQUE KEY `UserNameIndex` (`NormalizedUserName`),
-  KEY `EmailIndex` (`NormalizedEmail`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('1a5cf5b9-ead8-495c-8719-2d8be776f452','Norman','Russell',0,1,'user-profile.jpg',NULL,NULL,'2021-01-09 16:00:55',NULL,'2021-04-09 22:13:04','4b352b37-332a-40c6-ab05-e38fcf109719',NULL,NULL,1,'employee@gmail.com','EMPLOYEE@GMAIL.COM','employee@gmail.com','EMPLOYEE@GMAIL.COM',0,'AQAAAAEAACcQAAAAEKWs5TYpiKZTo10GsYT3ydUD92Xv9PzHyaE6IlWewhVAcBXpQ92H1g7zz9r2wNXTTw==','C6DDSWCQJIFOEWSOC2IEIDGXZ7YOHGAC','542d648b-582f-464b-9264-4efd2a4f8b1a','7684012345',0,0,NULL,1,0),('4b352b37-332a-40c6-ab05-e38fcf109719','Frederic','Holland',0,1,'user-profile.jpg',NULL,NULL,'2021-01-09 16:00:55',NULL,'2021-04-09 22:13:30','4b352b37-332a-40c6-ab05-e38fcf109719',NULL,NULL,1,'admin@gmail.com','ADMIN@GMAIL.COM','admin@gmail.com','ADMIN@GMAIL.COM',0,'AQAAAAEAACcQAAAAEEkx5K65gWhkIDvtcI3QVCom8fFRVWBIVlDWGqPujKdUWwSs2/0bB2fFzTaAq8z3pA==','EZNIRU4TFNZUE4VWL4CLRBHP7VMTICHA','56223fd5-d4f1-4811-a806-bf8bdff9bb5c','3360123459',0,0,NULL,1,0);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `virtualfolders`
---
-
-DROP TABLE IF EXISTS `virtualfolders`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `virtualfolders` (
-  `Id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `ParentId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
-  `Size` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `IsShared` tinyint(1) NOT NULL,
-  `PhysicalFolderId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `CreatedDate` datetime NOT NULL,
-  `CreatedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `ModifiedDate` datetime NOT NULL,
-  `ModifiedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `DeletedDate` datetime DEFAULT NULL,
-  `DeletedBy` char(36) CHARACTER SET ascii COLLATE ascii_general_ci DEFAULT NULL,
-  `IsDeleted` tinyint(1) NOT NULL,
-  PRIMARY KEY (`Id`),
-  KEY `IX_VirtualFolders_Name_IsDeleted_ParentId_PhysicalFolderId` (`Name`,`IsDeleted`,`ParentId`,`PhysicalFolderId`),
-  KEY `IX_VirtualFolders_ParentId` (`ParentId`),
-  KEY `IX_VirtualFolders_PhysicalFolderId` (`PhysicalFolderId`),
-  CONSTRAINT `FK_VirtualFolders_PhysicalFolders_PhysicalFolderId` FOREIGN KEY (`PhysicalFolderId`) REFERENCES `physicalfolders` (`Id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_VirtualFolders_VirtualFolders_ParentId` FOREIGN KEY (`ParentId`) REFERENCES `virtualfolders` (`Id`) ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `virtualfolders`
---
-
-LOCK TABLES `virtualfolders` WRITE;
-/*!40000 ALTER TABLE `virtualfolders` DISABLE KEYS */;
-INSERT INTO `virtualfolders` VALUES ('a4d06132-d76c-49b5-8472-2bf78ac4147e','All FIles',NULL,NULL,0,'79073ec1-51e2-4772-95e6-9b06075a174b','2021-06-01 00:00:00','4b352b37-332a-40c6-ab05-e38fcf109719','2021-06-01 00:00:00','4b352b37-332a-40c6-ab05-e38fcf109719',NULL,NULL,0);
-/*!40000 ALTER TABLE `virtualfolders` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `virtualfolderusers`
@@ -986,43 +993,43 @@ INSERT  AspNetUserClaims ( `UserId`, `ClaimType`, `ClaimValue`) VALUES (N'4B352B
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getPhysicalFolderChildsHierarchyById`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPhysicalFolderChildsHierarchyById`(
 p_Id char(36))
-BEGIN
-DECLARE v_IsShared TINYINT DEFAULT 0;
-
-WITH RECURSIVE CTE (Id,
-            Name,
-			SystemFolderName,
-            ParentId,
-            PhysicalFolderId,
-			Level,
-            IsShared
-) AS
-(
- SELECT  Id,
-            Name,
-			SystemFolderName,
-            ParentId,
-            UUID() as PhysicalFolderId,
-			0 AS Level,
-            v_IsShared as IsShared
-			FROM PhysicalFolders
-WHERE ParentId = p_Id
-  UNION ALL
- SELECT  
-		f.Id,
-		f.Name,
-		f.SystemFolderName,
-		f.ParentId, 
-		UUID() as PhysicalFolderId, 
-		Level + 1,
-        v_IsShared as IsShared
-	FROM PhysicalFolders f
-    INNER JOIN CTE ON f.ParentId = CTE.Id
-)
-SELECT * FROM CTE;
-
+BEGIN
+DECLARE v_IsShared TINYINT DEFAULT 0;
+
+WITH RECURSIVE CTE (Id,
+            Name,
+			SystemFolderName,
+            ParentId,
+            PhysicalFolderId,
+			Level,
+            IsShared
+) AS
+(
+ SELECT  Id,
+            Name,
+			SystemFolderName,
+            ParentId,
+            UUID() as PhysicalFolderId,
+			0 AS Level,
+            v_IsShared as IsShared
+			FROM PhysicalFolders
+WHERE ParentId = p_Id
+  UNION ALL
+ SELECT  
+		f.Id,
+		f.Name,
+		f.SystemFolderName,
+		f.ParentId, 
+		UUID() as PhysicalFolderId, 
+		Level + 1,
+        v_IsShared as IsShared
+	FROM PhysicalFolders f
+    INNER JOIN CTE ON f.ParentId = CTE.Id
+)
+SELECT * FROM CTE;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1039,44 +1046,44 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getPhysicalFolderParentsHierarchyById`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPhysicalFolderParentsHierarchyById`(
 p_Id char(36))
-BEGIN
-DECLARE v_IsShared TINYINT DEFAULT 0;
-
-WITH RECURSIVE CTE (
-			Id,
-            Name,
-			SystemFolderName,
-            ParentId,
-            PhysicalFolderId,
-			Level,
-            IsShared
-) AS
-(
- SELECT  Id,
-            Name,
-			SystemFolderName,
-            ParentId,
-            UUID() as PhysicalFolderId,
-			0 AS Level,
-            v_IsShared as IsShared
-			FROM PhysicalFolders
-WHERE Id = p_Id
-  UNION ALL
- SELECT  
-		f.Id,
-		f.Name,
-		f.SystemFolderName,
-		f.ParentId, 
-		UUID() as PhysicalFolderId, 
-		Level + 1,
-        v_IsShared as IsShared
-	FROM PhysicalFolders f
-    INNER JOIN CTE ON f.Id = CTE.ParentId
-)
-SELECT * FROM CTE;
-
+BEGIN
+DECLARE v_IsShared TINYINT DEFAULT 0;
+
+WITH RECURSIVE CTE (
+			Id,
+            Name,
+			SystemFolderName,
+            ParentId,
+            PhysicalFolderId,
+			Level,
+            IsShared
+) AS
+(
+ SELECT  Id,
+            Name,
+			SystemFolderName,
+            ParentId,
+            UUID() as PhysicalFolderId,
+			0 AS Level,
+            v_IsShared as IsShared
+			FROM PhysicalFolders
+WHERE Id = p_Id
+  UNION ALL
+ SELECT  
+		f.Id,
+		f.Name,
+		f.SystemFolderName,
+		f.ParentId, 
+		UUID() as PhysicalFolderId, 
+		Level + 1,
+        v_IsShared as IsShared
+	FROM PhysicalFolders f
+    INNER JOIN CTE ON f.Id = CTE.ParentId
+)
+SELECT * FROM CTE;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1093,42 +1100,42 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getSharedChildsHierarchyById`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSharedChildsHierarchyById`(
 p_Id char(36))
-BEGIN
-
-WITH RECURSIVE CTE (
-			Id,
-            Name,
-			SystemFolderName,
-            ParentId,
-            PhysicalFolderId,
-			Level,
-            IsShared
-) AS
-(
- SELECT  Id,
-            Name,
-			0 as SystemFolderName,
-            ParentId,
-            PhysicalFolderId,
-			0 AS Level,
-             IsShared
-			FROM VirtualFolders
-WHERE ParentId = p_Id
-  UNION ALL
- SELECT  
-		f.Id,
-		f.Name,
-		0 as SystemFolderName,
-		f.ParentId, 
-		f.PhysicalFolderId, 
-		Level + 1,
-       f.IsShared
-	FROM VirtualFolders f
-    INNER JOIN CTE ON f.ParentId = CTE.Id
-)
-SELECT * FROM CTE WHERE IsShared=1 LIMIT 1;
+BEGIN
+
+WITH RECURSIVE CTE (
+			Id,
+            Name,
+			SystemFolderName,
+            ParentId,
+            PhysicalFolderId,
+			Level,
+            IsShared
+) AS
+(
+ SELECT  Id,
+            Name,
+			0 as SystemFolderName,
+            ParentId,
+            PhysicalFolderId,
+			0 AS Level,
+             IsShared
+			FROM VirtualFolders
+WHERE ParentId = p_Id
+  UNION ALL
+ SELECT  
+		f.Id,
+		f.Name,
+		0 as SystemFolderName,
+		f.ParentId, 
+		f.PhysicalFolderId, 
+		Level + 1,
+       f.IsShared
+	FROM VirtualFolders f
+    INNER JOIN CTE ON f.ParentId = CTE.Id
+)
+SELECT * FROM CTE WHERE IsShared=1 LIMIT 1;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1145,44 +1152,44 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getSharedParentsHierarchyById`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSharedParentsHierarchyById`(
 p_Id char(36))
-BEGIN
-DECLARE v_IsShared TINYINT DEFAULT 0;
-
-WITH RECURSIVE CTE (
-			Id,
-            Name,
-			SystemFolderName,
-            ParentId,
-            PhysicalFolderId,
-			Level,
-            IsShared
-) AS
-(
- SELECT  Id,
-            Name,
-			0 as SystemFolderName,
-            ParentId,
-            PhysicalFolderId,
-			0 AS Level,
-            IsShared
-			FROM VirtualFolders
-WHERE Id = p_Id
-  UNION ALL
- SELECT  
-		f.Id,
-		f.Name,
-		0 as SystemFolderName,
-		f.ParentId, 
-		f.PhysicalFolderId, 
-		Level + 1,
-         f.IsShared
-	FROM VirtualFolders f
-    INNER JOIN CTE ON f.Id = CTE.ParentId
-)
-SELECT  * FROM CTE WHERE Id!=p_Id AND IsShared=1 limit 1;
-
+BEGIN
+DECLARE v_IsShared TINYINT DEFAULT 0;
+
+WITH RECURSIVE CTE (
+			Id,
+            Name,
+			SystemFolderName,
+            ParentId,
+            PhysicalFolderId,
+			Level,
+            IsShared
+) AS
+(
+ SELECT  Id,
+            Name,
+			0 as SystemFolderName,
+            ParentId,
+            PhysicalFolderId,
+			0 AS Level,
+            IsShared
+			FROM VirtualFolders
+WHERE Id = p_Id
+  UNION ALL
+ SELECT  
+		f.Id,
+		f.Name,
+		0 as SystemFolderName,
+		f.ParentId, 
+		f.PhysicalFolderId, 
+		Level + 1,
+         f.IsShared
+	FROM VirtualFolders f
+    INNER JOIN CTE ON f.Id = CTE.ParentId
+)
+SELECT  * FROM CTE WHERE Id!=p_Id AND IsShared=1 limit 1;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1199,43 +1206,43 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getVirtualFolderChildsHierarchyById`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getVirtualFolderChildsHierarchyById`(
 p_Id char(36))
-BEGIN
-DECLARE v_IsShared TINYINT DEFAULT 0;
-
-WITH RECURSIVE CTE (
-			Id,
-            Name,
-			SystemFolderName,
-            ParentId,
-            PhysicalFolderId,
-			Level,
-            IsShared
-) AS
-(
- SELECT  Id,
-            Name,
-			0 as SystemFolderName,
-            ParentId,
-            PhysicalFolderId,
-			0 AS Level,
-             IsShared
-			FROM VirtualFolders
-WHERE ParentId = p_Id
-  UNION ALL
- SELECT  
-		f.Id,
-		f.Name,
-		0 as SystemFolderName,
-		f.ParentId, 
-		f.PhysicalFolderId, 
-		Level + 1,
-       f.IsShared
-	FROM VirtualFolders f
-    INNER JOIN CTE ON f.ParentId = CTE.Id
-)
-SELECT * FROM CTE;
+BEGIN
+DECLARE v_IsShared TINYINT DEFAULT 0;
+
+WITH RECURSIVE CTE (
+			Id,
+            Name,
+			SystemFolderName,
+            ParentId,
+            PhysicalFolderId,
+			Level,
+            IsShared
+) AS
+(
+ SELECT  Id,
+            Name,
+			0 as SystemFolderName,
+            ParentId,
+            PhysicalFolderId,
+			0 AS Level,
+             IsShared
+			FROM VirtualFolders
+WHERE ParentId = p_Id
+  UNION ALL
+ SELECT  
+		f.Id,
+		f.Name,
+		0 as SystemFolderName,
+		f.ParentId, 
+		f.PhysicalFolderId, 
+		Level + 1,
+       f.IsShared
+	FROM VirtualFolders f
+    INNER JOIN CTE ON f.ParentId = CTE.Id
+)
+SELECT * FROM CTE;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1252,42 +1259,42 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getVirtualFolderParentsHierarchyById`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getVirtualFolderParentsHierarchyById`(
 p_Id char(36))
-BEGIN
-
-WITH RECURSIVE CTE (
-			Id,
-            Name,
-			SystemFolderName,
-            ParentId,
-            PhysicalFolderId,
-			Level,
-            IsShared
-) AS
-(
- SELECT     Id,
-            Name,
-			0 as SystemFolderName,
-            ParentId,
-            PhysicalFolderId,
-			0 AS Level,
-             IsShared
-			FROM VirtualFolders
-WHERE Id = p_Id
-  UNION ALL
- SELECT  
-		f.Id,
-		f.Name,
-		0 as SystemFolderName,
-		f.ParentId, 
-		f.PhysicalFolderId, 
-		Level + 1,
-       f.IsShared
-	FROM VirtualFolders f
-    INNER JOIN CTE ON f.Id = CTE.ParentId
-)
-SELECT * FROM CTE;
+BEGIN
+
+WITH RECURSIVE CTE (
+			Id,
+            Name,
+			SystemFolderName,
+            ParentId,
+            PhysicalFolderId,
+			Level,
+            IsShared
+) AS
+(
+ SELECT     Id,
+            Name,
+			0 as SystemFolderName,
+            ParentId,
+            PhysicalFolderId,
+			0 AS Level,
+             IsShared
+			FROM VirtualFolders
+WHERE Id = p_Id
+  UNION ALL
+ SELECT  
+		f.Id,
+		f.Name,
+		0 as SystemFolderName,
+		f.ParentId, 
+		f.PhysicalFolderId, 
+		Level + 1,
+       f.IsShared
+	FROM VirtualFolders f
+    INNER JOIN CTE ON f.Id = CTE.ParentId
+)
+SELECT * FROM CTE;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1304,40 +1311,40 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `NLog_AddEntry_p`(
-  p_machineName nvarchar(200),
-  p_logged datetime(3),
-  p_level varchar(5),
-  p_message longtext,
-  p_logger nvarchar(300),
-  p_properties longtext,
-  p_callsite nvarchar(300),
-  p_exception longtext
+CREATE DEFINER=`root`@`localhost` PROCEDURE `NLog_AddEntry_p`(
+  p_machineName nvarchar(200),
+  p_logged datetime(3),
+  p_level varchar(5),
+  p_message longtext,
+  p_logger nvarchar(300),
+  p_properties longtext,
+  p_callsite nvarchar(300),
+  p_exception longtext
 )
-BEGIN
-  INSERT INTO NLog (
-	`Id`,
-    `MachineName`,
-    `Logged`,
-    `Level`,
-    `Message`,
-    `Logger`,
-    `Properties`,
-    `Callsite`,
-    `Exception`,
-	`Source`
-  ) VALUES (
-    uuid(),
-    p_machineName,
-    p_logged,
-    p_level,
-    p_message,
-    p_logger,
-    p_properties,
-    p_callsite,
-    p_exception,
-	'.Net Core'
-  );
+BEGIN
+  INSERT INTO NLog (
+	`Id`,
+    `MachineName`,
+    `Logged`,
+    `Level`,
+    `Message`,
+    `Logger`,
+    `Properties`,
+    `Callsite`,
+    `Exception`,
+	`Source`
+  ) VALUES (
+    uuid(),
+    p_machineName,
+    p_logged,
+    p_level,
+    p_message,
+    p_logger,
+    p_properties,
+    p_callsite,
+    p_exception,
+	'.Net Core'
+  );
   END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
