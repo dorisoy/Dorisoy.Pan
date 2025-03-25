@@ -22,7 +22,7 @@ namespace Dorisoy.Pan.Helper
 
         private static List<string> compressedFileExtension = new List<string>
         {
-            ".gzip",".7z",".zip"
+            ".gzip",".zip"
         };
         public static string SaveThumbnailFile(IFormFile file, string name, string documentPath, string userId)
         {
@@ -36,7 +36,7 @@ namespace Dorisoy.Pan.Helper
                     try
                     {
                         using var image = Image.Load(file.OpenReadStream());
-                        image.Mutate(x => x.Resize(100, 100));
+                        image.Mutate(x => x.Resize(96, 96));
                         if (!Directory.Exists($"{documentPath}"))
                         {
                             Directory.CreateDirectory($"{documentPath}");
@@ -86,6 +86,14 @@ namespace Dorisoy.Pan.Helper
                 else if (fileExtension == ".sql")
                 {
                     return Path.Combine("Thumbnails", "sql.png");
+                }
+                else if (fileExtension == ".rar")
+                {
+                    return Path.Combine("Thumbnails", "rar.png");
+                }
+                else if (fileExtension == ".7z")
+                {
+                    return Path.Combine("Thumbnails", "7z.png");
                 }
                 else if (videoFileExtension.IndexOf(fileExtension) >= 0)
                 {
