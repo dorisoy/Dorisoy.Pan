@@ -16,9 +16,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ClientApp\**" />
     <Compile Remove="Documents\**" />
+    <Content Remove="ClientApp\**" />
     <Content Remove="Documents\**" />
+    <EmbeddedResource Remove="ClientApp\**" />
     <EmbeddedResource Remove="Documents\**" />
+    <None Remove="ClientApp\**" />
     <None Remove="Documents\**" />
   </ItemGroup>
 
@@ -50,7 +54,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\" />
+    <Folder Include="Documents\Thumbnails\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

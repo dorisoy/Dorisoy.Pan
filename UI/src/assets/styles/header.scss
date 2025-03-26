@@ -1,5 +1,14 @@
+html,body{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.main-content{
+  height: 100%;
+}
 #layoutSidenav {
   display: flex;
+  height: 100%;
 }
 
 #layoutSidenav #layoutSidenav_nav {
@@ -17,16 +26,23 @@
   justify-content: space-between;
   min-width: 0;
   flex-grow: 1;
-  height: calc(100vh - 71px);
   overflow: hidden;
   margin-left: -250px;
 }
 
 .table-responsive {
-  height: calc(100vh - 190px);
+  flex-grow: 2;
+  position: relative;
+  flex-direction: column;
+  display: flex;
+  padding-bottom: 100px;
+}
+.table-responsive>div:nth-child(2){
+  flex-grow: 2;
+  overflow-y: auto;
 }
 .table-responsive-dialog {
-  height: calc(100vh - 225px);
+  height: calc(100% - 225px);
   overflow: auto;
 }
 
@@ -56,14 +72,14 @@
 .right-sidebar {
   width: 250px;
   background-color: white;
-  height: calc(100vh - 71px);
+  height: calc(100% - 71px);
   overflow: auto;
   padding: 20px;
   border-left: 1px solid #eef1f7;
 }
 @media (min-width: 1200px) {
   .table-responsive-dialog {
-    height: calc(100vh - 284px);
+    height: calc(100% - 284px);
     overflow: auto;
   }
 }
@@ -101,7 +117,6 @@
 
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
   width: 250px;
-  height: calc(100vh - 71px);
   z-index: 1038;
   background: #f4f7fc;
 }
@@ -116,7 +131,7 @@
 
 .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
   top: 0;
-  padding: 5px 20px 30px 20px;
+  padding: 5px 20px 0px 20px;
 }
 
 .sb-sidenav .sb-sidenav-menu .nav .nav-link {
@@ -332,17 +347,13 @@
     display: none;
   }
   .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
-    padding: 5px 10px 10px 10px;
-    overflow: auto;
-    overflow-x: hidden;
+    padding: 5px 10px 0px 10px;
+   
   }
 
   .sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
     z-index: 10381;
     position: relative;
-    height: calc(100vh - 63px);
-  }
-  .table-responsive {
-    height: calc(100vh - 228px);
+    height: calc(100% - 63px);
   }
 }

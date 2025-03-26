@@ -4,6 +4,7 @@ using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Linq;
 
 namespace Dorisoy.Pan.Helper
 {
@@ -24,7 +25,16 @@ namespace Dorisoy.Pan.Helper
         {
             ".gzip",".zip"
         };
-        public static string SaveThumbnailFile(IFormFile file, string name, string documentPath, string userId)
+        public static string GetThumbnailFile(string documentPath, string path)
+        {
+            if (path.IndexOf(zoomName) != -1)
+            {
+                return Path.Combine(documentPath, path);
+            }
+            return path;
+        }
+        static string zoomName = "_thumbnail_";
+        public static string SaveThumbnailFile(IFormFile file, string name, string documentPath)
         {
             try
             {
@@ -41,9 +51,9 @@ namespace Dorisoy.Pan.Helper
                         {
                             Directory.CreateDirectory($"{documentPath}");
                         }
-                        var path = Path.Combine(documentPath, "_thumbnail_" + name);
+                        var path = Path.Combine(documentPath, "Thumbnails", zoomName + name);
                         image.Save(path);
-                        return Path.Combine(userId, $"_thumbnail_{name}");
+                        return Path.Combine("Thumbnails", $"{zoomName}{name}");
                     }
                     catch
                     {

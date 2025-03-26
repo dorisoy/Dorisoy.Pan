@@ -69,19 +69,12 @@ namespace Dorisoy.Pan.MediatR.Handlers
                 return ServiceResponse<DocumentDto>.Return400("Executable file is not allowed to upload.");
             }
             var path = $"{Guid.NewGuid()}{extension}";
-            //var folderPath = await _physicalFolderRepository.GetParentFolderPath(request.FolderId);
-            // var documentPath = $"{_webHostEnvironment.ContentRootPath}\\{_pathHelper.DocumentPath}{folderPath}\\{childFolderPath}";
+
             var documentPath = Path.Combine(_pathHelper.ContentRootPath, _pathHelper.DocumentPath, _userInfoToken.Id.ToString());
-            //var thumbnailPath = $"{_webHostEnvironment.WebRootPath}\\{_pathHelper.DocumentPath}";
-            var thumbnailPath = Path.Combine(_webHostEnvironment.WebRootPath, _pathHelper.DocumentPath, _userInfoToken.Id.ToString());
 
             if (!Directory.Exists(documentPath))
             {
                 Directory.CreateDirectory(documentPath);
-            }
-            if (!Directory.Exists(thumbnailPath))
-            {
-                Directory.CreateDirectory(thumbnailPath);
             }
 
             var document = await _documentRepository.All
@@ -151,7 +144,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                     Path = Path.Combine(_userInfoToken.Id.ToString(), path),
                     Size = fileToSave.Length,
                     Name = fileName,
-                    ThumbnailPath = ThumbnailHelper.SaveThumbnailFile(fileToSave, path, thumbnailPath, _userInfoToken.Id.ToString()),
+                    ThumbnailPath = ThumbnailHelper.SaveThumbnailFile(fileToSave, path, _pathHelper.DocumentPath),
                     PhysicalFolderId = parentId
                 };
                 try
@@ -179,7 +172,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                     return ServiceResponse<DocumentDto>.ReturnException(ex);
                 }
             }
-            document.ThumbnailPath = Path.Combine(_pathHelper.DocumentPath, document.ThumbnailPath);
+            document.ThumbnailPath = ThumbnailHelper.GetThumbnailFile(_pathHelper.DocumentPath, document.ThumbnailPath);
             var documentDto = _mapper.Map<DocumentDto>(document);
             return ServiceResponse<DocumentDto>.ReturnResultWith201(documentDto);
         }

@@ -132,7 +132,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                     Path = $"{folderPath}\\{childFolderPath}{path}",
                     Size = fileToSave.Length,
                     Name = fileName,
-                    ThumbnailPath = ThumbnailHelper.SaveThumbnailFile(fileToSave, path, thumbnailPath, $"{folderPath}\\{childFolderPath}"),
+                    ThumbnailPath = ThumbnailHelper.SaveThumbnailFile(fileToSave, path, _pathHelper.DocumentPath),
                     PhysicalFolderId = parentId.Value
                 };
                 try

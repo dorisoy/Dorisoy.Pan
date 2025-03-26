@@ -43,58 +43,58 @@
       <mat-spinner></mat-spinner>
     </div>
     <div class="table-responsive">
-      <table class="table">
-        <thead matSort *ngIf="listView=='list'" (matSortChange)="sortData($event)">
-          <tr class="d-flex">
-            <th class="col-auto">
-              <mat-checkbox #checkboxes color="primary" [checked]="isCheck" (change)="onAllChecked($event)">
-              </mat-checkbox>
-            </th>
-            <th class="col" mat-sort-header="name">名称</th>
-            <th class="d-none d-sm-table-cell col-3" scope="col" mat-sort-header="createdDate">上次修改时间</th>
-            <th class="d-none d-sm-table-cell col-2">可见成员</th>
-            <th class="col-1"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <div cdkDropListGroup>
-            <app-folder-list [listView]="listView" [folders]="selectedFolder?.children"
-              [selectedFolder]="selectedFolder" (onFolderClickEvent)="onFolderClickEvent($event)"
-              (deleteFolderEvent)="deleteFolderEvent($event)">
-            </app-folder-list>
-            <app-document-list [listView]="listView" [isMove]="true" [isCopy]="true" [selectFolder]="selectedFolder"
-              [documents]="selectedFolder?.documents" (copyDocumentEvent)="onCopyDocumentEvent($event)"
-              (deleteDocumentEvent)=deleteDocumentEvent($event)>
-            </app-document-list>
-            <ng-container *ngIf="selectedFolder">
-              <div class="card border-primary text-center upload-file-folder mt-1" [appDragDrop]="selectedFolder"
-                [rootFolder]="rootFolder">
-                <div class="card-body">
-                  <div>
-                    <p>
-                      <span>
-                        <i class="fa fa-upload text-primary fa-5x" aria-hidden="true"></i>
-                      </span>
-                    </p>
-                    <h5 class="text-dark">将要上载到的文件或文件夹拖放到此处 <span class="text-primary">
-                        {{selectedFolder?.name}} </span>
-                    </h5>
-                    <h5> <span class="text-danger"> 或者</span></h5>
-                    <p class="text-center">
-                      <button *hasClaim="'IsFileUpload'" (click)="fileInput.click()" type="button"
-                        class="btn btn-danger">
-                        <i class="fas fa-file"></i> 浏览文件
-                      </button>
-                      <input (change)="fileEvent($event)" hidden #fileInput multiple name="file" type="file"
-                        name="Upload File" fxFlex="30">
-                    </p>
-                  </div>
-                </div>
+      <div>
+        <table class="table">
+          <thead matSort *ngIf="listView=='list'" (matSortChange)="sortData($event)">
+            <tr class="d-flex">
+              <th class="col-auto">
+                <mat-checkbox #checkboxes color="primary" [checked]="isCheck" (change)="onAllChecked($event)">
+                </mat-checkbox>
+              </th>
+              <th class="col" mat-sort-header="name">名称</th>
+              <th class="d-none d-sm-table-cell col-3" scope="col" mat-sort-header="createdDate">上次修改时间</th>
+              <th class="d-none d-sm-table-cell col-2">可见成员</th>
+              <th class="col-1"></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div >
+        <app-folder-list [listView]="listView" [folders]="selectedFolder?.children"
+          [selectedFolder]="selectedFolder" (onFolderClickEvent)="onFolderClickEvent($event)"
+          (deleteFolderEvent)="deleteFolderEvent($event)">
+        </app-folder-list>
+        <app-document-list [listView]="listView" [isMove]="true" [isCopy]="true" [selectFolder]="selectedFolder"
+          [documents]="selectedFolder?.documents" (copyDocumentEvent)="onCopyDocumentEvent($event)"
+          (deleteDocumentEvent)=deleteDocumentEvent($event)>
+        </app-document-list>
+        <ng-container *ngIf="selectedFolder">
+          <div class="card border-primary text-center upload-file-folder mt-1" [appDragDrop]="selectedFolder"
+            [rootFolder]="rootFolder">
+            <div class="card-body">
+              <div>
+                <p>
+                  <span>
+                    <i class="fa fa-upload text-primary fa-5x" aria-hidden="true"></i>
+                  </span>
+                </p>
+                <h5 class="text-dark">将要上载到的文件或文件夹拖放到此处 <span class="text-primary">
+                    {{selectedFolder?.name}} </span>
+                </h5>
+                <h5> <span class="text-danger"> 或者</span></h5>
+                <p class="text-center">
+                  <button *hasClaim="'IsFileUpload'" (click)="fileInput.click()" type="button"
+                    class="btn btn-danger">
+                    <i class="fas fa-file"></i> 浏览文件
+                  </button>
+                  <input (change)="fileEvent($event)" hidden #fileInput multiple name="file" type="file"
+                    name="Upload File" fxFlex="30">
+                </p>
               </div>
-            </ng-container>
+            </div>
           </div>
-        </tbody>
-      </table>
+        </ng-container>
+      </div>
     </div>
   </div>
 </div>

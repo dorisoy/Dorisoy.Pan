@@ -9,6 +9,7 @@
   padding    : 0 15px;
   background : #2d2d2d;
   z-index    : 10;
+  white-space: nowrap;
 }
 
 .back-arrow {
@@ -23,10 +24,16 @@
 .file-name {
   color      : #fff;
   margin-left: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-grow: 1;
 }
 
 .alignleft {
-  float     : left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width     : 33.33333%;
   text-align: left;
 }
