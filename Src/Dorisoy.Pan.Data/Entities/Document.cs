@@ -7,6 +7,7 @@ namespace Dorisoy.Pan.Data
     public class Document : BaseEntity
     {
         public Guid Id { get; set; }
+        public string Md5 { get; set; }
         public string Name { get; set; }
         public Guid PhysicalFolderId { get; set; }
         [ForeignKey("PhysicalFolderId")]

@@ -10,6 +10,8 @@ using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -47,11 +49,64 @@ namespace Dorisoy.Pan.MediatR.Handlers
             _mapper = mapper;
             _userInfoToken = userInfoToken;
         }
+        /// <summary>
+        ///  文件保存
+        /// TODO 并发上传一文件问题
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="documentPath"></param>
+        /// <param name="saveName"></param>
+        private void SaveFile(UploadDocumentCommand request, string documentPath, string saveName)
+        {
+            var tempPath = Path.Combine(documentPath, request.Md5);
+            if (!Directory.Exists(documentPath))
+            {
+                Directory.CreateDirectory(documentPath);
+            }
+            if (!Directory.Exists(tempPath))
+            {
+                Directory.CreateDirectory(tempPath);
+            }
+
+            var bytesData = AesOperation.ReadAsBytesAsync(request.Documents[0]);
+            var size = request.Total.ToString().Length;
+
+            var temp = Path.Combine(tempPath, request.Index.ToString().PadLeft(size, '0'));
+            if (!File.Exists(temp))
+            {
+                using (var stream = new FileStream(temp, FileMode.Create))
+                {
+                    stream.Write(bytesData, 0, bytesData.Length);
+                }
+            }
+            if (request.Index >= request.Total)
+            {
+                var path = Path.Combine(documentPath, saveName);
+                var files = new DirectoryInfo(tempPath).GetFiles().OrderBy(p => p.Name);
+                if (files.Count() > 0)
+                {
+                    var list = new List<byte>();
+                    foreach (var item in files)
+                    {
+                        var bytes = File.ReadAllBytes(item.FullName);
+                        list.AddRange(bytes);
+                        File.Delete(item.FullName);
+                    }
+                    var datas = list.ToArray();
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        var byteArray = AesOperation.EncryptStream(datas, _pathHelper.EncryptionKey);
+                        stream.Write(byteArray, 0, byteArray.Length);
+                    }
+                    Directory.Delete(tempPath, true);
+                }
+            }
+        }
         public async Task<ServiceResponse<DocumentDto>> Handle(UploadDocumentCommand request, CancellationToken cancellationToken)
         {
             var fullFileName = string.IsNullOrEmpty(request.FullPath) ? request.Documents[0].FileName : request.FullPath;
-     
-            var parentId  = await GetDocumentParentIdAndPath(request.FolderId, fullFileName);
+
+            var parentId = await GetDocumentParentIdAndPath(request.FolderId, fullFileName);
             if (Guid.Empty == parentId)
             {
                 return ServiceResponse<DocumentDto>.Return404();
@@ -68,13 +123,32 @@ namespace Dorisoy.Pan.MediatR.Handlers
             {
                 return ServiceResponse<DocumentDto>.Return400("Executable file is not allowed to upload.");
             }
-            var path = $"{Guid.NewGuid()}{extension}";
+            var saveName = $"{request.Md5}{extension}";
+            var now = DateTime.Now.ToString("yyyyMMdd");
+            //数据库存储相对路径
+            var saveFullPath = Path.Combine(now, saveName);
+            //物理文件目录
+            var documentPath = Path.Combine(_pathHelper.ContentRootPath, _pathHelper.DocumentPath, now);
 
-            var documentPath = Path.Combine(_pathHelper.ContentRootPath, _pathHelper.DocumentPath, _userInfoToken.Id.ToString());
-
-            if (!Directory.Exists(documentPath))
+            //文件是否存在
+            var old = await _documentRepository.All.FirstOrDefaultAsync(p => p.Md5 == request.Md5);
+            var oldDocument = await _documentRepository.All
+                     .Where(c => c.PhysicalFolderId == parentId
+                     && c.Md5 == request.Md5
+                     && (c.CreatedBy == _userInfoToken.Id
+                     || c.SharedDocumentUsers.Any(c => c.UserId == _userInfoToken.Id)
+                     || c.Folder.PhysicalFolderUsers.Any(c => c.UserId == _userInfoToken.Id)
+                     ))
+                     .FirstOrDefaultAsync();
+            if (old != null && oldDocument != null && old.Id == oldDocument.Id)
             {
-                Directory.CreateDirectory(documentPath);
+                return ServiceResponse<DocumentDto>.Return400("文件已存在.");
+            }
+            var include = old != null;
+            if (request.Index < request.Total && !include)
+            {
+                SaveFile(request, documentPath, saveName);
+                return ServiceResponse<DocumentDto>.ReturnResultWith201(null);
             }
 
             var document = await _documentRepository.All
@@ -87,78 +161,50 @@ namespace Dorisoy.Pan.MediatR.Handlers
                 .FirstOrDefaultAsync();
             if (document != null)
             {
-                var versionPath = Path.Combine(documentPath, document.Id.ToString());
-                if (!Directory.Exists(versionPath))
+                if (!include)
                 {
-                    Directory.CreateDirectory(versionPath);
+                    SaveFile(request, documentPath, saveName);
                 }
 
-                //var versionFileName = document.Path.Replace($"{folderPath}\\{childFolderPath}", "");
-
-                var versionFileName = $"{Guid.NewGuid()}{extension}";
-                // var sourceFile = $"{_webHostEnvironment.ContentRootPath}\\{_pathHelper.DocumentPath}{document.Path}";
-                var sourceFile = Path.Combine(_pathHelper.ContentRootPath, _pathHelper.DocumentPath, document.Path);
-                //var detinationFile = $"{documentPath}{document.Id}\\{versionFileName}";
-                var detinationFile = Path.Combine(versionPath, versionFileName);
-                File.Move(sourceFile, detinationFile);
-
-                foreach (var file in request.Documents)
-                {
-                    var bytesData = AesOperation.ReadAsBytesAsync(file);
-
-                    using (var stream = new FileStream(Path.Combine(documentPath, path), FileMode.Create))
-                    {
-                        var byteArray = AesOperation.EncryptStream(bytesData, _pathHelper.EncryptionKey);
-                        stream.Write(byteArray, 0, byteArray.Length);
-                    }
-                }
-                //Path = Path.Combine(_userInfoToken.Id.ToString(), document.Id.ToString(), versionFileName),
                 _documentVersionRepository.Add(new DocumentVersion
                 {
                     DocumentId = document.Id,
-                    Path = Path.Combine(_userInfoToken.Id.ToString(), document.Id.ToString(), versionFileName),
-                    Size = document.Size,
+                    Path = saveFullPath,
+                    Size = request.Size,
                     CreatedBy = document.CreatedBy,
                     CreatedDate = document.CreatedDate,
                     ModifiedDate = document.ModifiedDate,
                     ModifiedBy = document.ModifiedBy
                 });
-                // document.Path = $"{folderPath}\\{childFolderPath}{path}";
-                document.Path = Path.Combine(_userInfoToken.Id.ToString(), path);
+                document.Path = saveFullPath;
                 document.Size = fileToSave.Length;
                 _documentRepository.Update(document);
                 if (await _uow.SaveAsync() <= 0)
                 {
                     // revert move
-                    File.Move(detinationFile, sourceFile);
                     return ServiceResponse<DocumentDto>.Return500();
                 }
             }
             else
             {
-                var documentId = Guid.NewGuid();
-                document = new Document
-                {
-                    Id = documentId,
-                    Extension = extension,
-                    Path = Path.Combine(_userInfoToken.Id.ToString(), path),
-                    Size = fileToSave.Length,
-                    Name = fileName,
-                    ThumbnailPath = ThumbnailHelper.SaveThumbnailFile(fileToSave, path, _pathHelper.DocumentPath),
-                    PhysicalFolderId = parentId
-                };
                 try
                 {
-                    foreach (var file in request.Documents)
+                    if (!include)
                     {
-                        var bytesData = AesOperation.ReadAsBytesAsync(file);
-                        var storePath = Path.Combine(documentPath, path);
-                        using (var stream = new FileStream(storePath, FileMode.Create))
-                        {
-                            var byteArray = AesOperation.EncryptStream(bytesData, _pathHelper.EncryptionKey);
-                            stream.Write(byteArray, 0, byteArray.Length);
-                        }
+                        SaveFile(request, documentPath, saveName);
                     }
+
+                    document = new Document
+                    {
+                        Id = Guid.NewGuid(),
+                        Extension = extension,
+                        Path = saveFullPath,
+                        Size = request.Size,
+                        Md5 = request.Md5,
+                        Name = fileName,
+                        ThumbnailPath = include ? old.ThumbnailPath : ThumbnailHelper.SaveThumbnailFile(fileToSave, saveName, documentPath, Path.Combine(_pathHelper.ContentRootPath, _pathHelper.DocumentPath), _pathHelper.EncryptionKey),
+                        PhysicalFolderId = parentId
+                    };
 
                     _documentRepository.Add(document);
 
@@ -179,8 +225,8 @@ namespace Dorisoy.Pan.MediatR.Handlers
 
         private async Task<Guid> GetDocumentParentIdAndPath(Guid rootId, string fullFileName)
         {
-            var folderPaths =  fullFileName.Split("/").SkipLast(1).ToList();
-            if (folderPaths.Count()==0)
+            var folderPaths = fullFileName.Split("/").SkipLast(1).ToList();
+            if (folderPaths.Count() == 0)
             {
                 folderPaths = fullFileName.Split("\\").SkipLast(1).ToList();
             }

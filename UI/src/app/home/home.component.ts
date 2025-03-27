@@ -18,8 +18,13 @@ import { HttpEventType } from '@angular/common/http';
 import { FileUploadProcessComponent } from '@shared/file-upload-process/file-upload-process.component';
 import { OverlayPanel } from '@shared/overlay-panel/overlay-panel.service';
 import { ToastrService } from 'ngx-toastr';
-import { RecentActivity, RecentActivityType } from '@core/domain-classes/recent-activity';
+import {
+  RecentActivity,
+  RecentActivityType,
+} from '@core/domain-classes/recent-activity';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { ComputeMD5, ChunkFile } from '@core/utils/file-helper';
+import { Chunk } from '@core/core.types';
 
 @Component({
   selector: 'app-home',
@@ -58,42 +63,41 @@ export class HomeComponent extends BaseComponent implements OnInit, OnDestroy {
   }
   onAllChecked(value: MatCheckboxChange) {
     this.isCheck = value.checked;
-    if(this.isCheck){
+    if (this.isCheck) {
       this.observableService.setCheckAll(value.checked);
     } else {
       this.observableService.removeAll();
     }
   }
   checkAllSubscription() {
-    this.sub$.sink = this.observableService.mainCheckBox$.subscribe(c => {
+    this.sub$.sink = this.observableService.mainCheckBox$.subscribe((c) => {
       this.isCheck = c;
     });
   }
 
   rootFolderSubscription() {
-    this.sub$.sink = this.observableService.rootFolder$.subscribe(folder => {
+    this.sub$.sink = this.observableService.rootFolder$.subscribe((folder) => {
       this.rootFolder = folder;
       this.getFolderParam();
     });
   }
 
   getFolderParam() {
-    this.sub$.sink = this.activeRoute.paramMap
-      .pipe()
-      .subscribe((c: Params) => {
-        const id = c.get('id');
-        if (id) {
-          this.getFolderDetailById(id);
-        }
-      });
+    this.sub$.sink = this.activeRoute.paramMap.pipe().subscribe((c: Params) => {
+      const id = c.get('id');
+      if (id) {
+        this.getFolderDetailById(id);
+      }
+    });
   }
 
   getFolderDetailById(id: string) {
     if (this.rootFolder.id != id) {
-      this.sub$.sink = this.commonService.getFolderDetailById(id)
+      this.sub$.sink = this.commonService
+        .getFolderDetailById(id)
         .subscribe((c: Folder) => {
           if (c) {
-            c.users.forEach(u => {
+            c.users.forEach((u) => {
               if (u.profilePhoto) {
                 u.profilePhoto = `${environment.apiUrl}${u.profilePhoto}`;
               }
@@ -118,23 +122,35 @@ export class HomeComponent extends BaseComponent implements OnInit, OnDestroy {
     this.selectedFolder.children = this.selectedFolder.children.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'name': return this.compare(a.name, b.name, isAsc);
-        case 'createdDate': return this.compare(a.createdDate, b.createdDate, isAsc);
-        default: return 0;
+        case 'name':
+          return this.compare(a.name, b.name, isAsc);
+        case 'createdDate':
+          return this.compare(a.createdDate, b.createdDate, isAsc);
+        default:
+          return 0;
       }
     });
 
-    this.selectedFolder.documents = this.selectedFolder.documents.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'name': return this.compare(a.name, b.name, isAsc);
-        case 'createdDate': return this.compare(a.modifiedDate, b.modifiedDate, isAsc);
-        default: return 0;
+    this.selectedFolder.documents = this.selectedFolder.documents.sort(
+      (a, b) => {
+        const isAsc = sort.direction === 'asc';
+        switch (sort.active) {
+          case 'name':
+            return this.compare(a.name, b.name, isAsc);
+          case 'createdDate':
+            return this.compare(a.modifiedDate, b.modifiedDate, isAsc);
+          default:
+            return 0;
+        }
       }
-    });
+    );
   }
 
-  compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
+  compare(
+    a: number | string | Date,
+    b: number | string | Date,
+    isAsc: boolean
+  ) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
@@ -145,7 +161,11 @@ export class HomeComponent extends BaseComponent implements OnInit, OnDestroy {
 
   folderNotificationSubscription() {
     this.sub$.sink = this.signalrService.folderNotification$.subscribe((c) => {
-      if (c && this.selectedFolder && c === this.selectedFolder.physicalFolderId) {
+      if (
+        c &&
+        this.selectedFolder &&
+        c === this.selectedFolder.physicalFolderId
+      ) {
         this.getChildFolders(this.selectedFolder.id);
         this.getDocuments(this.selectedFolder.id);
       }
@@ -189,14 +209,13 @@ export class HomeComponent extends BaseComponent implements OnInit, OnDestroy {
 
   getChildFolders(parentId: string) {
     this.isFolderLoading = true;
-    this.sub$.sink = this.homeService
-      .getFolders(parentId)
-      .subscribe((childs: Folder[]) => {
-        childs.forEach(child => {
+    this.sub$.sink = this.homeService.getFolders(parentId).subscribe(
+      (childs: Folder[]) => {
+        childs.forEach((child) => {
           if (child.users) {
-            child.users = child.users.map(u => {
+            child.users = child.users.map((u) => {
               if (u.profilePhoto) {
-                u.profilePhoto = `${environment.apiUrl}${u.profilePhoto}`
+                u.profilePhoto = `${environment.apiUrl}${u.profilePhoto}`;
               }
               return u;
             });
@@ -204,30 +223,35 @@ export class HomeComponent extends BaseComponent implements OnInit, OnDestroy {
         });
         this.selectedFolder.children = childs;
         this.isFolderLoading = false;
-      }, () => this.isFolderLoading = false);
+      },
+      () => (this.isFolderLoading = false)
+    );
   }
 
   getDocuments(folderId: string) {
     this.isDocumentLoading = true;
     this.sub$.sink = this.homeService
       .getDocumentsByFolderId(folderId)
-      .subscribe((documents: Documents[]) => {
-        this.isDocumentLoading = false;
-        documents.forEach((document) => {
-          if (document.thumbnailPath) {
-            document.thumbnailPath = `${environment.apiUrl}${document.thumbnailPath}`;
-          }
-          if (document.users) {
-            document.users = document.users.map(u => {
-              if (u.profilePhoto) {
-                u.profilePhoto = `${environment.apiUrl}${u.profilePhoto}`
-              }
-              return u;
-            });
-          }
-        });
-        this.selectedFolder.documents = documents;
-      }, () => this.isDocumentLoading = false);
+      .subscribe(
+        (documents: Documents[]) => {
+          this.isDocumentLoading = false;
+          documents.forEach((document) => {
+            if (document.thumbnailPath) {
+              document.thumbnailPath = `${environment.apiUrl}${document.thumbnailPath}`;
+            }
+            if (document.users) {
+              document.users = document.users.map((u) => {
+                if (u.profilePhoto) {
+                  u.profilePhoto = `${environment.apiUrl}${u.profilePhoto}`;
+                }
+                return u;
+              });
+            }
+          });
+          this.selectedFolder.documents = documents;
+        },
+        () => (this.isDocumentLoading = false)
+      );
   }
 
   addFolder(): void {
@@ -239,7 +263,7 @@ export class HomeComponent extends BaseComponent implements OnInit, OnDestroy {
       if (result) {
         this.treeViewService.setRefreshTreeView(result);
         this.sendNotification();
-        this.onFolderClickEvent(result)
+        this.onFolderClickEvent(result);
       }
     });
   }
@@ -250,7 +274,7 @@ export class HomeComponent extends BaseComponent implements OnInit, OnDestroy {
       };
       this.sub$.sink = this.commonService
         .sendNotification(notification)
-        .subscribe((c) => { });
+        .subscribe((c) => {});
     }
   }
 
@@ -287,59 +311,88 @@ export class HomeComponent extends BaseComponent implements OnInit, OnDestroy {
     this.getDocuments(this.selectedFolder.id);
   }
 
-  fileEvent($event) {
+  async fileEvent($event) {
     let files: File[] = $event.target.files;
     if (files.length == 0) {
       return;
     }
     this.totalFileUploaded = 0;
     if (!this.observableService.progressBarOverlay) {
-      this.observableService.progressBarOverlay = this.overlay.open(FileUploadProcessComponent, {
-        origin: 'global',
-        hasBackdrop: false,
-        position: { right: '10px', bottom: '10px' },
-        mobilePosition: { left: 0, bottom: 0 }
-      });
+      this.observableService.progressBarOverlay = this.overlay.open(
+        FileUploadProcessComponent,
+        {
+          origin: 'global',
+          hasBackdrop: false,
+          position: { right: '10px', bottom: '10px' },
+          mobilePosition: { left: 0, bottom: 0 },
+        }
+      );
     }
+
     for (let index = 0; index < files.length; index++) {
       try {
         const reader = new FileReader();
         const file = files[index];
-        reader.readAsDataURL(file);
-        reader.onload = (_event) => {
-          const formData = new FormData();
-          formData.append(file.name, file);
-          formData.append('test', file);
-          this.observableService.initializeDocumentUploadProcess(file.name);
-          this.sub$.sink = this.commonService.uploadFolderDocument(formData, this.selectedFolder.physicalFolderId)
-            .subscribe(event => {
-              if (event.type === HttpEventType.UploadProgress) {
-                const progress = Math.round(100 * event.loaded / event.total);
-                this.cd.markForCheck();
-                this.observableService.upadteDocumentUploadProgress(file.name, progress);
-              }
-              else if (event.type === HttpEventType.Response) {
-                const returnDocument = event.body as Documents;
-                this.addRecentActivity(null, returnDocument);
-                this.onDoucmentUploadEvent(returnDocument);
-                this.observableService.upadteDocumentUploadProgress(file.name, 100);
-                this.totalFileUploaded = this.totalFileUploaded + 1;
-                if (this.totalFileUploaded == files.length) {
-                  this.sendNotification();
-                  $event.target.value = '';
+        let md5 = await ComputeMD5(file, (info) => {});
+        let process = (info: Chunk): Promise<boolean> => {
+          return new Promise((resolve) => {
+            const formData = new FormData();
+            formData.append(file.name, file);
+            this.observableService.initializeDocumentUploadProcess(file.name);
+            this.sub$.sink = this.commonService
+              .uploadFolderDocument(
+                formData,
+                this.selectedFolder.physicalFolderId,
+                info.current,
+                info.total,
+                md5,
+                file.size
+              )
+              .subscribe(
+                (event) => {
+                  if (event.type === HttpEventType.UploadProgress) {
+                    const progress = Math.round(
+                      (100 * event.loaded) / event.total
+                    );
+                    this.cd.markForCheck();
+                    this.observableService.upadteDocumentUploadProgress(
+                      file.name,
+                      progress
+                    );
+                  } else if (event.type === HttpEventType.Response) {
+                    const returnDocument = event.body as Documents;
+                    this.addRecentActivity(null, returnDocument);
+                    this.onDoucmentUploadEvent(returnDocument);
+                    this.observableService.upadteDocumentUploadProgress(
+                      file.name,
+                      100
+                    );
+                    this.totalFileUploaded = this.totalFileUploaded + 1;
+                    if (this.totalFileUploaded == files.length) {
+                      this.sendNotification();
+                      $event.target.value = '';
+                    }
+                  }
+                  resolve(true);
+                },
+                (error) => {
+                  this.observableService.upadteDocumentUploadProgress(
+                    file.name,
+                    100,
+                    true
+                  );
+                  this.totalFileUploaded = this.totalFileUploaded + 1;
+                  if (this.totalFileUploaded == files.length) {
+                    this.sendNotification();
+                    $event.target.value = '';
+                  }
+                  resolve(false);
                 }
-              }
-            }, (error) => {
-              this.observableService.upadteDocumentUploadProgress(file.name, 100, true);
-              this.totalFileUploaded = this.totalFileUploaded + 1;
-              if (this.totalFileUploaded == files.length) {
-                this.sendNotification();
-                $event.target.value = '';
-              }
-            });
-        }
-      }
-      catch (error) {
+              );
+          });
+        };
+        ChunkFile(file, process);
+      } catch (error) {
         this.toastrService.error(error);
       }
     }
@@ -348,11 +401,11 @@ export class HomeComponent extends BaseComponent implements OnInit, OnDestroy {
     const recentActivity: RecentActivity = {
       folderId: folder ? folder.id : null,
       documentId: documents ? documents.id : null,
-      action: RecentActivityType.CREATED
+      action: RecentActivityType.CREATED,
     };
-    this.sub$.sink = this.commonService.addRecentActivity(recentActivity)
-      .subscribe(c => {
-      });
+    this.sub$.sink = this.commonService
+      .addRecentActivity(recentActivity)
+      .subscribe((c) => {});
   }
 
   ngOnDestroy() {

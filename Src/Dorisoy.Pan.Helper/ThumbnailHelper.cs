@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using System;
@@ -34,7 +35,7 @@ namespace Dorisoy.Pan.Helper
             return path;
         }
         static string zoomName = "_thumbnail_";
-        public static string SaveThumbnailFile(IFormFile file, string name, string documentPath)
+        public static string SaveThumbnailFile(IFormFile file, string name, string filePath,string documentPath,string key)
         {
             try
             {
@@ -45,13 +46,15 @@ namespace Dorisoy.Pan.Helper
                 {
                     try
                     {
-                        using var image = Image.Load(file.OpenReadStream());
+                        var bytes = File.ReadAllBytes(Path.Combine(filePath, name));
+                        using var image = Image.Load(AesOperation.DecryptStream(bytes, key));
                         image.Mutate(x => x.Resize(96, 96));
-                        if (!Directory.Exists($"{documentPath}"))
+                        var thumPath = Path.Combine(documentPath, "Thumbnails");
+                        if (!Directory.Exists(thumPath))
                         {
-                            Directory.CreateDirectory($"{documentPath}");
+                            Directory.CreateDirectory(thumPath);
                         }
-                        var path = Path.Combine(documentPath, "Thumbnails", zoomName + name);
+                        var path = Path.Combine(thumPath, zoomName + name);
                         image.Save(path);
                         return Path.Combine("Thumbnails", $"{zoomName}{name}");
                     }
@@ -59,7 +62,6 @@ namespace Dorisoy.Pan.Helper
                     {
                         return Path.Combine("Thumbnails", "image.png");
                     }
-
                 }
                 else if (fileExtension == ".doc" || fileExtension == ".docx")
                 {
