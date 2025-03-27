@@ -85,7 +85,7 @@ namespace Dorisoy.Pan.API.Controllers.Folder
         /// <param name="md5">文件md5</param>
         /// <param name="size"></param>
         /// <returns></returns>
-        [HttpPost("{id}/{index}/{total}/{md5}/{size}"), DisableRequestSizeLimit]
+        [HttpPost("{id}/{index}/{total}/{md5}/{size}")]
         public async Task<IActionResult> UploadDocuments(Guid id, int index, int total, string md5, long size)
         {
             var updateUserProfilePhotoCommand = new UploadDocumentCommand()

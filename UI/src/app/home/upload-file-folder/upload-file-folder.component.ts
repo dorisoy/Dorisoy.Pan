@@ -27,6 +27,8 @@ import {
 } from '@core/domain-classes/recent-activity';
 import { TreeViewService } from '@core/services/tree-view.service';
 import { AsyncQueueService } from '@core/utils/AsyncQueue';
+import { I } from '@angular/cdk/keycodes';
+import { promise } from 'protractor';
 @Component({
   selector: 'app-upload-file-folder',
   templateUrl: './upload-file-folder.component.html',
@@ -69,34 +71,6 @@ export class UploadFileFolderComponent
       );
     });
 
-    let uploadProgress = (
-      loaded: number,
-      index: number,
-      total: number,
-      md5: string,
-      name: string
-    ) => {
-      let map = this.progresses.find((v) => v.md5 == md5);
-      let current = loaded;
-      if (!map) {
-        let arr = new Array(total);
-        arr[index - 1] = loaded;
-        this.progresses.push({ loaded: arr, md5: md5 });
-      } else {
-        map.loaded[index - 1] = loaded;
-        let temp = 0;
-        map.loaded.forEach((v) => {
-          if (v == 0) return;
-          temp += v;
-        });
-        current = temp;
-      }
-      console.log('current ' + current + '/total ' + total);
-      const progress = Math.round((100 * current) / total);
-      this.cd.markForCheck();
-      this.observableService.upadteDocumentUploadProgress(name, progress);
-    };
-
     let chunk = (info: Chunk): Promise<boolean> => {
       return new Promise((resolve) => {
         const formData = new FormData();
@@ -114,15 +88,20 @@ export class UploadFileFolderComponent
           .subscribe(
             (event) => {
               if (event.type === HttpEventType.UploadProgress) {
-                this.asyncQueueService.run(() => {
-                  uploadProgress(
-                    event.loaded,
-                    info.current,
-                    info.size,
-                    md5,
-                    file.name
-                  );
-                });
+                let progress = Math.round(
+                  (100 * (info.current - 1 + event.loaded / event.total)) /
+                    info.total
+                );
+                if (progress >= 100) {
+                  //数据包已接收完成，等待后端处理完成
+                  progress = 99.5;
+                }
+                console.log(file.name + progress + '%');
+                this.cd.markForCheck();
+                this.observableService.upadteDocumentUploadProgress(
+                  file.name,
+                  progress
+                );
               } else if (event.type === HttpEventType.Response) {
                 if (info.current == info.total) {
                   const returnDocument = event.body as Documents;
