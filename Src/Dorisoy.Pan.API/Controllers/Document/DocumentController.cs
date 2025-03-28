@@ -188,7 +188,7 @@ namespace Dorisoy.Pan.API.Controllers
         /// <param name="isVersion"></param>
         /// <returns></returns>
         [HttpGet("{id}/download")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<IActionResult> DownloadDocument(Guid id, bool isVersion)
         {
             var commnad = new DownloadDocumentCommand
@@ -202,15 +202,18 @@ namespace Dorisoy.Pan.API.Controllers
             if (!System.IO.File.Exists(filePath))
                 return NotFound("File not found");
             var fileName = HttpUtility.UrlEncode(Path.GetFileName(filePath));
-            Response.Body.Seek(0, SeekOrigin.Begin);
             Response.ContentType = "application/octet-stream";
             Response.Headers.Append(new System.Collections.Generic.KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues>("Content-Disposition", "attachment; filename=" + fileName));
-            LargeFileEncryptor.DecryptFile(filePath, _pathHelper.EncryptionKey, async (buff) =>
+            await LargeFileEncryptor.DecryptFile(filePath, _pathHelper.EncryptionKey, async (buff) =>
             {
+                if(Request.HttpContext.RequestAborted.IsCancellationRequested)
+                {
+                    return false;
+                }
                 await Response.Body.WriteAsync(buff);
                 await Response.Body.FlushAsync();
+                return true;
             });
-            Response.Body.Close();
             return new EmptyResult();
         }
 
