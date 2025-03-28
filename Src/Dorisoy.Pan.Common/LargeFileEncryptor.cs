@@ -68,19 +68,14 @@ namespace Dorisoy.Pan.Common
                         aes.CreateDecryptor(),
                         CryptoStreamMode.Read))
                     {
-                        // 分块解密并写入文件
-                        using (var outputStream = new MemoryStream())
+                        byte[] buffer = new byte[1048576];
+                        int bytesRead;
+                        while ((bytesRead = cryptoStream.Read(buffer, 0, buffer.Length)) > 0)
                         {
-                            byte[] buffer = new byte[1048576];
-                            int bytesRead;
-                            while ((bytesRead = cryptoStream.Read(buffer, 0, buffer.Length)) > 0)
+                            var result = await handler?.Invoke(buffer);
+                            if (!result)
                             {
-                                outputStream.Write(buffer, 0, bytesRead);
-                                var result = await handler?.Invoke(buffer);
-                                if (!result)
-                                {
-                                    break;
-                                }
+                                break;
                             }
                         }
                     }
