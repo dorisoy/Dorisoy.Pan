@@ -26,6 +26,7 @@ using System.Linq;
 using System.Reflection;
 using Dorisoy.Pan.Repository;
 using Microsoft.AspNetCore.Rewrite;
+using NewLife.Redis.Core;
 
 
 namespace Dorisoy.Pan.API
@@ -64,13 +65,13 @@ namespace Dorisoy.Pan.API
             services.AddSingleton(pathHelper);
             services.AddSingleton<IConnectionMappingRepository, ConnectionMappingRepository>();
             services.AddScoped(c => new UserInfoToken() { Id = Guid.NewGuid() });
-
+            services.AddNewLifeRedis();
 
             //Êý¾Ý¿â
             services.AddDbContextPool<DocumentContext>(options =>
             {
                 //MySQl
-                var serverVersion = new MySqlServerVersion(new Version(8, 0, 26));
+                var serverVersion = new MySqlServerVersion(new Version(8, 0, 31));
                 options.UseMySql(Configuration.GetConnectionString("DocumentDbConnectionString"), serverVersion)
                 .EnableSensitiveDataLogging();
                 options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);

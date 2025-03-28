@@ -27,8 +27,6 @@ import {
 } from '@core/domain-classes/recent-activity';
 import { TreeViewService } from '@core/services/tree-view.service';
 import { AsyncQueueService } from '@core/utils/AsyncQueue';
-import { I } from '@angular/cdk/keycodes';
-import { promise } from 'protractor';
 @Component({
   selector: 'app-upload-file-folder',
   templateUrl: './upload-file-folder.component.html',
@@ -73,6 +71,19 @@ export class UploadFileFolderComponent
 
     let chunk = (info: Chunk): Promise<boolean> => {
       return new Promise((resolve) => {
+        let errorFunc = () => {
+          this.observableService.upadteDocumentUploadProgress(
+            file.name,
+            100,
+            true
+          );
+          if (info.current == info.total) {
+            this.totalFileUploaded = this.totalFileUploaded + 1;
+            if (this.totalFileUploaded == fileCount) {
+              this.sendNotification();
+            }
+          }
+        };
         const formData = new FormData();
         formData.append(file.name, info.file);
         // this.observableService.initializeDocumentUploadProcess(file.name);
@@ -103,37 +114,38 @@ export class UploadFileFolderComponent
                   progress
                 );
               } else if (event.type === HttpEventType.Response) {
-                if (info.current == info.total) {
-                  const returnDocument = event.body as Documents;
+                if (event.body == null) {
+                  resolve(true);
+                  return;
+                }
+                const returnDocument = event.body as Documents;
+                if (returnDocument && returnDocument.id != undefined) {
                   this.addRecentActivity(null, returnDocument);
                   this.uploadDocumentEvent.emit(returnDocument);
                   this.observableService.upadteDocumentUploadProgress(
                     file.name,
                     100
                   );
-
-                  this.totalFileUploaded = this.totalFileUploaded + 1;
-                  if (this.totalFileUploaded == fileCount) {
-                    this.sendNotification();
+                  if (info.current == info.total) {
+                    this.totalFileUploaded = this.totalFileUploaded + 1;
+                    if (this.totalFileUploaded == fileCount) {
+                      this.sendNotification();
+                    }
+                    this.progresses = [];
                   }
-                  this.progresses = [];
+                  resolve(false);
+                } else {
+                  errorFunc();
+                  this.toastrService.error(
+                    `上传错误: ${JSON.stringify(event.body).substring(0, 20)}`
+                  );
+                  resolve(false);
                 }
-                resolve(true);
               }
             },
             (error) => {
+              errorFunc();
               resolve(false);
-              this.observableService.upadteDocumentUploadProgress(
-                file.name,
-                100,
-                true
-              );
-              if (info.current == info.total) {
-                this.totalFileUploaded = this.totalFileUploaded + 1;
-                if (this.totalFileUploaded == fileCount) {
-                  this.sendNotification();
-                }
-              }
             }
           );
       });

@@ -51,7 +51,7 @@ namespace Dorisoy.Pan.API
                   //ÅäÖÃKestrel
                   webBuilder.ConfigureKestrel(options =>
                   {
-
+                      options.AllowSynchronousIO= true;
                       options.Limits.MaxConcurrentConnections = 100;
                       options.Limits.MaxConcurrentUpgradedConnections = 100;
                       options.Limits.MinRequestBodyDataRate =

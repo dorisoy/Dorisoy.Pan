@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Dorisoy.Pan.Common;
 using Dorisoy.Pan.Common.UnitOfWork;
 using Dorisoy.Pan.Data;
 using Dorisoy.Pan.Data.Dto;
@@ -9,11 +10,13 @@ using Dorisoy.Pan.Repository;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using NewLife.Redis.Core;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,7 +32,10 @@ namespace Dorisoy.Pan.MediatR.Handlers
         private readonly IUnitOfWork<DocumentContext> _uow;
         private readonly IMapper _mapper;
         private readonly UserInfoToken _userInfoToken;
-
+        private readonly INewLifeRedis _redis;
+        private readonly object Writing = true;
+        private readonly object Combining = true;
+        private readonly object cache = true;
         public UploadDocumentCommandHandler(
             IPhysicalFolderRepository physicalFolderRepository,
             IDocumentVersionRepository documentVersionRepository,
@@ -38,6 +44,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             IDocumentRepository documentRepository,
             IUnitOfWork<DocumentContext> uow,
             IMapper mapper,
+            INewLifeRedis redis,
             UserInfoToken userInfoToken)
         {
             _physicalFolderRepository = physicalFolderRepository;
@@ -48,10 +55,11 @@ namespace Dorisoy.Pan.MediatR.Handlers
             _uow = uow;
             _mapper = mapper;
             _userInfoToken = userInfoToken;
+            _redis = redis;
         }
+        #region 文件保存
         /// <summary>
         ///  文件保存
-        /// TODO 并发上传一文件问题
         /// </summary>
         /// <param name="request"></param>
         /// <param name="documentPath"></param>
@@ -67,6 +75,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             {
                 Directory.CreateDirectory(tempPath);
             }
+            SetCache(request.Md5);
 
             var bytesData = AesOperation.ReadAsBytesAsync(request.Documents[0]);
             var size = request.Total.ToString().Length;
@@ -74,34 +83,106 @@ namespace Dorisoy.Pan.MediatR.Handlers
             var temp = Path.Combine(tempPath, request.Index.ToString().PadLeft(size, '0'));
             if (!File.Exists(temp))
             {
-                using (var stream = new FileStream(temp, FileMode.Create))
+                if (CanLock(request.Md5))
                 {
-                    stream.Write(bytesData, 0, bytesData.Length);
+                    lock (Writing)
+                    {
+                        WriteFile(temp, bytesData);
+                    }
+                }
+                else
+                {
+                    WriteFile(temp, bytesData);
                 }
             }
             if (request.Index >= request.Total)
             {
                 var path = Path.Combine(documentPath, saveName);
-                var files = new DirectoryInfo(tempPath).GetFiles().OrderBy(p => p.Name);
-                if (files.Count() > 0)
+                if (CanLock(request.Md5))
                 {
-                    var list = new List<byte>();
-                    foreach (var item in files)
+                    lock (Combining)
                     {
-                        var bytes = File.ReadAllBytes(item.FullName);
-                        list.AddRange(bytes);
-                        File.Delete(item.FullName);
+                        CombinFile(tempPath, path);
                     }
-                    var datas = list.ToArray();
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        var byteArray = AesOperation.EncryptStream(datas, _pathHelper.EncryptionKey);
-                        stream.Write(byteArray, 0, byteArray.Length);
-                    }
-                    Directory.Delete(tempPath, true);
+                }
+                else
+                {
+                    CombinFile(tempPath, path);
+                }
+                if (_redis.ContainsKey(request.Md5))
+                {
+                    RemoveCache(request.Md5);
                 }
             }
         }
+        private bool CanLock(string md5)
+        {
+            if (!_redis.ContainsKey(md5))
+                return false;
+            return _redis.ListGetAll<string>(md5).Count > 1;
+        }
+        private void SetCache(string md5)
+        {
+            lock (cache)
+            {
+                if (_redis.ContainsKey(md5))
+                {
+                    var user = _redis.ListIndexOf(md5, $"\"{_userInfoToken.Id}\"");
+                    if (user == -1)
+                    {
+                        _redis.ListAdd(md5, _userInfoToken.Id);
+                    }
+                }
+                else
+                {
+                    _redis.ListAdd(md5, _userInfoToken.Id);
+                }
+            }
+
+        }
+        private void RemoveCache(string md5)
+        {
+            _redis.Remove(md5);
+        }
+
+        private void WriteFile(string path, byte[] bytes)
+        {
+            try
+            {
+                if (File.Exists(path)) return;
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    stream.Write(bytes, 0, bytes.Length);
+                }
+            }
+            catch (IOException ex)
+            {
+                if (ex.Message.Contains("another process"))
+                {
+                    return;
+                }
+                throw ex;
+            }
+
+        }
+        private void CombinFile(string tempPath, string path)
+        {
+            try
+            {
+                if (File.Exists(path)) return;
+                LargeFileEncryptor.EncryptFile(tempPath, path, _pathHelper.EncryptionKey);
+                Directory.Delete(tempPath, true);
+            }
+            catch (IOException ex)
+            {
+                if (ex.Message.Contains("another process"))
+                {
+                    return;
+                }
+                throw ex;
+            }
+        }
+        #endregion
         public async Task<ServiceResponse<DocumentDto>> Handle(UploadDocumentCommand request, CancellationToken cancellationToken)
         {
             var fullFileName = string.IsNullOrEmpty(request.FullPath) ? request.Documents[0].FileName : request.FullPath;
@@ -140,9 +221,17 @@ namespace Dorisoy.Pan.MediatR.Handlers
                      || c.Folder.PhysicalFolderUsers.Any(c => c.UserId == _userInfoToken.Id)
                      ))
                      .FirstOrDefaultAsync();
-            if (old != null && oldDocument != null && old.Id == oldDocument.Id)
+            if (old != null && oldDocument != null)
             {
-                return ServiceResponse<DocumentDto>.Return400("文件已存在.");
+                //并发上传一份文件处理
+                if (_redis.ContainsKey(request.Md5) && _redis.ListGetAll<string>(request.Md5).Count > 0)
+                {
+                    RemoveCache(request.Md5);
+                    var oldDocumentDto = _mapper.Map<DocumentDto>(oldDocument);
+                    return ServiceResponse<DocumentDto>.ReturnResultWith201(oldDocumentDto);
+                }
+                //正常上传处理
+                return ServiceResponse<DocumentDto>.Return400("文件已存在:" + oldDocument.Path);
             }
             var include = old != null;
             if (request.Index < request.Total && !include)

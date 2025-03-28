@@ -9,6 +9,10 @@ using System.IO;
 using System.Threading.Tasks;
 using Dorisoy.Pan.Helper;
 using System.Text;
+using Dorisoy.Pan.Common;
+using System.Web;
+using Azure;
+using System.Linq;
 
 namespace Dorisoy.Pan.API.Controllers
 {
@@ -184,6 +188,7 @@ namespace Dorisoy.Pan.API.Controllers
         /// <param name="isVersion"></param>
         /// <returns></returns>
         [HttpGet("{id}/download")]
+        [AllowAnonymous]
         public async Task<IActionResult> DownloadDocument(Guid id, bool isVersion)
         {
             var commnad = new DownloadDocumentCommand
@@ -196,30 +201,17 @@ namespace Dorisoy.Pan.API.Controllers
 
             if (!System.IO.File.Exists(filePath))
                 return NotFound("File not found");
-
-            byte[] newBytes;
-            using (var stream = new FileStream(filePath, FileMode.Open))
+            var fileName = HttpUtility.UrlEncode(Path.GetFileName(filePath));
+            Response.Body.Seek(0, SeekOrigin.Begin);
+            Response.ContentType = "application/octet-stream";
+            Response.Headers.Append(new System.Collections.Generic.KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues>("Content-Disposition", "attachment; filename=" + fileName));
+            LargeFileEncryptor.DecryptFile(filePath, _pathHelper.EncryptionKey, async (buff) =>
             {
-
-                byte[] bytes = new byte[stream.Length];
-                int numBytesToRead = (int)stream.Length;
-                int numBytesRead = 0;
-                while (numBytesToRead > 0)
-                {
-                    // Read may return anything from 0 to numBytesToRead.
-                    int n = stream.Read(bytes, numBytesRead, numBytesToRead);
-
-                    // Break when the end of the file is reached.
-                    if (n == 0)
-                        break;
-
-                    numBytesRead += n;
-                    numBytesToRead -= n;
-                }
-                newBytes = AesOperation.DecryptStream(bytes, _pathHelper.EncryptionKey);
-            }
-
-            return File(newBytes, GetContentType(filePath), filePath);
+                await Response.Body.WriteAsync(buff);
+                await Response.Body.FlushAsync();
+            });
+            Response.Body.Close();
+            return new EmptyResult();
         }
 
         /// <summary>
