@@ -51,7 +51,10 @@ import { delayWhen, tap } from 'rxjs/operators';
   templateUrl: './folder-list.component.html',
   styleUrls: ['./folder-list.component.scss'],
 })
-export class FolderListComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
+export class FolderListComponent
+  extends BaseComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   overlayRef: any;
   autoScrollDisabled: boolean = false;
   @Input() folders: Folder[] = [];
@@ -100,16 +103,16 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
     this.sub$.sink = fromEvent(window, 'click').subscribe((_) => {
       if (this.folderMenuTrigger && this.folderMenuTrigger.menuOpen) {
         this.folderMenuTrigger.closeMenu();
-        this.folders.forEach(c => {
+        this.folders.forEach((c) => {
           c.isRightClicked = false;
         });
       }
     });
   }
   subscribeCheckAll() {
-    this.sub$.sink = this.observableService.checkAll$.subscribe(c => {
+    this.sub$.sink = this.observableService.checkAll$.subscribe((c) => {
       if (this.folders && c) {
-        this.folders.forEach(c => {
+        this.folders.forEach((c) => {
           this.observableService.setDocumentOrFolderIdAll({
             documentId: '',
             folderId: c.physicalFolderId,
@@ -119,37 +122,34 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
       this.checkboxes.forEach((element) => {
         element.checked = c;
       });
-    })
+    });
   }
 
   documentClickNotification() {
-    this.sub$.sink = this.observableService.selectedDocument$
-      .subscribe(c => {
-        if (this.folders && this.folders.length > 0) {
-          this.folders.forEach(c => {
-            c.isRightClicked = false;
-          });
-        }
-      })
+    this.sub$.sink = this.observableService.selectedDocument$.subscribe((c) => {
+      if (this.folders && this.folders.length > 0) {
+        this.folders.forEach((c) => {
+          c.isRightClicked = false;
+        });
+      }
+    });
   }
 
   isMobileOrTabletDevice() {
-    this.sub$.sink = this.breakpointsService.isMobile$
-      .subscribe(c => {
-        if (c) {
-          this.disabled = c;
-        }
-      });
-    this.sub$.sink = this.breakpointsService.isTablet$
-      .subscribe(c => {
-        if (c) {
-          this.disabled = c;
-        }
-      });
+    this.sub$.sink = this.breakpointsService.isMobile$.subscribe((c) => {
+      if (c) {
+        this.disabled = c;
+      }
+    });
+    this.sub$.sink = this.breakpointsService.isTablet$.subscribe((c) => {
+      if (c) {
+        this.disabled = c;
+      }
+    });
   }
 
   rootFolderSubscription() {
-    this.sub$.sink = this.observableService.rootFolder$.subscribe(folder => {
+    this.sub$.sink = this.observableService.rootFolder$.subscribe((folder) => {
       this.rootFolder = folder;
     });
   }
@@ -173,7 +173,7 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
   }
 
   onFolderDetailClick(folder: Folder) {
-    this.folders.forEach(c => {
+    this.folders.forEach((c) => {
       if (c.id === folder.id) {
         c.isRightClicked = true;
       } else {
@@ -196,7 +196,6 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
       });
   }
 
-
   getTooltip(users: User[]) {
     return users.map((c) => `${c.firstName} ${c.lastName}`).join(', ');
   }
@@ -204,8 +203,8 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
   sendEmail(folder: Folder) {
     const emailData: SendFileFolderData = {
       type: 'folder',
-      folder: folder
-    }
+      folder: folder,
+    };
     this.dialog.open(SendMailComponent, {
       panelClass: ['full-width-dialog', 'min-width-dialog'],
       data: emailData,
@@ -288,11 +287,11 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
   sendNotification(folder: Folder) {
     if (folder.isShared) {
       const notification: UserNotification = {
-        folderId: folder.physicalFolderId
+        folderId: folder.physicalFolderId,
       };
-      this.sub$.sink = this.commonService.sendNotification(notification)
-        .subscribe(c => {
-        });
+      this.sub$.sink = this.commonService
+        .sendNotification(notification)
+        .subscribe((c) => {});
     }
   }
 
@@ -303,17 +302,23 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
         this.isLoading = true;
         var moveDocumement: CopyDocument = {
           documentId: event.previousContainer.data.id,
-          destinationFolderId: event.container.data.id
-        }
-        this.sub$.sink = this.homeService.moveDocument(moveDocumement)
-          .subscribe((c: boolean) => {
-            this.isLoading = false;
-            this.sendNotification(event.container.data);
-            this.commonService.setMoveDocumentNotification(event.previousContainer.data.id);
-            this.toastrService.success('文档移动成功');
-          }, (err) => {
-            this.isLoading = false;
-          });
+          destinationFolderId: event.container.data.id,
+        };
+        this.sub$.sink = this.homeService
+          .moveDocument(moveDocumement)
+          .subscribe(
+            (c: boolean) => {
+              this.isLoading = false;
+              this.sendNotification(event.container.data);
+              this.commonService.setMoveDocumentNotification(
+                event.previousContainer.data.id
+              );
+              this.toastrService.success('文档移动成功');
+            },
+            (err) => {
+              this.isLoading = false;
+            }
+          );
       } else {
         const source = event.previousContainer.data;
         const container = event.container.data;
@@ -324,22 +329,24 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
           this.isLoading = true;
           var moveFoler: MoveFolder = {
             sourceId: folder.id,
-            distinationParentId: container.id
-          }
-          this.sub$.sink = this.homeService.moveFolder(moveFoler)
-            .subscribe((c: boolean) => {
-              const folder1 = this.folders.find(c => c.id == folder.id);
-              const cloneFolder = this.clonerService.deepClone<Folder>(folder1)
+            distinationParentId: container.id,
+          };
+          this.sub$.sink = this.homeService.moveFolder(moveFoler).subscribe(
+            (c: boolean) => {
+              const folder1 = this.folders.find((c) => c.id == folder.id);
+              const cloneFolder = this.clonerService.deepClone<Folder>(folder1);
               this.isLoading = false;
-              this.folders = this.folders.filter(c => c.id !== source.id);
+              this.folders = this.folders.filter((c) => c.id !== source.id);
               this.treeViewService.setRemovedFolder(folder);
               const distinationParentId = container.id;
               cloneFolder.parentId = distinationParentId;
               this.treeViewService.setRefreshTreeView(cloneFolder);
               this.toastrService.success('文件夹移动成功');
-            }, (err) => {
+            },
+            (err) => {
               this.isLoading = false;
-            });
+            }
+          );
         });
       }
     }
@@ -355,7 +362,7 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
           isChildShared: false,
           isFolderShared: true,
           operation: 'Move',
-          isFolder: true
+          isFolder: true,
         };
         this.dialog.open(PreventSharedFolderComponent, {
           panelClass: 'custom-modalbox-450',
@@ -367,27 +374,30 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
         this.isLoading = true;
         this.sub$.sink = this.commonService
           .isParentChildShared(folder.id)
-          .subscribe((c: HierarchyShared) => {
-            this.isLoading = false;
-            c.name = folder.name;
-            c.isFolderShared = false;
-            c.operation = "Move";
-            c.isFolder = true;
-            if (c.isChildShared || c.isParentShared) {
-              this.dialog.open(PreventSharedFolderComponent, {
-                panelClass: 'custom-modalbox-450',
-                minHeight: '100px',
-                data: c,
-              });
-              reject();
-            } else {
-              resolve(folder);
+          .subscribe(
+            (c: HierarchyShared) => {
+              this.isLoading = false;
+              c.name = folder.name;
+              c.isFolderShared = false;
+              c.operation = 'Move';
+              c.isFolder = true;
+              if (c.isChildShared || c.isParentShared) {
+                this.dialog.open(PreventSharedFolderComponent, {
+                  panelClass: 'custom-modalbox-450',
+                  minHeight: '100px',
+                  data: c,
+                });
+                reject();
+              } else {
+                resolve(folder);
+              }
+            },
+            (err) => {
+              this.isLoading = false;
             }
-          }, (err) => {
-            this.isLoading = false;
-          });
+          );
       }
-    })
+    });
   }
 
   moveFolder(folder: Folder) {
@@ -395,7 +405,7 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
       sourceId: folder.id,
       sourceParentId: folder.parentId,
       root: this.rootFolder,
-      sourceName: folder.name
+      sourceName: folder.name,
     };
     const dialogRef = this.dialog.open(MoveFolderComponent, {
       panelClass: 'custom-modalbox',
@@ -404,14 +414,14 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
     });
     this.sub$.sink = dialogRef.afterClosed().subscribe((result: any) => {
       if (result['flag']) {
-        const folder1 = this.folders.find(c => c.id == result['sourceId']);
-        const cloneFolder = this.clonerService.deepClone<Folder>(folder1)
+        const folder1 = this.folders.find((c) => c.id == result['sourceId']);
+        const cloneFolder = this.clonerService.deepClone<Folder>(folder1);
         this.folders = this.folders.filter((c) => c.id != result['sourceId']);
         this.treeViewService.setRemovedFolder(folder);
         const distinationParentId = result['distinationParentId'];
         cloneFolder.parentId = distinationParentId;
         this.treeViewService.setRefreshTreeView(cloneFolder);
-        this.toastrService.success('文件夹移动成功')
+        this.toastrService.success('文件夹移动成功');
       }
     });
   }
@@ -421,7 +431,7 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
       sourceId: folder.id,
       sourceParentId: folder.parentId,
       root: this.rootFolder,
-      sourceName: folder.name
+      sourceName: folder.name,
     };
     const dialogRef = this.dialog.open(CopyFolderComponent, {
       panelClass: 'custom-modalbox',
@@ -432,7 +442,7 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
       .afterClosed()
       .subscribe((result: { [key: string]: boolean }) => {
         if (result['flag']) {
-          this.toastrService.success('文件夹拷贝成功')
+          this.toastrService.success('文件夹拷贝成功');
         }
       });
   }
@@ -448,23 +458,26 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
   }
 
   downloadFolder(folder: Folder) {
-    this.sub$.sink = this.homeService.downloadFolder(folder.physicalFolderId).subscribe(
-      (event) => {
-        if (event.type === HttpEventType.Response) {
-          this.downloadFile(event, folder);
+    this.sub$.sink = this.homeService
+      .downloadFolder(folder.physicalFolderId)
+      .subscribe(
+        (event) => {
+          if (event.type === HttpEventType.Response) {
+            this.downloadFile(event, folder);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          if (error.status == 404) {
+            this.toastrService.error('Folder is Empty');
+          } else {
+            this.toastrService.error('error while downloading folder');
+          }
         }
-      },
-      (error: HttpErrorResponse) => {
-        if (error.status == 404) {
-          this.toastrService.error('Folder is Empty');
-        } else {
-          this.toastrService.error('error while downloading folder');
-        }
-      }
-    );
+      );
   }
 
   private downloadFile(data: HttpResponse<Blob>, folder: Folder) {
+    this.toastrService.info('下载内容准备中');
     const downloadedFile = new Blob([data.body], { type: data.body.type });
     const a = document.createElement('a');
     a.setAttribute('style', 'display:none;');
@@ -482,7 +495,7 @@ export class FolderListComponent extends BaseComponent implements OnInit, AfterV
 
   onContextMenu(event: MouseEvent, folder: Folder) {
     event.preventDefault();
-    this.folders.map(c => {
+    this.folders.map((c) => {
       c.isRightClicked = false;
       return c;
     });
