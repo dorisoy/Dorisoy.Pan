@@ -202,10 +202,13 @@ namespace Dorisoy.Pan.API.Controllers
                 return NotFound("File not found");
             var fileName = HttpUtility.UrlEncode(Path.GetFileName(filePath));
             Response.ContentType = "application/octet-stream";
-            Response.Headers.Append(new System.Collections.Generic.KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues>("Content-Disposition", "attachment; filename=" + fileName));
+            if (Request.Headers["User-Agent"].FirstOrDefault()?.ToLower().IndexOf("firefox") != -1)
+                Response.Headers.Add(new System.Collections.Generic.KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues>("Content-Disposition", "attachment; filename*=UTF-8''" + fileName));
+            else
+                Response.Headers.Add(new System.Collections.Generic.KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues>("content-disposition", "attachment; filename=" + fileName));
             LargeFileEncryptor.DecryptFile(filePath, _pathHelper.EncryptionKey, async (buff) =>
             {
-                if(Request.HttpContext.RequestAborted.IsCancellationRequested)
+                if (Request.HttpContext.RequestAborted.IsCancellationRequested)
                 {
                     return false;
                 }
