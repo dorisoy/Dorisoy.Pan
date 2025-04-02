@@ -1,10 +1,10 @@
 ﻿
 using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using static System.Net.WebRequestMethods;
 
 
 namespace Dorisoy.Pan.Common
@@ -12,7 +12,7 @@ namespace Dorisoy.Pan.Common
     public class LargeFileEncryptor
     {
         private static readonly byte[] SALT = [0x26, 0xdc, 0xff, 0x00, 0xad, 0xed, 0x7a, 0xee, 0xc5, 0xfe, 0x07, 0xaf, 0x4d, 0x08, 0x22, 0x3c];
-
+        private static int chunk = 1048576;
         // 加密（AES-CBC-PKCS7）
         public static void EncryptFile(string tempPath, string outputFile, string password)
         {
@@ -37,11 +37,11 @@ namespace Dorisoy.Pan.Common
                         {
                             using (var inputStream = new FileStream(item.FullName, FileMode.Open))
                             {
-                                byte[] buffer = new byte[1048576]; // 1MB 缓冲区
+                                var buffer = new Span<byte>(new byte[chunk]); // 1MB 缓冲区
                                 int bytesRead;
-                                while ((bytesRead = inputStream.Read(buffer, 0, buffer.Length)) > 0)
+                                while ((bytesRead = inputStream.Read(buffer)) > 0)
                                 {
-                                    cryptoStream.Write(buffer, 0, bytesRead);
+                                    cryptoStream.Write(bytesRead != chunk ? buffer.Slice(0, bytesRead) : buffer);
                                 }
                             }
                         }
@@ -51,7 +51,7 @@ namespace Dorisoy.Pan.Common
         }
 
         // 解密
-        public static async Task DecryptFile(string inputFile, string password, Func<byte[], System.Threading.Tasks.Task<bool>> handler)
+        public static void DecryptFile(string inputFile, string password, Func<byte[], System.Threading.Tasks.Task<bool>> handler)
         {
             using (var aes = Aes.Create())
             {
@@ -68,12 +68,13 @@ namespace Dorisoy.Pan.Common
                         aes.CreateDecryptor(),
                         CryptoStreamMode.Read))
                     {
-                        byte[] buffer = new byte[1048576];
+                        var buffer = new Span<byte>(new byte[chunk]);
                         int bytesRead;
-                        while ((bytesRead = cryptoStream.Read(buffer, 0, buffer.Length)) > 0)
+                        while ((bytesRead = cryptoStream.Read(buffer)) > 0)
                         {
-                            var result = await handler?.Invoke(buffer);
-                            if (!result)
+                            var data = bytesRead != chunk ? buffer.Slice(0, bytesRead).ToArray() : buffer.ToArray();
+                            var result = handler?.Invoke(data).GetAwaiter().GetResult();
+                            if (result == false)
                             {
                                 break;
                             }

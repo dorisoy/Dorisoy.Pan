@@ -11,7 +11,6 @@ using Dorisoy.Pan.Helper;
 using System.Text;
 using Dorisoy.Pan.Common;
 using System.Web;
-using Azure;
 using System.Linq;
 
 namespace Dorisoy.Pan.API.Controllers
@@ -188,7 +187,7 @@ namespace Dorisoy.Pan.API.Controllers
         /// <param name="isVersion"></param>
         /// <returns></returns>
         [HttpGet("{id}/download")]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public async Task<IActionResult> DownloadDocument(Guid id, bool isVersion)
         {
             var commnad = new DownloadDocumentCommand
@@ -204,7 +203,7 @@ namespace Dorisoy.Pan.API.Controllers
             var fileName = HttpUtility.UrlEncode(Path.GetFileName(filePath));
             Response.ContentType = "application/octet-stream";
             Response.Headers.Append(new System.Collections.Generic.KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues>("Content-Disposition", "attachment; filename=" + fileName));
-            await LargeFileEncryptor.DecryptFile(filePath, _pathHelper.EncryptionKey, async (buff) =>
+            LargeFileEncryptor.DecryptFile(filePath, _pathHelper.EncryptionKey, async (buff) =>
             {
                 if(Request.HttpContext.RequestAborted.IsCancellationRequested)
                 {
@@ -225,7 +224,7 @@ namespace Dorisoy.Pan.API.Controllers
         /// <param name="isVersion"></param>
         /// <returns></returns>
         [HttpGet("{id}/download/token/{token}")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<IActionResult> DownloadDocument(Guid id, string token, bool isVersion)
         {
             var commnad = new DownloadDocumentCommand
