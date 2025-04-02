@@ -46,7 +46,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                         Id = cs.UserId,
                         LastName = cs.User.LastName,
                         IsOwner = cs.User.Id == c.CreatedBy,
-                        ProfilePhoto = $"{_pathHeloper.UserProfilePath}{cs.User.ProfilePhoto}"
+                        ProfilePhoto = $"{_pathHeloper.UserProfilePath}/{cs.User.ProfilePhoto}"
                     }).ToList()
                 }).FirstOrDefaultAsync(); 
             return entity;

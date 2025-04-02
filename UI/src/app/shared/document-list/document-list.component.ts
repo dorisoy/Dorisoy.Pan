@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnInit,
+  Output,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
@@ -14,14 +23,17 @@ import { BreakpointsService } from '@core/services/breakpoints.service';
 import { fromEvent, of, Subscription } from 'rxjs';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { tap } from 'rxjs/operators';
+import { Download } from '@core/utils/file-helper';
 
 @Component({
   selector: 'app-document-list',
   templateUrl: './document-list.component.html',
   styleUrls: ['./document-list.component.scss'],
 })
-export class DocumentListComponent extends DocumentBaseComponent implements OnInit, AfterViewInit {
-
+export class DocumentListComponent
+  extends DocumentBaseComponent
+  implements OnInit, AfterViewInit
+{
   @Input() listView: string;
   @ViewChildren('checkboxes') public checkboxes: MatCheckbox[];
 
@@ -30,7 +42,6 @@ export class DocumentListComponent extends DocumentBaseComponent implements OnIn
 
   contextMenuPosition = { x: 0, y: 0 };
   @ViewChild('documentMenuTrigger') contextMenuTrigger: MatMenuTrigger;
-
 
   disabled: boolean = false;
   constructor(
@@ -44,8 +55,16 @@ export class DocumentListComponent extends DocumentBaseComponent implements OnIn
     public observableService: ObservableService,
     private breakpointsService: BreakpointsService
   ) {
-    super(overlay, commonService, homeService, toastrService, dialog,
-      commonDialogService, clonerService, observableService);
+    super(
+      overlay,
+      commonService,
+      homeService,
+      toastrService,
+      dialog,
+      commonDialogService,
+      clonerService,
+      observableService
+    );
   }
 
   ngOnInit(): void {
@@ -57,7 +76,7 @@ export class DocumentListComponent extends DocumentBaseComponent implements OnIn
     this.windowSubscription();
   }
   checkAllSubscription() {
-    this.sub$.sink = this.observableService.mainCheckBox$.subscribe(c => {
+    this.sub$.sink = this.observableService.mainCheckBox$.subscribe((c) => {
       this.isCheck = c;
     });
   }
@@ -67,9 +86,9 @@ export class DocumentListComponent extends DocumentBaseComponent implements OnIn
   }
 
   subscribeCheckAll() {
-    this.sub$.sink = this.observableService.checkAll$.subscribe(c => {
+    this.sub$.sink = this.observableService.checkAll$.subscribe((c) => {
       if (this.documents) {
-        this.documents.forEach(c => {
+        this.documents.forEach((c) => {
           this.observableService.setDocumentOrFolderIdAll({
             documentId: c.id,
             folderId: '',
@@ -79,18 +98,22 @@ export class DocumentListComponent extends DocumentBaseComponent implements OnIn
       this.checkboxes.forEach((element) => {
         element.checked = c;
       });
-    })
+    });
   }
 
   onDocumentView(document: Documents) {
     super.onDocumentView(document, this.documents);
   }
 
+  async onDownload(document: Documents) {
+    await Download(document);
+  }
+
   windowSubscription() {
     this.sub$.sink = fromEvent(window, 'click').subscribe((_) => {
       if (this.contextMenuTrigger && this.contextMenuTrigger.menuOpen) {
         this.contextMenuTrigger.closeMenu();
-        this.documents.forEach(c => {
+        this.documents.forEach((c) => {
           c.isRightClicked = false;
         });
       }
@@ -98,18 +121,17 @@ export class DocumentListComponent extends DocumentBaseComponent implements OnIn
   }
 
   folderClickNotification() {
-    this.sub$.sink = this.observableService.selectedFolder$
-      .subscribe(c => {
-        if (this.documents && this.documents.length > 0) {
-          this.documents.forEach(c => {
-            c.isRightClicked = false;
-          });
-        }
-      });
+    this.sub$.sink = this.observableService.selectedFolder$.subscribe((c) => {
+      if (this.documents && this.documents.length > 0) {
+        this.documents.forEach((c) => {
+          c.isRightClicked = false;
+        });
+      }
+    });
   }
 
   onClickDocument(document: Documents) {
-    this.documents.forEach(c => {
+    this.documents.forEach((c) => {
       if (c.id === document.id) {
         c.isRightClicked = true;
       } else {
@@ -122,7 +144,7 @@ export class DocumentListComponent extends DocumentBaseComponent implements OnIn
   onContextMenu(event: MouseEvent, selectDocument: Documents) {
     event.preventDefault();
     this.observableService.setSelectedDocument(selectDocument);
-    this.documents.map(c => {
+    this.documents.map((c) => {
       if (c.id === selectDocument.id) {
         c.isRightClicked = true;
       } else {
@@ -136,7 +158,10 @@ export class DocumentListComponent extends DocumentBaseComponent implements OnIn
           this.contextMenuTrigger.closeMenu();
           this.contextMenuPosition.x = event.clientX;
           this.contextMenuPosition.y = event.clientY;
-          this.contextMenuTrigger.menuData = { document: selectDocument, type: 'file' };
+          this.contextMenuTrigger.menuData = {
+            document: selectDocument,
+            type: 'file',
+          };
           this.contextMenuTrigger.openMenu();
           let backdrop: HTMLElement = null;
         })
@@ -144,35 +169,33 @@ export class DocumentListComponent extends DocumentBaseComponent implements OnIn
       .subscribe();
   }
 
-
   isMobileOrTabletDevice() {
-    this.sub$.sink = this.breakpointsService.isMobile$
-      .subscribe(c => {
-        if (c) {
-          this.disabled = c;
-        }
-      });
-    this.sub$.sink = this.breakpointsService.isTablet$
-      .subscribe(c => {
-        if (c) {
-          this.disabled = c;
-        }
-      });
+    this.sub$.sink = this.breakpointsService.isMobile$.subscribe((c) => {
+      if (c) {
+        this.disabled = c;
+      }
+    });
+    this.sub$.sink = this.breakpointsService.isTablet$.subscribe((c) => {
+      if (c) {
+        this.disabled = c;
+      }
+    });
   }
 
   moveDocumentSubscription() {
-    this.sub$.sink = this.commonService.moveDocumentNotification$.subscribe(c => {
-      if (c) {
-        this.documents = this.documents.filter(f => f.id != c);
+    this.sub$.sink = this.commonService.moveDocumentNotification$.subscribe(
+      (c) => {
+        if (c) {
+          this.documents = this.documents.filter((f) => f.id != c);
+        }
       }
-    })
+    );
   }
-
 
   unCheckAllCheckbox() {
     this.sub$.sink = this.observableService.unCheckAllCheckBox.subscribe(() => {
       if (this.checkboxes) {
-        this.checkboxes.forEach(element => {
+        this.checkboxes.forEach((element) => {
           element.checked = false;
         });
       }

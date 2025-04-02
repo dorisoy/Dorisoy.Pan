@@ -104,7 +104,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                     File.Copy(originalThumbPath, containerThumbPhysicalFolderPath, true);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }

@@ -62,7 +62,7 @@
                     移动
                   </button>
                 </ng-container>
-                <button mat-menu-item (click)="downloadDocument(document)">
+                <button mat-menu-item (click)="onDownload(document)">
                   <mat-icon> download</mat-icon>
                   下载
                 </button>
@@ -184,7 +184,7 @@
                 移动
               </button>
             </ng-container>
-            <button *hasClaim="'IsDownloadFile'" mat-menu-item (click)="downloadDocument(document)">
+            <button *hasClaim="'IsDownloadFile'" mat-menu-item (click)="onDownload(document)">
               <mat-icon> download</mat-icon>
               下载
             </button>
@@ -256,7 +256,7 @@
         移动
       </button>
     </ng-container>
-    <button *hasClaim="'IsDownloadFile'" mat-menu-item (click)="downloadDocument(document)">
+    <button *hasClaim="'IsDownloadFile'" mat-menu-item (click)="onDownload(document)">
       <mat-icon> download</mat-icon>
       下载
     </button>

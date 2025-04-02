@@ -56,7 +56,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
 
             if (document == null)
             {
-                _logger.LogError("Document not found.", request);
+                _logger.LogError("Document not found.{0}", request);
                 return ServiceResponse<bool>.Return404();
             }
 
@@ -94,7 +94,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
 
             if (await _uow.SaveAsync() <= 0)
             {
-                _logger.LogError("Error while deleting the document.", request);
+                _logger.LogError("Error while deleting the document.{0}", request);
                 return ServiceResponse<bool>.Return500();
             }
 
@@ -110,7 +110,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                     }
                     catch
                     {
-                        _logger.LogError("Error while deleting the document from dist.", request);
+                        _logger.LogError("Error while deleting the document from dist.{0}", request);
                     }
                 }
 
@@ -125,7 +125,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                     }
                     catch
                     {
-                        _logger.LogError("Error while deleting the document version from disk.", request);
+                        _logger.LogError("Error while deleting the document version from disk.{0}", request);
                     }
                 }
             }

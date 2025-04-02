@@ -196,7 +196,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                 return false;
             }
 
-            await PopulateDocumentChildren(fulldocumentPath, fullThumbdocumentPath);
+            PopulateDocumentChildren(fulldocumentPath, fullThumbdocumentPath);
             _documentRepository.UpdateRange(lstDocument);
             if (await _uow.SaveAsync() <= 0)
             {
@@ -263,7 +263,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             return sourceOrgano;
         }
 
-        private async Task PopulateDocumentChildren(string rootPath, string thumbnailRootPath)
+        private void PopulateDocumentChildren(string rootPath, string thumbnailRootPath)
         {
             foreach (var document in lstDocument)
             {
@@ -300,7 +300,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
         }
     }

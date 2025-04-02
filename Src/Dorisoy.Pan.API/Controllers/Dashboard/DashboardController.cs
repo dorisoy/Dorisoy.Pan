@@ -63,7 +63,6 @@ namespace Dorisoy.Pan.API.Controllers.Dashboard
         /// <summary>
         /// Gets the online users.
         /// </summary>
-        /// <param name="userIds">The user ids.</param>
         /// <returns></returns>
         [HttpGet("GetOnlineUsers")]
         [Produces("application/json", "application/xml", Type = typeof(List<UserDto>))]

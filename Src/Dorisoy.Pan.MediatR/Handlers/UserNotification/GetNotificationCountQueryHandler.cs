@@ -2,6 +2,7 @@
 using Dorisoy.Pan.MediatR.Queries;
 using Dorisoy.Pan.Repository;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
         }
         public async Task<int> Handle(GetNotificationCountQuery request, CancellationToken cancellationToken)
         {
-            return _userNotificationRepository.All.Count(c => c.ToUserId == _userInfoToken.Id && !c.IsRead);
+            return await _userNotificationRepository.All.CountAsync(c => c.ToUserId == _userInfoToken.Id && !c.IsRead);
         }
     }
 }

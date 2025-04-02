@@ -17,7 +17,7 @@ namespace Dorisoy.Pan.Helper
             byte[] encrypted;
             using (Aes aes = Aes.Create())
             {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(password, SALT);
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(password, SALT, 10000, HashAlgorithmName.SHA256);
                 aes.Key = pdb.GetBytes(32);
                 aes.IV = pdb.GetBytes(16);
                 ICryptoTransform encryptor = aes.CreateEncryptor();
@@ -41,7 +41,7 @@ namespace Dorisoy.Pan.Helper
             byte[] decrypted;
             using (Aes aes = Aes.Create())
             {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(password, SALT);
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(password, SALT,10000,HashAlgorithmName.SHA256);
                 aes.Key = pdb.GetBytes(32);
                 aes.IV = pdb.GetBytes(16);
                 ICryptoTransform decryptor = aes.CreateDecryptor();

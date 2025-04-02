@@ -86,7 +86,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                .FirstOrDefaultAsync();
             if (existingEntity != null)
             {
-                _logger.LogError("Folder is Already Exists.", request);
+                _logger.LogError("Folder is Already Exists.{0}", request);
                 return ServiceResponse<VirtualFolderInfoDto>.ReturnFailed(409, "Folder is Already Exists.");
             }
             // Physical folder

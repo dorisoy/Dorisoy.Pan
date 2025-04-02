@@ -15,7 +15,6 @@ namespace Dorisoy.Pan.Repository
     public class LoginAuditRepository : GenericRepository<LoginAudit, DocumentContext>,
        ILoginAuditRepository
     {
-        private readonly IUnitOfWork<DocumentContext> _uow;
         private readonly ILogger<LoginAuditRepository> _logger;
         private readonly IPropertyMappingService _propertyMappingService;
         public LoginAuditRepository(

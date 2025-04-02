@@ -78,6 +78,9 @@ namespace Dorisoy.Pan.Helper
                 var contentRootPath = _configuration["ContentRootPath"];
                 if (string.IsNullOrWhiteSpace(contentRootPath))
                 {
+#if DEBUG
+                    _contentRootPath = "wwwroot";
+#endif
                     return _contentRootPath;
                 }
                 else

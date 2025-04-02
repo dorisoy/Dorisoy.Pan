@@ -8,6 +8,8 @@ using Dorisoy.Pan.Data.Resources;
 using Dorisoy.Pan.MediatR.Commands;
 using Dorisoy.Pan.MediatR.Queries;
 using Dorisoy.Pan.Repository;
+using Azure;
+using Microsoft.AspNetCore.Http;
 
 namespace Dorisoy.Pan.API.Controllers
 {
@@ -43,7 +45,7 @@ namespace Dorisoy.Pan.API.Controllers
                 skip = result.Skip,
                 totalPages = result.TotalPages
             };
-            Response.Headers.Add("X-Pagination",
+            Response.Headers.Append("X-Pagination",
                 Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
             return Ok(result);
         }

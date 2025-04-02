@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
 using Dorisoy.Pan.Data;
 using Dorisoy.Pan.Data.Dto;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Dorisoy.Pan.API.Helpers
 {
@@ -45,8 +46,9 @@ namespace Dorisoy.Pan.API.Helpers
                 {
                     OnTokenValidated = context =>
                     {
-                        if (context.SecurityToken is JwtSecurityToken accessToken)
+                        if (context.SecurityToken is JsonWebToken accessToken)
                         {
+                            
                             var userId = accessToken.Claims.FirstOrDefault(a => a.Type == Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.Sub)?.Value;
                             var email = accessToken.Claims.FirstOrDefault(a => a.Type == "Email")?.Value;
                             context.HttpContext.Items["Id"] = userId;
