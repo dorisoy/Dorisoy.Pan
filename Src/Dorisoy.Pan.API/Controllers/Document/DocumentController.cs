@@ -200,8 +200,14 @@ namespace Dorisoy.Pan.API.Controllers
 
             if (!System.IO.File.Exists(filePath))
                 return NotFound("File not found");
+            Download(filePath);
+            return new EmptyResult();
+        }
+
+        private void Download(string filePath)
+        {
             var fileName = HttpUtility.UrlEncode(Path.GetFileName(filePath));
-            Response.ContentType = "application/octet-stream";
+            Response.ContentType = GetContentType(filePath);
             if (Request.Headers["User-Agent"].FirstOrDefault()?.ToLower().IndexOf("firefox") != -1)
                 Response.Headers.Add(new System.Collections.Generic.KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues>("Content-Disposition", "attachment; filename*=UTF-8''" + fileName));
             else
@@ -216,7 +222,6 @@ namespace Dorisoy.Pan.API.Controllers
                 await Response.Body.FlushAsync();
                 return true;
             });
-            return new EmptyResult();
         }
 
         /// <summary>
@@ -243,29 +248,9 @@ namespace Dorisoy.Pan.API.Controllers
             if (!System.IO.File.Exists(filePath))
                 return NotFound("File not found.");
 
-            byte[] newBytes;
-            using (var stream = new FileStream(filePath, FileMode.Open))
-            {
+            Download(filePath);
 
-                byte[] bytes = new byte[stream.Length];
-                int numBytesToRead = (int)stream.Length;
-                int numBytesRead = 0;
-                while (numBytesToRead > 0)
-                {
-                    // Read may return anything from 0 to numBytesToRead.
-                    int n = stream.Read(bytes, numBytesRead, numBytesToRead);
-
-                    // Break when the end of the file is reached.
-                    if (n == 0)
-                        break;
-
-                    numBytesRead += n;
-                    numBytesToRead -= n;
-                }
-                newBytes = AesOperation.DecryptStream(bytes, _pathHelper.EncryptionKey);
-            }
-
-            return File(newBytes, GetContentType(filePath), filePath);
+            return new EmptyResult();
         }
 
         /// <summary>
