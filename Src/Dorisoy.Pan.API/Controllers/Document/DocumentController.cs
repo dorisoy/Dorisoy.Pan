@@ -187,7 +187,7 @@ namespace Dorisoy.Pan.API.Controllers
         /// <param name="isVersion"></param>
         /// <returns></returns>
         [HttpGet("{id}/download")]
-        [AllowAnonymous]
+        // [AllowAnonymous]
         public async Task<IActionResult> DownloadDocument(Guid id, bool isVersion)
         {
             var commnad = new DownloadDocumentCommand
