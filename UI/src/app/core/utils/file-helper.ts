@@ -58,7 +58,7 @@ export const ComputeMD5 = (file: File, info: progress): Promise<string> => {
 type process = (info: Chunk) => Promise<boolean>;
 export const ChunkFile = async (file: File, info: process) => {
   let blobSlice = File.prototype.slice,
-    chunkSize = 2 * 1024 * 1024,
+    chunkSize = 1 * 1024 * 1024,
     size = file.size,
     chunks = Math.ceil(size / chunkSize);
 
