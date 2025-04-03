@@ -26,7 +26,6 @@ import {
   RecentActivityType,
 } from '@core/domain-classes/recent-activity';
 import { TreeViewService } from '@core/services/tree-view.service';
-import { AsyncQueueService } from '@core/utils/AsyncQueue';
 @Component({
   selector: 'app-upload-file-folder',
   templateUrl: './upload-file-folder.component.html',
@@ -51,8 +50,7 @@ export class UploadFileFolderComponent
     private overlay: OverlayPanel,
     private cd: ChangeDetectorRef,
     private commonService: CommonService,
-    private treviewService: TreeViewService,
-    private asyncQueueService: AsyncQueueService
+    private treviewService: TreeViewService
   ) {
     super();
   }
@@ -99,9 +97,11 @@ export class UploadFileFolderComponent
           .subscribe(
             (event) => {
               if (event.type === HttpEventType.UploadProgress) {
-                let progress = Math.round(
-                  (100 * (info.current - 1 + event.loaded / event.total)) /
+                let progress = Number(
+                  (
+                    (100 * (info.current - 1 + event.loaded / event.total)) /
                     info.total
+                  ).toFixed(2)
                 );
                 if (progress >= 100) {
                   //数据包已接收完成，等待后端处理完成
