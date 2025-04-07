@@ -8,12 +8,12 @@ import { ObservableService } from '@core/services/observable.service';
 @Component({
   selector: 'app-file-upload-process',
   templateUrl: './file-upload-process.component.html',
-  styleUrls: ['./file-upload-process.component.scss']
+  styleUrls: ['./file-upload-process.component.scss'],
 })
 export class FileUploadProcessComponent implements OnInit {
   panelOpenState = true;
   files$: Observable<FileProgress[]>;
-  constructor(private observableService: ObservableService) { }
+  constructor(private observableService: ObservableService) {}
 
   ngOnInit(): void {
     this.files$ = this.observableService.documentUploadProgress$;
@@ -27,4 +27,15 @@ export class FileUploadProcessComponent implements OnInit {
     }
   }
 
+  Md5Count(files: FileProgress[]) {
+    return files.filter((s) => s.isComputeMd5).length;
+  }
+
+  OkCount(files: FileProgress[]) {
+    return files.filter((s) => !s.isComputeMd5 && s.percentage == 100).length;
+  }
+
+  ProcessCount(files: FileProgress[]) {
+    return files.filter((s) => !s.isComputeMd5 && s.percentage != 100).length;
+  }
 }

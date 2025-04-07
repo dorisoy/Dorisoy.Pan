@@ -5,7 +5,7 @@
             <mat-expansion-panel-header class="panel-header">
                 <mat-panel-title>
                     <ng-container *ngIf="files$ | async as files">
-                        {{files.length}} 项上传完毕
+                        {{Md5Count(files)}}个预处理/{{ProcessCount(files)}}个上传中/{{OkCount(files)}}个完成
                         <span class="material-icons-outlined panel-close-icon" (click)="onClose()">
                             close
                         </span>
@@ -33,7 +33,8 @@
                                     </div>
                                 </div>
                                 <div mat-line>
-                                    <mat-progress-bar mode="determinate" [value]="file.percentage"></mat-progress-bar>
+                                    <mat-progress-bar *ngIf="file.isComputeMd5" color="accent" mode="determinate" [value]="file.percentage"></mat-progress-bar>
+                                    <mat-progress-bar *ngIf="!file.isComputeMd5" mode="determinate" [value]="file.percentage"></mat-progress-bar>
                                 </div>
                             </div>
                         </div>

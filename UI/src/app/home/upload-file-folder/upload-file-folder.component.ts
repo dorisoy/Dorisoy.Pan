@@ -63,7 +63,9 @@ export class UploadFileFolderComponent
       this.cd.markForCheck();
       this.observableService.upadteDocumentUploadProgress(
         file.name,
-        info.percent
+        info.percent,
+        false,
+        true
       );
     });
 

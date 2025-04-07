@@ -217,7 +217,9 @@ export class DragDropDirective {
     let md5 = await ComputeMD5(file, (info) => {
       this.observableService.upadteDocumentUploadProgress(
         file.name,
-        info.percent
+        info.percent,
+        false,
+        true
       );
     });
 

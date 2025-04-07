@@ -324,7 +324,9 @@ export class HomeComponent extends BaseComponent implements OnInit, OnDestroy {
       this.cd.markForCheck();
       this.observableService.upadteDocumentUploadProgress(
         file.name,
-        info.percent
+        info.percent,
+        false,
+        true
       );
     });
 
