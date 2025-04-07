@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Folder } from '@core/domain-classes/folder';
@@ -24,7 +31,7 @@ import {
 } from '@core/domain-classes/recent-activity';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ComputeMD5, ChunkFile } from '@core/utils/file-helper';
-import { Chunk } from '@core/core.types';
+import { Chunk, Porgress } from '@core/core.types';
 
 @Component({
   selector: 'app-home',
@@ -311,6 +318,102 @@ export class HomeComponent extends BaseComponent implements OnInit, OnDestroy {
     this.getDocuments(this.selectedFolder.id);
   }
 
+  async uploadFile(file: File, fileCount: number) {
+    this.observableService.initializeDocumentUploadProcess(file.name);
+    let md5 = await ComputeMD5(file, (info) => {
+      this.cd.markForCheck();
+      this.observableService.upadteDocumentUploadProgress(
+        file.name,
+        info.percent
+      );
+    });
+
+    let chunk = (info: Chunk): Promise<boolean> => {
+      return new Promise((resolve) => {
+        let errorFunc = () => {
+          this.observableService.upadteDocumentUploadProgress(
+            file.name,
+            100,
+            true
+          );
+          if (info.current == info.total) {
+            this.totalFileUploaded = this.totalFileUploaded + 1;
+            if (this.totalFileUploaded == fileCount) {
+              this.sendNotification();
+            }
+          }
+        };
+        const formData = new FormData();
+        formData.append(file.name, info.file);
+        // this.observableService.initializeDocumentUploadProcess(file.name);
+        this.sub$.sink = this.commonService
+          .uploadFolderDocument(
+            formData,
+            this.selectedFolder.physicalFolderId,
+            info.current,
+            info.total,
+            md5,
+            info.size
+          )
+          .subscribe(
+            (event) => {
+              if (event.type === HttpEventType.UploadProgress) {
+                let progress = Number(
+                  (
+                    (100 * (info.current - 1 + event.loaded / event.total)) /
+                    info.total
+                  ).toFixed(2)
+                );
+                if (progress >= 100) {
+                  //数据包已接收完成，等待后端处理完成
+                  progress = 99.5;
+                }
+                console.log(file.name + progress + '%');
+                this.cd.markForCheck();
+                this.observableService.upadteDocumentUploadProgress(
+                  file.name,
+                  progress
+                );
+              } else if (event.type === HttpEventType.Response) {
+                if (event.body == null) {
+                  resolve(true);
+                  return;
+                }
+                const returnDocument = event.body as Documents;
+                if (returnDocument && returnDocument.id != undefined) {
+                  this.addRecentActivity(null, returnDocument);
+                  this.onDoucmentUploadEvent(returnDocument);
+                  this.observableService.upadteDocumentUploadProgress(
+                    file.name,
+                    100
+                  );
+                  if (info.current == info.total) {
+                    this.totalFileUploaded = this.totalFileUploaded + 1;
+                    if (this.totalFileUploaded == fileCount) {
+                      this.sendNotification();
+                    }
+                  }
+                  resolve(false);
+                } else {
+                  errorFunc();
+                  this.toastrService.error(
+                    `上传错误: ${JSON.stringify(event.body).substring(0, 20)}`
+                  );
+                  resolve(false);
+                }
+              }
+            },
+            (error) => {
+              errorFunc();
+              resolve(false);
+            }
+          );
+      });
+    };
+
+    ChunkFile(file, chunk);
+  }
+
   async fileEvent($event) {
     let files: File[] = $event.target.files;
     if (files.length == 0) {
@@ -331,67 +434,8 @@ export class HomeComponent extends BaseComponent implements OnInit, OnDestroy {
 
     for (let index = 0; index < files.length; index++) {
       try {
-        const reader = new FileReader();
         const file = files[index];
-        let md5 = await ComputeMD5(file, (info) => {});
-        let process = (info: Chunk): Promise<boolean> => {
-          return new Promise((resolve) => {
-            const formData = new FormData();
-            formData.append(file.name, file);
-            this.observableService.initializeDocumentUploadProcess(file.name);
-            this.sub$.sink = this.commonService
-              .uploadFolderDocument(
-                formData,
-                this.selectedFolder.physicalFolderId,
-                info.current,
-                info.total,
-                md5,
-                file.size
-              )
-              .subscribe(
-                (event) => {
-                  if (event.type === HttpEventType.UploadProgress) {
-                    const progress = Math.round(
-                      (100 * event.loaded) / event.total
-                    );
-                    this.cd.markForCheck();
-                    this.observableService.upadteDocumentUploadProgress(
-                      file.name,
-                      progress
-                    );
-                  } else if (event.type === HttpEventType.Response) {
-                    const returnDocument = event.body as Documents;
-                    this.addRecentActivity(null, returnDocument);
-                    this.onDoucmentUploadEvent(returnDocument);
-                    this.observableService.upadteDocumentUploadProgress(
-                      file.name,
-                      100
-                    );
-                    this.totalFileUploaded = this.totalFileUploaded + 1;
-                    if (this.totalFileUploaded == files.length) {
-                      this.sendNotification();
-                      $event.target.value = '';
-                    }
-                  }
-                  resolve(true);
-                },
-                (error) => {
-                  this.observableService.upadteDocumentUploadProgress(
-                    file.name,
-                    100,
-                    true
-                  );
-                  this.totalFileUploaded = this.totalFileUploaded + 1;
-                  if (this.totalFileUploaded == files.length) {
-                    this.sendNotification();
-                    $event.target.value = '';
-                  }
-                  resolve(false);
-                }
-              );
-          });
-        };
-        ChunkFile(file, process);
+        this.uploadFile(file, files.length);
       } catch (error) {
         this.toastrService.error(error);
       }

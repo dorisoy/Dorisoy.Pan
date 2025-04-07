@@ -146,7 +146,7 @@
           {{document.modifiedDate | date:"dd/MM/yyyy hh:mm a"}}
         </div>
         <div class="col-md-2 d-md-flex d-none">
-          <ng-container *ngIf="document.users.length == 1">
+          <ng-container *ngIf="document.users.length <=1">
             <span>仅自己</span>
           </ng-container>
           <ng-container *ngIf="document.users.length > 1">

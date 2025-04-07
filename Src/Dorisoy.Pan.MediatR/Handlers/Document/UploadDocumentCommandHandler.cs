@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Dorisoy.Pan.Common;
 using Dorisoy.Pan.Common.UnitOfWork;
 using Dorisoy.Pan.Data;
@@ -10,6 +11,7 @@ using Dorisoy.Pan.Repository;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using NewLife.Redis.Core;
 using System;
 using System.Collections.Generic;
@@ -32,6 +34,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
         private readonly IUnitOfWork<DocumentContext> _uow;
         private readonly IMapper _mapper;
         private readonly UserInfoToken _userInfoToken;
+        private readonly ILogger<UploadDocumentCommandHandler> _logger;
         private readonly INewLifeRedis _redis;
         private readonly object Writing = true;
         private readonly object Combining = true;
@@ -43,6 +46,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             PathHelper pathHelper,
             IDocumentRepository documentRepository,
             IUnitOfWork<DocumentContext> uow,
+            ILogger<UploadDocumentCommandHandler> logger,
             IMapper mapper,
             INewLifeRedis redis,
             UserInfoToken userInfoToken)
@@ -56,6 +60,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             _mapper = mapper;
             _userInfoToken = userInfoToken;
             _redis = redis;
+            _logger = logger;
         }
         #region 文件保存
         /// <summary>
@@ -109,10 +114,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                 {
                     CombinFile(tempPath, path);
                 }
-                if (_redis.ContainsKey(request.Md5))
-                {
-                    RemoveCache(request.Md5);
-                }
+                RemoveCache(request.Md5);
             }
         }
         private bool CanLock(string md5)
@@ -142,7 +144,8 @@ namespace Dorisoy.Pan.MediatR.Handlers
         }
         private void RemoveCache(string md5)
         {
-            _redis.Remove(md5);
+            if (_redis.ContainsKey(md5))
+                _redis.Remove(md5);
         }
 
         private void WriteFile(string path, byte[] bytes)
@@ -157,10 +160,13 @@ namespace Dorisoy.Pan.MediatR.Handlers
             }
             catch (IOException ex)
             {
+                _logger.LogError("文件：{0} 保存错误：{1}",path,ex.Message);
                 if (ex.Message.Contains("another process"))
                 {
+                    _logger.LogWarning(ex, ex.Message);
                     return;
                 }
+                _logger.LogError(ex, ex.Message);
                 throw ex;
             }
 
@@ -175,10 +181,13 @@ namespace Dorisoy.Pan.MediatR.Handlers
             }
             catch (IOException ex)
             {
+                _logger.LogError("合并文件：{0} 保存错误：{1}", path, ex.Message);
                 if (ex.Message.Contains("another process"))
                 {
+                    _logger.LogWarning(ex, ex.Message);
                     return;
                 }
+                _logger.LogError(ex, ex.Message);
                 throw ex;
             }
         }
@@ -266,7 +275,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                     ModifiedBy = document.ModifiedBy
                 });
                 document.Path = saveFullPath;
-                document.Size = fileToSave.Length;
+                document.Size = request.Size;
                 _documentRepository.Update(document);
                 if (await _uow.SaveAsync() <= 0)
                 {
