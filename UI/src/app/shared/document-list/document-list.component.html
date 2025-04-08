@@ -1,294 +1,265 @@
-<ng-container *ngIf="listView=='grid'">
-  <div class="box-view">
-    <div class="row-ex">
-      <div cdkDropList [class.selected]="document.isRightClicked" (contextmenu)="onContextMenu($event,document,i)"
-        [cdkDropListDisabled]="disabled" id="document{{i}}" [cdkDropListData]="document" class="col-ex-5"
-        [appDragDrop]="selectFolder" [rootFolder]="rootFolder"
-        *ngFor="let document of documents;let i=index;trackBy: trackById">
-        <div style="visibility: hidden; position: fixed" [style.left.px]="contextMenuPosition.x"
-          [style.top.px]="contextMenuPosition.y" #documentMenuTrigger="matMenuTrigger"
-          [matMenuTriggerFor]="documentMenuRight">
+<ng-container *ngIf="listView == 'grid'">
+    <div class="box-view">
+        <div class="row-ex">
+            <div cdkDropList [class.selected]="document.isRightClicked" (contextmenu)="onContextMenu($event, document, i)" [cdkDropListDisabled]="disabled" id="document{{ i }}" [cdkDropListData]="document" class="col-ex-5" [appDragDrop]="selectFolder" [rootFolder]="rootFolder" *ngFor="let document of documents; let i = index; trackBy: trackById">
+                <div style="visibility: hidden; position: fixed" [style.left.px]="contextMenuPosition.x" [style.top.px]="contextMenuPosition.y" #documentMenuTrigger="matMenuTrigger" [matMenuTriggerFor]="documentMenuRight"></div>
+                <div cdkDrag [cdkDragDisabled]="disabled" [cdkDragData]="document" class="position-relative show-on-hover">
+                    <div *ngIf="disabled" (click)="onDocumentView(document)" class="material-icons f-icon text-main" role="button">
+                        <img [src]="document.thumbnailPath" alt="" class="mr-2 grid-img" />
+                    </div>
+                    <div *ngIf="!disabled" (dblclick)="onDocumentView(document)" (click)="onClickDocument(document)" class="material-icons f-icon text-main" role="button">
+                        <img [src]="document.thumbnailPath" alt="" class="mr-2 grid-img" />
+                    </div>
+                    <div *ngIf="disabled" role="button" class="text-dark fw-600" (click)="onDocumentView(document)">
+                        {{ document.name | limitTo : 25 }}
+                    </div>
+                    <div *ngIf="!disabled" role="button" class="text-dark fw-600" (click)="onClickDocument(document)" (dblclick)="onDocumentView(document)">
+                        {{ document.name | limitTo : 25 }}
+                    </div>
+                    <div class="hover-data">
+                        <div class="c-box">
+                            <div class="custom-control custom-checkbox mr-sm-2">
+                                <mat-checkbox #checkboxes color="primary" (change)="addOrRemoveDocumentId(document.id, $event)"></mat-checkbox>
+                            </div>
+                        </div>
+                        <div class="m-icon">
+                            <button mat-icon-button color="primary" matTooltip="更多" [matMenuTriggerFor]="documentMenu" aria-label="Menu">
+                                <mat-icon>more_horiz</mat-icon>
+                            </button>
+                            <mat-menu #documentMenu="matMenu">
+                                <button mat-menu-item (click)="onShared(document, 'file')">
+                                    <mat-icon>shared</mat-icon>
+                                    共享
+                                </button>
+                                <button mat-menu-item (click)="onCreateShareableLink(document)">
+                                    <mat-icon>link</mat-icon>
+                                    生成共享链接
+                                </button>
+                                <button mat-menu-item (click)="onDocumentView(document)">
+                                    <mat-icon>remove_red_eye</mat-icon>
+                                    预览
+                                </button>
+                                <ng-container *ngIf="isCopy">
+                                    <button mat-menu-item (click)="onCopied(document)">
+                                        <mat-icon>content_copy</mat-icon>
+                                        拷贝
+                                    </button>
+                                </ng-container>
+                                <ng-container *ngIf="isMove">
+                                    <button mat-menu-item (click)="onMoved(document)">
+                                        <mat-icon>zoom_out_map</mat-icon>
+                                        移动
+                                    </button>
+                                </ng-container>
+                                <button mat-menu-item (click)="onDownload(document)">
+                                    <mat-icon>download</mat-icon>
+                                    下载
+                                </button>
+                                <button mat-menu-item (click)="sendEmail(document)">
+                                    <mat-icon>forward_to_inbox</mat-icon>
+                                    发送邮件
+                                </button>
+                                <button mat-menu-item (click)="renameDocument(document)">
+                                    <mat-icon>edit</mat-icon>
+                                    重命名
+                                </button>
+                                <button mat-menu-item (click)="onCommentClick(document)">
+                                    <mat-icon>chat</mat-icon>
+                                    评论
+                                </button>
+                                <button mat-menu-item (click)="deleteDocument(document)">
+                                    <mat-icon>delete</mat-icon>
+                                    删除
+                                </button>
+                                <button mat-menu-item (click)="toggleDocumentStarred(document)">
+                                    <ng-container *ngIf="document.isStarred">
+                                        <mat-icon class="material-icons">grade</mat-icon>
+                                        移除关注
+                                    </ng-container>
+                                    <ng-container *ngIf="!document.isStarred">
+                                        <mat-icon class="material-icons-outlined">grade</mat-icon>
+                                        添加关注
+                                    </ng-container>
+                                </button>
+                                <button mat-menu-item (click)="onVersionHistoryClick(document)">
+                                    <mat-icon>history</mat-icon>
+                                    版本历史
+                                </button>
+                            </mat-menu>
+                        </div>
+                        <div class="star-icon">
+                            <i class="fas fa-star mr-2" matTooltip="取消关注" role="button" (click)="toggleDocumentStarred(document)" *ngIf="document.isStarred"></i>
+                            <i class="far fa-star mr-2" role="button" matTooltip="添加关注" (click)="toggleDocumentStarred(document)" *ngIf="!document.isStarred"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div cdkDrag [cdkDragDisabled]="disabled" [cdkDragData]="document" class="position-relative show-on-hover">
-          <div *ngIf="disabled" (click)="onDocumentView(document)" class="material-icons f-icon text-main"
-            role="button">
-            <img [src]="document.thumbnailPath" alt="" class="mr-2 grid-img">
-          </div>
-          <div *ngIf="!disabled" (dblclick)="onDocumentView(document)" (click)="onClickDocument(document)"
-            class="material-icons f-icon text-main" role="button">
-            <img [src]="document.thumbnailPath" alt="" class="mr-2 grid-img">
-          </div>
-          <div *ngIf="disabled" role="button" class="text-dark fw-600" (click)="onDocumentView(document)">
-            {{document.name | limitTo: 25}}
-          </div>
-          <div *ngIf="!disabled" role="button" class="text-dark fw-600" (click)="onClickDocument(document)"
-            (dblclick)="onDocumentView(document)">
-            {{document.name | limitTo: 25}}
-          </div>
-          <div class="hover-data">
-            <div class="c-box">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <mat-checkbox #checkboxes color="primary" (change)="addOrRemoveDocumentId(document.id, $event)">
-                </mat-checkbox>
-              </div>
-            </div>
-            <div class="m-icon">
-              <button mat-icon-button color="primary" matTooltip="更多" [matMenuTriggerFor]="documentMenu"
-                aria-label="Menu">
-                <mat-icon> more_horiz</mat-icon>
-              </button>
-              <mat-menu #documentMenu="matMenu">
-                <button mat-menu-item (click)="onShared(document,'file')">
-                  <mat-icon> shared</mat-icon>
-                  共享
-                </button>
-                <button mat-menu-item (click)="onCreateShareableLink(document)">
-                  <mat-icon> link</mat-icon>
-                  生成共享链接
-                </button>
-                <button mat-menu-item (click)="onDocumentView(document)">
-                  <mat-icon> remove_red_eye</mat-icon>
-                  预览
-                </button>
-                <ng-container *ngIf="isCopy">
-                  <button mat-menu-item (click)="onCopied(document)">
-                    <mat-icon> content_copy</mat-icon>
-                    拷贝
-                  </button>
-                </ng-container>
-                <ng-container *ngIf="isMove">
-                  <button mat-menu-item (click)="onMoved(document)">
-                    <mat-icon> zoom_out_map</mat-icon>
-                    移动
-                  </button>
-                </ng-container>
-                <button mat-menu-item (click)="onDownload(document)">
-                  <mat-icon> download</mat-icon>
-                  下载
-                </button>
-                <button mat-menu-item (click)="sendEmail(document)">
-                  <mat-icon> forward_to_inbox</mat-icon>
-                  发送邮件
-                </button>
-                <button mat-menu-item (click)="renameDocument(document)">
-                  <mat-icon> edit</mat-icon>
-                  重命名
-                </button>
-                <button mat-menu-item (click)="onCommentClick(document)">
-                  <mat-icon> chat</mat-icon>
-                  评论
-                </button>
-                <button mat-menu-item (click)="deleteDocument(document)">
-                  <mat-icon> delete</mat-icon>
-                  删除
-                </button>
-                <button mat-menu-item (click)="toggleDocumentStarred(document)">
-                  <ng-container *ngIf="document.isStarred">
-                    <mat-icon class="material-icons"> grade</mat-icon>
-                    移除关注
-                  </ng-container>
-                  <ng-container *ngIf="!document.isStarred">
-                    <mat-icon class="material-icons-outlined"> grade</mat-icon>
-                    添加关注
-                  </ng-container>
-                </button>
-                <button mat-menu-item (click)="onVersionHistoryClick(document)">
-                  <mat-icon> history</mat-icon>
-                  版本历史
-                </button>
-              </mat-menu>
-            </div>
-            <div class="star-icon">
-              <i class="fas fa-star mr-2" matTooltip="取消关注" role="button" (click)="toggleDocumentStarred(document)"
-                *ngIf="document.isStarred"></i>
-              <i class="far fa-star mr-2" role="button" matTooltip="添加关注" (click)="toggleDocumentStarred(document)"
-                *ngIf="!document.isStarred"></i>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </ng-container>
 
-<ng-container *ngIf="listView=='list'">
-  <ul class="list-group list-group-flush">
-    <li cdkDropList [class.selected]="document.isRightClicked" (contextmenu)="onContextMenu($event,document)"
-      id="document{{i}}" [cdkDropListDisabled]="disabled" [cdkDropListData]="document" class="list-group-item px-0"
-      [appDragDrop]="selectFolder" [rootFolder]="rootFolder"
-      *ngFor="let document of documents;let i=index;trackBy: trackById">
-      <div style="visibility: hidden; position: fixed" [style.left.px]="contextMenuPosition.x"
-        [style.top.px]="contextMenuPosition.y" #documentMenuTrigger="matMenuTrigger"
-        [matMenuTriggerFor]="documentMenuRight">
-      </div>
-      <div cdkDrag [cdkDragDisabled]="disabled" [cdkDragData]="document" class="row align-items-center m-0">
-        <div class="col-md-auto col-auto">
-          <mat-checkbox #checkboxes color="primary" (change)="addOrRemoveDocumentId(document.id,$event)"></mat-checkbox>
-        </div>
-        <div class="col-md col">
-          <div *ngIf="disabled" (click)="onDocumentView(document)" class="d-flex align-items-center" role="button">
-            <img [src]="document.thumbnailPath" [alt]="document.name" class="mr-2 list-img">
-            {{document.name | limitTo: 25}}
-          </div>
-          <div *ngIf="!disabled" (click)="onClickDocument(document)" (dblclick)="onDocumentView(document)"
-            class="d-flex align-items-center" role="button">
-            <img [src]="document.thumbnailPath" [alt]="document.name" class="mr-2 list-img">
-            {{document.name | limitTo: 25}}
-          </div>
-        </div>
-        <div class="col-md-3 col-auto d-md-flex d-none">
-          <i class="fas fa-star mr-2" matTooltip="取消关注" role="button" (click)="toggleDocumentStarred(document)"
-            *ngIf="document.isStarred">
-          </i>
-          <i class="far fa-star mr-2" role="button" matTooltip="添加关注" (click)="toggleDocumentStarred(document)"
-            *ngIf="!document.isStarred">
-          </i>
-          {{document.modifiedDate | date:"dd/MM/yyyy hh:mm a"}}
-        </div>
-        <div class="col-md-2 d-md-flex d-none">
-          <ng-container *ngIf="document.users.length <=1">
-            <span>仅自己</span>
-          </ng-container>
-          <ng-container *ngIf="document.users.length > 1">
-            <span [matTooltip]="getTooltip(document.users)">
-              {{document.users.length}} Members
-            </span>
-          </ng-container>
-        </div>
-        <div class="col-md-auto col-auto">
-          <button mat-icon-button color="primary" matTooltip="更多" [matMenuTriggerFor]="documentMenu" aria-label="Menu">
-            <mat-icon> more_horiz</mat-icon>
-          </button>
-          <mat-menu #documentMenu="matMenu">
-            <button *hasClaim="'IsSharedFileFolder'" mat-menu-item (click)="onShared(document,'file')">
-              <mat-icon> shared</mat-icon>
-              共享
-            </button>
-            <button *hasClaim="'IsSharedLink'" mat-menu-item (click)="onCreateShareableLink(document)">
-              <mat-icon> link</mat-icon>
-              生成共享链接
-            </button>
-            <button mat-menu-item (click)="onDocumentView(document)">
-              <mat-icon> remove_red_eye</mat-icon>
-              预览
-            </button>
-            <ng-container *ngIf="isCopy">
-              <button *hasClaim="'IsCopyFile'" mat-menu-item (click)="onCopied(document)">
-                <mat-icon> content_copy</mat-icon>
-                拷贝
-              </button>
-            </ng-container>
-            <ng-container *ngIf="isMove">
-              <button *hasClaim="'IsMoveFile'" mat-menu-item (click)="onMoved(document)">
-                <mat-icon> zoom_out_map</mat-icon>
-                移动
-              </button>
-            </ng-container>
-            <button *hasClaim="'IsDownloadFile'" mat-menu-item (click)="onDownload(document)">
-              <mat-icon> download</mat-icon>
-              下载
-            </button>
-            <button *hasClaim="'IsSendEmail'" mat-menu-item (click)="sendEmail(document)">
-              <mat-icon> forward_to_inbox</mat-icon>
-              发送邮件
-            </button>
-            <button *hasClaim="'IsRenameFile'" mat-menu-item (click)="renameDocument(document)">
-              <mat-icon> edit</mat-icon>
-              重命名
-            </button>
-            <button mat-menu-item (click)="onCommentClick(document)">
-              <mat-icon> chat</mat-icon>
-              评论
-            </button>
-            <button *hasClaim="'IsDeleteFileFolder'" mat-menu-item (click)="deleteDocument(document)">
-              <mat-icon> delete</mat-icon>
-              删除
-            </button>
-            <button mat-menu-item (click)="toggleDocumentStarred(document)">
-              <ng-container *ngIf="document.isStarred">
-                <mat-icon class="material-icons"> grade</mat-icon>
-                移除关注
-              </ng-container>
-              <ng-container *ngIf="!document.isStarred">
-                <mat-icon class="material-icons-outlined"> grade</mat-icon>
-                添加关注
-              </ng-container>
-            </button>
-            <button mat-menu-item (click)="onVersionHistoryClick(document)">
-              <mat-icon> history</mat-icon>
-              版本历史
-            </button>
-          </mat-menu>
-        </div>
-      </div>
-      <div class="showme" *hasClaim="'IsSharedFileFolder'" (click)="onShared(document,'file')">
-        <span class="material-icons-outlined text-main cursor-pointer">
-          share
-        </span>
-      </div>
-    </li>
-  </ul>
-
+<ng-container *ngIf="listView == 'list'">
+    <ul class="list-group list-group-flush">
+        <li cdkDropList [class.selected]="document.isRightClicked" (contextmenu)="onContextMenu($event, document)" id="document{{ i }}" [cdkDropListDisabled]="disabled" [cdkDropListData]="document" class="list-group-item px-0" [appDragDrop]="selectFolder" [rootFolder]="rootFolder" *ngFor="let document of documents; let i = index; trackBy: trackById">
+            <div style="visibility: hidden; position: fixed" [style.left.px]="contextMenuPosition.x" [style.top.px]="contextMenuPosition.y" #documentMenuTrigger="matMenuTrigger" [matMenuTriggerFor]="documentMenuRight"></div>
+            <div cdkDrag [cdkDragDisabled]="disabled" [cdkDragData]="document" class="row align-items-center m-0">
+                <div class="col-md-auto col-auto">
+                    <mat-checkbox #checkboxes color="primary" (change)="addOrRemoveDocumentId(document.id, $event)"></mat-checkbox>
+                </div>
+                <div class="col-md col">
+                    <div *ngIf="disabled" (click)="onDocumentView(document)" class="d-flex align-items-center" role="button">
+                        <img [src]="document.thumbnailPath" [alt]="document.name" class="mr-2 list-img" />
+                        {{ document.name | limitTo : 25 }}
+                    </div>
+                    <div *ngIf="!disabled" (click)="onClickDocument(document)" (dblclick)="onDocumentView(document)" class="d-flex align-items-center" role="button">
+                        <img [src]="document.thumbnailPath" [alt]="document.name" class="mr-2 list-img" />
+                        {{ document.name | limitTo : 25 }}
+                    </div>
+                </div>
+                <div class="col-md-3 col-auto d-md-flex d-none">
+                    <i class="fas fa-star mr-2" matTooltip="取消关注" role="button" (click)="toggleDocumentStarred(document)" *ngIf="document.isStarred"></i>
+                    <i class="far fa-star mr-2" role="button" matTooltip="添加关注" (click)="toggleDocumentStarred(document)" *ngIf="!document.isStarred"></i>
+                    {{ document.modifiedDate | date : 'dd/MM/yyyy hh:mm a' }}
+                </div>
+                <div class="col-md-2 d-md-flex d-none">
+                    <ng-container *ngIf="document.users.length <= 1">
+                        <span>仅自己</span>
+                    </ng-container>
+                    <ng-container *ngIf="document.users.length > 1">
+                        <span [matTooltip]="getTooltip(document.users)">{{ document.users.length }} Members</span>
+                    </ng-container>
+                </div>
+                <div class="col-md-auto col-auto">
+                    <button mat-icon-button color="primary" matTooltip="更多" [matMenuTriggerFor]="documentMenu" aria-label="Menu">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-menu #documentMenu="matMenu">
+                        <button *hasClaim="'IsSharedFileFolder'" mat-menu-item (click)="onShared(document, 'file')">
+                            <mat-icon>shared</mat-icon>
+                            共享
+                        </button>
+                        <button *hasClaim="'IsSharedLink'" mat-menu-item (click)="onCreateShareableLink(document)">
+                            <mat-icon>link</mat-icon>
+                            生成共享链接
+                        </button>
+                        <button mat-menu-item (click)="onDocumentView(document)">
+                            <mat-icon>remove_red_eye</mat-icon>
+                            预览
+                        </button>
+                        <ng-container *ngIf="isCopy">
+                            <button *hasClaim="'IsCopyFile'" mat-menu-item (click)="onCopied(document)">
+                                <mat-icon>content_copy</mat-icon>
+                                拷贝
+                            </button>
+                        </ng-container>
+                        <ng-container *ngIf="isMove">
+                            <button *hasClaim="'IsMoveFile'" mat-menu-item (click)="onMoved(document)">
+                                <mat-icon>zoom_out_map</mat-icon>
+                                移动
+                            </button>
+                        </ng-container>
+                        <button *hasClaim="'IsDownloadFile'" mat-menu-item (click)="onDownload(document)">
+                            <mat-icon>download</mat-icon>
+                            下载
+                        </button>
+                        <button *hasClaim="'IsSendEmail'" mat-menu-item (click)="sendEmail(document)">
+                            <mat-icon>forward_to_inbox</mat-icon>
+                            发送邮件
+                        </button>
+                        <button *hasClaim="'IsRenameFile'" mat-menu-item (click)="renameDocument(document)">
+                            <mat-icon>edit</mat-icon>
+                            重命名
+                        </button>
+                        <button mat-menu-item (click)="onCommentClick(document)">
+                            <mat-icon>chat</mat-icon>
+                            评论
+                        </button>
+                        <button *hasClaim="'IsDeleteFileFolder'" mat-menu-item (click)="deleteDocument(document)">
+                            <mat-icon>delete</mat-icon>
+                            删除
+                        </button>
+                        <button mat-menu-item (click)="toggleDocumentStarred(document)">
+                            <ng-container *ngIf="document.isStarred">
+                                <mat-icon class="material-icons">grade</mat-icon>
+                                移除关注
+                            </ng-container>
+                            <ng-container *ngIf="!document.isStarred">
+                                <mat-icon class="material-icons-outlined">grade</mat-icon>
+                                添加关注
+                            </ng-container>
+                        </button>
+                        <button mat-menu-item (click)="onVersionHistoryClick(document)">
+                            <mat-icon>history</mat-icon>
+                            版本历史
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+            <div class="showme" *hasClaim="'IsSharedFileFolder'" (click)="onShared(document, 'file')">
+                <span class="material-icons-outlined text-main cursor-pointer">share</span>
+            </div>
+        </li>
+    </ul>
 </ng-container>
 <mat-menu #documentMenuRight="matMenu">
-  <ng-template matMenuContent let-document="document" let-type="type">
-    <button *hasClaim="'IsSharedFileFolder'" mat-menu-item (click)="onShared(document,type)">
-      <mat-icon> shared</mat-icon>
-      共享
-    </button>
-    <button *hasClaim="'IsSharedLink'" mat-menu-item (click)="onCreateShareableLink(document)">
-      <mat-icon> link</mat-icon>
-      生成共享链接
-    </button>
-    <button mat-menu-item (click)="onDocumentView(document)">
-      <mat-icon> remove_red_eye</mat-icon>
-      预览
-    </button>
-    <ng-container *ngIf="isCopy">
-      <button *hasClaim="'IsCopyFile'" mat-menu-item (click)="onCopied(document)">
-        <mat-icon> content_copy</mat-icon>
-        拷贝
-      </button>
-    </ng-container>
-    <ng-container *ngIf="isMove">
-      <button *hasClaim="'IsMoveFile'" mat-menu-item (click)="onMoved(document)">
-        <mat-icon> zoom_out_map</mat-icon>
-        移动
-      </button>
-    </ng-container>
-    <button *hasClaim="'IsDownloadFile'" mat-menu-item (click)="onDownload(document)">
-      <mat-icon> download</mat-icon>
-      下载
-    </button>
-    <button *hasClaim="'IsSendEmail'" mat-menu-item (click)="sendEmail(document)">
-      <mat-icon> forward_to_inbox</mat-icon>
-      发送邮件
-    </button>
-    <button *hasClaim="'IsRenameFile'" mat-menu-item (click)="renameDocument(document)">
-      <mat-icon> edit</mat-icon>
-      重命名
-    </button>
-    <button mat-menu-item (click)="onCommentClick(document)">
-      <mat-icon> chat</mat-icon>
-      评论
-    </button>
-    <button *hasClaim="'IsDeleteFileFolder'" mat-menu-item (click)="deleteDocument(document)">
-      <mat-icon> delete</mat-icon>
-      删除
-    </button>
-    <button mat-menu-item (click)="toggleDocumentStarred(document)">
-      <ng-container *ngIf="document.isStarred">
-        <mat-icon class="material-icons"> grade</mat-icon>
-        移除关注
-      </ng-container>
-      <ng-container *ngIf="!document.isStarred">
-        <mat-icon class="material-icons-outlined"> grade</mat-icon>
-        添加关注
-      </ng-container>
-    </button>
-    <button mat-menu-item (click)="onVersionHistoryClick(document)">
-      <mat-icon> history</mat-icon>
-      版本历史
-    </button>
-  </ng-template>
+    <ng-template matMenuContent let-document="document" let-type="type">
+        <button *hasClaim="'IsSharedFileFolder'" mat-menu-item (click)="onShared(document, type)">
+            <mat-icon>shared</mat-icon>
+            共享
+        </button>
+        <button *hasClaim="'IsSharedLink'" mat-menu-item (click)="onCreateShareableLink(document)">
+            <mat-icon>link</mat-icon>
+            生成共享链接
+        </button>
+        <button mat-menu-item (click)="onDocumentView(document)">
+            <mat-icon>remove_red_eye</mat-icon>
+            预览
+        </button>
+        <ng-container *ngIf="isCopy">
+            <button *hasClaim="'IsCopyFile'" mat-menu-item (click)="onCopied(document)">
+                <mat-icon>content_copy</mat-icon>
+                拷贝
+            </button>
+        </ng-container>
+        <ng-container *ngIf="isMove">
+            <button *hasClaim="'IsMoveFile'" mat-menu-item (click)="onMoved(document)">
+                <mat-icon>zoom_out_map</mat-icon>
+                移动
+            </button>
+        </ng-container>
+        <button *hasClaim="'IsDownloadFile'" mat-menu-item (click)="onDownload(document)">
+            <mat-icon>download</mat-icon>
+            下载
+        </button>
+        <button *hasClaim="'IsSendEmail'" mat-menu-item (click)="sendEmail(document)">
+            <mat-icon>forward_to_inbox</mat-icon>
+            发送邮件
+        </button>
+        <button *hasClaim="'IsRenameFile'" mat-menu-item (click)="renameDocument(document)">
+            <mat-icon>edit</mat-icon>
+            重命名
+        </button>
+        <button mat-menu-item (click)="onCommentClick(document)">
+            <mat-icon>chat</mat-icon>
+            评论
+        </button>
+        <button *hasClaim="'IsDeleteFileFolder'" mat-menu-item (click)="deleteDocument(document)">
+            <mat-icon>delete</mat-icon>
+            删除
+        </button>
+        <button mat-menu-item (click)="toggleDocumentStarred(document)">
+            <ng-container *ngIf="document.isStarred">
+                <mat-icon class="material-icons">grade</mat-icon>
+                移除关注
+            </ng-container>
+            <ng-container *ngIf="!document.isStarred">
+                <mat-icon class="material-icons-outlined">grade</mat-icon>
+                添加关注
+            </ng-container>
+        </button>
+        <button mat-menu-item (click)="onVersionHistoryClick(document)">
+            <mat-icon>history</mat-icon>
+            版本历史
+        </button>
+    </ng-template>
 </mat-menu>

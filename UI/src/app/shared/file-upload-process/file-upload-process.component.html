@@ -1,14 +1,11 @@
 <div class="bottom-right">
     <mat-accordion>
-        <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false">
+        <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header class="panel-header">
                 <mat-panel-title>
                     <ng-container *ngIf="files$ | async as files">
-                        {{ComputCount(files)}}
-                        <span class="material-icons-outlined panel-close-icon" (click)="onClose()">
-                            close
-                        </span>
+                        {{ ComputCount(files) }}
+                        <span class="material-icons-outlined panel-close-icon" (click)="onClose()">close</span>
                     </ng-container>
                 </mat-panel-title>
             </mat-expansion-panel-header>
@@ -22,18 +19,15 @@
                             <div class="col-md col">
                                 <div class="form-row align-items-center">
                                     <div class="col col-md text-truncate">
-                                        <div mat-line>{{file.id | limitTo: 20}}</div>
+                                        <div mat-line>{{ file.id | limitTo : 20 }}</div>
                                     </div>
                                     <div class="col-auto col-md-auto">
-                                        <mat-icon *ngIf="!file.isError && file.percentage =='100'"
-                                            class="text-main fs-18">
-                                            check_circle
-                                        </mat-icon>
+                                        <mat-icon *ngIf="!file.isError && file.percentage == '100'" class="text-main fs-18">check_circle</mat-icon>
                                         <mat-icon *ngIf="file.isError" class="text-danger fs-18">error</mat-icon>
                                     </div>
                                 </div>
                                 <div mat-line>
-                                    <mat-progress-bar [color]="file.isComputeMd5?'warn':'primary'" mode="determinate" [value]="file.percentage"></mat-progress-bar>
+                                    <mat-progress-bar [color]="file.isComputeMd5 ? 'warn' : 'primary'" mode="determinate" [value]="file.percentage"></mat-progress-bar>
                                 </div>
                             </div>
                         </div>
