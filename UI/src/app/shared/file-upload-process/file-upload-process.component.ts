@@ -27,15 +27,24 @@ export class FileUploadProcessComponent implements OnInit {
     }
   }
 
-  Md5Count(files: FileProgress[]) {
-    return files.filter((s) => s.isComputeMd5).length;
-  }
-
-  OkCount(files: FileProgress[]) {
-    return files.filter((s) => !s.isComputeMd5 && s.percentage == 100).length;
-  }
-
-  ProcessCount(files: FileProgress[]) {
-    return files.filter((s) => !s.isComputeMd5 && s.percentage != 100).length;
+  ComputCount(files: FileProgress[]) {
+    let result = [];
+    let md5Count = files.filter((s) => s.isComputeMd5).length;
+    if (md5Count > 0) {
+      result.push(`${md5Count}个预处理`);
+    }
+    let processCount = files.filter(
+      (s) => !s.isComputeMd5 && s.percentage != 100
+    ).length;
+    if (processCount > 0) {
+      result.push(`${processCount}个上传中`);
+    }
+    let okCount = files.filter(
+      (s) => !s.isComputeMd5 && s.percentage == 100
+    ).length;
+    if (okCount > 0) {
+      result.push(`${okCount}个已完成`);
+    }
+    return result.join('/');
   }
 }
