@@ -200,14 +200,23 @@ namespace Dorisoy.Pan.API.Controllers
 
             if (!System.IO.File.Exists(filePath))
                 return NotFound("File not found");
-            Download(filePath);
+
+
+            await Download(id,filePath);
             return new EmptyResult();
         }
 
-        private void Download(string filePath)
+        private async Task Download(Guid id,string filePath)
         {
+            var docCommand = new GetDocumentCommand()
+            {
+                DocumentId = id
+            };
+            var doc = await _mediator.Send(docCommand);
+
             var fileName = HttpUtility.UrlEncode(Path.GetFileName(filePath));
             Response.ContentType = GetContentType(filePath);
+            Response.ContentLength = doc.Size;
             if (Request.Headers["User-Agent"].FirstOrDefault()?.ToLower().IndexOf("firefox") != -1)
                 Response.Headers.Add(new System.Collections.Generic.KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues>("Content-Disposition", "attachment; filename*=UTF-8''" + fileName));
             else
@@ -248,7 +257,7 @@ namespace Dorisoy.Pan.API.Controllers
             if (!System.IO.File.Exists(filePath))
                 return NotFound("File not found.");
 
-            Download(filePath);
+            await Download(id,filePath);
 
             return new EmptyResult();
         }
@@ -272,7 +281,6 @@ namespace Dorisoy.Pan.API.Controllers
 
             if (!System.IO.File.Exists(filePath))
                 return NotFound();
-
             byte[] newBytes;
             var memory = new MemoryStream();
             using (var stream = new FileStream(filePath, FileMode.Open))
