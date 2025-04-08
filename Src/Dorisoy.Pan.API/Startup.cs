@@ -3,7 +3,6 @@ using Dorisoy.Pan.API.Helpers.Mapping;
 using Dorisoy.Pan.Data;
 using Dorisoy.Pan.Data.Dto;
 using Dorisoy.Pan.Domain;
-using Dorisoy.Pan.Helper;
 using Dorisoy.Pan.MediatR.PipeLineBehavior;
 using FluentValidation;
 using MediatR;
@@ -24,6 +23,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Dorisoy.Pan.Repository;
 using Microsoft.AspNetCore.Rewrite;
 using NewLife.Redis.Core;
@@ -158,11 +158,14 @@ namespace Dorisoy.Pan.API
                 opt.EnableDetailedErrors = true;
                 opt.MaximumReceiveMessageSize = 10000000000;
             });
-
-            services.Configure<IISServerOptions>(options =>
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                options.AutomaticAuthentication = false;
-            });
+                services.Configure<IISServerOptions>(options =>
+                {
+                    options.AutomaticAuthentication = false;
+                });
+            }
+           
             services.AddResponseCompression(options =>
             {
                 options.Providers.Add<GzipCompressionProvider>();

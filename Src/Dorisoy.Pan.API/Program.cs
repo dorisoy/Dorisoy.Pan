@@ -1,5 +1,4 @@
 using System;
-using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
@@ -44,42 +43,45 @@ namespace Dorisoy.Pan.API
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-              .ConfigureWebHostDefaults(webBuilder =>
-              {
-                  //ÅäÖÃKestrel
-                  webBuilder.ConfigureKestrel(options =>
-                  {
-                      options.AllowSynchronousIO= true;
-                      options.Limits.MaxConcurrentConnections = 100;
-                      options.Limits.MaxConcurrentUpgradedConnections = 100;
-                      options.Limits.MinRequestBodyDataRate =
-                          new MinDataRate(bytesPerSecond: 100,
-                              gracePeriod: TimeSpan.FromSeconds(10));
+        private static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            var builder =Host.CreateDefaultBuilder(args);
+            
+            
+            return builder
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    //ï¿½ï¿½ï¿½ï¿½Kestrel
+                    webBuilder.ConfigureKestrel(options =>
+                    {
+                        options.AllowSynchronousIO= true;
+                        options.Limits.MaxConcurrentConnections = 100;
+                        options.Limits.MaxConcurrentUpgradedConnections = 100;
+                        options.Limits.MinRequestBodyDataRate =
+                            new MinDataRate(bytesPerSecond: 100,
+                                gracePeriod: TimeSpan.FromSeconds(10));
 
-                      options.Limits.MinResponseDataRate =
-                          new MinDataRate(bytesPerSecond: 100,
-                              gracePeriod: TimeSpan.FromSeconds(10));
+                        options.Limits.MinResponseDataRate =
+                            new MinDataRate(bytesPerSecond: 100,
+                                gracePeriod: TimeSpan.FromSeconds(10));
+                        
+                        options.Limits.KeepAliveTimeout =
+                            TimeSpan.FromMinutes(2);
 
-                      //¼àÌý¶Ë¿Ú
-                      options.Listen(IPAddress.Loopback, 5000);
+                        options.Limits.RequestHeadersTimeout =
+                            TimeSpan.FromMinutes(1);
+                    });
 
-                      options.Limits.KeepAliveTimeout =
-                          TimeSpan.FromMinutes(2);
-
-                      options.Limits.RequestHeadersTimeout =
-                          TimeSpan.FromMinutes(1);
-                  });
-
-                  webBuilder.UseStartup<Startup>();
-              })
-              .ConfigureLogging(logging =>
-              {
-                  //ÒÆ³ýÄ¬ÈÏProvider
-                  logging.ClearProviders();
-                  logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-              })
-              .UseNLog();
+                    webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureLogging(logging =>
+                {
+                    //ï¿½Æ³ï¿½Ä¬ï¿½ï¿½Provider
+                    logging.ClearProviders();
+                    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+                })
+                .UseNLog();
+        }
+            
     }
 }
