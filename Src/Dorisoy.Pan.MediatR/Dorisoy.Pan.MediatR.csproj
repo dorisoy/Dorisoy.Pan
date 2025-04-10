@@ -13,6 +13,7 @@
     <PackageReference Include="FluentValidation" Version="11.11.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
     <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="NewLife.Redis" Version="6.1.2025.401" />
     <PackageReference Include="NewLife.Redis.Core" Version="1.9.2023.1211" />
   </ItemGroup>
 

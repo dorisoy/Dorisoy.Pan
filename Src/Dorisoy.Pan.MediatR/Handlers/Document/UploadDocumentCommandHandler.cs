@@ -121,7 +121,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
         {
             if (!_redis.ContainsKey(md5))
                 return false;
-            return _redis.ListGetAll<string>(md5).Count > 1;
+            return _redis.ListGetAll<Guid>(md5).Count > 1;
         }
         private void SetCache(string md5)
         {
@@ -129,7 +129,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             {
                 if (_redis.ContainsKey(md5))
                 {
-                    var user = _redis.ListIndexOf(md5, $"\"{_userInfoToken.Id}\"");
+                    var user = _redis.ListIndexOf(md5, _userInfoToken.Id);
                     if (user == -1)
                     {
                         _redis.ListAdd(md5, _userInfoToken.Id);
