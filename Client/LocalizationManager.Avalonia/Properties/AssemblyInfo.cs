@@ -1,0 +1,1 @@
+﻿[assembly: XmlnsDefinition("https://github.com/avaloniaui", "LocalizationManager.Avalonia")]

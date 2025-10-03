@@ -1,0 +1,199 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="using:FluentAvalonia.UI.Controls">
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/DataValidationErrorsStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/WindowStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ButtonStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ToggleButtonStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/AutoCompleteBoxStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/TextBlockStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/TextBoxStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ScrollBarStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ScrollViewerStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/EmbeddableControlRootStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/LabelStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ItemsControlStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/OverlayPopupHostStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/PopupRootStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ToolTipStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/WindowNotificationManagerStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/CarouselStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ContentControlStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/NativeMenuBarStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ButtonSpinnerStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/RepeatButtonStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/GridSplitterStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ComboBoxStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/DropDownButtonStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/CalendarStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/CalendarDatePickerStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/CaptionButtonStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/CheckBoxStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ListBoxStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/MenuStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/MenuItemStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/NotificationCardStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ProgressBarStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/RadioButtonStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/SliderStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/SplitButtonStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/SplitViewStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/TabControlStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/TabStripStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/TreeViewStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ToggleSwitchStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/NumericUpDownStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ExpanderStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ManagedFileChooserStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/FlyoutPresenterStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/DatePickerStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/TimePickerStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/TitleBarStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/TransitioningContentControlStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/ColorPicker/ColorPickerStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/DataGrid/DataGridStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/RefreshControlStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/BasicControls/PathIcon.axaml" />
+                
+                <!-- FluentAvalonia Controls -->
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/FrameStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/HyperlinkButtonStyles.axaml" />
+                
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/ContentDialogStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/DialogStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/LoadingDialogStyles.axaml" />
+                
+                
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/PickerFlyoutPresenterStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/InfoBadgeStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/InfoBarStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/NumberBoxStyles.axaml" />
+                
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/FAMenuFlyout/FAMenuFlyoutPresenter.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/FAMenuFlyout/MenuFlyoutItemStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/FAMenuFlyout/MenuFlyoutSubItemStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/FAMenuFlyout/ToggleMenuFlyoutItemStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/FAMenuFlyout/RadioMenuFlyoutItemStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/FAMenuFlyout/MenuFlyoutSeparatorStyles.axaml" />
+
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/CommandBar/CommandBarStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/CommandBar/CommandBarButtonStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/CommandBar/CommandBarToggleButtonStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/CommandBar/CommandBarElementContainerStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/CommandBar/CommandBarOverflowPresenterStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/CommandBar/CommandBarSeparatorStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/CommandBar/CommandBarFlyoutCommandBarStyles.axaml" />
+
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/TabView/TabViewStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/TabView/TabViewItemStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/TabView/TabViewListViewStyles.axaml" />
+
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/NavigationView/NavigationViewSharedStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/NavigationView/NavigationViewBackButtonStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/NavigationView/NavigationViewItemHeaderStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/NavigationView/NavigationViewItemSeparatorStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/NavigationView/NavigationViewItemPresenterStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/NavigationView/NavigationViewItemStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/NavigationView/NavigationViewStyles.axaml" />
+
+
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/TaskDialog/TaskDialogStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/TaskDialog/TaskDialogCommandStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/TaskDialog/TaskDialogButtonStyles.axaml" />
+
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/ColorPickerStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/ColorPickerButtonStyles.axaml" />
+
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/TeachingTipStyles.axaml" />
+
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/SettingsExpander/SettingsExpanderStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/SettingsExpander/SettingsExpanderItemStyles.axaml" />
+
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/FAComboBox/FAComboBoxStyles.axaml" />
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/FAComboBox/FAComboBoxItemStyles.axaml" />
+
+                <MergeResourceInclude Source="/Styling/ControlThemes/FAControls/AppWindowStyles.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+    <StyleInclude Source="/Styling/ControlThemes/BasicControls/FocusAdornerStyles.axaml" />
+    <StyleInclude Source="/Styling/ControlThemes/BasicControls/UserControlStyles.axaml" />
+
+
+
+    <!--
+    Amendments to CommandBar buttons which before ControlThemes used these styles to control their 
+    states based on the CommandBar without needing to manually do it in code
+    But I don't really support the CommandBar, and only ported it for the CommandBarFlyout, I'm not
+    going to do anything special for it - so we'll just bring these styles back to support it
+    I'd like to replace the CommandBar with something better in the future...
+    -->
+    
+    <Style Selector="ui|CommandBar:labelbottom ui|CommandBarButton:compact:not(:overflow) /template/ TextBlock#TextLabel,
+                     ui|CommandBar:labelbottom ui|CommandBarToggleButton:compact:not(:overflow) /template/ TextBlock#TextLabel">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="ui|CommandBar:labelbottom ui|CommandBarButton:compact:not(:overflow) /template/ Grid#ContentRoot,
+                     ui|CommandBar:labelbottom ui|CommandBarToggleButton:compact:not(:overflow) /template/ Grid#ContentRoot">
+        <Setter Property="MinHeight" Value="{DynamicResource AppBarThemeCompactHeight}" />
+    </Style>
+
+    <!-- We'll also attach this here too, so that the labels are hidden when the CommandBar is closed,
+     and shown when it's opened. Again, this is only for when labels are on the bottom.
+     This will eliminate the need to iterate over the elements when opening/closing and adjusting on the
+     ICommandBarElements themselves - we let the styling system do it for us
+     -->
+    <Style Selector="ui|CommandBar:labelbottom:not(:open) ui|CommandBarButton:not(:overflow) /template/ TextBlock#TextLabel,
+                     ui|CommandBar:labelbottom:not(:open) ui|CommandBarToggleButton:not(:overflow) /template/ TextBlock#TextLabel">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <!-- Also apply our compact change here too -->
+    <Style Selector="ui|CommandBar:labelbottom:not(:open) ui|CommandBarButton:not(:overflow) /template/ Grid#ContentRoot,
+                     ui|CommandBar:labelbottom:not(:open) ui|CommandBarToggleButton:not(:overflow) /template/ Grid#ContentRoot">
+        <Setter Property="MinHeight" Value="{DynamicResource AppBarThemeCompactHeight}" />
+    </Style>
+    <Style Selector="ui|CommandBar:labelbottom:open ui|CommandBarButton:not(:overflow) /template/ TextBlock#TextLabel,
+                     ui|CommandBar:labelbottom:open ui|CommandBarToggleButton:not(:overflow) /template/ TextBlock#TextLabel">
+        <Setter Property="IsVisible" Value="True" />
+    </Style>
+
+    <!-- LabelOnRight -->
+    <Style Selector="ui|CommandBar:labelright ui|CommandBarButton:not(:overflow),
+                     ui|CommandBar:labelright ui|CommandBarToggleButton:not(:overflow)">
+        <Setter Property="Width" Value="NaN" />
+    </Style>
+    <Style Selector="ui|CommandBar:labelright ui|CommandBarButton:not(:overflow) /template/ Viewbox#ContentViewbox,
+                     ui|CommandBar:labelright ui|CommandBarToggleButton:not(:overflow) /template/ Viewbox#ContentViewbox">
+        <Setter Property="Margin" Value="{DynamicResource AppBarButtonContentViewboxMargin}" />
+    </Style>
+    <Style Selector="ui|CommandBar:labelright ui|CommandBarButton:not(:overflow) /template/ Grid#ContentRoot,
+                     ui|CommandBar:labelright ui|CommandBarToggleButton:not(:overflow) /template/ Grid#ContentRoot">
+        <Setter Property="MinHeight" Value="{DynamicResource AppBarThemeCompactHeight}" />
+    </Style>
+    <Style Selector="ui|CommandBar:labelright ui|CommandBarButton:not(:overflow) /template/ TextBlock#TextLabel,
+                     ui|CommandBar:labelright ui|CommandBarToggleButton:not(:overflow) /template/ TextBlock#TextLabel">
+        <Setter Property="Grid.Row" Value="0" />
+        <Setter Property="Grid.Column" Value="1" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="Margin" Value="{DynamicResource AppBarButtonTextLabelOnRightMargin}" />
+    </Style>
+    <Style Selector="ui|CommandBar:labelright ui|CommandBarButton:not(:overflow) /template/ ui|SymbolIcon#SubItemChevron,
+                     ui|CommandBar:labelright ui|CommandBarToggleButton:not(:overflow) /template/ ui|SymbolIcon#SubItemChevron">
+        <Setter Property="Margin" Value="-7,20,12,0" />
+    </Style>
+
+    <!-- LabelCollapsed -->
+    <Style Selector="ui|CommandBar:labelcollapsed ui|CommandBarButton:not(:overflow) /template/ Grid#ContentRoot,
+                     ui|CommandBar:labelcollapsed ui|CommandBarToggleButton:not(:overflow) /template/ Grid#ContentRoot">
+        <Setter Property="MinHeight" Value="{DynamicResource AppBarThemeCompactHeight}" />
+    </Style>
+    <Style Selector="ui|CommandBar:labelcollapsed ui|CommandBarButton:not(:overflow) /template/ TextBlock#TextLabel,
+                     ui|CommandBar:labelcollapsed ui|CommandBarToggleButton:not(:overflow) /template/ TextBlock#TextLabel">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    
+</Styles>

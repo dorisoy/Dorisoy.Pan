@@ -1,0 +1,986 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:gif="clr-namespace:AvaloniaGif;assembly=Dorisoy.PanClient"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:local="using:Dorisoy.PanClient.Controls"
+	         xmlns:controls="using:Dorisoy.PanClient.Player"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             xmlns:m="using:Dorisoy.PanClient.Models"
+             xmlns:conv="using:Dorisoy.PanClient.Converters"
+             xmlns:play="using:Dorisoy.PanClient.Webcam"
+             xmlns:tpl="using:Dorisoy.PanClient.DataTemplate"
+             xmlns:pg="clr-namespace:Dorisoy.PanClient.Pages;assembly=Dorisoy.PanClient"
+             mc:Ignorable="d" d:DesignWidth="800"
+             x:Class="Dorisoy.PanClient.Pages.MonitorPage"
+             x:DataType="vm:MonitorPageViewModel"
+             x:CompileBindings="False" 
+             x:Name="CurrentContentPage">
+
+    <UserControl.Resources>
+        <conv:EnumDescriptionConverter x:Key="EnumConverter" />
+        <conv:StretchToStringConverter x:Key="StretchConverter" />
+        <conv:StretchDirectionToStringConverter x:Key="StretchDirectionConverter" />
+
+        <ui:CommandBarFlyout Placement="Center"
+                             x:Key="ImageCommandBarFlyout">
+            <ui:CommandBarButton Label="{LxaString Remarks}"
+                                 IconSource="Message"
+                                 ToolTip.Tip="{LxaString AddRemarks}"
+                                 Command="{Binding FlyoutCommands}"
+                                 CommandParameter="AddComment" />
+            <ui:CommandBarButton Label="{LxaString Delete}"
+                                 IconSource="Delete"
+                                 ToolTip.Tip="{LxaString DeleteImage}"
+                                 Command="{Binding FlyoutCommands}"
+                                 CommandParameter="Delete" />
+            <ui:CommandBarFlyout.SecondaryCommands>
+                <ui:CommandBarButton Label="{LxaString ViewRemark}"
+                                     Command="{Binding FlyoutCommands}"
+                                     CommandParameter="ViewComment" />
+            </ui:CommandBarFlyout.SecondaryCommands>
+        </ui:CommandBarFlyout>
+
+
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <Style Selector="ListBox">
+            <Setter Property="Margin"
+                    Value="3"/>
+        </Style>
+
+        <Style Selector="ListBox.RadioButtonListBox">
+            <Setter Property="BorderBrush"
+                    Value="Transparent"/>
+        </Style>
+        
+        <Style Selector="ListBox.RadioButtonListBox ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Background="Transparent">
+                            <RadioButton Content="{TemplateBinding ContentPresenter.Content}"
+                                         VerticalAlignment="Center"
+                                         IsChecked="{Binding Path=IsSelected,RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style Selector="Border.onLineUserBorder">
+            <Setter Property="Background"
+                    Value="#FFFFFF" />
+        </Style>
+        <Style Selector="Border.onLineUserBorder:pointerover">
+            <Setter Property="Background"
+                    Value="#EEEEEE" />
+        </Style>
+
+        <!--画中画全屏按钮样式-->
+        <Style Selector="Button.rewind:pointerover">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Style Selector="^ /template/ ui|FABorder#Root">
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="BorderBrush"
+                        Value="Transparent" />
+            </Style>
+        </Style>
+
+        <Style Selector="Button.ImgXYButton">
+            <Setter Property="Background"
+                    Value="#004883" />
+            <Setter Property="Foreground"
+                    Value="#FFFFFF" />
+        </Style>
+        
+    </UserControl.Styles>
+
+    <Grid ColumnDefinitions="*,350"
+          RowDefinitions="*">
+
+        
+        <!--主屏幕视图-->
+       <Border Grid.Column="0"
+                Grid.Row="0"
+                Grid.ColumnSpan="{Binding ColumnSpan}"
+                PointerPressed="Border_PointerPressed"
+                Margin="12"
+                Padding="0"
+                Cursor="Hand"
+                Background="#ededee"
+                BoxShadow="0 2 10 0 #4F000000"
+                CornerRadius="{DynamicResource OverlayCornerRadius}"
+               IsVisible="{Binding WaitCall}">
+
+            <Grid Grid.Column="0"
+                Grid.Row="0"
+                RowDefinitions="*,50"
+                x:Name="MonitorPlayerRect">
+
+                <!--视频加载进度-->
+                <Border Grid.Row="0"
+                        Margin="0,0,0,5"
+                        Background="Black"
+                        CornerRadius="10"
+                        IsVisible="{Binding FrameLoading}">
+                    <Panel Background="Black">
+                        <ProgressBar Width="200"
+                                     Height="5"
+                                     Maximum="100"
+                                     IsIndeterminate="True"/>
+                    </Panel>
+                </Border>
+
+                <!--主视频窗口-->
+                <Border Grid.Row="0"
+                        Margin="0,0,0,5"
+                        Background="Black"
+                        CornerRadius="10"
+                        Padding="0"
+                        IsVisible="{Binding !FrameLoading}">
+                    <Panel Background="Black">
+                        <Image x:Name="MainWebcamViewer" Source="{Binding MainWebcamViewSource}" 
+                                Stretch="{Binding #MianScreenFill.SelectedItem}"
+                                StretchDirection="{Binding #MianScreenStretchDirection.SelectedItem}"/>
+                    </Panel>
+                </Border>
+
+                <!--画中画视图-->
+                <Grid  x:Name="PipViewGrid"
+                       Grid.Column="0"
+                      Grid.Row="0"
+                      Margin="5,5,5,5"
+                      ColumnDefinitions="*, *, *"
+                      RowDefinitions="*, *, *"
+                      IsVisible="{Binding IsShowPipView}">
+
+                    <!--视图-->
+                    <Border Grid.Column="2"
+                            Grid.Row="2"
+                            ClipToBounds="True"
+                            Padding="1"
+                            Margin="0,0,0,5"
+                            Background="#fff"
+                            BorderBrush="#fff"
+                            BorderThickness="0"
+                            CornerRadius="0"  
+                            BoxShadow="0 2 10 0 #4F000000">
+                        <Panel Background="Black">
+                            <Image Source="{Binding PipWebcamViewSource}"
+                              Stretch="{Binding #MianScreenFill.SelectedItem}"
+                              StretchDirection="{Binding #MianScreenStretchDirection.SelectedItem}"/>
+                        </Panel>
+                    </Border>
+
+                    <!--加载-->
+                    <Border Grid.Column="2"
+                            Grid.Row="2"
+                            IsVisible="{Binding PipFrameLoading}">
+                        <Panel Background="Black">
+                            <ProgressBar Width="100"
+                                         Height="5"
+                                         Maximum="100"
+                                         IsIndeterminate="True"/>
+                        </Panel>
+                    </Border>
+
+                    <!--按钮-->
+                    <Button x:Name="Rewind"
+                            Classes="rewind"
+                            Width="50"
+                            Height="50"
+                            Margin="5"
+                            Background="Transparent"
+                            ToolTip.Tip="全屏"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Column="2"
+                            Grid.Row="2"  
+                            Command="{Binding PipFullScreenCommand}" >
+                        <Grid>
+                            <ui:SymbolIcon Symbol="ResizeMouseMedium"
+                                       Foreground="#FFF000"
+                                       FontSize="30"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Button>
+                </Grid>
+
+                <!--视频录制-->
+                <Border Grid.Column="0"
+                        Grid.Row="0"
+                        Margin="5,5,5,10"
+                        ClipToBounds="True"
+                        Padding="1"
+                        Background="Transparent"
+                        BorderBrush="#fff000"
+                        BorderThickness="1"
+                        CornerRadius="0"
+                        BoxShadow="0 2 10 0 #4F000000"
+                        IsVisible="{Binding RecordOrPause}">
+                    <DockPanel Background="Transparent"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top">
+                        <ui:SymbolIcon x:Name="RecorderIcon"
+                                       Classes="RecorderIcon"
+                                       Symbol="IconCircleShapeSolid"
+                                       FontSize="15"
+                                       Foreground="#FFF000"
+                                       Margin="10">
+                            <ui:SymbolIcon.Styles>
+                                <Style Selector="ui|SymbolIcon#RecorderIcon">
+                                    <Style.Animations>
+                                        <Animation Duration="0:0:0.5"
+                                                   IterationCount="INFINITE">
+                                            <KeyFrame Cue="0%">
+                                                <Setter Property="Opacity"
+                                                        Value="0.0"/>
+                                            </KeyFrame>
+                                            <KeyFrame Cue="100%">
+                                                <Setter Property="Opacity"
+                                                        Value="1.0"/>
+                                            </KeyFrame>
+                                        </Animation>
+                                    </Style.Animations>
+                                </Style>
+                            </ui:SymbolIcon.Styles>
+                          
+                        </ui:SymbolIcon>
+                        <TextBlock Text="REC"
+                                   FontSize="15"
+                                   Foreground="#FFF000"
+                                   Margin="0,10,10,10"/>
+                        <TextBlock FontSize="15"
+                                  Margin="0,10,10,10"
+                                  Text="{Binding Recordtimer}"
+                                   Foreground="#FFF000"/>
+                    </DockPanel>
+                </Border>
+
+
+                <!--工具栏-->
+                <Grid ColumnDefinitions="*,50,50,200,150,50"
+                      Grid.Row="1"
+                      Margin="0,0,0,0" >
+                    <ui:CommandBar DefaultLabelPosition="Right"
+                                   Grid.Column="0"
+                                   Margin="0,0,0,5">
+                        <ui:CommandBar.PrimaryCommands>
+                            <!--启动-->
+                            <ui:CommandBarButton IconSource="{Binding PlayOrPauseIcon}"
+                                                       Label="{Binding PlayOrPauseText}"
+                                                       Command="{Binding PlayCommand}" 
+                                                       Foreground="#004883"/>
+
+                            <ui:CommandBarSeparator />
+                            
+                            <!--截屏-->
+                            <ui:CommandBarButton IconSource="AttachCamera"
+                                                       Label="{LxaString Screenshot}"
+                                                       Command="{Binding ScreenshotCommand}"
+                                                       Foreground="#004883" 
+                                                       IsEnabled="{Binding PlayOrPause}"/>
+                            <!--录制-->
+                            <ui:CommandBarButton IconSource="{Binding RecordVideoIcon}"
+                                                       Label="{Binding RecordVideoText}"
+                                                       Command="{Binding RecordCommand}"
+                                                       Foreground="#004883"
+                                                       IsEnabled="{Binding PlayOrPause}"/>
+                            
+                        </ui:CommandBar.PrimaryCommands>
+                    </ui:CommandBar>
+
+                    <!--全屏播放-->
+                    <Button x:Name="FullScreenButton"
+                         Padding="0"
+                         ToolTip.Tip="全屏播放"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Left"
+                         BorderThickness="0"
+                         BorderBrush="Transparent"
+                         Background="Transparent"
+                         Command="{Binding FullScreenCommand}"
+                         Grid.Column="1">
+                        <Panel>
+                            <ui:SymbolIcon Symbol="FullScreenMaximize"
+                                           Foreground="#004883"
+                                           IsVisible="{Binding !DisableMaxMin}"
+                                           FontSize="20"
+                                           VerticalAlignment="Center"/>
+                            <ui:SymbolIcon Symbol="FullScreenMinimize"
+                                           Foreground="#004883"
+                                           IsVisible="{Binding DisableMaxMin}"
+                                           FontSize="20"
+                                           VerticalAlignment="Center"/>
+                        </Panel>
+                    </Button>
+                    
+                    <!--声音控制-->
+                    <Button x:Name="PlayButton"
+                            Padding="2"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            BorderThickness="0"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            Grid.Column="2" 
+                            ToolTip.Tip="关闭声音">
+                        <Panel>
+                            <ui:SymbolIcon Symbol="SpeakerOffFilled"
+                                           Foreground="#004883"
+                                           IsVisible="{Binding !DisableSound}"
+                                           FontSize="20"
+                                           VerticalAlignment="Center"/>
+                            <ui:SymbolIcon Symbol="Speaker2Filled"
+                                           Foreground="#004883"
+                                           IsVisible="{Binding DisableSound}"
+                                           FontSize="20"
+                                           VerticalAlignment="Center"/>
+                        </Panel>
+                    </Button>
+                    
+           
+                    <!--进度条-->
+                    <Slider Grid.Column="3"
+                            x:Name="TargetSlider"
+                            Width="200"
+                            VerticalAlignment="Stretch"
+                            Orientation="Horizontal"
+                            Minimum="0"
+                            Maximum="100"
+                            Margin="0,0,10,0"
+                            HorizontalAlignment="Right"/>
+                    <TextBox  Grid.Column="4"
+                              Height="30"
+                              Margin="0,0,10,0"
+                              Text="{Binding Ptimer}"
+                              IsReadOnly="True"
+                              HorizontalContentAlignment="Center"/>
+
+                    <!--关闭侧栏-->
+                    <Button x:Name="MaxMinButton"
+                            Padding="0"
+                            ToolTip.Tip="关闭侧栏"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            BorderThickness="0"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            Command="{Binding MaxMinCommand}"
+                            Grid.Column="5">
+                        <Panel>
+                            <ui:SymbolIcon Symbol="DockLeft"
+                                           Foreground="#004883"
+                                           IsVisible="{Binding !DisableMaxMin}"
+                                           FontSize="20"
+                                           VerticalAlignment="Center"/>
+                            <ui:SymbolIcon Symbol="DockRight"
+                                           Foreground="#004883"
+                                           IsVisible="{Binding DisableMaxMin}"
+                                           FontSize="20"
+                                           VerticalAlignment="Center"/>
+                        </Panel>
+                    </Button>
+                    
+                </Grid>
+            </Grid>
+           
+        </Border>
+        <!--工具栏-->
+        <Border Grid.Column="1"
+                      Grid.Row="0"
+            IsVisible="{Binding WaitCall}">
+
+            <ui:TabView
+                Grid.Column="1"
+                      Grid.Row="0"
+                IsAddTabButtonVisible="False"
+                SelectedIndex="{Binding TabSelectedIndex}"
+                IsVisible="{Binding !DisableMaxMin}">
+
+                <ui:TabViewItem Header="控制"
+                      IconSource="Open"
+                      IsClosable="False">
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+
+                        <StackPanel Orientation="Vertical"
+                                    Spacing="4"
+                                    Margin="10">
+
+                            <!--主屏幕-->
+                            <Expander Header="主设备"
+                                      FontWeight="Bold"
+                                      IsExpanded="True">
+                                <StackPanel Orientation="Vertical"
+                                            Spacing="8">
+
+
+                                    <!--主摄像头-->
+                                    <ListBox ItemsSource="{Binding CameraDevices}"
+                                                      SelectedItem="{Binding SelectCamera}">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+
+                                                <DockPanel>
+
+                                                    <Panel DockPanel.Dock="Left">
+                                                        <ui:SymbolIcon Symbol="VideoFilled"
+                                                                       Foreground="#004883"
+                                                                       FontSize="30"
+                                                                       VerticalAlignment="Center"/>
+                                                    </Panel>
+
+                                                    <TextBlock
+                                                        Margin="10,0,0,0"
+                                                        FontWeight="Normal"
+                                                        DockPanel.Dock="Right"
+                                                        Text="{Binding Name}"
+                                                        VerticalAlignment="Center"
+                                                        ToolTip.Tip="{LxaString SelectVideoDevice}"/>
+
+                                                </DockPanel>
+
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+
+
+                                </StackPanel>
+                            </Expander>
+
+                            <!--画中画-->
+                            <Expander Header="画中画"
+                                      FontWeight="Bold"
+                                      IsExpanded="True">
+                                <StackPanel Orientation="Vertical"
+                                            Spacing="8">
+
+                                    <!--显示画中画-->
+                                    <CheckBox Content="启用"
+                                              FontWeight="Normal"
+                                              IsChecked="{Binding IsShowPipView}" 
+                                              Margin="20,0,0,0"/>
+
+                                    <ListBox ItemsSource="{Binding CameraDevices}"
+                                                     SelectedItem="{Binding SelectPipCamera}">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <DockPanel>
+
+                                                    <Panel DockPanel.Dock="Left">
+                                                        <ui:SymbolIcon Symbol="VideoFilled"
+                                                                       Foreground="#004883"
+                                                                       FontSize="30"
+                                                                       VerticalAlignment="Center"/>
+                                                    </Panel>
+
+                                                    <TextBlock
+                                                        Margin="10,0,0,0"
+                                                        FontWeight="Normal"
+                                                        DockPanel.Dock="Right"
+                                                        Text="{Binding Name}"
+                                                        VerticalAlignment="Center"
+                                                        ToolTip.Tip="{LxaString SelectVideoDevice}"/>
+
+                                                </DockPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+
+                                </StackPanel>
+                            </Expander>
+
+                            <!--画面-->
+                            <Expander Header="画面"
+                                      FontWeight="Bold"
+                                      IsExpanded="True">
+                                <StackPanel Orientation="Vertical"
+                                            Spacing="8">
+                                    <ComboBox
+                                        x:Name="MianScreenFill"
+                                        PlaceholderText="{LxaString CustomAspectRatio}"
+                                        FontWeight="Normal"
+                                        HorizontalAlignment="Stretch"
+                                        ItemsSource="{Binding StretchList}"
+                                        SelectedItem="{Binding SelectetStretch}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{LocalizedBinding {Binding}}}"/>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+
+                                    <ComboBox
+                                        x:Name="MianScreenStretchDirection"
+                                        PlaceholderText="{LxaString ScreenStretchDirection}"
+                                        HorizontalAlignment="Stretch"
+                                        FontWeight="Normal"
+                                        ItemsSource="{Binding StretchDirectionList}"
+                                        SelectedItem="{Binding SelectetStretchDirection}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <!--<TextBlock Text="{Binding Converter={StaticResource StretchDirectionConverter}}"/>-->
+                                                <TextBlock Text="{LocalizedBinding {Binding}}}"/>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+
+                                </StackPanel>
+                            </Expander>
+
+                            <!--屏幕-->
+                            <Expander Header="分辨率"
+                                      FontWeight="Bold"
+                                      IsExpanded="True">
+                                <StackPanel Orientation="Vertical"
+                                            Spacing="8">
+                                    <ComboBox PlaceholderText="{LxaString CustomResolutionRatio}"
+                                              FontWeight="Normal"
+                                              HorizontalAlignment="Stretch"
+                                              SelectedItem="{Binding SelectetResolution}"
+                                              ItemsSource="{Binding Resolutions}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <DockPanel>
+                                                    <TextBlock
+                                                        Text="{Binding Item1, StringFormat='{}{0} *'}"/>
+                                                    <TextBlock
+                                                        Text="{Binding Item2, StringFormat='{}{0}'}"/>
+                                                </DockPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
+                            </Expander>
+
+                            <!--镜像-->
+                            <Expander Header="镜像"
+                                  FontWeight="Bold"
+                                  IsExpanded="True">
+
+                                <Grid  RowDefinitions="*"
+                                       ColumnDefinitions="*,*">
+
+                                    <ToggleSwitch
+                                        Grid.Column="0"
+                                        OffContent="水平关"
+                                        OnContent="水平开"
+                                        Name="HorizontalXSwitch" 
+                                        ToolTip.Tip="水平镜像" 
+                                        Click="HorizontalX_Click"
+                                        HorizontalAlignment="Center"/>
+
+                                    <ToggleSwitch
+                                        Grid.Column="1"
+                                        OffContent="垂直关"
+                                        OnContent="垂直开"
+                                        Name="VerticalYSwitch" 
+                                        ToolTip.Tip="垂直镜像"
+                                        Click="VerticalY_Click" 
+                                        HorizontalAlignment="Center"/>
+
+                                    <!--<Button x:Name="HorizontalX" Grid.Row="0"
+                                            Grid.Column="0"
+                                            Height="40"
+                                            Classes="ImgXYButton"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Center"
+                                            Margin="0,0,0,0"
+                                            ToolTip.Tip="水平镜像"
+                                            ClickMode="Press"
+                                            Click="HorizontalX_Click" >
+                                        <ui:SymbolIcon Symbol="IconChromeSwitch"
+                                                             FontSize="18"
+                                                             VerticalAlignment="Center"
+                                                             HorizontalAlignment="Left"/>
+                                    </Button>
+
+                                    <Button
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Height="40"
+                                        Classes="ImgXYButton"
+                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        Margin="0,0,0,0"
+                                        ToolTip.Tip="垂直镜像"
+                                        ClickMode="Press"
+                                        Click="VerticalY_Click">
+                                        <ui:SymbolIcon Symbol="IconSort"
+                                                           FontSize="18"
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Left"/>
+                                    </Button>-->
+
+                                </Grid>
+                            </Expander>
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                </ui:TabViewItem>
+                
+                <ui:TabViewItem Header="项目"
+                                IconSource="Open"
+                                IsClosable="False">
+
+                    <StackPanel Orientation="Vertical"
+                                Spacing="4"
+                                Margin="10">
+
+                        <Expander Header="项目"
+                                  IsExpanded="True"
+                                  FontWeight="Bold">
+                            <StackPanel Orientation="Vertical">
+
+                                <StackPanel IsVisible="{Binding ShowPatient}"
+                                            Orientation="Vertical"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            Margin="0,0,0,20"
+                                            Spacing="10">
+
+                                    <Border
+                                        Margin="10"
+                                        CornerRadius="50"
+                                        BorderThickness="1"
+                                        Width="60"
+                                        Height="60"
+                                        HorizontalAlignment="Center"
+                                        BorderBrush="#dddddd">
+                                        <ui:SymbolIcon Symbol="Contact"
+                                                       FontSize="30"
+                                                       Margin="5"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+                                    </Border>
+
+
+                                    <DockPanel >
+                                        <TextBlock DockPanel.Dock="Left" Text="{LxaString Number}"></TextBlock>
+                                        <TextBlock DockPanel.Dock="Right"
+                                                   Text="{Binding Patient.Code}"/>
+                                    </DockPanel>
+
+                                    <DockPanel>
+                                        <TextBlock DockPanel.Dock="Left"
+                                                   Text="姓名:"></TextBlock>
+                                        <TextBlock DockPanel.Dock="Right"
+                                                   Text="{Binding Patient.RaleName}"/>
+                                    </DockPanel>
+                                    <DockPanel>
+                                        <TextBlock DockPanel.Dock="Left"
+                                                   Text="{LxaString Sex}"></TextBlock>
+                                        <TextBlock DockPanel.Dock="Right"
+                                                   Text="{Binding Patient.Sex,Converter={StaticResource EnumConverter}}"/>
+                                    </DockPanel>
+
+                                    <DockPanel>
+                                        <TextBlock DockPanel.Dock="Left"
+                                                   Text="{LxaString Mobile}"></TextBlock>
+                                        <TextBlock DockPanel.Dock="Right"
+                                                   Text="{Binding Patient.PhoneNumber}"/>
+                                    </DockPanel>
+
+                                    <DockPanel >
+                                        <TextBlock DockPanel.Dock="Left"
+                                                   Text="{LxaString Checker}"></TextBlock>
+                                        <TextBlock DockPanel.Dock="Right"
+                                                   Text="{Binding CurrentUser.RaleName}"/>
+                                    </DockPanel>
+
+                                </StackPanel>
+
+                                <!--选择添加项目-->
+                                <Button
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,0,0"
+                                    Command="{Binding AddPatient}">
+                                    <Grid>
+                                        <ui:SymbolIcon Symbol="IconAddBold"
+                                                       FontSize="14"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Left"/>
+                                        <TextBlock Margin="20,0,0,0"
+                                                   Text="{LxaString SelectAddPatient}"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right" />
+                                    </Grid>
+                                </Button>
+
+                            </StackPanel>
+                        </Expander>
+
+
+                        <Expander Header="{LxaString InspectRecords}"
+                                  IsExpanded="True"
+                                  FontWeight="Bold" >
+
+                            <ui:TabView
+                                IsAddTabButtonVisible="False"
+                                Margin="0">
+                                <ui:TabViewItem Header="{LxaString Screenshot}"
+                                                IconSource="Open"
+                                                IsClosable="False"
+                                    Padding="0,0,0,0">
+
+                                    <ItemsRepeater x:Name="ImagesItems"
+                                                   ItemsSource="{Binding Patient.Images}"
+                                                   Margin="0,10,0,0">
+                                        <ItemsRepeater.Layout>
+                                            <StackLayout Spacing="8" />
+                                        </ItemsRepeater.Layout>
+
+                                        <ItemsRepeater.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Grid.Column="0"
+                                                        ClipToBounds="True"
+                                                        Padding="0"
+                                                        Background="#000"
+                                                        CornerRadius="10">
+                                                    <Panel
+                                                        Background="#000000">
+                                                        <Image
+                                                            Stretch="Uniform"
+                                                            Height="150"
+                                                            asyncImageLoader:ImageLoader.Source="{Binding PathURL}">
+                                                            <Image.ContextFlyout>
+                                                                <ui:CommandBarFlyout Placement="Center">
+                                                                    <ui:CommandBarButton Label="{LxaString Remarks}"
+                                                                                         IconSource="CommentAdd"
+                                                                                         ToolTip.Tip="{LxaString AddRemarks}"
+                                                                                         Command="{Binding ElementName=CurrentContentPage, Path=DataContext.CommentAdd}"
+                                                                                         CommandParameter="{Binding .}"/>
+                                                                    <ui:CommandBarButton Label="{LxaString View}"
+                                                                                         IconSource="Comment"
+                                                                                         ToolTip.Tip="{LxaString ViewRemark}"
+                                                                                         Command="{Binding ElementName=CurrentContentPage, Path=DataContext.CommentView}"
+                                                                                         CommandParameter="{Binding .}"/>
+                                                                    <ui:CommandBarButton Label="{LxaString Preview}"
+                                                                                         IconSource="Play"
+                                                                                         ToolTip.Tip="{LxaString Preview}"
+                                                                                         Command="{Binding ElementName=CurrentContentPage, Path=DataContext.ViewCommand}"
+                                                                                         CommandParameter="{Binding .}"/>
+                                                                </ui:CommandBarFlyout>
+                                                            </Image.ContextFlyout>
+                                                        </Image>
+                                                        <Panel Height="100">
+                                                            <ui:SymbolIcon Symbol="Image"
+                                                                           Foreground="#fff"
+                                                                           FontSize="25"
+                                                                           HorizontalAlignment="Center"
+                                                                           VerticalAlignment="Center"/>
+                                                        </Panel>
+                                                    </Panel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsRepeater.ItemTemplate>
+                                    </ItemsRepeater>
+
+
+
+                                </ui:TabViewItem>
+                                <ui:TabViewItem Header="{LxaString VideoRecording}"
+                                                IconSource="Open"
+                                                IsClosable="False"
+                                                Padding="0,0,0,0">
+
+
+                                    <ItemsRepeater x:Name="VideosItems"
+                                                   ItemsSource="{Binding Patient.Videos}"
+                                                   Margin="0,10,0,0">
+                                        <ItemsRepeater.Layout>
+                                            <StackLayout Spacing="8" />
+                                        </ItemsRepeater.Layout>
+
+                                        <ItemsRepeater.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Grid.Column="0"
+                                                        ClipToBounds="True"
+                                                        Padding="0"
+                                                        Background="#000"
+                                                        CornerRadius="10">
+                                                    <Panel
+                                                        Background="#000000">
+                                                        <Image
+                                                            Stretch="Uniform"
+                                                             Height="150"
+                                                            asyncImageLoader:ImageLoader.Source="{Binding PathURL}" >
+                                                            <Image.ContextFlyout>
+                                                                <ui:CommandBarFlyout Placement="Center">
+                                                                    <ui:CommandBarButton Label="{LxaString Remarks}"
+                                                                                         IconSource="CommentAdd"
+                                                                                         ToolTip.Tip="{LxaString AddRemarks}"
+                                                                                         Command="{Binding ElementName=CurrentContentPage, Path=DataContext.CommentAdd}"
+                                                                                         CommandParameter="{Binding .}"/>
+                                                                    <ui:CommandBarButton Label="{LxaString View}"
+                                                                                         IconSource="Comment"
+                                                                                         ToolTip.Tip="{LxaString ViewRemark}"
+                                                                                         Command="{Binding ElementName=CurrentContentPage, Path=DataContext.CommentView}"
+                                                                                         CommandParameter="{Binding .}"/>
+                                                                    <ui:CommandBarButton Label="{LxaString Preview}"
+                                                                                         IconSource="Play"
+                                                                                         ToolTip.Tip="{LxaString Preview}"
+                                                                                         Command="{Binding ElementName=CurrentContentPage, Path=DataContext.ViewCommand}"
+                                                                                         CommandParameter="{Binding .}"/>
+                                                                </ui:CommandBarFlyout>
+                                                            </Image.ContextFlyout>
+                                                        </Image>
+                                                        <Panel Height="100">
+                                                            <ui:SymbolIcon Symbol="PlayFilled"
+                                                                           Foreground="#fff"
+                                                                           FontSize="25"
+                                                                           HorizontalAlignment="Center"
+                                                                           VerticalAlignment="Center"/>
+                                                        </Panel>
+                                                    </Panel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsRepeater.ItemTemplate>
+                                    </ItemsRepeater>
+
+
+                                </ui:TabViewItem>
+                            </ui:TabView>
+
+                        </Expander>
+
+                    </StackPanel>
+
+                </ui:TabViewItem>
+
+                <ui:TabViewItem Header="会话"
+                               IconSource="Open"
+                               IsClosable="False">
+
+                    <Expander Header="在线用户"
+                                     FontWeight="Bold"
+                                     IsExpanded="True"
+                              Margin="10">
+
+                        <ItemsRepeater x:Name="OnlineUsers"
+                                       ItemsSource="{Binding OnlineUsersItems}"
+                                       Margin="0,0,0,0">
+                            <ItemsRepeater.Layout>
+                                <StackLayout Spacing="8" />
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Classes="onLineUserBorder"
+                                        BorderBrush="#eeeeee"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        Margin="0,0,0,0"
+                                        Cursor="Hand">
+                                        <Grid RowDefinitions="60"
+                                              ColumnDefinitions="*,*,Auto"
+                                              Margin="0,0,0,0">
+
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Column="0"
+                                                        Grid.Row="0"
+                                                        Spacing="0">
+
+                                                <Button
+                                                    BorderThickness="1"
+                                                    BorderBrush="#ddd"
+                                                    CornerRadius="15"
+                                                    Padding="0"
+                                                    Background="#004883"
+                                                    Cursor="Hand"
+                                                    Height="40"
+                                                    Width="40"
+                                                    Margin="10"
+                                                     Command="{Binding ElementName=CurrentContentPage, Path=DataContext.CallCommand}"
+                                                    CommandParameter="{Binding .}">
+                                                    <Image
+                                                        Stretch="Uniform"
+                                                        Source="avares://Dorisoy.PanClient/Assets/Avatar.png"
+                                                        Height="30"
+                                                        Width="30">
+                                                    </Image>
+                                                </Button>
+
+
+                                            </StackPanel>
+
+
+                                            <StackPanel Orientation="Vertical"
+                                                        Grid.Column="1"
+                                                        Grid.Row="0"
+                                                        Spacing="0">
+
+                                                <TextBlock
+                                                    Text="{Binding RaleName}"
+                                                    Foreground="#004883"
+                                                    FontWeight="Bold"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Left"
+                                                    Margin="0,10,0,0"/>
+                                                <TextBlock
+                                                    FontWeight="Normal"
+                                                    FontSize="12"
+                                                    Text="{Binding IP}"
+                                                    Foreground="#DDDDDD"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Left"
+                                                    Margin="0,0,0,0"/>
+
+                                            </StackPanel>
+
+
+
+                                            <StackPanel Grid.Column="2"
+                                                        Grid.Row="0">
+
+                                                <Button
+                                                    Padding="0"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    BorderThickness="0"
+                                                    BorderBrush="Transparent"
+                                                    Background="Transparent"
+                                                    Margin="15"
+                                                    Command="{Binding ElementName=CurrentContentPage, Path=DataContext.CallCommand}"
+                                                    CommandParameter="{Binding .}">
+                                                    <Panel>
+                                                        <ui:SymbolIcon Symbol="VideoFilled"
+                                                                       Foreground="#004883"
+                                                                       FontSize="30"
+                                                                       VerticalAlignment="Center"/>
+                                                    </Panel>
+                                                </Button>
+
+
+
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+
+                    </Expander>
+
+               
+
+                </ui:TabViewItem>
+
+            </ui:TabView>
+        </Border>
+        
+    </Grid>
+</UserControl>

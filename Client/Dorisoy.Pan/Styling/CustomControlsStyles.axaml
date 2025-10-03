@@ -1,0 +1,155 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
+        xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
+        xmlns:aedit="using:AvaloniaEdit"
+        xmlns:aedit2="using:AvaloniaEdit.Editing">
+
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/Styling/ControlThemes.axaml" />
+                <ResourceInclude Source="/Styling/ControlDefinitionOverlayStyles.axaml" />
+                <!--<ResourceInclude Source="/Styling/ColorTileStyles.axaml" />-->
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+    <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
+
+    <!-- 设置“Avalonia编辑”框的选择颜色 -->
+    <Style Selector="aedit2|TextArea">
+        <Setter Property="SelectionBrush" Value="{DynamicResource TextControlSelectionHighlightColor}" />
+        <Setter Property="SelectionForeground" Value="{DynamicResource TextOnAccentFillColorSelectedTextBrush}" />
+    </Style>
+    
+    <!-- 导航样式-->
+    <Style Selector="ui|NavigationView.DorisoyAppNav">
+        <Setter Property="IsPaneToggleButtonVisible" Value="False" />
+        <Setter Property="OpenPaneLength" Value="72" />
+        <Setter Property="IsPaneOpen" Value="True" />
+    </Style>
+    <Style Selector="ui|NavigationView.DorisoyAppNav /template/ Button#NavigationViewBackButton">
+        <Setter Property="Width" Value="{DynamicResource NavigationBackButtonWidth}" />
+    </Style>
+    <Style Selector="ui|NavigationView.DorisoyAppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
+        <Setter Property="Margin" Value="0 40 0 0" />
+    </Style>
+
+    <!--自定义导航菜单样式-->
+    <Style Selector="ui|NavigationViewItem.DorisoyAppNav uip|NavigationViewItemPresenter">
+        <Setter Property="Width" Value="72" />
+        <Setter Property="MinHeight" Value="72" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Foreground" Value="#00aaeb" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border x:Name="LayoutRoot"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Margin="4 8"
+                        TemplatedControl.IsTemplateFocusTarget="True">
+                    <Panel>
+                        <Panel HorizontalAlignment="Left"
+                               VerticalAlignment="Center">
+
+                            <Border x:Name="SelectionIndicator"
+                                    Background="{DynamicResource NavigationViewSelectionIndicatorForeground}"
+                                    Width="3"
+                                    Opacity="0"
+                                    VerticalAlignment="Center"
+                                    Height="20"
+                                    CornerRadius="{StaticResource ControlCornerRadius}"/>
+                        </Panel>
+
+                        <DockPanel>
+                            <ContentPresenter x:Name="ContentPresenter"
+                                              Grid.Row="1"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Bottom"
+                                              FontSize="14"
+                                              Padding="0 4"
+                                              Margin="0 -8 0 3"
+                                              DockPanel.Dock="Bottom"
+                                              IsVisible="True">
+                                <ContentPresenter.Styles>
+                                    <Style Selector="TextBlock">
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </ContentPresenter.Styles>
+                            </ContentPresenter>
+
+                            <Viewbox x:Name="IconBox"
+                                     Height="28"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center">
+                                <ContentPresenter x:Name="Icon"
+                                                  Content="{Binding TemplateSettings.Icon, RelativeSource={RelativeSource TemplatedParent}}"  Margin="0,0,0,0"/>
+                            </Viewbox>
+                        </DockPanel>
+                    </Panel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    
+    <!--鼠标经过样式-->
+    <Style Selector="ui|NavigationViewItem.DorisoyAppNav uip|NavigationViewItemPresenter:pointerover /template/ Border#LayoutRoot">
+        <Setter Property="Background" Value="#00aaeb" />
+    </Style>
+    <Style Selector="ui|NavigationViewItem.DorisoyAppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#ContentPresenter">
+        <Setter Property="Foreground" Value="#004883" />
+    </Style>
+    <Style Selector="ui|NavigationViewItem.DorisoyAppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#Icon">
+        <Setter Property="Foreground" Value="#004883" />
+    </Style>
+
+    <!--鼠标按下样式-->
+    <Style Selector="ui|NavigationViewItem.DorisoyAppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#ContentPresenter">
+        <Setter Property="Foreground" Value="#00aaeb" />
+    </Style>
+    <Style Selector="ui|NavigationViewItem.DorisoyAppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#Icon">
+        <Setter Property="Foreground" Value="#004883" />
+    </Style>
+
+    <!--鼠标选中样式-->
+    <Style Selector="ui|NavigationViewItem.DorisoyAppNav uip|NavigationViewItemPresenter:selected /template/ Border#LayoutRoot">
+        <Setter Property="Background"
+                Value="#00aaeb" />
+    </Style>
+    <Style Selector="ui|NavigationViewItem.DorisoyAppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#ContentPresenter">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="ui|NavigationViewItem.DorisoyAppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#Icon">
+        <Setter Property="Foreground"
+                Value="#004883"/>
+    </Style>
+
+
+    <!-- 主视图中的“自动完成框搜索”框 -->
+    <Style Selector="AutoCompleteBox.SampleApp /template/ TextBox#PART_TextBox">
+        <Setter Property="InnerRightContent">
+            <Template>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="&#xE8BB;"
+                               FontFamily="{StaticResource SymbolThemeFontFamily}"
+                               Theme="{StaticResource TransparentButton}"
+                               Command="{Binding $parent[TextBox].Clear}"
+                               IsVisible="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                    <Button Content="&#xE721;"
+                               FontFamily="{StaticResource SymbolThemeFontFamily}"
+                               Theme="{StaticResource TransparentButton}"
+                               Command="{Binding $parent[TextBox].Clear}"
+                               IsHitTestVisible="False"/>
+                </StackPanel>
+            </Template>
+        </Setter>
+    </Style>
+
+    <!-- 调整AvaloniaEdit中的ScrollViewer填充，使滚动条不会与文本重叠 -->
+    <Style Selector="aedit|TextEditor /template/ ScrollViewer ScrollContentPresenter">
+        <Setter Property="Padding" Value="0 0 0 20" />
+    </Style>
+</Styles>

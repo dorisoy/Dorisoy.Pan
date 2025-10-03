@@ -1,0 +1,432 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:player="using:Dorisoy.PanClient.Player"
+             xmlns:local="using:Dorisoy.PanClient.Controls"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             xmlns:m="using:Dorisoy.PanClient.Models"
+             xmlns:conv="using:Dorisoy.PanClient.Converters"
+             xmlns:pg="clr-namespace:Dorisoy.PanClient.Pages;assembly=Dorisoy.PanClient"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             x:Class="Dorisoy.PanClient.Pages.PatientPage"
+             x:DataType="vm:PatientPageViewModel"
+             x:CompileBindings="False">
+
+    <ScrollViewer>
+        <StackPanel
+            ClipToBounds="False" 
+            Spacing="0">
+
+            <local:PageHeaderControl Title="{LxaString PatientInformation}" />
+
+            <Grid ColumnDefinitions="300,*,350"
+                  Margin="15">
+
+                <StackPanel Grid.Column="0">
+
+
+                    <Expander Header="{LxaString Patient}"
+                              IsExpanded="True"
+                              FontWeight="Bold"
+                              Margin="0,0,0,0">
+
+                        <!--项目列表-->
+                        <ListBox ItemsSource="{Binding PatientItems}"
+                                 x:Name="PatientItems"
+                                 SelectedItem="{Binding SelectedPatientItem}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="#eeeeee"
+                                            BorderThickness="0,0,0,1"
+                                            Margin="0,0,0,0"
+                                            Cursor="Hand">
+                                        <Grid RowDefinitions="*"
+                                              ColumnDefinitions="Auto,*"
+                                              Margin="0">
+
+                                            <StackPanel  Grid.Column="0"
+                                                         Grid.Row="0">
+                                                <Border 
+                                                    Margin="0,10,10,10"
+                                                    CornerRadius="50" 
+                                                        BorderThickness="1" 
+                                                    Width="60"
+                                                    Height="60"
+                                                    BorderBrush="#dddddd">
+                                                    <ui:SymbolIcon Symbol="ContactInfoFilled"
+                                                                   FontSize="30"
+                                                                   Margin="5"
+                                                                   HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Center"
+                                                                  />
+                                                </Border>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="1"
+                                                        Grid.Row="0"
+                                                        VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding RaleName}"
+                                                           Foreground="#004883"
+                                                           FontWeight="Bold"
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Left" 
+                                                           Margin="0,5,0,0"/>
+                                                <TextBlock Text="{Binding Code}"
+                                                           Foreground="#004883"
+                                                           FontWeight="Normal"
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Left"
+                                                           Margin="0,10,0,0"/>
+                                            </StackPanel>
+
+
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        
+                    </Expander>
+
+                </StackPanel>
+
+                <Border Grid.Column="1" 
+                        BorderBrush="#eeeeee"
+                        BorderThickness="1" 
+                        CornerRadius="4"
+                        Margin="12,0,12,0">
+    
+                <ui:TabView
+                    Margin="6"
+                    IsAddTabButtonVisible="False">
+
+                    <ui:TabViewItem Header="{LxaString Image}"
+                                    IconSource="Open"
+                                    IsClosable="False">
+
+                        <StackPanel
+                            Margin="10"
+                            Spacing="0">
+
+                            <!--<local:NullDataView IsVisible="{Binding !ISNull}"/>-->
+
+                            <ItemsControl x:Name="VideosItems"
+                                          ItemsSource="{Binding Patient.Videos}"
+                                          Margin="0">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border
+                                            x:Name="LayoutRoot"
+                                            ClipToBounds="True"
+                                            Padding="8"
+                                            Margin="0,0,0,8"
+                                            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                                            BorderThickness="1 1 1 1"
+                                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                            CornerRadius="10"
+                                            Cursor="Hand">
+
+                                            <Grid ColumnDefinitions="200,*,200"
+                                                  RowDefinitions="*">
+
+                                                <Border Grid.Column="0"
+                                                        ClipToBounds="True"
+                                                        Padding="0"
+                                                        Background="#000"
+                                                        CornerRadius="10">
+                                                    <Panel
+                                                        Background="#000000">
+                                                        <!--<Image MaxWidth="200"
+                                                               MaxHeight="150"
+                                                               Stretch="Uniform"
+                                                               Source="{Binding Cover}" />-->
+
+                                                        <Image MaxWidth="200"
+                                                               MaxHeight="150"
+                                                               Stretch="Uniform"
+                                                               asyncImageLoader:ImageLoader.Source="{Binding PathURL}" />
+                                                        
+                                                        <Panel Height="150">
+                                                            <ui:SymbolIcon Symbol="PlayFilled"
+                                                                           Foreground="#fff"
+                                                                           FontSize="25"
+                                                                           HorizontalAlignment="Center"
+                                                                           VerticalAlignment="Center"/>
+                                                        </Panel>
+                                                    </Panel>
+
+                                                </Border>
+
+
+                                                <StackPanel Grid.Column="2"
+                                                            Margin="30,0,30,0"
+                                                            Orientation="Vertical"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Spacing="15">
+                                                    <!--备注-->
+                                                    <Button
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Margin="0,0,0,0">
+                                                        <Grid>
+                                                            <ui:SymbolIcon Symbol="CloudDownloadFilled"
+                                                                           FontSize="14"
+                                                                           VerticalAlignment="Center"
+                                                                           HorizontalAlignment="Left"/>
+                                                            <TextBlock Margin="20,0,0,0"
+                                                                       Text="{LxaString Remarks}"
+                                                                       VerticalAlignment="Center"
+                                                                       HorizontalAlignment="Right" />
+                                                        </Grid>
+                                                    </Button>
+                                                    <!--预览-->
+                                                    <Button
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Margin="0,0,0,0">
+                                                        <Grid>
+                                                            <ui:SymbolIcon Symbol="PreviewLinkFilled"
+                                                                           FontSize="14"
+                                                                           VerticalAlignment="Center"
+                                                                           HorizontalAlignment="Left"/>
+                                                            <TextBlock Margin="20,0,0,0"
+                                                                       Text="{LxaString Preview}"
+                                                                       VerticalAlignment="Center"
+                                                                       HorizontalAlignment="Right" />
+                                                        </Grid>
+                                                    </Button>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </StackPanel>
+
+                    </ui:TabViewItem>
+                    <ui:TabViewItem Header="{LxaString Screenshot}"
+                                    IconSource="Open"
+                                    IsClosable="False">
+
+
+                        <StackPanel
+                            Margin="10">
+
+                            <!--<local:NullDataView IsVisible="{Binding !ISNull2}"/>-->
+
+                            <ItemsControl x:Name="ImagesItems"
+                                          ItemsSource="{Binding Patient.Images}"
+                                          Margin="0">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border
+                                            x:Name="LayoutRoot"
+                                            ClipToBounds="True"
+                                            Padding="8"
+                                            Margin="0,0,0,8"
+                                            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                                            BorderThickness="1 1 1 1"
+                                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                            CornerRadius="10"
+                                            Cursor="Hand">
+
+                                            <Grid ColumnDefinitions="200,*,200"
+                                                  RowDefinitions="*">
+
+                                                <Border Grid.Column="0"
+                                                        ClipToBounds="True"
+                                                        Padding="0"
+                                                        Background="#000"
+                                                        CornerRadius="10">
+                                                    <Panel
+                                                        Background="#000000">
+
+                                                        <Image MaxWidth="200"
+                                                               MaxHeight="150"
+                                                               Stretch="Uniform"
+                                                               asyncImageLoader:ImageLoader.Source="{Binding PathURL}" />
+                                                        <Panel Height="150">
+                                                            <ui:SymbolIcon Symbol="PlayFilled"
+                                                                           Foreground="#fff"
+                                                                           FontSize="25"
+                                                                           HorizontalAlignment="Center"
+                                                                           VerticalAlignment="Center"/>
+                                                        </Panel>
+                                                    </Panel>
+
+                                                </Border>
+
+ 
+                                                <StackPanel Grid.Column="2"
+                                                            Margin="30,0,30,0"
+                                                            Orientation="Vertical"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Spacing="15">
+                                                    <!--下载-->
+                                                    <Button
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Margin="0,0,0,0">
+                                                        <Grid>
+                                                            <ui:SymbolIcon Symbol="CloudDownloadFilled"
+                                                                           FontSize="14"
+                                                                           VerticalAlignment="Center"
+                                                                           HorizontalAlignment="Left"/>
+                                                            <TextBlock Margin="20,0,0,0"
+                                                                       Text="{LxaString Remarks}"
+                                                                       VerticalAlignment="Center"
+                                                                       HorizontalAlignment="Right" />
+                                                        </Grid>
+                                                    </Button>
+                                                    <!--预览-->
+                                                    <Button
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Margin="0,0,0,0">
+                                                        <Grid>
+                                                            <ui:SymbolIcon Symbol="PreviewLinkFilled"
+                                                                           FontSize="14"
+                                                                           VerticalAlignment="Center"
+                                                                           HorizontalAlignment="Left"/>
+                                                            <TextBlock Margin="20,0,0,0"
+                                                                       Text="{LxaString Preview}"
+                                                                       VerticalAlignment="Center"
+                                                                       HorizontalAlignment="Right" />
+                                                        </Grid>
+                                                    </Button>
+                                                   
+
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </StackPanel>
+
+                    </ui:TabViewItem>
+                </ui:TabView>
+                    
+                </Border>
+                
+                <StackPanel Grid.Column="2">
+
+                    <Expander Header="{LxaString BasicInformation}"
+                              IsExpanded="True"
+                              FontWeight="Bold"
+                              Margin="0,0,0,12">
+
+                        <StackPanel
+                            Margin="10">
+
+                            <DockPanel Margin="0,0,0,10">
+                                <TextBlock Text="{LxaString VisitNumber}"
+                                           Margin="0,0,10,0"/>
+                                <TextBlock Text="{Binding Patient.Code}"
+                                           FontWeight="Normal"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"/>
+                            </DockPanel>
+
+                            <DockPanel Margin="0,0,0,10">
+                                <TextBlock Text="{LxaString RaleName}"
+                                           Margin="0,0,10,0"/>
+                                <TextBlock Text="{Binding Patient.RaleName}"
+                                           FontWeight="Normal"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"/>
+                            </DockPanel>
+
+                            <DockPanel Margin="0,0,0,10">
+                                <TextBlock Text="{LxaString PhoneNumber}"
+                                           Margin="0,0,10,0"/>
+                                <TextBlock Text="{Binding Patient.PhoneNumber}"
+                                           FontWeight="Normal"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"/>
+                            </DockPanel>
+
+                            <DockPanel Margin="0,0,0,10">
+                                <TextBlock Text="{LxaString VisitTime}"
+                                           Margin="0,0,10,0"/>
+                                <TextBlock Text="{Binding Patient.CreatedDate}"
+                                           FontWeight="Normal"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,0,0,10">
+                                <TextBlock Text="{LxaString Address}"
+                                           Margin="0,0,10,0"/>
+                                <TextBlock Text="{Binding Patient.Address}"
+                                           FontWeight="Normal"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"/>
+                            </DockPanel>
+
+                        </StackPanel>
+                    </Expander>
+
+                    <Expander Header="{LxaString CommentComments}"
+                              IsExpanded="True"
+                              FontWeight="Bold"
+                              Margin="0,0,0,12">
+                        <StackPanel Orientation="Vertical">
+
+                            <ItemsRepeater x:Name="DocComments"
+                                           ItemsSource="{Binding SelectedDocumentItem.DocComments}"
+                                           Margin="0,8,0,0">
+                                <ItemsRepeater.Layout>
+                                    <StackLayout Spacing="8" />
+                                </ItemsRepeater.Layout>
+
+                                <ItemsRepeater.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <DockPanel Margin="0,0,0,10">
+                                                <TextBlock Text="{LxaString Comment}"
+                                                           Margin="0,0,10,0"/>
+                                                <TextBlock Text="{Binding Comment}"
+                                                           FontWeight="Normal"
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Left"/>
+                                            </DockPanel>
+                                            <DockPanel Margin="0,0,0,10">
+                                                <TextBlock Text="时间:"
+                                                           Margin="0,0,10,0"/>
+                                                <TextBlock Text="{Binding CreatedDate}"
+                                                           FontWeight="Normal"
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Left"/>
+                                            </DockPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsRepeater.ItemTemplate>
+                            </ItemsRepeater>
+
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+
+            </Grid>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

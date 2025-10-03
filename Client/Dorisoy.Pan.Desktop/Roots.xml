@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<linker>
+  <!-- 如果使用CompiledBinding且不使用反射，则可以删除 -->
+  <assembly fullname="Dorisoy.PanClient.Desktop" preserve="All" />
+  <assembly fullname="Avalonia.Themes.Fluent" preserve="All" />
+  
+  <assembly fullname="Avalonia.Controls">
+    <type fullname="Avalonia.Controls.Button">
+      <property name="Command" />
+      <property name="CommandParameter" />
+    </type>
+  </assembly>
+</linker>

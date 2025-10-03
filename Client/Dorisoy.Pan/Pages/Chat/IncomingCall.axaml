@@ -1,0 +1,136 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:gif="clr-namespace:AvaloniaGif;assembly=Dorisoy.PanClient"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="Dorisoy.PanClient.Pages.Chat.IncomingCall"
+             x:DataType="vm:MainViewViewModel"
+             x:CompileBindings="False">
+
+    <UserControl.Styles>
+        <Style Selector="Button.IncomingCall">
+            <Style Selector="^ /template/ ui|FABorder#Root">
+                <Setter Property="Transitions">
+                    <Transitions>
+                        <BrushTransition Duration="00:00:00.083"
+                                         Property="Background" />
+                    </Transitions>
+                </Setter>
+            </Style>
+            <Style Selector="^:pointerover /template/ ui|FABorder#Root">
+                <Setter Property="Background"
+                        Value="#004883" />
+            </Style>
+            <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                <Setter Property="Foreground"
+                        Value="#FFFFFF" />
+            </Style>
+        </Style>
+    </UserControl.Styles>
+    
+    
+    
+    <Grid HorizontalAlignment="Center"
+          Margin="0, 40, 0, 0"
+          VerticalAlignment="Center"
+          Grid.RowDefinitions="*,*">
+
+        <Grid HorizontalAlignment="Center"
+              VerticalAlignment="Bottom"
+              Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="来电..."
+                       HorizontalAlignment="Center"
+                       FontSize="18"
+                       Margin="0, 10"/>
+
+            <TextBlock Text="{Binding RemoteIP}"
+                     Grid.Row="1"
+                     FontSize="28"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"/>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0"
+                  Margin="35, 25"
+                  Width="60">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Button 
+                    Grid.Row="0"
+                    Classes="IncomingCall"
+                    Width="60"
+                    Height="60"
+                    Cursor="Hand"
+                    CornerRadius="50"
+                    Background="#ff0000" 
+                    Command="{Binding DeclineCallCommand}">
+
+                    <ui:SymbolIcon Symbol="DeclineCall"
+                                          Foreground="White"
+                                           FontSize="30"
+                                           VerticalAlignment="Center"/>
+                </Button>
+
+                <TextBlock Text="拒绝"
+                           Grid.Row="1"
+                           HorizontalAlignment="Center"
+                           FontSize="14"
+                           Margin="0, 8"/>
+            </Grid>
+
+            <Grid Grid.Column="1"
+                  Margin="35, 25"
+                  Width="60">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Button
+                    Grid.Row="0"
+                    Classes="IncomingCall"
+                    Width="60"
+                    Height="60"
+                    Cursor="Hand"
+                    CornerRadius="50"
+                    Background="#f7901a"
+                    Command="{Binding AcceptCallCommand}">
+                    <ui:SymbolIcon Symbol="IncomingCall"
+                                               Foreground="White"
+                                                FontSize="30"
+                                                VerticalAlignment="Center"/>
+                </Button>
+
+                <TextBlock Text="接受"
+                           Grid.Row="1"
+                           HorizontalAlignment="Center"
+                           FontSize="14"
+                           Margin="0, 8"/>
+            </Grid>
+        </Grid>
+
+    </Grid>
+
+
+</UserControl>

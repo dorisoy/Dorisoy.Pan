@@ -1,0 +1,230 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:player="using:Dorisoy.PanClient.Player"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             xmlns:m="using:Dorisoy.PanClient.Models"
+             xmlns:conv="using:Dorisoy.PanClient.Converters"
+             xmlns:pg="clr-namespace:Dorisoy.PanClient.Pages;assembly=Dorisoy.PanClient"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800"
+             x:Class="Dorisoy.PanClient.Pages.VideoManagePage"
+             x:DataType="vm:VideoManagePageViewModel"
+             x:CompileBindings="False">
+
+    <Grid ColumnDefinitions="*,250"
+          RowDefinitions="*">
+        <Border Grid.Column="0"
+                Grid.Row="0"
+                Margin="12,12,6,12"
+                Padding="8"
+                Background="#ededee"
+                BoxShadow="0 2 5 0 #4F000000"
+                CornerRadius="{DynamicResource OverlayCornerRadius}">
+            <Grid
+                RowDefinitions="*,45">
+
+                <!--视频窗口-->
+                <Border Grid.Row="0"
+                        Margin="0,0,0,5"
+                        Background="#000"
+                        CornerRadius="{DynamicResource OverlayCornerRadius}">
+                    <!--logo-->
+                    <Panel>
+                        <player:VideoView
+                            x:Name="VideoView"
+                            MediaPlayer="{Binding MediaPlayer}"
+                            DisplayRenderStats="True">
+                        </player:VideoView>
+                        <Panel IsVisible="{Binding !PlayStatus}">
+                            <ui:SymbolIcon Symbol="PlayFilled"
+                                           Foreground="#fff"
+                                           FontSize="40"
+                                           Cursor="Hand"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
+                        </Panel>
+                    </Panel>
+                </Border>
+
+                <Border Grid.Row="0"
+                        Margin="0,0,0,5"
+                        Background="Transparent"
+                        CornerRadius="{DynamicResource OverlayCornerRadius}">
+                    <Grid
+                        ColumnDefinitions="Auto,*,Auto"
+                        VerticalAlignment="Bottom"
+                        Margin="10,0,10,0">
+                        <TextBlock Text="{Binding CurrentTime,StringFormat='{}{0:hh\\:mm\\:ss}'}"
+                                   Grid.Column="0"
+                                   Foreground="#004883"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"/>
+                        <Slider Minimum="0"
+                                Maximum="100"
+                                MinWidth="200"
+                                Value="{Binding Position}"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Stretch"
+                                IsEnabled="{Binding !IsMuted}"
+                                Margin="8,0,8,0"/>
+                        <TextBlock Text="{Binding Duration,StringFormat='{}{0:hh\\:mm\\:ss}'}"
+                                   Grid.Column="2"
+                                   Foreground="#004883"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"/>
+                    </Grid>
+                </Border>
+
+                <!--工具栏-->
+                <Grid ColumnDefinitions="*,50,150"
+                      Grid.Row="2"
+                      Margin="0,0,0,0" >
+
+                    <ui:CommandBar
+                        DefaultLabelPosition="Right"
+                        Grid.Column="0">
+                        <ui:CommandBar.PrimaryCommands>
+                            <ui:CommandBarToggleButton IconSource="{Binding PlayCommandIcon}"
+                                                       Label="{Binding PlayCommandText}"
+                                                       Foreground="#004883"
+                                                       Command="{Binding PlayCommand}"/>
+
+                            <ui:CommandBarToggleButton IconSource="{Binding PauseCommandIcon}"
+                                                       Foreground="#004883"
+                                                       Label="{Binding PauseCommandText}"
+                                                       Command="{Binding PauseCommand}"/>
+
+                            <ui:CommandBarToggleButton IconSource="PreviousFilled"
+                                                       Foreground="#004883"
+                                                       Label="{LxaString Backward}"
+                                                       Command="{Binding BackwardCommand}"/>
+                            <ui:CommandBarToggleButton IconSource="NextFilled"
+                                                       Foreground="#004883"
+                                                       Label="{LxaString Forward}"
+                                                       Command="{Binding ForwardCommand}"/>
+
+                        </ui:CommandBar.PrimaryCommands>
+                    </ui:CommandBar>
+
+
+                    <Button
+                        Padding="0"
+                        Command="{Binding SoundCommand}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        BorderThickness="0"
+                        BorderBrush="Transparent"
+                        Background="Transparent"
+                        Grid.Column="1"
+                        IsEnabled="{Binding !IsMuted}">
+                        <Panel>
+                            <ui:SymbolIcon Symbol="SpeakerOffFilled"
+                                           Foreground="#004883"
+                                           IsVisible="{Binding !DisableSound}"
+                                           FontSize="20"
+                                           VerticalAlignment="Center"/>
+                            <ui:SymbolIcon Symbol="Speaker2Filled"
+                                           Foreground="#004883"
+                                           IsVisible="{Binding DisableSound}"
+                                           FontSize="20"
+                                           VerticalAlignment="Center"/>
+                        </Panel>
+                    </Button>
+
+                    <Slider Grid.Column="2"
+                            x:Name="TargetSlider"
+                            Width="150"
+                            VerticalAlignment="Stretch"
+                            Orientation="Horizontal"
+                            Value="{Binding Volume}"
+                            Minimum="0"
+                            Maximum="100"
+                            Margin="0,0,10,0"
+                            HorizontalAlignment="Right"
+                            IsEnabled="{Binding !IsMuted}"/>
+
+
+                </Grid>
+            </Grid>
+        </Border>
+        <Border Grid.Column="1"
+                Grid.Row="0"
+                Margin="6,12,12,12"
+                Padding="8"
+                Background="#FFFFFF"
+                BoxShadow="0 2 5 0 #4F000000"
+                CornerRadius="{DynamicResource OverlayCornerRadius}">
+
+            <Grid RowDefinitions="45,*" Margin="0">
+
+                <Button
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Margin="0,0,0,0"
+                    Padding="0"
+                    Height="40"
+                    Command="{Binding AddPatient}"
+                    Grid.Row="0">
+                    <Grid>
+                        <ui:SymbolIcon Symbol="ChevronDown"
+                                       FontSize="14"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"/>
+                        <TextBlock Margin="20,0,0,0"
+                                   Text="{LxaString SelectPatientToView}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Right" />
+                    </Grid>
+                </Button>
+
+                <ScrollViewer Grid.Row="1">
+                    <ItemsRepeater x:Name="VideosItems"
+                                   ItemsSource="{Binding Videos}"
+                                   Margin="0,8,0,0">
+                        <ItemsRepeater.Layout>
+                            <StackLayout Spacing="8" />
+                        </ItemsRepeater.Layout>
+
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate>
+                                <Border Grid.Column="0"
+                                        ClipToBounds="True"
+                                        Padding="0"
+                                        Background="#000"
+                                        CornerRadius="10">
+                                    <Panel
+                                        Background="#000000">
+
+                                        <Button  Command="{Binding PlayCommand}"
+                                                 BorderThickness="0"
+                                                 CornerRadius="10"
+                                                 Padding="0"
+                                                 Background="Transparent"
+                                                 Cursor="Hand">
+             
+                                            <Image asyncImageLoader:ImageLoader.Source="{Binding Path}" 
+                                                   Stretch="Uniform"
+                                                   Height="150"/>
+                                        </Button>
+
+                                        <Panel Height="150">
+                                            <ui:SymbolIcon Symbol="PlayFilled"
+                                                           Foreground="#fff"
+                                                           FontSize="25"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"/>
+                                        </Panel>
+                                    </Panel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

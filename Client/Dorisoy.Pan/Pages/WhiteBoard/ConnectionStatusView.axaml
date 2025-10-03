@@ -1,0 +1,75 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             mc:Ignorable="d"
+             x:Class="Dorisoy.PanClient.Pages.ConnectionStatusView"
+             x:CompileBindings="False"
+             x:DataType="vm:WhiteBoardViewModel">
+
+    <UserControl.Styles>
+        <Style Selector="Border.connectionStatus">
+            <Setter Property="Width"
+                    Value="180" />
+            <Setter Property="Height"
+                    Value="37" />
+            <Setter Property="Background"
+                    Value="#fff" />
+            <Setter Property="CornerRadius"
+                    Value="5" />
+            <Setter Property="Padding"
+                    Value="10 0" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Right" />
+        </Style>
+        <Style Selector="DockPanel.pingLabel">
+            <Setter Property="HorizontalAlignment"
+                    Value="Center" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+        </Style>
+        <Style Selector="DockPanel.pingLabel TextBlock">
+            <Setter Property="Foreground"
+                    Value="#888" />
+        </Style>
+        <Style Selector="DockPanel.pingLabel TextBlock.latency">
+            <Setter Property="Foreground"
+                    Value="{StaticResource BlueColor}" />
+            <Setter Property="FontWeight"
+                    Value="Medium" />
+        </Style>
+        <Style Selector="TextBlock.reconnectingLabel">
+            <Setter Property="HorizontalAlignment"
+                    Value="Center" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Foreground"
+                    Value="{StaticResource RedColor}" />
+            <Setter Property="FontWeight"
+                    Value="Medium" />
+        </Style>
+    </UserControl.Styles>
+
+
+
+    <Border Classes="connectionStatus">
+        <Panel>
+
+            <DockPanel IsVisible="{Binding Connected}"
+                       Classes="pingLabel">
+                <TextBlock Text="Ping: " />
+                <TextBlock Text="{Binding Latency}"
+                           Classes="latency" />
+                <TextBlock Text=" ms" />
+            </DockPanel>
+
+            <TextBlock IsVisible="{Binding !Connected}"
+                       Classes="reconnectingLabel"
+                       Text="{Binding ReconnectingLabel}"></TextBlock>
+        </Panel>
+    </Border>
+
+</UserControl>

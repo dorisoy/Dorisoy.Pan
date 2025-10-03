@@ -1,0 +1,181 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:Dorisoy.PanClient.Controls"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+              xmlns:m="using:Dorisoy.PanClient.Models"
+             xmlns:conv="using:Dorisoy.PanClient.Converters"
+             xmlns:pg="clr-namespace:Dorisoy.PanClient.Pages;assembly=Dorisoy.PanClient"
+             mc:Ignorable="d" d:DesignWidth="800"
+             x:Class="Dorisoy.PanClient.Pages.PermissionPage"
+             x:DataType="vm:PermissionPageViewModel"
+             x:CompileBindings="False">
+
+    <UserControl.Resources>
+        <conv:ResourceKeyToIconConverter x:Key="ResKeyToIconConv" />
+    </UserControl.Resources>
+
+    <ScrollViewer>
+        <StackPanel
+            ClipToBounds="False">
+
+            <local:PageHeaderControl Title="{LxaString PermissionManage}" />
+
+            <StackPanel
+                Orientation="Vertical"
+                Spacing="0"  
+                Margin="15">
+
+                <!--ToolBar-->
+                <StackPanel
+                    Orientation="Horizontal"
+                    Margin="0,0,0,10">
+                    <!--更新权限-->
+                    <Button
+                        Command="{Binding UpdatePermissionCommand}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="0,0,10,0">
+                        <Grid>
+                            <ui:SymbolIcon Symbol="Refresh"
+                                           FontSize="14"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"/>
+                            <TextBlock Margin="20,0,0,0"
+                                       Text="{LxaString UpdatePermission}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right" />
+                        </Grid>
+                    </Button>
+
+                    <!--打印-->
+                    <Button
+                        Classes="Warning"
+                        Command="{Binding PrintPage}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="0,0,10,0">
+                        <Grid>
+                            <ui:SymbolIcon Symbol="Print"
+                                           FontSize="14"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"/>
+                            <TextBlock Margin="20,0,0,0"
+                                       Text="{LxaString Print}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right" />
+                        </Grid>
+                    </Button>
+                </StackPanel>
+
+
+                <Grid ColumnDefinitions="200,Auto,*">
+                    <Border Grid.Column="0"
+                            Margin="0,0,6,0"
+                            Padding="15"
+                           BoxShadow="0 1 2 0 #4F000000"
+                            CornerRadius="{DynamicResource OverlayCornerRadius}">
+                        <StackPanel>
+                            <DockPanel Margin="0,0,0,10">
+                                <ui:SymbolIcon Symbol="IconCityNext"
+                                               FontSize="15"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="0,0,10,0"/>
+                                <TextBlock Text="{LxaString RolePermission}"
+                                           VerticalAlignment="Center"
+                                           Foreground="#424242"
+                                           FontWeight="Bold"
+                                           FontSize="16"
+                                           HorizontalAlignment="Left"/>
+                            </DockPanel>
+
+
+                            <!--角色列表-->
+                            <ListBox ItemsSource="{Binding RolesItems}"
+                                     x:Name="ListBoxRoles"
+                                     SelectedItem="{Binding SelectedItem}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="Transparent">
+                                            <TextBlock Text="{Binding Name}"
+                                                       FontSize="16"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                        </StackPanel>
+                    </Border>
+                    <GridSplitter Grid.Column="1"
+                                  Background="Transparent"/>
+
+                    <Border Grid.Column="2"
+                            Margin="6,0,0,0"
+                            Padding="15"
+                            BoxShadow="0 1 2 0 #4F000000"
+                            CornerRadius="{DynamicResource OverlayCornerRadius}">
+
+                        <ui:TabView
+                            x:Name="TabViewGroupedRoleClaims"
+                            TabItems="{Binding GroupedRoleClaims}"
+                            MinHeight="350"
+                            FontSize="16"
+                            IsAddTabButtonVisible="False"
+                            DragDrop.AllowDrop="False"
+                            SelectedIndex="{Binding SelectedIndex}"
+                            SelectedItem="{Binding SelectedRoleClaimsItem}">
+                            <ui:TabView.TabItemTemplate>
+                                <DataTemplate x:DataType="m:PermissionRoleClaim">
+                                    
+                                    <ui:TabViewItem Header="{CompiledBinding BadgeData}"
+                                                    FontSize="16"
+                                                    IconSource="Open"
+                                                    IsClosable="False">
+
+                                        <DataGrid
+                                            ItemsSource="{CompiledBinding AllRoleClaimsInGroup}"
+                                            GridLinesVisibility="Horizontal"
+                                            IsReadOnly="True"
+                                            Margin="10">
+                                            <DataGrid.Columns>
+                                                <!--<DataGridTextColumn Header="{LxaString PermissionCode}"
+                                                                    Binding="{Binding Value}"
+                                                                    Width="3*"/>-->
+                                                
+                                                <!--<DataGridTextColumn Header="{LxaString Description}"
+                                                                    Binding="{Binding Description}"
+                                                                    Width="3*"/>-->
+                                                
+                                                <DataGridTextColumn Header="{LxaString PermissionType}"
+                                                                    Binding="{Binding Rmark}"
+                                                                    Width="3*"/>
+                                                
+                                                <DataGridTemplateColumn Header="{LxaString Select}"
+                                                                        Width="80">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <DockPanel>
+                                                                <CheckBox IsChecked="{Binding Selected}"
+                                                                          DockPanel.Dock="Right"
+                                                                          Margin="30,0,0,0"/>
+                                                            </DockPanel>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </ui:TabViewItem>
+                                </DataTemplate>
+                            </ui:TabView.TabItemTemplate>
+                        </ui:TabView>
+                    </Border>
+                </Grid>
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

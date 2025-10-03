@@ -1,0 +1,164 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <NoWarn>$(NoWarn);NU1507;CA1416;CS8632</NoWarn>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LocalMachineName>$([System.Environment]::MachineName)</LocalMachineName>
+    
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(LocalMachineName)' == 'DESKTOP-N3DG9IC'">
+    <DefineConstants>$(DefineConstants);LOCALHOST;</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(LocalMachineName)' == 'ID-20230531UIPU'">
+    <DefineConstants>$(DefineConstants);REMOTEHOST;</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaXaml Remove="Assets\Icons.axaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controls\SampleCodePresenter.cs" />
+    <Compile Remove="Network\AkavacheCacheHandler.cs" />
+    <Compile Remove="Network\ICacheHandler.cs" />
+    <Compile Remove="Properties\Language.Designer.cs" />
+    <Compile Remove="Properties\ResourceProvider.cs" />
+    <Compile Remove="Services\Document\LocalStorageService.cs" />
+    <Compile Remove="Utils\Deserializer.cs" />
+    <Compile Remove="Utils\HttpProxy.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Properties\Language.en.resx" />
+    <EmbeddedResource Remove="Properties\Language.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\dialtone.mp3" />
+    <None Remove="Assets\Images\Accept.png" />
+    <None Remove="Assets\Images\CameraOff.png" />
+    <None Remove="Assets\Images\CameraOn.png" />
+    <None Remove="Assets\Images\Decline.png" />
+    <None Remove="Assets\Images\Message.png" />
+    <None Remove="Assets\Images\MicrophoneOff.png" />
+    <None Remove="Assets\Images\MicrophoneOn.png" />
+    <None Remove="Assets\Images\Outgoing.gif" />
+    <None Remove="Assets\Images\ScreenOff.png" />
+    <None Remove="Assets\Images\ScreenOn.png" />
+    <None Remove="Assets\Outgoing.gif" />
+    <None Remove="Assets\ringtone.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Player\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Images\Cursors\brush-black.png" />
+    <Content Include="Assets\Images\Cursors\brush-blue.png" />
+    <Content Include="Assets\Images\Cursors\brush-gray.png" />
+    <Content Include="Assets\Images\Cursors\brush-green.png" />
+    <Content Include="Assets\Images\Cursors\brush-orange.png" />
+    <Content Include="Assets\Images\Cursors\brush-pink.png" />
+    <Content Include="Assets\Images\Cursors\brush-purple.png" />
+    <Content Include="Assets\Images\Cursors\brush-red.png" />
+    <Content Include="Assets\Images\Cursors\brush-yellow.png" />
+    <Content Include="Assets\Images\Cursors\eraser-10.png" />
+    <Content Include="Assets\Images\Cursors\eraser-2.png" />
+    <Content Include="Assets\Images\Cursors\eraser-4.png" />
+    <Content Include="Assets\Images\Cursors\eraser-50.png" />
+    <Content Include="Assets\Images\Cursors\eraser-6.png" />
+    <Content Include="Assets\Images\Cursors\eraser-8.png" />
+    <Content Include="Assets\Images\Cursors\eraser.bmp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LocalizationManager.Avalonia\LocalizationManager.Avalonia.csproj" />
+    <ProjectReference Include="..\LocalizationManager.Core\LocalizationManager.Core.csproj" />
+    <ProjectReference Include="..\Dorisoy.Pan.Common\Dorisoy.PanClient.Common.csproj" />
+    <ProjectReference Include="..\Dorisoy.Pan.Data\Dorisoy.PanClient.Data.csproj" />
+    <ProjectReference Include="..\Dorisoy.Pan.Language\Dorisoy.PanClient.Language.csproj" />
+    <ProjectReference Include="..\src\FluentAvalonia\FluentAvalonia.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="AvaloniaGif\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.AvaloniaEdit" />
+    <PackageReference Include="AvaloniaEdit.TextMate" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
+    <PackageReference Include="Emgu.CV" />
+    <PackageReference Include="Emgu.CV.Bitmap" />
+    <PackageReference Include="Emgu.CV.runtime.windows" />
+    <PackageReference Include="EPPlus" />
+    <PackageReference Include="H264Sharp" />
+    <PackageReference Include="JetBrains.Annotations" />
+    <PackageReference Include="NAudio.Extras" />
+    <PackageReference Include="OpenCvSharp4" />
+    <PackageReference Include="Portable.BouncyCastle" />
+    <PackageReference Include="Protobuf.Network.Library" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="SharpDX.Direct2D1" />
+    <PackageReference Include="SharpDX.Direct3D11" />
+    <PackageReference Include="SharpDX.DXGI" />
+    <PackageReference Include="System.IO.Hashing" />
+    <PackageReference Include="System.Management" />
+    <PackageReference Include="Avalonia.Skia" />
+    <PackageReference Include="SkiaSharp" />
+    <PackageReference Include="NAudio.WinMM" />
+    <PackageReference Include="NAudio" />
+    <PackageReference Include="NAudio.Wasapi" />
+    <PackageReference Include="AsyncImageLoader.Avalonia" />
+    <PackageReference Include="Avalonia.Controls.PanAndZoom" />
+    <!--<PackageReference Include="VideoLAN.LibVLC.Windows" />-->
+    <PackageReference Include="AsyncAwaitBestPractices" />
+    <PackageReference Include="Polly.Extensions.Http" />
+    <PackageReference Include="Refit" />
+    <PackageReference Include="Refit.Newtonsoft.Json" />
+    <PackageReference Include="Splat.Serilog" />
+    <PackageReference Include="Clowd.Clipboard.Avalonia" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" />
+    <PackageReference Include="CSharpFunctionalExtensions" />
+    <PackageReference Include="LibVLCSharp" />
+    <PackageReference Include="FFMpegCore" />
+    <PackageReference Include="OpenCvSharp4.Extensions" />
+    <PackageReference Include="OpenCvSharp4.Windows" />
+    <PackageReference Include="JerryShaw.DirectShowLib" />
+    <PackageReference Include="System.Drawing.Common" />
+    <PackageReference Include="ReactiveUI.Validation" />
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="Avalonia.ReactiveUI" />
+    <PackageReference Include="Crc32.NET" />
+    <PackageReference Include="DynamicData" />
+    <PackageReference Include="ReactiveUI.Fody" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Extensions.Options" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+    <PackageReference Include="Serilog.Extensions.Logging" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" />
+    <PackageReference Include="TorchSocketPro" />
+    
+  </ItemGroup>
+</Project>

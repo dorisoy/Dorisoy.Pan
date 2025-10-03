@@ -1,0 +1,600 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:converters="clr-namespace:Dorisoy.PanClient.Converters"
+             xmlns:gif="clr-namespace:AvaloniaGif;assembly=Dorisoy.PanClient"
+             xmlns:m="using:Dorisoy.PanClient.Models"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="Dorisoy.PanClient.Pages.Chat.Talk"
+             x:DataType="vm:MainViewViewModel"
+             x:CompileBindings="False">
+
+    <UserControl.Resources>
+        <converters:NullBooleanConverter x:Key="NullBooleanConverter"/>
+    </UserControl.Resources>
+
+    <SplitView OpenPaneLength="350" 
+               CompactPaneLength="0"
+               DisplayMode="CompactInline"
+               PanePlacement="Right" 
+               IsPaneOpen="{Binding DisableMaxMin}">
+        
+        <Grid  Margin="0,0,0,0"
+               RowDefinitions="50,*,70"
+               ColumnDefinitions="*,*" >
+
+            <!--标题栏-->
+            <Grid Margin="0"
+                  Grid.Row="0"
+                  Grid.ColumnSpan="2"
+                  ColumnDefinitions="auto,auto,auto,auto,*"
+                  Background="#0a6f9d">
+
+                <ui:SymbolIcon Symbol="Message"
+                               Grid.Column="0"
+                               Margin="10, 0, 0, 0"
+                               FontSize="20"
+                               Foreground="White"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"/>
+
+                <TextBlock
+                    Text="正在与"
+                    Foreground="White"
+                    Grid.Column="1"
+                    Margin="5, 0, 5, 0"
+                    VerticalAlignment="Center"
+                    FontSize="16"/>
+
+                <TextBlock
+                    Grid.Column="2"
+                    Foreground="White"
+                    Text="{Binding Path=RemoteIP}"
+                    Margin="0"
+                    FontWeight="Bold"
+                    VerticalAlignment="Center"
+                   FontSize="16"/>
+
+                <TextBlock
+                    Grid.Column="3"
+                    Foreground="White"
+                    Text="通话中..."
+                    Margin="5, 0, 0, 0"
+                    VerticalAlignment="Center"
+                    FontSize="16"/>
+
+                <!--倒数计时-->
+                <TextBlock
+                    Grid.Column="4"
+                    Text="{Binding Path=CallTimeString}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="White"
+                    Margin="0,0,0,0"/>
+            </Grid>
+
+            <!--视频窗体背景-->
+            <Rectangle Fill="Black"
+                       Grid.Row="1"
+                       Grid.ColumnSpan="2"
+                       Opacity="0.5"/>
+
+            <!--头像-->
+            <Grid Grid.Row="1"
+                  Grid.ColumnSpan="2"
+                  RowDefinitions="*,8*,*">
+
+                <Ellipse Fill="#FF673AB7"
+                           Grid.Row="1"
+                           Width="100"
+                           Height="100"/>
+
+                <Image  Grid.Row="1"
+                        Margin="50, 0"
+                        Width="100"
+                        Height="100"
+                        VerticalAlignment="Center"
+                       Source="avares://Dorisoy.PanClient/Assets/Avatar.png"/>
+            </Grid>
+
+            <!--远程视频（全屏）-->
+            <Image Source="{Binding Path=RemoteFrame}"
+                   Margin="0, 0"
+                   Grid.Row="1"
+                   Grid.ColumnSpan="2"
+                   Stretch="UniformToFill"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+
+            <!--本地视频(缩略)-->
+            <Grid
+                Grid.Row="0"
+                Grid.Column="0"
+                  Grid.RowSpan="2"
+                  RowDefinitions="*">
+
+                <Image Source="{Binding Path=LocalFrame}"
+                       Margin="10,60"
+                       Width="290"
+                       Height="160"
+                       Stretch="UniformToFill"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"/>
+            </Grid>
+
+            <!--工具栏-->
+            <Grid Grid.Row="2"
+                  Margin="10, 10"
+                  Grid.ColumnSpan="2"
+                  ColumnDefinitions="250,*,100">
+
+                <!--切换-->
+                <Grid Grid.Column="0" 
+                      ColumnDefinitions="70,*" 
+                      VerticalAlignment="Center" 
+                      Margin="0"
+                      HorizontalAlignment="Stretch">
+                    <TextBlock Grid.Column="0" 
+                               VerticalAlignment="Center" 
+                               Text="切换镜头:" 
+                               Foreground="#004883" 
+                               FontWeight="Bold"/>
+                    <ComboBox Grid.Column="1"
+                              FontWeight="Normal"
+                              Foreground="#004883"
+                              SelectedIndex="0"
+                              PlaceholderText="选择镜头切换"
+                              HorizontalAlignment="Stretch"
+                              SelectedItem="{Binding SelectetCamera}"
+                              ItemsSource="{Binding CameraDevices}"
+                              VerticalAlignment="Center">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name, StringFormat='{}{0}'}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+                
+                <!--工具栏-->
+                
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="0"  HorizontalAlignment="Center">
+                    <Button
+                        Margin="10, 0"
+                        ToolTip.Tip="开启视频"
+                        Width="50"
+                        Height="50"
+                        Cursor="Hand"
+                        CornerRadius="50"
+                        Background="#f7901a"
+                        Command="{Binding VideoSharingCommand}">
+                        <Panel>
+                            <ui:SymbolIcon Symbol="PauseFilled" Foreground="White"
+                                           FontSize="30"
+                                           VerticalAlignment="Center"
+                                           IsVisible="{Binding IsVideoSending}"/>
+
+                            <ui:SymbolIcon Symbol="Video" Foreground="White"
+                                          FontSize="30"
+                                          VerticalAlignment="Center"
+                                          IsVisible="{Binding !IsVideoSending}"/>
+                        </Panel>
+                    </Button>
+                    <!--语音-->
+                    <Button
+                        Margin="10, 0"
+                        ToolTip.Tip="开启语音"
+                        Width="50"
+                        Height="50"
+                        Cursor="Hand"
+                        CornerRadius="50"
+                        Background="#f7901a"
+                        Command="{Binding AudioSharingCommand}">
+                        <Panel>
+                            <ui:SymbolIcon Symbol="MicOff2" Foreground="White"
+                                           FontSize="30"
+                                           VerticalAlignment="Center"
+                                           IsVisible="{Binding IsAudioSending}"/>
+
+                            <ui:SymbolIcon Symbol="IconMicOn" Foreground="White"
+                                           FontSize="30"
+                                           VerticalAlignment="Center"
+                                           IsVisible="{Binding !IsAudioSending}"/>
+                        </Panel>
+                    </Button>
+                    <!--消息-->
+                    <Button
+                        Margin="10, 0"
+                        ToolTip.Tip="发送消息"
+                        Width="50"
+                        Height="50"
+                        Cursor="Hand"
+                        CornerRadius="50"
+                        Background="#f7901a"
+                        Command="{Binding MaxMinCommand}">
+                        <Panel>
+                            <ui:SymbolIcon Symbol="Comment" Foreground="White"
+                                           FontSize="30"
+                                           VerticalAlignment="Center"/>
+                        </Panel>
+                    </Button>
+                    <!--屏幕共享-->
+                    <Button
+                       Margin="10, 0"
+                       ToolTip.Tip="共享屏幕"
+                       Width="50"
+                       Height="50"
+                       Cursor="Hand"
+                       CornerRadius="50"
+                       Background="#f7901a"
+                       Command="{Binding ScreenSharingCommand}">
+                        <Panel>
+                            <ui:SymbolIcon Symbol="Share" Foreground="White"
+                                         FontSize="30"
+                                         VerticalAlignment="Center"
+                                         IsVisible="{Binding IsScreenSending}"/>
+
+                            <ui:SymbolIcon Symbol="ShareFilled" Foreground="White"
+                                         FontSize="30"
+                                         VerticalAlignment="Center"
+                                         IsVisible="{Binding !IsScreenSending}"/>
+                        </Panel>
+                    </Button>
+                    <!--挂断-->
+                    <Button
+                        Margin="10, 0"
+                        ToolTip.Tip="挂断"
+                        Width="50"
+                        Height="50"
+                        Cursor="Hand"
+                        CornerRadius="50"
+                        Background="Red"
+                        Command="{Binding EndCallCommand}">
+                        <ui:SymbolIcon Symbol="DeclineCall"
+                                       Foreground="White"
+                                        FontSize="30"
+                                        VerticalAlignment="Center"/>
+                    </Button>
+                </StackPanel>
+                
+                <!--关闭侧栏-->
+                <StackPanel Grid.Column="2" HorizontalAlignment="Right">
+                    <Button
+                        x:Name="MaxMinButton"
+                        Padding="0"
+                        Width="50"
+                        Height="50"
+                        ToolTip.Tip="关闭侧栏"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        BorderThickness="0"
+                        BorderBrush="Transparent"
+                        Background="Transparent"
+                        Command="{Binding MaxMinCommand}">
+                        <Panel>
+                            <ui:SymbolIcon Symbol="DockLeft"
+                                           Foreground="#004883"
+                                           IsVisible="{Binding !DisableMaxMin}"
+                                           FontSize="30"
+                                           VerticalAlignment="Center"/>
+                            <ui:SymbolIcon Symbol="DockRight"
+                                           Foreground="#004883"
+                                           IsVisible="{Binding DisableMaxMin}"
+                                           FontSize="30"
+                                           VerticalAlignment="Center"/>
+                        </Panel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            
+        </Grid>
+
+        <SplitView.Pane>
+
+            <!--聊天窗口-->
+            <Border
+                x:Name="boxMessage"
+                Background="Transparent"
+                CornerRadius="0"
+                BorderBrush="#00aaeb"
+                BoxShadow="0 8 32 0 #80000000"
+                BorderThickness="0" 
+                Margin="0,50,0,0">
+
+                <Grid RowDefinitions="Auto,*,240"
+                      ColumnDefinitions="*" >
+
+                    <DockPanel
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Background="#eeeeee"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        Margin="0">
+                        <ui:SymbolIcon Symbol="Message"
+                               Grid.Column="0"
+                               Margin="10, 0, 0, 0"
+                               FontSize="20"
+                               Foreground="#004883"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"/>
+                        <TextBlock FontSize="16"
+                                   Margin="10,10"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding RemoteUser.RaleName}"/>
+
+                        <Button
+                           DockPanel.Dock="Right"
+                           Padding="0"
+                           Width="40"
+                           Height="40"
+                           ToolTip.Tip="清除历史"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           BorderThickness="0"
+                           BorderBrush="Transparent"
+                           Background="Transparent"
+                           Command="{Binding ClearChatHistoryCommand}">
+                            <ui:SymbolIcon Symbol="DeleteFilled"
+                                               Foreground="#004883"
+                                               FontSize="22"
+                                               VerticalAlignment="Center"/>
+                        </Button>
+                    </DockPanel>
+
+                    <!--正文-->
+                    <ScrollViewer x:Name="chatScrollViewer"
+                                  Grid.Row="1"
+                                  Grid.Column="0"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+                        <ItemsControl
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            ItemsSource="{Binding ChatData}"
+                            Background="#f5f5f5"
+                            x:Name="ItemsControl"
+                            ClipToBounds="False"
+                            Padding="5">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel HorizontalAlignment="Stretch" Margin="0">
+                                        <!--本地-->
+                                        <DockPanel
+                                            IsVisible="{Binding IsOwenMessage}"
+                                            HorizontalAlignment="Right">
+                                            <Border
+                                                Width="30"
+                                                Height="30"
+                                                DockPanel.Dock="Right"
+                                                VerticalAlignment="Top"
+                                                Margin="5,0"
+                                                CornerRadius="5"
+                                                BorderThickness="1"
+                                                BorderBrush="#95ec69">
+                                                <TextBlock
+                                                    Text="我"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="14"/>
+                                            </Border>
+                                            <StackPanel
+                                                DockPanel.Dock="Left"
+                                                Margin="5,0,0,5"
+                                                Background="Transparent"
+                                                HorizontalAlignment="Stretch">
+                                                <!--消息-->
+                                                <TextBox
+                                                     BorderThickness="0"
+                                                     IsReadOnly="True"
+                                                     Text="{Binding Message}"
+                                                     HorizontalAlignment="Right"
+                                                     TextWrapping="Wrap"
+                                                     LineHeight="18"
+                                                     VerticalAlignment="Top"
+                                                     VerticalContentAlignment="Top"
+                                                     FontSize="14"
+                                                     Margin="5,0"
+                                                     Padding="10"
+                                                     CornerRadius="10,0,10,10"
+                                                     Foreground="Black"
+                                                     Background="#95ec69"/>
+
+                                                <ui:HyperlinkButton Content="{Binding URI}"
+                                                                             NavigateUri="{Binding URI}"
+                                                                             Click="HyperlinkButton_Click"/>
+
+                                                <TextBlock Margin="5,0,5,5"
+                                                           Text="{Binding Time}"
+                                                           HorizontalAlignment="{Binding Allignment}"
+                                                           TextWrapping="Wrap"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="DimGray" />
+                                            </StackPanel>
+                                        </DockPanel>
+                                        <!--远程-->
+                                        <DockPanel
+                                            IsVisible="{Binding !IsOwenMessage}"
+                                            HorizontalAlignment="Left">
+                                            <Border
+                                                Width="30"
+                                                Height="30"
+                                                DockPanel.Dock="Left"
+                                                VerticalAlignment="Top"
+                                                Margin="5,0"
+                                                BorderThickness="1"
+                                                CornerRadius="5"
+                                                Background="#eeeeee"
+                                                BorderBrush="#dddddd">
+                                                <TextBlock
+                                                    Text="F"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="14"/>
+                                            </Border>
+                                            <StackPanel
+                                                DockPanel.Dock="Right"
+                                                Margin="0,0,5,5"
+                                                Background="Transparent"
+                                                HorizontalAlignment="Stretch">
+                                                <!--消息-->
+                                                <TextBox
+                                                    BorderThickness="0"
+                                                    IsReadOnly="True"
+                                                    Text="{Binding Message}"
+                                                    HorizontalAlignment="Left"
+                                                    TextWrapping="Wrap"
+                                                    LineHeight="18"
+                                                    VerticalAlignment="Top"
+                                                    VerticalContentAlignment="Top"
+                                                    FontSize="14"
+                                                    Margin="5,0"
+                                                    Padding="10"
+                                                    CornerRadius="0,10,10,10"
+                                                    Foreground="Black"
+                                                    Background="#ffffff"/>
+
+                                                <ui:HyperlinkButton Content="{Binding URI}"
+                                                                    NavigateUri="{Binding URI}"
+                                                                    Click="HyperlinkButton_Click"/>
+                                                <TextBlock Margin="5,0,5,5"
+                                                           Text="{Binding Time}"
+                                                           HorizontalAlignment="{Binding Allignment}"
+                                                           TextWrapping="Wrap"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="DimGray" />
+                                            </StackPanel>
+                                        </DockPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl >
+                    </ScrollViewer>
+
+                    <!--编辑框-->
+                    <Grid  Grid.Row="2"
+                           Grid.Column="0"
+                           ColumnDefinitions="*,*"
+                           RowDefinitions="Auto,100,*"
+                           Background="White">
+
+                        <!--工具栏-->
+                        <Menu Grid.Row="0"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2" Background="#eeeeee">
+                            <MenuItem Header="📁" Command="{Binding UploadDocument}" Tag="文件" Margin="0"/>
+                            <MenuItem Header="😀" Tag="表情" Margin="0">
+                                <MenuItem Header="😃" Command="{Binding AddEmojiDocumentCommand}" CommandParameter="😃" InputGesture="Ctrl+F1"/>
+                                <MenuItem Header="😘" Command="{Binding AddEmojiDocumentCommand}" CommandParameter="😘" InputGesture="Ctrl+F2"/>
+                                <MenuItem Header="😄" Command="{Binding AddEmojiDocumentCommand}" CommandParameter="😄" InputGesture="Ctrl+F3"/>
+                                <MenuItem Header="😁" Command="{Binding AddEmojiDocumentCommand}" CommandParameter="😁" InputGesture="Ctrl+F4"/>
+                                <MenuItem Header="😆" Command="{Binding AddEmojiDocumentCommand}" CommandParameter="😆" InputGesture="Ctrl+F5"/>
+                                <MenuItem Header="😅" Command="{Binding AddEmojiDocumentCommand}" CommandParameter="😅" InputGesture="Ctrl+F6"/>
+                                <MenuItem Header="😂" Command="{Binding AddEmojiDocumentCommand}" CommandParameter="😂" InputGesture="Ctrl+F7"/>
+                                <MenuItem Header="😍" Command="{Binding AddEmojiDocumentCommand}" CommandParameter="😍" InputGesture="Ctrl+F8"/>
+                            </MenuItem>
+                        </Menu>
+
+                        <!--编辑框-->
+                        <TextBox
+                             Grid.Row="1"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             BorderThickness="1"
+                             BorderBrush="#004883"
+                             MaxLength="200"
+                             Margin="10"
+                             Height="100"
+                             x:Name="txtLimitedInput"
+                             Text="{Binding ChatInputText}"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Center"
+                             VerticalContentAlignment="Top"
+                             Watermark="请输入消息..."
+                             TextWrapping="Wrap" 
+                             KeyDown="txtLimitedInput_KeyDown"/>
+
+                        <Grid
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            RowDefinitions="*,*"
+                            ColumnDefinitions="*,80,80"
+                            Margin="10,0,10,10"
+                            HorizontalAlignment="Stretch">
+
+                            <!--文件上传进度条-->
+                            <ProgressBar
+                                  x:Name="ftProgressBar"
+                                  Grid.Row="0"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="3"
+                                  Margin="0,0,0,0"
+                                  MaxHeight="50"
+                                  Value="{Binding UploadPercent}"
+                                  Foreground="#f7901a"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Center"
+                                  Orientation="Horizontal"/>
+
+                            <!--字数统计-->
+                            <StackPanel
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal" 
+                                Margin="0,0">
+                                <TextBlock Text="{Binding ElementName=txtLimitedInput, Path=Text.Length}"/>
+                                <TextBlock Text="/" />
+                                <TextBlock Text="200" />
+                            </StackPanel>
+
+                            <!--发送-->
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Width="80"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Margin="0,0,5,0"
+                                Command="{Binding MessageSendCommand}">
+                                <TextBlock Margin="0,0,0,0"
+                                            Text="发送"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center" />
+                            </Button>
+                           
+                            <Button
+                               Grid.Row="1"
+                               Grid.Column="2"
+                               Width="80"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Margin="5,0,0,0"
+                               Command="{Binding MessageClearCommand}">
+                                <TextBlock Margin="0,0,0,0"
+                                               Text="清除"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center" />
+                            </Button>
+
+                        </Grid>
+
+                    </Grid>
+                
+                </Grid>
+            </Border>
+
+        </SplitView.Pane>
+    </SplitView>
+    
+</UserControl>

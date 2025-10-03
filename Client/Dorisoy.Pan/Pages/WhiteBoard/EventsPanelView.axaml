@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             mc:Ignorable="d"
+             x:Class="Dorisoy.PanClient.Pages.EventsPanelView"
+             x:CompileBindings="False"
+             x:DataType="vm:EventsPanelViewModel">
+
+    <UserControl.Styles>
+        <Style Selector="Border.label">
+            <Setter Property="Margin"
+                    Value="0 0 0 10" />
+        </Style>
+        <Style Selector="Border.label TextBlock">
+            <Setter Property="FontSize"
+                    Value="16" />
+        </Style>
+
+        <Style Selector="ScrollViewer">
+            <Setter Property="Height"
+                    Value="170" />
+        </Style>
+        <Style Selector="ItemsControl">
+            <Setter Property="Padding"
+                    Value="0 0 0 30" />
+        </Style>
+        <Style Selector="Border.event">
+            <Setter Property="Padding"
+                    Value="2 0" />
+            <Setter Property="Margin"
+                    Value="0 5" />
+        </Style>
+        <Style Selector="Border.event TextBlock">
+            <Setter Property="Foreground"
+                    Value="#888" />
+            <Setter Property="FontSize"
+                    Value="14" />
+        </Style>
+        <Style Selector="Border.event TextBlock.nickname">
+            <Setter Property="Foreground"
+                    Value="{StaticResource BlueColor}" />
+        </Style>
+    </UserControl.Styles>
+
+    <!--<Design.DataContext>
+        <vm:EventsPanelViewModel />
+    </Design.DataContext>-->
+
+    <StackPanel>
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding Events}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="vm:EventModel">
+                        <Border Classes="event">
+                            <Panel>
+                                <DockPanel IsVisible="{Binding HasParticipant}">
+                                    <TextBlock Text="{Binding Participant}"
+                                               Classes="nickname" />
+                                    <TextBlock Text="{Binding EventMessage}" />
+                                </DockPanel>
+
+                                <TextBlock IsVisible="{Binding !HasParticipant}"
+                                           Text="{Binding EventMessage}" />
+                            </Panel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </StackPanel>
+</UserControl>

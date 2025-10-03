@@ -1,0 +1,83 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:converters="clr-namespace:Dorisoy.PanClient.Converters"
+			 xmlns:controls="clr-namespace:Dorisoy.PanClient.Controls"
+			 mc:Ignorable="d"
+			 x:Class="Dorisoy.PanClient.Pages.AddRoleView"  
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             x:CompileBindings="False"
+             x:DataType="vm:AddRoleViewModel">
+
+	<StackPanel>
+		<Grid RowDefinitions="Auto, Auto, Auto, Auto"
+          Grid.ColumnDefinitions="120,250">
+
+
+            <TextBlock Classes="label"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Text="角色名称:"
+                       Margin="5"
+                       VerticalAlignment="Center"/>
+            <TextBox Grid.Row="0"
+                     Grid.Column="1"
+                     Text="{Binding Model.Name}"
+                     Margin="5"/>
+
+
+			<TextBlock Classes="label"
+					   Grid.Row="1"
+					   Grid.Column="0"
+					   Text="标准名称:"
+					   Margin="5"
+					   VerticalAlignment="Center"/>
+
+			<ComboBox Grid.Row="1"
+					  Grid.Column="1"
+					  Margin="5"
+					  PlaceholderText="请选择标准名称"
+                      FontSize="16"
+                      HorizontalAlignment="Stretch"
+                      ItemsSource="{Binding NormalizedNames}"
+					  SelectedItem="{Binding SelectName}">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<DockPanel>
+							<TextBlock Text="{Binding Name}"/>
+						</DockPanel>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+ 
+            <TextBlock Classes="label"
+					   Grid.Row="2"
+					   Grid.Column="0"
+					   Text="角色描述:"
+					   Margin="5"
+				   VerticalAlignment="Center"/>
+			<TextBox Grid.Row="2"
+					 Grid.Column="1"
+					 Grid.ColumnSpan="2"
+					 Text="{Binding Model.Description}"
+					 Margin="5"/>
+
+
+			<TextBlock Classes="label"
+					   Grid.Row="3"
+					   Grid.Column="0"
+					   Text="是否系统角色:"
+					   Margin="5" 
+					   VerticalAlignment="Center"/>
+
+			<ToggleSwitch Grid.Row="3"
+						  Grid.Column="1"
+						  Margin="5"
+						  OffContent="否"
+						  OnContent="是"
+						  IsChecked="{Binding Model.IsSystem}"/>
+
+		</Grid>
+	</StackPanel>
+</UserControl>

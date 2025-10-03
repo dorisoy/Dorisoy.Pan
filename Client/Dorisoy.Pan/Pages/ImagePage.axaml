@@ -1,0 +1,643 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:ski="using:Dorisoy.PanClient.Controls"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:ucts="using:Dorisoy.PanClient"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             xmlns:m="using:Dorisoy.PanClient.Models"
+             xmlns:conv="using:Dorisoy.PanClient.Converters"
+             xmlns:pg="clr-namespace:Dorisoy.PanClient.Pages;assembly=Dorisoy.PanClient"
+             mc:Ignorable="d"
+             x:Class="Dorisoy.PanClient.Pages.ImagePage"
+             x:DataType="vm:ImagePageViewModel"
+             x:CompileBindings="False">
+
+    <UserControl.Styles>
+        <!--画板-->
+        <Style Selector="Border.canvasContainer">
+            <Setter Property="Background"
+                    Value="Transparent" />
+        </Style>
+        <Style Selector="Canvas">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="Width"
+                    Value="1280" />
+            <Setter Property="Height"
+                    Value="720" />
+        </Style>
+        <Style Selector="Canvas:disabled">
+            <Setter Property="Opacity"
+                    Value="0.4" />
+        </Style>
+
+        <Style Selector="Border.panelLabel">
+            <Setter Property="Margin"
+                    Value="0 0 0 10" />
+        </Style>
+        <Style Selector="Border.panelLabel TextBlock">
+            <Setter Property="FontSize"
+                    Value="16" />
+        </Style>
+
+        <Style Selector="Border.toolsPanel">
+            <Setter Property="Background"
+                    Value="#eee" />
+            <Setter Property="Padding"
+                    Value="15 15 15 20" />
+        </Style>
+
+        <Style Selector="Border.participantsPanel">
+            <Setter Property="Background"
+                    Value="#ddd" />
+            <Setter Property="Padding"
+                    Value="10" />
+            <Setter Property="VerticalAlignment"
+                    Value="Stretch" />
+        </Style>
+
+        <Style Selector="Border.eventsPanel">
+            <Setter Property="Background"
+                    Value="#eee" />
+            <Setter Property="Padding"
+                    Value="10" />
+            <Setter Property="VerticalAlignment"
+                    Value="Stretch" />
+        </Style>
+
+        <Style Selector="Border.footer">
+            <Setter Property="Background"
+                    Value="#ddd" />
+            <Setter Property="Padding"
+                    Value="15 0" />
+        </Style>
+        <Style Selector="Border.roomNameSection">
+            <Setter Property="Height"
+                    Value="37" />
+            <Setter Property="Background"
+                    Value="#fff" />
+            <Setter Property="CornerRadius"
+                    Value="5" />
+            <Setter Property="Padding"
+                    Value="10 0 5 0" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+        </Style>
+        <Style Selector="Border.roomNameSection TextBlock">
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Foreground"
+                    Value="#888" />
+        </Style>
+        <Style Selector="Border.roomNameSection TextBlock.roomName">
+            <Setter Property="Foreground"
+                    Value="{StaticResource GreenColor}" />
+            <Setter Property="FontWeight"
+                    Value="Medium" />
+        </Style>
+        <Style Selector="Border.roomNameSection Button">
+            <Setter Property="Background"
+                    Value="#ccc" />
+            <Setter Property="Padding"
+                    Value="10 3" />
+            <Setter Property="Margin"
+                    Value="12 0 0 0" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Foreground"
+                    Value="#fff" />
+            <Setter Property="FontSize"
+                    Value="14" />
+        </Style>
+        <Style Selector="Border.roomNameSection Button:pointerover /template/ ContentPresenter">
+            <Setter Property="Background"
+                    Value="#bbb" />
+            <Setter Property="TextBlock.Foreground"
+                    Value="#fff" />
+        </Style>
+        
+        <!--画笔相关-->
+        
+        <Style Selector="Border.label">
+            <Setter Property="Margin"
+                    Value="0 0 0 10" />
+        </Style>
+        <Style Selector="Border.label TextBlock">
+            <Setter Property="FontSize"
+                    Value="16" />
+        </Style>
+
+        <Style Selector="RadioButton.colorRadio">
+            <Setter Property="BorderBrush"
+                    Value="Transparent" />
+            <Setter Property="Foreground"
+                    Value="#eee" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border x:Name="border"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            Margin="0 0 2 0"
+                            BorderThickness="2"
+                            CornerRadius="6">
+                        <Panel>
+                            <Border Background="{TemplateBinding Background}"
+                                    Width="30"
+                                    Height="30"
+                                    CornerRadius="5" />
+                            <PathIcon Data="{StaticResource paintBucket}"
+                                      Foreground="{TemplateBinding Foreground}" />
+                        </Panel>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="RadioButton.colorRadio /template/ Border#border:pointerover">
+            <Setter Property="BorderBrush"
+                    Value="#bbb" />
+        </Style>
+        <Style Selector="RadioButton.colorRadio:checked /template/ Border#border">
+            <Setter Property="BorderBrush"
+                    Value="#bbb" />
+        </Style>
+        <Style Selector="RadioButton.colorRadio.default">
+            <Setter Property="Background"
+                    Value="#222" />
+        </Style>
+        <Style Selector="RadioButton.colorRadio.red">
+            <Setter Property="Background"
+                    Value="{StaticResource RedColor}" />
+        </Style>
+        <Style Selector="RadioButton.colorRadio.blue">
+            <Setter Property="Background"
+                    Value="{StaticResource BlueColor}" />
+        </Style>
+        <Style Selector="RadioButton.colorRadio.green">
+            <Setter Property="Background"
+                    Value="{StaticResource GreenColor}" />
+        </Style>
+        <Style Selector="RadioButton.colorRadio.yellow">
+            <Setter Property="Background"
+                    Value="{StaticResource YellowColor}" />
+            <Setter Property="Foreground"
+                    Value="#555" />
+        </Style>
+        <Style Selector="RadioButton.colorRadio.orange">
+            <Setter Property="Background"
+                    Value="{StaticResource OrangeColor}" />
+            <Setter Property="Foreground"
+                    Value="#555" />
+        </Style>
+        <Style Selector="RadioButton.colorRadio.purple">
+            <Setter Property="Background"
+                    Value="{StaticResource PurpleColor}" />
+        </Style>
+        <Style Selector="RadioButton.colorRadio.pink">
+            <Setter Property="Background"
+                    Value="{StaticResource PinkColor}" />
+            <Setter Property="Foreground"
+                    Value="#555" />
+        </Style>
+        <Style Selector="RadioButton.colorRadio.gray">
+            <Setter Property="Background"
+                    Value="{StaticResource GrayColor}" />
+            <Setter Property="Foreground"
+                    Value="#333" />
+        </Style>
+
+        <Style Selector="RadioButton.eraserRadio">
+            <Setter Property="BorderBrush"
+                    Value="Transparent" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border x:Name="border"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="2"
+                            CornerRadius="5">
+                        <Panel>
+                            <Border Background="White"
+                                    Width="30"
+                                    Height="30"
+                                    CornerRadius="5" />
+                            <PathIcon Data="{StaticResource eraser}"
+                                      Foreground="#222" />
+                        </Panel>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="RadioButton.eraserRadio /template/ Border#border:pointerover">
+            <Setter Property="BorderBrush"
+                    Value="#bbb" />
+        </Style>
+        <Style Selector="RadioButton.eraserRadio:checked /template/ Border#border">
+            <Setter Property="BorderBrush"
+                    Value="#bbb" />
+        </Style>
+
+        <Style Selector="RadioButton.thicknessRadio">
+            <Setter Property="BorderBrush"
+                    Value="Transparent" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border x:Name="border"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            Margin="0 0 2 0"
+                            BorderThickness="2"
+                            CornerRadius="15">
+                        <Panel>
+                            <Ellipse Fill="White"
+                                     Width="30"
+                                     Height="30" />
+                            <Ellipse x:Name="brushPoint"
+                                     Fill="#222"
+                                     Width="{TemplateBinding Width}"
+                                     Height="{TemplateBinding Height}" />
+                        </Panel>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="RadioButton.thicknessRadio /template/ Border#border:pointerover">
+            <Setter Property="BorderBrush"
+                    Value="#bbb" />
+        </Style>
+        <Style Selector="RadioButton.thicknessRadio:checked /template/ Border#border">
+            <Setter Property="BorderBrush"
+                    Value="#bbb" />
+        </Style>
+        <Style Selector="RadioButton.thicknessRadio.thin /template/ Ellipse#brushPoint">
+            <Setter Property="Width"
+                    Value="4" />
+            <Setter Property="Height"
+                    Value="4" />
+        </Style>
+        <Style Selector="RadioButton.thicknessRadio.semiThin /template/ Ellipse#brushPoint">
+            <Setter Property="Width"
+                    Value="6" />
+            <Setter Property="Height"
+                    Value="6" />
+        </Style>
+        <Style Selector="RadioButton.thicknessRadio.medium /template/ Ellipse#brushPoint">
+            <Setter Property="Width"
+                    Value="8" />
+            <Setter Property="Height"
+                    Value="8" />
+        </Style>
+        <Style Selector="RadioButton.thicknessRadio.semiThick /template/ Ellipse#brushPoint">
+            <Setter Property="Width"
+                    Value="10" />
+            <Setter Property="Height"
+                    Value="10" />
+        </Style>
+        <Style Selector="RadioButton.thicknessRadio.thick /template/ Ellipse#brushPoint">
+            <Setter Property="Width"
+                    Value="12" />
+            <Setter Property="Height"
+                    Value="12" />
+        </Style>
+        
+        
+        <!--自定义工具栏按钮样式-->
+        <Style Selector="ui|CommandBarButton:pointerover">
+            <Style Selector="^ /template/ Border#AppBarButtonInnerBorder">
+                <Setter Property="Background"
+                        Value="{DynamicResource AppBarButtonBackgroundPointerOver}" />
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource AppBarButtonBorderBrushPointerOver}" />
+            </Style>
+            <Style Selector="^ /template/ ContentPresenter#Content">
+                <Setter Property="Foreground"
+                        Value="#FFFFFF" />
+            </Style>
+            <Style Selector="^ /template/ TextBlock#TextLabel">
+                <Setter Property="Foreground"
+                        Value="#FFFFFF" />
+            </Style>
+            <Style Selector="^ /template/ TextBlock#OverflowTextLabel">
+                <Setter Property="Foreground"
+                        Value="#FFFFFF" />
+            </Style>
+            <Style Selector="^ /template/ TextBlock#KeyboardAcceleratorTextLabel">
+                <Setter Property="Foreground"
+                        Value="#FFFFFF" />
+            </Style>
+            <Style Selector="^ /template/ ui|FontIcon#SubItemChevron">
+                <!-- WinUI #6831 -->
+                <Setter Property="Foreground"
+                        Value="#FFFFFF" />
+            </Style>
+        </Style>
+        <!--自定义工具栏按钮样式-->
+        <Style Selector="ui|CommandBarButton:pressed">
+            <Style Selector="^ /template/ Border#AppBarButtonInnerBorder">
+                <Setter Property="Background"
+                        Value="#000000" />
+                <Setter Property="BorderBrush"
+                        Value="#000000" />
+            </Style>
+            <Style Selector="^ /template/ ContentPresenter#Content">
+                <Setter Property="Foreground"
+                        Value="#EEEEEE" />
+            </Style>
+            <Style Selector="^ /template/ TextBlock#TextLabel">
+                <Setter Property="Foreground"
+                        Value="#EEEEEE" />
+            </Style>
+            <Style Selector="^ /template/ TextBlock#OverflowTextLabel">
+                <Setter Property="Foreground"
+                        Value="#EEEEEE" />
+            </Style>
+            <Style Selector="^ /template/ TextBlock#KeyboardAcceleratorTextLabel">
+                <Setter Property="Foreground"
+                        Value="#EEEEEE" />
+            </Style>
+            <Style Selector="^ /template/ ui|FontIcon#SubItemChevron">
+                <!-- WinUI #6831 -->
+                <Setter Property="Foreground"
+                        Value="#EEEEEE" />
+            </Style>
+        </Style>
+        
+    </UserControl.Styles>
+
+    <UserControl.Resources>
+        <conv:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+    </UserControl.Resources>
+
+    <Grid ColumnDefinitions="*,250"
+          RowDefinitions="*">
+        <Border Grid.Column="0"
+                Grid.Row="0"
+                Margin="12,12,6,12"
+                Padding="8"
+                Background="#ededee"
+                BoxShadow="0 2 5 0 #4F000000"
+                CornerRadius="{DynamicResource OverlayCornerRadius}">
+            <Grid
+                RowDefinitions="*,45" >
+
+                <!--图片预览窗口-->
+                <Border  x:Name="imgBorder"
+                         Grid.Row="0"
+                         Margin="0,0,0,5"
+                         Background="#000"
+                         CornerRadius="{DynamicResource OverlayCornerRadius}">
+                    <!--<Image Source="{Binding ImageSource}"></Image>-->
+                    <Image asyncImageLoader:ImageLoader.Source="{Binding ImageURL}" />
+                </Border>
+                
+                <!--画图板-->
+                <Canvas
+                    x:Name="canvasBorder"
+                    Grid.Row="0"
+                    Margin="0,0,0,5"
+                    Background="Transparent"
+                    Height="{Binding ElementName=imgBorder, Path=Height}"
+                    Width="{Binding ElementName=imgBorder, Path=Width}">
+                 
+                        <Border x:Name="shotArea"
+                                BorderBrush="White"
+                                BorderThickness=".5"
+                                ClipToBounds="False"
+                                Width="0"
+                                Height="0"
+                                Background="Transparent">
+                            <Canvas
+                                x:Name="canvas"
+                                Background="Transparent"
+                                ClipToBounds="False"
+                                Height="{Binding ElementName=shotArea, Path=Height}"
+                                Width="{Binding ElementName=shotArea, Path=Width}">
+                            </Canvas>
+                        </Border>
+
+                    <Button x:Name="closeShotArea"
+                            Click="CloseShotArea_Click"
+                            IsVisible="False">
+                        <ui:SymbolIcon Symbol="Redo"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                    </Button>
+                    <Button x:Name="saveShotArea"
+                            Click="SaveShotArea_Click"
+                            IsVisible="False">
+                        <ui:SymbolIcon Symbol="Save"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                    </Button>
+                    
+                </Canvas>
+                
+
+                
+                <!--工具栏-->
+                <Grid ColumnDefinitions="*,*"
+                      Grid.Row="2"
+                      Margin="0,0,0,0" >
+
+                    <!--<StackPanel  Grid.Column="0"
+                                 Spacing="0">
+                        <ui:CommandBar
+                            DefaultLabelPosition="Right"
+                            HorizontalAlignment="Left">
+                            <ui:CommandBar.PrimaryCommands>
+                  
+                                <ui:CommandBarButton IconSource="Cut"
+                                                           Label="标注"
+                                                           Foreground="#fff"  
+                                Command="{Binding ScreenCutCommand}"/>
+
+                                <ui:CommandBarButton IconSource="Rotate"
+                                                           Label="旋转"
+                                                           Foreground="#fff"/>
+
+                                <ui:CommandBarButton IconSource="ZoomIn"
+                                                           Label="放大"
+                                                           Foreground="#fff"/>
+
+                                <ui:CommandBarButton IconSource="ZoomOut"
+                                                           Label="缩小"
+                                                           Foreground="#fff"/>
+
+                            </ui:CommandBar.PrimaryCommands>
+                        </ui:CommandBar>
+                    </StackPanel>-->
+
+                    <!--画笔工具-->
+                    <StackPanel  Grid.Column="0"
+                                 Spacing="0" 
+                                 Orientation="Horizontal" IsVisible="{Binding IsScreenCutter}">
+
+                        <!--画笔颜色-->
+                        <DockPanel Margin="0 5 0 0">
+                            <RadioButton Classes="colorRadio orange"
+                                         GroupName="brushColor"
+                                         IsChecked="{Binding Path=BrushColor, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:ColorsEnum.Orange}}" />
+                            <RadioButton Classes="colorRadio purple"
+                                         GroupName="brushColor"
+                                         IsChecked="{Binding Path=BrushColor, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:ColorsEnum.Purple}}" />
+                            <RadioButton Classes="colorRadio pink"
+                                         GroupName="brushColor"
+                                         IsChecked="{Binding Path=BrushColor, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:ColorsEnum.Pink}}" />
+                            <RadioButton Classes="colorRadio gray"
+                                         GroupName="brushColor"
+                                         IsChecked="{Binding Path=BrushColor, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:ColorsEnum.Gray}}" />
+                            <RadioButton Classes="eraserRadio"
+                                         GroupName="brushColor"
+                                         IsChecked="{Binding Path=BrushColor, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:ColorsEnum.Eraser}}" />
+                        </DockPanel>
+
+                        <!--画笔粗细-->
+                        <DockPanel Margin="0 5 0 0">
+                            <RadioButton Classes="thicknessRadio thin"
+                                         GroupName="brushThickness"
+                                         IsChecked="{Binding Path=BrushThickness, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:ThicknessEnum.Thin}}" />
+                            <RadioButton Classes="thicknessRadio semiThin"
+                                         GroupName="brushThickness"
+                                         IsChecked="{Binding Path=BrushThickness, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:ThicknessEnum.SemiThin}}" />
+                            <RadioButton Classes="thicknessRadio medium"
+                                         GroupName="brushThickness"
+                                         IsChecked="{Binding Path=BrushThickness, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:ThicknessEnum.Medium}}" />
+                            <RadioButton Classes="thicknessRadio semiThick"
+                                         GroupName="brushThickness"
+                                         IsChecked="{Binding Path=BrushThickness, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:ThicknessEnum.SemiThick}}" />
+                            <RadioButton Classes="thicknessRadio thick"
+                                         GroupName="brushThickness"
+                                         IsChecked="{Binding Path=BrushThickness, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static m:ThicknessEnum.Thick}}" />
+                        </DockPanel>
+                  
+                    </StackPanel>
+                    
+                    
+                    <StackPanel  Grid.Column="1"
+                                 Spacing="0">
+                        <ui:CommandBar
+                            DefaultLabelPosition="Right"
+                            HorizontalAlignment="Right">
+                            <ui:CommandBar.PrimaryCommands>
+                                <ui:CommandBarButton IconSource="PreviousFilled"
+                                                           Label="{LxaString Previous}"
+                                                           Foreground="#004883"  Command="{Binding PrevCommand}"/>
+
+                                <ui:CommandBarButton IconSource="NextFilled"
+                                                           Label="{LxaString Next}"
+                                                           Foreground="#004883"  Command="{Binding NextCommand}"/>
+
+                            </ui:CommandBar.PrimaryCommands>
+                        </ui:CommandBar>
+                    </StackPanel>
+
+
+                </Grid>
+            </Grid>
+        </Border>
+        <Border Grid.Column="1"
+                Grid.Row="0"
+                Margin="6,12,12,12"
+                Padding="8"
+                Background="#FFFFFF"
+                BoxShadow="0 2 5 0 #4F000000"
+                CornerRadius="{DynamicResource OverlayCornerRadius}">
+
+            <Grid RowDefinitions="45,*"
+                  Margin="0">
+
+                <Button
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Margin="0,0,0,0"
+                    Padding="0"
+                    Height="40"
+                    Command="{Binding AddPatient}"
+                    Grid.Row="0">
+                    <Grid>
+                        <ui:SymbolIcon Symbol="ChevronDown"
+                                       FontSize="14"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"/>
+                        <TextBlock Margin="20,0,0,0"
+                                   Text="{LxaString SelectPatientToView}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Right" />
+                    </Grid>
+                </Button>
+
+                <ScrollViewer Grid.Row="1">
+                    <ItemsRepeater x:Name="VideosItems"
+                                   ItemsSource="{Binding Images}"
+                                   Margin="0,8,0,0">
+                        <ItemsRepeater.Layout>
+                            <StackLayout Spacing="8" />
+                        </ItemsRepeater.Layout>
+
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate>
+                                <Border 
+                                        ClipToBounds="True"
+                                        Padding="0"
+                                        CornerRadius="10"
+                                        BorderThickness="0"
+                                        BoxShadow="0 2 10 0 #4F000000">
+                                    <Panel
+                                        Background="Transparent">
+                                        <Button  Command="{Binding PlayCommand}"
+                                                 CommandParameter="{Binding .}"
+                                                 BorderThickness="0"
+                                                 CornerRadius="10"
+                                                 Padding="0"
+                                                 Background="Transparent"
+                                                 Cursor="Hand">
+                                            <!--<Image
+                                                Stretch="Fill"
+                                                Source="{Binding Cover}"
+                                                Height="150">
+                                            </Image>-->
+                                            <Image asyncImageLoader:ImageLoader.Source="{Binding Path}" 
+                                                   Stretch="Fill"
+                                                   Height="150"/>
+                                        </Button>
+                                        <Panel Height="150">
+                                            <ui:SymbolIcon
+                                                Classes.IsUpdated="{Binding Selected}"
+                                                Classes.NotUpdated="{Binding !Selected}"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center">
+                                                <ui:SymbolIcon.Styles>
+                                                    <Style Selector="ui|SymbolIcon.IsUpdated">
+                                                        <Style.Setters>
+                                                            <Setter Property="Foreground"
+                                                                    Value="#FFF000"/>
+                                                            <Setter Property="Symbol"
+                                                                    Value="PlayFilled"/>
+                                                            <Setter Property="FontSize"
+                                                                    Value="30"/>
+                                                        </Style.Setters>
+                                                    </Style>
+                                                    <Style Selector="ui|SymbolIcon.NotUpdated">
+                                                        <Style.Setters>
+                                                            <Setter Property="Foreground"
+                                                                    Value="#FFFFFF"/>
+                                                            <Setter Property="Symbol"
+                                                                    Value="Play"/>
+                                                            <Setter Property="FontSize"
+                                                                    Value="25"/>
+                                                        </Style.Setters>
+                                                    </Style>
+                                                </ui:SymbolIcon.Styles>
+                                            </ui:SymbolIcon>
+                                        </Panel>
+                                    </Panel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,116 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:local="using:Dorisoy.PanClient.Controls"
+		xmlns:ui="using:FluentAvalonia.UI.Controls"
+		xmlns:aedit="using:AvaloniaEdit">
+
+
+	<Style Selector="local|ControlBox /template/ Border#CodePreviewAreaHost ToggleButton.ExpanderToggleButton">
+		<Setter Property="Background"
+				Value="Transparent" />
+		<Setter Property="BorderBrush"
+				Value="Transparent" />
+		<Setter Property="BorderThickness"
+				Value="0" />
+	</Style>
+
+	<!--控件示例模板-->
+	<Style Selector="local|ControlBox">
+		<Setter Property="Template">
+			<ControlTemplate>
+				<StackPanel>
+					<Border Background="{DynamicResource ControlFillColorDefaultBrush}"
+							BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+							BorderThickness=".5, .5, .5, 0"
+							CornerRadius="{Binding Source={StaticResource OverlayCornerRadius}, Converter={StaticResource TopCornerRadiusFilterConverter}}">
+						<DockPanel>
+							
+							<!--底边线-->
+							<!--<Border Background="{DynamicResource ControlStrongStrokeColorDefault}"
+									Height="0.5"
+									Margin="0 0 0 0"
+									VerticalAlignment="Bottom"
+									DockPanel.Dock="Bottom"/>-->
+							
+							<!--标题内容承载-->
+							<ContentPresenter x:Name="HeaderPresenter"
+											  Content="{TemplateBinding Header}"
+											  ContentTemplate="{TemplateBinding HeaderTemplate}"
+											  Padding="12 8"
+											  DockPanel.Dock="Left"
+											  HorizontalContentAlignment="Left"
+											  VerticalContentAlignment="Center" />
+
+							<!--展开-->
+							<Button Classes="AppBarButton"
+									   Margin="8"
+									   DockPanel.Dock="Right"
+									   x:Name="ExpandedButton">
+								<ui:SymbolIcon Symbol="ChevronRight"
+											   x:Name="ExpandedIcon"
+											   FontSize="18" />
+							</Button>
+
+							<!--工具栏-->
+							<ContentPresenter x:Name="ToolBarsPresenter"
+											  DockPanel.Dock="Right"
+											  Content="{TemplateBinding ToolBars}"
+											  HorizontalContentAlignment="Right"
+											  VerticalContentAlignment="Center"
+											  IsVisible="{TemplateBinding IsToolBar}"/>
+
+						</DockPanel>
+					</Border>
+
+					<Border x:Name="ControlPreviewAreaHost"
+							BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+							BorderThickness=".5, 0 ,.5, .5"
+							Background="{DynamicResource SolidBackgroundFillColorBaseBrush}">
+
+						<Grid ColumnDefinitions="*"
+							  RowDefinitions="*">
+
+							<!--模板内容承载-->
+							<ContentPresenter x:Name="ControlPresenter"
+											  Content="{TemplateBinding Content}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  HorizontalAlignment="Stretch"
+											  VerticalAlignment="Stretch"
+											  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+											  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+											  Margin="12"/>
+
+						</Grid>
+					</Border>
+
+				</StackPanel>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+
+	<Style Selector="local|ControlBox /template/ ui|SymbolIcon#ExpandedIcon">
+		<Setter Property="Symbol"
+				Value="ChevronDown" />
+	</Style>
+
+
+	<Style Selector="local|ControlBox /template/ ContentPresenter#ControlPresenter">
+		<Setter Property="Grid.ColumnSpan"
+				Value="1" />
+		<Setter Property="Padding"
+				Value="12" />
+		<Setter Property="Transitions">
+			<Transitions>
+				<ThicknessTransition Duration="00:00:00.167"
+									 Property="Padding" />
+			</Transitions>
+		</Setter>
+	</Style>
+
+
+	<Style Selector="local|ControlBox /template/ Border#ControlPreviewAreaHost">
+		<Setter Property="CornerRadius"
+				Value="{Binding Source={StaticResource OverlayCornerRadius}, Converter={StaticResource BottomCornerRadiusFilterConverter}}" />
+	</Style>
+
+</Styles>

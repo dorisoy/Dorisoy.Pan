@@ -1,0 +1,32 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="using:Dorisoy.PanClient.Player"
+        mc:Ignorable="d">
+  <Style Selector="local|VideoView">
+    <Setter Property="Background"
+            Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Background="{TemplateBinding Background}">
+          <local:VLCImageRenderer x:Name="PART_RenderImage"
+                                  DisplayRenderStats="{TemplateBinding DisplayRenderStats}" />
+          <ContentPresenter Content="{TemplateBinding Content}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="local|VideoView[VlcRenderingOptions=VlcNative]">
+    <Setter Property="Background"
+            Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Background="{TemplateBinding Background}">
+          <local:NativeVideoPresenter x:Name="PART_NativeHost"
+                                      Content="{TemplateBinding Content}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+</Styles>

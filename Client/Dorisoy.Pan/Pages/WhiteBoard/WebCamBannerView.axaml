@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             mc:Ignorable="d"
+             xmlns:conv="using:Dorisoy.PanClient.Converters"
+             xmlns:models="using:Dorisoy.PanClient.Models"
+             x:Class="Dorisoy.PanClient.Pages.WebCamBannerView"
+             x:CompileBindings="False"
+             x:DataType="vm:WebCamBannerViewModel">
+    <Panel>
+        <Image
+            Margin="0"
+            Stretch="UniformToFill"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Stretch"
+            Source="{Binding VideoFrame}" />
+    </Panel>
+
+</UserControl>

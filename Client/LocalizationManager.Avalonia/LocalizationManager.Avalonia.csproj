@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>LocalizationManager.Avalonia</PackageId>
+    <Title>LocalizationManager.Avalonia</Title>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);CopyTargetsForTfmSpecificContentInPackage</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+
+  <!--<Import Project="$(BuildToolsDirectory)Directory.Packages.targets" />-->
+
+  <Target Name="CopyTargetsForTfmSpecificContentInPackage">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="$(OutputPath)LocalizationManager.Core.dll">
+        <TargetFramework>$(TargetFramework)</TargetFramework>
+        <PackagePath>lib/$(TargetFramework)/</PackagePath>
+      </TfmSpecificPackageFile>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="CopyProjectReferencesSymbolsToPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <SupposedSymbolFiles Include="@(ReferenceCopyLocalPaths->'%(OutputPath)%(Filename).pdb')" />
+      <TfmSpecificDebugSymbolsFile Include="@(SupposedSymbolFiles)" Condition="Exists('%(Identity)')">
+        <TargetFramework>$(TargetFramework)</TargetFramework>
+      </TfmSpecificDebugSymbolsFile>
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="System.Reactive" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LocalizationManager.Core\LocalizationManager.Core.csproj" />
+  </ItemGroup>
+
+</Project>

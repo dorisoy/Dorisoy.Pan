@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ac="using:Avalonia.Controls.Shapes"
+             mc:Ignorable="d"
+             x:Class="Dorisoy.PanClient.Controls.Radar">
+    <Grid Margin="0">
+        <ac:Ellipse Width="50"  Height="50" Fill="#0b2432" Opacity=".8"/>
+        <TextBlock  x:Name="myRadar"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Foreground="#f7901a"
+                    TextAlignment="Center"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+        </TextBlock>
+    </Grid>
+</UserControl>

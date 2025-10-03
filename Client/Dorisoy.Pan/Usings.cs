@@ -1,0 +1,99 @@
+﻿global using System.Collections;
+global using System.Collections.Concurrent;
+global using System.Collections.Immutable;
+global using System.Collections.ObjectModel;
+global using System.ComponentModel;
+global using System.Diagnostics;
+global using System.Diagnostics.CodeAnalysis;
+global using System.Drawing.Printing;
+global using System.Globalization;
+global using System.Net;
+global using System.Net.Sockets;
+global using System.Reactive;
+global using System.Reactive.Concurrency;
+global using System.Reactive.Disposables;
+global using System.Reactive.Linq;
+global using System.Reactive.Subjects;
+global using System.Reflection;
+global using System.Runtime.InteropServices;
+global using System.Runtime.Versioning;
+global using System.Text;
+global using System.Windows.Input;
+
+global using AutoMapper;
+global using Avalonia;
+global using Avalonia.Collections;
+global using Avalonia.Controls;
+global using Avalonia.Controls.ApplicationLifetimes;
+global using Avalonia.Controls.Shapes;
+global using Avalonia.Input;
+global using Avalonia.Interactivity;
+global using Avalonia.Markup.Xaml;
+global using Avalonia.Media;
+global using Avalonia.Media.Imaging;
+global using Avalonia.Platform;
+global using Avalonia.Platform.Storage;
+global using Avalonia.Reactive;
+global using Avalonia.ReactiveUI;
+global using Avalonia.Styling;
+global using Avalonia.Threading;
+
+global using CSharpFunctionalExtensions;
+global using DynamicData;
+global using DynamicData.Binding;
+global using DynamicData.Operators;
+
+global using Emgu.CV;
+global using Emgu.CV.Structure;
+
+global using FFmpeg.AutoGen.Abstractions;
+global using FFmpeg.AutoGen.Bindings.DynamicallyLoaded;
+
+global using FluentAvalonia.UI.Controls;
+global using FluentAvalonia.UI.Windowing;
+
+global using LibVLCSharp.Shared;
+global using LocalizationManager;
+
+global using Microsoft.AspNetCore.SignalR.Client;
+global using Microsoft.Extensions.DependencyInjection;
+
+global using NAudio;
+global using NAudio.CoreAudioApi;
+global using NAudio.Wave;
+
+global using Newtonsoft.Json;
+global using OpenCvSharp.Extensions;
+
+global using ReactiveUI;
+global using ReactiveUI.Fody.Helpers;
+global using ReactiveUI.Validation.Abstractions;
+global using ReactiveUI.Validation.Contexts;
+global using ReactiveUI.Validation.Extensions;
+
+global using Dorisoy.PanClient.Chat;
+global using Dorisoy.PanClient.Commands;
+global using Dorisoy.PanClient.Common;
+global using Dorisoy.PanClient.Controls;
+global using Dorisoy.PanClient.Data;
+global using Dorisoy.PanClient.Models;
+global using Dorisoy.PanClient.Pages;
+global using Dorisoy.PanClient.Pages.Chat;
+global using Dorisoy.PanClient.Pages.Upload;
+global using Dorisoy.PanClient.Player;
+global using Dorisoy.PanClient.PrintToPDF;
+global using Dorisoy.PanClient.Services;
+global using Dorisoy.PanClient.SharedLibrary.Data;
+global using Dorisoy.PanClient.Utils;
+global using Dorisoy.PanClient.VideoStream;
+global using Dorisoy.PanClient.VideoStream.Device;
+global using Dorisoy.PanClient.Views;
+global using Dorisoy.PanClient.Webcam;
+
+global using SixLabors.ImageSharp;
+global using SixLabors.ImageSharp.PixelFormats;
+global using Splat;
+
+global using TorchSocket.Core;
+global using TorchSocket.Sockets;
+

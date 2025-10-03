@@ -1,0 +1,54 @@
+<Styles xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:controls="using:Dorisoy.PanClient.Player">
+
+	<Design.PreviewWith>
+		<controls:FlyoutPanel IsOpen="False" />
+	</Design.PreviewWith>
+
+	<Style Selector="controls|FlyoutPanel">
+		<Setter Property="IsOpen"
+				Value="False" />
+	</Style>
+
+	<Style Selector="controls|FlyoutPanel[IsOpen=True]">
+		<Style.Animations>
+			<Animation
+				Duration="0:0:1.0"
+				FillMode="Forward"
+				Easing="SineEaseInOut">
+
+				<KeyFrame Cue="0%">
+					<Setter Property="Opacity"
+							Value="0"/>
+				</KeyFrame>
+				<KeyFrame Cue="100%">
+					<Setter Property="Opacity"
+							Value="0.8"/>
+				</KeyFrame>
+			</Animation>
+		</Style.Animations>
+	</Style>
+
+	<Style Selector="controls|FlyoutPanel[IsOpen=False]">
+		<Style.Animations>
+			<Animation
+				Duration="0:0:1.0"
+				FillMode="Forward"
+				Easing="SineEaseInOut">
+
+				<KeyFrame Cue="0%">
+					<Setter Property="Opacity"
+							Value="0.8"/>
+				</KeyFrame>
+
+				<KeyFrame Cue="100%">
+					<Setter Property="Opacity"
+							Value="0"/>
+				</KeyFrame>
+
+			</Animation>
+		</Style.Animations>
+	</Style>
+</Styles>
+

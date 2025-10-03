@@ -1,0 +1,81 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="using:Dorisoy.PanClient.Player"
+        xmlns:sp="using:Dorisoy.PanClient.Views"
+        x:Class="Dorisoy.PanClient.Views.WAMPlayer"
+        xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+        x:DataType="vm:WAMPlayerViewModel"
+        x:CompileBindings="False"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        TransparencyLevelHint="None"
+        ExtendClientAreaTitleBarHeightHint="999"
+        CanResize="False"
+        ExtendClientAreaChromeHints="PreferSystemChrome"
+        ExtendClientAreaToDecorationsHint="True"
+        Icon="/Assets/logo.ico"
+        Foreground="#ffffff"
+        mc:Ignorable="d"
+        Title="视频共享" >
+
+    <Window.Styles>
+        <Style Selector="PathIcon.ButtonIcon:pointerover">
+            <Setter Property="Foreground"
+                    Value="Yellow"/>
+        </Style>
+
+        <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="InputElement.Cursor"
+                    Value="Hand"/>
+            <Setter Property="TextBlock.Foreground"
+                    Value="Yellow"/>
+            <Setter Property="BorderBrush"
+                    Value="Transparent"/>
+        </Style>
+
+        <Style Selector="Button.PlayButton:pointerover /template/ ContentPresenter">
+            <Setter Property="BorderBrush"
+                    Value="Transparent"/>
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+            <Setter Property="Background"
+                    Value="Transparent"/>
+        </Style>
+    </Window.Styles>
+
+
+    <Grid RowDefinitions="*"
+          ColumnDefinitions="*">
+
+        <!--播放器-->
+        
+        <views:YampView
+            Margin="0,5,0,0"
+            Grid.Row="1"
+            x:Name="Player"/>
+
+        <!--Spinner-->
+        
+        <Panel ZIndex="2"
+               Grid.Row="0"
+               IsVisible="{Binding IsLoading}"
+               Background="Black"
+               VerticalAlignment="Stretch"
+               Opacity="0.6"
+               HorizontalAlignment="Stretch">
+
+            <Grid ColumnDefinitions="Auto"
+                  RowDefinitions="Auto"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+                <sp:Spinner Grid.Column="0"
+                               Grid.Row="0"/>
+            </Grid>
+        </Panel>
+    </Grid>
+    
+</Window>

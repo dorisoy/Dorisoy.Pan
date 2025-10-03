@@ -1,0 +1,888 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             xmlns:local="using:Dorisoy.PanClient.Controls"
+             xmlns:conv="using:Dorisoy.PanClient.Converters"
+             mc:Ignorable="d"
+             d:DesignWidth="700"
+             d:DesignHeight="700"
+             x:Class="Dorisoy.PanClient.Pages.HomePage"
+             x:DataType="vm:HomePageViewModel"
+             x:CompileBindings="False"
+             Background="{DynamicResource BackgroundBrush}">
+
+    <UserControl.Resources>
+        <ImageBrush x:Key="BackgroundBrush"
+                  Source="avares://Dorisoy.PanClient/Assets/Images/Home_bg.jpg"
+                  AlignmentY="Bottom"
+                  AlignmentX="Right"
+                  Stretch="UniformToFill">
+        </ImageBrush>
+
+        <ImageBrush x:Key="BrushPannel1"
+                    Source="avares://Dorisoy.PanClient/Assets/Images/pannel1.png"
+                    AlignmentY="Bottom"
+                    AlignmentX="Right"
+                    Opacity=".6"
+                    Stretch="UniformToFill">
+        </ImageBrush>
+        <ImageBrush x:Key="BrushPannel2"
+                    Source="avares://Dorisoy.PanClient/Assets/Images/pannel2.png"
+                    AlignmentY="Bottom"
+                    AlignmentX="Right"
+                    Opacity=".6"
+                    Stretch="UniformToFill">
+        </ImageBrush>
+        <ImageBrush x:Key="BrushPannel3"
+                    Source="avares://Dorisoy.PanClient/Assets/Images/pannel3.png"
+                    AlignmentY="Bottom"
+                    AlignmentX="Right"
+                    Opacity=".6"
+                    Stretch="UniformToFill">
+        </ImageBrush>
+        <ImageBrush x:Key="BrushPannel4"
+                    Source="avares://Dorisoy.PanClient/Assets/Images/pannel4.png"
+                    AlignmentY="Bottom"
+                    AlignmentX="Right"
+                    Opacity=".6"
+                    Stretch="UniformToFill">
+        </ImageBrush>
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <!--toptitle-->
+
+        <Style Selector="TextBlock.toptitle">
+            <Setter Property="Foreground"
+                    Value="#00aaeb" />
+        </Style>
+        <Style Selector="TextBlock.topdes">
+            <Setter Property="Foreground"
+                    Value="#00aaeb" />
+        </Style>
+        <Style Selector="TextBlock.topvalue">
+            <Setter Property="Foreground"
+                    Value="#f7901a" />
+        </Style>
+
+
+        <!--bottomvalue-->
+        <Style Selector="TextBlock.bottomtitle">
+            <Setter Property="Foreground"
+                    Value="#00aaeb" />
+        </Style>
+        <Style Selector="TextBlock.bottomdes">
+            <Setter Property="Foreground"
+                    Value="#00aaeb" />
+        </Style>
+        <Style Selector="TextBlock.bottomvalue">
+            <Setter Property="Foreground"
+                    Value="#f7901a" />
+        </Style>
+
+        <!--cards-->
+
+        <Style Selector="Border.cards Button.cardbtn TextBlock.title">
+            <Setter Property="Foreground"
+                    Value="#00aaeb" />
+        </Style>
+
+        <Style Selector="Border.imgBorder">
+            <Setter Property="Width"
+                    Value="40" />
+            <Setter Property="Height"
+                    Value="40" />
+            <Setter Property="Background"
+                  Value="#0b2432" />
+        </Style>
+        
+        
+        <Style Selector="Border.cards Button.cardbtn Border.imgBorder">
+            <Setter Property="Width"
+                    Value="40" />
+            <Setter Property="Height"
+                    Value="40" />
+            <Setter Property="Background"
+                  Value="#0b2432" />
+        </Style>
+        <Style Selector="Border.cards Button.cardbtn TextBlock.des">
+            <Setter Property="Foreground"
+                    Value="#00aaeb" />
+        </Style>
+        <Style Selector="Border.cards Button.cardbtn TextBlock.number">
+            <Setter Property="Foreground"
+                    Value="#f7901a" />
+            <Setter Property="RenderTransform"
+                    Value="scale(1)"/>
+        </Style>
+        <Style Selector="Border.cards Button.cardbtn ui|SymbolIcon.icon">
+            <Setter Property="Foreground"
+                    Value="#FFFFFF" />
+            <Setter Property="FontSize"
+                    Value="30" />
+        </Style>
+
+        <!--pointerover-->
+
+        <Style Selector="Border.cards Button.cardbtn:pointerover">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Style Selector="^ /template/ ui|FABorder#Root">
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="BorderBrush"
+                        Value="#0b2432" />
+            </Style>
+        </Style>
+        <Style Selector="Border.cards Button.cardbtn:pointerover TextBlock.title">
+            <Setter Property="Foreground"
+                    Value="#00aaeb" />
+        </Style>
+
+        <Style Selector="Border.cards Button.cardbtn:pointerover Border.imgBorder">
+            <Setter Property="Width"
+                    Value="40" />
+            <Setter Property="Height"
+                    Value="40" />
+            <Setter Property="Background"
+                    Value="#0a6f9d" />
+        </Style>
+
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="30,*">
+        <!--页头-->
+        <StackPanel Grid.Row="0"
+                    Orientation="Vertical"
+                    Spacing="0"
+                    VerticalAlignment="Center">
+            <TextBlock Text="{Binding Welecom}"
+                       Foreground="#00aaeb"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="50,20,0,0"/>
+        </StackPanel>
+
+
+        <ScrollViewer Grid.Row="1" 
+                      HorizontalScrollBarVisibility="Disabled" 
+                      VerticalScrollBarVisibility="Auto">
+            <Grid Grid.Row="1"
+                  x:Name="myMainGrid"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Center">
+
+                <Border
+                    
+                    x:Name="box1"
+                    Background="{DynamicResource BrushPannel1}"
+                    RenderOptions.BitmapInterpolationMode="HighQuality"
+                    CornerRadius="8"
+                    BorderBrush="#00aaeb"
+                    BorderThickness="1"
+                    Padding="0"
+                    BoxShadow="0 8 32 0 #80000000">
+
+                    <Grid ColumnDefinitions="200,Auto,*"
+                          Margin="15">
+
+                        <local:SoundVisualizer
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Data="{Binding SliceData1}"
+                                Width="200"
+                                Margin="20,0,0,0"
+                                Height="50"/>
+
+                        <StackPanel Grid.Column="1"
+                                    Margin="12 8"
+                                    Spacing="4"
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="CPU"
+                                       FontWeight="Bold"
+                                       Classes="toptitle"/>
+                            <TextBlock Text="{LxaString CpuRateTitle}"
+                                       Classes="topdes"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right">
+
+                            <local:CuProgressBar
+                                Width="60"
+                                Height="60"
+                                FontSize="16"
+                                ProgressValue="{Binding CpuRate}" />
+
+                        </StackPanel>
+
+                    </Grid>
+
+                </Border>
+
+                <Border
+                     
+                    x:Name="box2"
+                    Background="{DynamicResource BrushPannel2}"
+                    RenderOptions.BitmapInterpolationMode="HighQuality"
+                    CornerRadius="8"
+                    BorderBrush="#00aaeb"
+                    BorderThickness="1"
+                    Padding="0"
+                    BoxShadow="0 8 32 0 #80000000">
+
+                    <Grid ColumnDefinitions="200,Auto,*"
+                          Margin="15">
+
+                        <local:SoundVisualizer
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Data="{Binding SliceData2}"
+                               Width="200"
+                               Margin="20,0,0,0"
+                               Height="50"/>
+
+                        <StackPanel Grid.Column="1"
+                                    Margin="12 8"
+                                    Spacing="4"
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="RAM"
+                                       FontWeight="Bold"
+                                       Classes="toptitle"/>
+                            <TextBlock Text="{LxaString MemeryRate}"
+                                       Classes="topdes"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right">
+                            <local:CuProgressBar
+                                 Width="60"
+                                Height="60"
+                                FontSize="16"
+                                ProgressValue="{Binding MemeryRate}" />
+                        </StackPanel>
+
+                    </Grid>
+
+                </Border>
+
+                <Border
+                     
+                    x:Name="box3"
+                   Background="{DynamicResource BrushPannel3}"
+                   RenderOptions.BitmapInterpolationMode="HighQuality"
+                   CornerRadius="8"
+                   BorderBrush="#00aaeb"
+                   BoxShadow="0 8 32 0 #80000000"
+                   BorderThickness="1"
+                   Padding="20">
+
+                    <Grid ColumnDefinitions="40,*,*,60"
+                          Margin="0">
+
+                        <StackPanel  Grid.Column="0"
+                                     Margin="0"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center">
+
+                            <Border
+                                ClipToBounds="True"
+                                Padding="0"
+                                Background="#000"
+                                CornerRadius="15"
+                                Width="40"
+                                Height="40">
+                                <Panel>
+                                    <Button
+                                        BorderThickness="0"
+                                        CornerRadius="15"
+                                        Padding="0"
+                                        Background="Transparent"
+                                        Cursor="Hand">
+                                        <Image
+                                            Stretch="Uniform"
+                                            Source="avares://Dorisoy.PanClient/Assets/Images/Data.png"
+                                            Height="40">
+                                        </Image>
+                                    </Button>
+                                </Panel>
+                            </Border>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1"
+                                    Margin="12 8"
+                                    Spacing="4"
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="{LxaString VideoStorageSpaceTitle}"
+                                       FontWeight="Bold"
+                                       Classes="bottomtitle"/>
+                            <TextBlock Text="{LxaString VideoStorageSpaceDes}"
+                                       Classes="bottomdes"/>
+                        </StackPanel>
+
+                        <ProgressBar Grid.Column="2"
+                                     x:Name="VideoStorageSpaceBar"
+                                          MaxWidth="280"
+                                          MaxHeight="50"
+                                          Value="20"
+                                          Maximum="70"
+                                          Foreground="#f7901a"
+                                          HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Stretch"
+                                          Orientation="Horizontal" />
+
+                        <TextBlock Grid.Column="3"
+                                   Text="20%"
+                                   FontWeight="Bold"
+                                   Classes="bottomvalue"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="10,0,0,0"/>
+
+                    </Grid>
+
+                </Border>
+
+                <Border
+                     
+                    x:Name="box4"
+                    Background="{DynamicResource BrushPannel4}"
+                    RenderOptions.BitmapInterpolationMode="HighQuality"
+                    CornerRadius="8"
+                    BorderBrush="#00aaeb"
+                    BoxShadow="0 8 32 0 #80000000"
+                    BorderThickness="1"
+                    Padding="20">
+
+                    <Grid ColumnDefinitions="40,*,*,60"
+                          Margin="0">
+
+                        <StackPanel  Grid.Column="0"
+                                     Margin="0"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center">
+
+                            <Border
+                                ClipToBounds="True"
+                                Padding="0"
+                                Background="#000"
+                                CornerRadius="15"
+                                Width="40"
+                                Height="40">
+                                <Panel>
+                                    <Button
+                                        BorderThickness="0"
+                                        CornerRadius="15"
+                                        Padding="0"
+                                        Background="Transparent"
+                                        Cursor="Hand">
+                                        <Image
+                                            Stretch="Uniform"
+                                            Source="avares://Dorisoy.PanClient/Assets/Images/Data.png"
+                                            Height="40">
+                                        </Image>
+                                    </Button>
+                                </Panel>
+                            </Border>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1"
+                                    Margin="12 8"
+                                    Spacing="4"
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="{LxaString ImageStorageSpaceTitle}"
+                                       FontWeight="Bold"
+                                       Classes="bottomtitle"/>
+                            <TextBlock Text="{LxaString ImageStorageSpaceDes}"
+                                       Classes="bottomdes"/>
+                        </StackPanel>
+
+                        <ProgressBar Grid.Column="2"
+                                     x:Name="ImageStorageSpaceBar"
+                                          MaxWidth="280"
+                                          MaxHeight="50"
+                                          Value="50"
+                                          Maximum="70"
+                                          Foreground="#f7901a"
+                                          HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Stretch"
+                                          Orientation="Horizontal"/>
+
+                        <TextBlock Grid.Column="3"
+                                   Text="50%"
+                                   FontWeight="Bold"
+                                   Classes="bottomvalue"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="10,0,0,0"/>
+                    </Grid>
+
+                </Border>
+
+                <!--视频-->
+                <Border
+                   x:Name="box5"
+                   Background="Transparent"
+                   CornerRadius="8"
+                   BorderBrush="#00aaeb"
+                   Classes="cards"
+                   BoxShadow="0 8 32 0 #80000000"
+                   BorderThickness="1">
+
+                    <Button
+                     Classes="cardbtn"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Stretch"
+                     BorderThickness="0"
+                     CornerRadius="8"
+                     Cursor="Hand"
+                     Background="Transparent"
+                     Command="{Binding VideoCountCommand}">
+
+                        <StackPanel
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Orientation="Vertical">
+                            <TextBlock
+                                Text="{LxaString Video}"
+                                Classes="title"
+                                FontWeight="Bold"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Margin="0,0,0,0"/>
+
+                            <local:Radar Value="{Binding VideoCount}"
+                                         Width="250"
+                                         Height="250"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"/>
+                            <Border
+                                Classes="imgBorder"
+                                ClipToBounds="True"
+                                Padding="0"
+                                CornerRadius="15"
+                                Width="40"
+                                Height="40"
+                                Margin="0,0,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                                <ui:SymbolIcon Symbol="IconChromeBackMirrored"
+                                                                     Foreground="#f7901a"
+                                                                     FontSize="30"
+                                                                     VerticalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+
+                    </Button>
+                </Border>
+
+                <!--用户-->
+                <Border
+                    
+                    x:Name="box6"
+                   Background="Transparent"
+                   CornerRadius="8"
+                   BorderBrush="#00aaeb"
+                   Classes="cards"
+                   BoxShadow="0 8 32 0 #80000000"
+                   BorderThickness="1">
+
+                    <Button
+                        Classes="cardbtn"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0"
+                        CornerRadius="8"
+                        Cursor="Hand"
+                        Background="Transparent"
+                        Command="{Binding UserCountCommand}">
+                        <StackPanel
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Orientation="Vertical">
+                            <TextBlock
+                                Text="{LxaString UserCountTitle}"
+                                Classes="title"
+                                FontWeight="Bold"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Margin="0,0,0,0"/>
+
+                            <local:Radar Value="{Binding UserCount}"
+                                         Width="250"
+                                         Height="250"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"/>
+                            <Border
+                                Classes="imgBorder"
+                                ClipToBounds="True"
+                                Padding="0"
+                                CornerRadius="15"
+                                Width="40"
+                                Height="40"
+                                Margin="0,0,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                                <ui:SymbolIcon Symbol="IconChromeBackMirrored"
+                                                                     Foreground="#f7901a"
+                                                                     FontSize="30"
+                                                                     VerticalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                    </Button>
+                </Border>
+
+                <!--内存使用率-->
+                <Border
+                    
+                    x:Name="box7"
+                   Background="Transparent"
+                   CornerRadius="8"
+                   BorderBrush="#00aaeb"
+                   Classes="cards"
+                   BoxShadow="0 8 32 0 #80000000"
+                   BorderThickness="1">
+
+                    <Button
+                        Classes="cardbtn"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0"
+                        CornerRadius="8"
+                        MinWidth="150"
+                        MinHeight="150"
+                        Cursor="Hand"
+                        Background="Transparent">
+                        <Grid ColumnDefinitions="*"
+                              RowDefinitions="*,50"
+                              Margin="0">
+                            <TextBlock  Grid.Column="0"
+                                       Grid.Row="0"
+                                        Text="{Binding MemeryUsed}"
+                                        Classes="title"
+                                        FontSize="42"
+                                        FontWeight="Bold"
+                                        Margin="0,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+                            <StackPanel Grid.Row="1"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Orientation="Horizontal">
+                                <ui:SymbolIcon Symbol="IconSpeedHigh"
+                                               Foreground="#00aaeb"
+                                               FontSize="20"
+                                               VerticalAlignment="Center"/>
+                                <TextBlock Text="Memory MB"
+                                        Classes="title"
+                                        FontWeight="Normal"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Button>
+                </Border>
+
+                <!--FPS-->
+                <Border
+                    
+                    x:Name="box8"
+                   Background="Transparent"
+                   CornerRadius="8"
+                   BorderBrush="#00aaeb"
+                   Classes="cards"
+                   BoxShadow="0 8 32 0 #80000000"
+                   BorderThickness="1">
+
+                    <Button
+                        Classes="cardbtn"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0"
+                        CornerRadius="8"
+                         MinWidth="150"
+                        MinHeight="150"
+                        Cursor="Hand"
+                        Background="Transparent"
+                        Command="{Binding VideoCountCommand}">
+                        <Grid ColumnDefinitions="*"
+                              RowDefinitions="*,50"
+                              Margin="0">
+                            <TextBlock  Grid.Column="0"
+                                       Grid.Row="0"
+                                        Text="60"
+                                        Classes="title"
+                                        FontSize="42"
+                                        FontWeight="Bold"
+                                        Margin="0,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+                            <StackPanel Grid.Row="1"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Orientation="Horizontal">
+                                <ui:SymbolIcon Symbol="IconVideoSolid"
+                                               Foreground="#00aaeb"
+                                               FontSize="20"
+                                               VerticalAlignment="Center"/>
+                                <TextBlock Text="FPS"
+                                        Classes="title"
+                                        FontWeight="Normal"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Button>
+                </Border>
+
+                <!--文档-->
+                <Border
+                    
+                    x:Name="box9"
+                   Background="Transparent"
+                   CornerRadius="8"
+                   BorderBrush="#00aaeb"
+                   Classes="cards"
+                   BoxShadow="0 8 32 0 #80000000"
+                   BorderThickness="1">
+
+                    <Button
+                        Classes="cardbtn"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0"
+                        CornerRadius="8"
+                         MinWidth="150"
+                        MinHeight="150"
+                        Cursor="Hand"
+                        Background="Transparent"
+                        Command="{Binding DocumentCountCommand}">
+                        <Grid ColumnDefinitions="*"
+                              RowDefinitions="*,50"
+                              Margin="0">
+                            <TextBlock  Grid.Column="0"
+                                       Grid.Row="0"
+                                        Text="{Binding DocumentCount}"
+                                        Classes="title"
+                                        FontSize="42"
+                                        FontWeight="Bold"
+                                        Margin="0,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+                            <StackPanel Grid.Row="1"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Orientation="Horizontal">
+                                <ui:SymbolIcon Symbol="IconZipFolderFilled"
+                                               Foreground="#00aaeb"
+                                               FontSize="20"
+                                               VerticalAlignment="Center"/>
+                                
+                                <TextBlock Text="{LxaString DocumentCountTitle}"
+                                        Classes="title"
+                                        FontWeight="Normal"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Button>
+                </Border>
+
+                <!--好友-->
+                <Border
+                   
+                   x:Name="box10"
+                   Background="Transparent"
+                   CornerRadius="8"
+                   BorderBrush="#00aaeb"
+                   Classes="cards"
+                   BoxShadow="0 8 32 0 #80000000"
+                   BorderThickness="1">
+
+                    <Button
+                        Classes="cardbtn"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0"
+                        CornerRadius="8"
+                         MinWidth="150"
+                        MinHeight="150"
+                        Cursor="Hand"
+                        Background="Transparent"
+                        Command="{Binding VideoCountCommand}">
+                        <Grid ColumnDefinitions="*"
+                              RowDefinitions="*,50"
+                              Margin="0">
+                            <TextBlock  Grid.Column="0"
+                                       Grid.Row="0"
+                                        Text="{Binding OnlineUsers}"
+                                        Classes="title"
+                                        FontSize="42"
+                                        FontWeight="Bold"
+                                        Margin="0,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+                            <StackPanel Grid.Row="1"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Orientation="Horizontal">
+                                <ui:SymbolIcon Symbol="IconPeopleFilled"
+                                               Foreground="#00aaeb"
+                                               FontSize="20"
+                                               VerticalAlignment="Center"/>
+                                <TextBlock Text="{LxaString Cookies}"
+                                        Classes="title"
+                                        FontWeight="Normal"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Button>
+                </Border>
+
+                <!--截屏 录制 麦克风-->
+                <Border
+                       x:Name="box11"
+                       CornerRadius="8"
+                       BorderBrush="#00aaeb"
+                       Classes="cards"
+                       BoxShadow="0 8 32 0 #80000000"
+                       BorderThickness="1">
+
+
+                        <Grid ColumnDefinitions="*,*,*"
+                              RowDefinitions="*"
+                              Margin="0,10,0,10">
+
+                            <StackPanel  Grid.Column="0"
+                                         Grid.Row="0"
+                                         Margin="0,0,0,0"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center">
+                                <Border
+                                   Classes="imgBorder"
+                                   ClipToBounds="True"
+                                   Padding="0"
+                                   CornerRadius="15"
+                                   Width="60"
+                                   Height="60"
+                                    Margin="20"
+                                   HorizontalAlignment="Center">
+                                    <Panel>
+                                        <ui:SymbolIcon Symbol="IconCameraFilled"
+                                                                          Foreground="#f7901a"
+                                                                          FontSize="30"
+                                                                          VerticalAlignment="Center"/>
+                                    </Panel>
+                                </Border>
+
+                                <TextBlock Text="{LxaString Screenshot}"
+                                                                 Classes="title"
+                                                                 FontWeight="Normal"
+                                                                 HorizontalAlignment="Center"
+                                                                 Margin="0,0,0,0" 
+                                           Foreground="#00aaeb"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel  Grid.Column="1"
+                                        Grid.Row="0"
+                                        Margin="0,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                                <Border
+                                   Classes="imgBorder"
+                                   ClipToBounds="True"
+                                   Padding="0"
+                                   CornerRadius="15"
+                                    Width="60"
+                                   Height="60"
+                                  Margin="20"
+                                   HorizontalAlignment="Center">
+
+                                    <!--录制-->
+                                    <Button
+                                      Classes="cardbtn"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch"
+                                      BorderThickness="0"
+                                      CornerRadius="15"
+                                      MinWidth="60"
+                                      MinHeight="60"
+                                      Cursor="Hand"
+                                      Background="Transparent"
+                                      Command="{Binding RecordingCommand}">
+                                        <Panel>
+                                            <ui:SymbolIcon Symbol="IconRadioButtonFilled"
+                                                                              Foreground="#f7901a"
+                                                                              FontSize="30"
+                                                                              VerticalAlignment="Center"/>
+                                        </Panel>
+                                    </Button>
+                                </Border>
+
+                                <TextBlock Text="{LxaString Recording}"
+                                            Classes="title"
+                                            FontWeight="Normal"
+                                            HorizontalAlignment="Center"
+                                            Margin="0,0,0,0" 
+                                           Foreground="#00aaeb"/>
+
+                            </StackPanel>
+
+
+                            <StackPanel  Grid.Column="2"
+                                  Grid.Row="0"
+                                  Margin="0,0,0,0"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center">
+                                <Border
+                                   Classes="imgBorder"
+                                   ClipToBounds="True"
+                                   Padding="0"
+                                   CornerRadius="15"
+                                   Width="60"
+                                   Height="60"
+                                   Margin="20"
+                                   HorizontalAlignment="Center">
+                                    <Panel>
+                                        <ui:SymbolIcon Symbol="IconMicOn"
+                                                                          Foreground="#f7901a"
+                                                                          FontSize="30"
+                                                                          VerticalAlignment="Center"/>
+                                    </Panel>
+                                </Border>
+
+                                <TextBlock Text="{LxaString Microphone}"
+                                            Classes="title"
+                                            FontWeight="Normal"
+                                            HorizontalAlignment="Center"
+                                            Margin="0,0,0,0" 
+                                            Foreground="#00aaeb"/>
+
+                            </StackPanel>
+
+
+                        </Grid>
+
+                </Border>
+
+            </Grid>
+        </ScrollViewer>
+
+    </Grid>
+</UserControl>

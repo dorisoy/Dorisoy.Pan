@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AccessControlManagement" xml:space="preserve">
+    <value>Access Control Management</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Addr" xml:space="preserve">
+    <value>Address:</value>
+  </data>
+  <data name="AddRemarks" xml:space="preserve">
+    <value>Add Remarks</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address:</value>
+  </data>
+  <data name="AddrInfo" xml:space="preserve">
+    <value>No. 3, Biyuan Road, Weicheng District, Xianyang City, Shaanxi Province</value>
+  </data>
+  <data name="AspectRatio" xml:space="preserve">
+    <value>Aspect Ratio</value>
+  </data>
+  <data name="AssignPermissions" xml:space="preserve">
+    <value>Assign Permissions</value>
+  </data>
+  <data name="AssignRoles" xml:space="preserve">
+    <value>AssignRoles</value>
+  </data>
+  <data name="Backward" xml:space="preserve">
+    <value>Backward</value>
+  </data>
+  <data name="BasicConfiguration" xml:space="preserve">
+    <value>Basic Configuration</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>BasicInformation</value>
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value>Both</value>
+  </data>
+  <data name="Checker" xml:space="preserve">
+    <value>Checker:</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment:</value>
+  </data>
+  <data name="CommentComments" xml:space="preserve">
+    <value>CommentComments</value>
+  </data>
+  <data name="CommentTime" xml:space="preserve">
+    <value>CommentTime:</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Dorisoy Medical Equipment Group Co., Ltd</value>
+  </data>
+  <data name="CompanyInfo" xml:space="preserve">
+    <value>The company was established in 1965 and is a high-tech enterprise specializing in the research and development, production, manufacturing, and sales of dental medical equipment. The enterprise has always adhered to the road of scientific and technological innovation and development, and established the 13115 Scientific and Technological Innovation Engineering Center in conjunction with Shaanxi University of Science and Technology. The pace of Product development has been significantly accelerated, and successfully developed S2319/S2321 new products. The S2320 digital dental equipment technology successfully developed in conjunction with Peking University has reached the international advanced level, and has obtained more than 10 technical patents. In 2007, the "Xinuo" brand dental comprehensive treatment machine was awarded the title of "Chinese Famous Brand". In 2010, "Xinuo" was recognized as a "Famous Trademark of Shaanxi Province" and its products were exported to more than 60 countries and regions</value>
+  </data>
+  <data name="Connects" xml:space="preserve">
+    <value>Telephone:</value>
+  </data>
+  <data name="Cookies" xml:space="preserve">
+    <value>Cookies</value>
+  </data>
+  <data name="CpuCore" xml:space="preserve">
+    <value>Workset CPU usage</value>
+  </data>
+  <data name="CpuCoreTitle" xml:space="preserve">
+    <value>VCMS</value>
+  </data>
+  <data name="CpuRate" xml:space="preserve">
+    <value>Cpu Rate</value>
+  </data>
+  <data name="CpuRateTitle" xml:space="preserve">
+    <value>CpuUseRate</value>
+  </data>
+  <data name="CreationTime" xml:space="preserve">
+    <value>CreationTime:</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Creator:</value>
+  </data>
+  <data name="CurrentAppLanguage" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="CurrentAppLanguageDes" xml:space="preserve">
+    <value>Change the language of the current application</value>
+  </data>
+  <data name="CurrentAppTheme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="CurrentAppThemeDes" xml:space="preserve">
+    <value>Change the current application theme</value>
+  </data>
+  <data name="CurrentDir" xml:space="preserve">
+    <value>CurrentDir:</value>
+  </data>
+  <data name="CurrentFlowDirection" xml:space="preserve">
+    <value>Flow direction</value>
+  </data>
+  <data name="CurrentFlowDirectionDes" xml:space="preserve">
+    <value>Change the current application operation layout direction</value>
+  </data>
+  <data name="CustomAspectRatio" xml:space="preserve">
+    <value>Custom Aspect Ratio</value>
+  </data>
+  <data name="CustomResolutionRatio" xml:space="preserve">
+    <value>Custom Resolution Ratio</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteImage" xml:space="preserve">
+    <value>Delete Image</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DocumentCount" xml:space="preserve">
+    <value>Document storage statistics</value>
+  </data>
+  <data name="DocumentCountTitle" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="DocumentManagement" xml:space="preserve">
+    <value>Document Management</value>
+  </data>
+  <data name="DocumentPage" xml:space="preserve">
+    <value>Docs</value>
+  </data>
+  <data name="DownOnly" xml:space="preserve">
+    <value>DownOnly</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ExaminingPatients" xml:space="preserve">
+    <value>Examining Patients</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ExportCvs" xml:space="preserve">
+    <value>Export Cvs</value>
+  </data>
+  <data name="ExportExcel" xml:space="preserve">
+    <value>Export Excel</value>
+  </data>
+  <data name="Fill" xml:space="preserve">
+    <value>Fill</value>
+  </data>
+  <data name="Forward" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="ImagePage" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="ImageStorageSpaceDes" xml:space="preserve">
+    <value>Remaining free space for current image storage</value>
+  </data>
+  <data name="ImageStorageSpaceTitle" xml:space="preserve">
+    <value>Image storage space 1000/GB</value>
+  </data>
+  <data name="InspectRecords" xml:space="preserve">
+    <value>Inspect Records</value>
+  </data>
+  <data name="IsAdmin" xml:space="preserve">
+    <value>IsAdmin</value>
+  </data>
+  <data name="IsSystem" xml:space="preserve">
+    <value>IsSystem</value>
+  </data>
+  <data name="lensControl" xml:space="preserve">
+    <value>lens Control</value>
+  </data>
+  <data name="LobbyPage" xml:space="preserve">
+    <value>Teach</value>
+  </data>
+  <data name="MainScreen" xml:space="preserve">
+    <value>Main Screen</value>
+  </data>
+  <data name="MemeryRate" xml:space="preserve">
+    <value>Memery</value>
+  </data>
+  <data name="MemeryRateTitle" xml:space="preserve">
+    <value>Memery Rate</value>
+  </data>
+  <data name="Microphone" xml:space="preserve">
+    <value>Microphone</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobile：</value>
+  </data>
+  <data name="MonitorPage" xml:space="preserve">
+    <value>Monitor</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="NewFolder" xml:space="preserve">
+    <value>NewFolder</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="NormalizedName" xml:space="preserve">
+    <value>NormalizedName</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Note:</value>
+  </data>
+  <data name="NoteInfo" xml:space="preserve">
+    <value>The system role has no built-in preset and cannot be deleted or modified!</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Number：</value>
+  </data>
+  <data name="OnlineUsers" xml:space="preserve">
+    <value>Online user statistics</value>
+  </data>
+  <data name="OnlineUsersTitle" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="Org" xml:space="preserve">
+    <value>Departments</value>
+  </data>
+  <data name="Patient" xml:space="preserve">
+    <value>Patient</value>
+  </data>
+  <data name="PatientInformation" xml:space="preserve">
+    <value>PatientInformation</value>
+  </data>
+  <data name="PatientInformationManagement" xml:space="preserve">
+    <value>Patient Information Management</value>
+  </data>
+  <data name="PatientPage" xml:space="preserve">
+    <value>Patient</value>
+  </data>
+  <data name="PermissionCode" xml:space="preserve">
+    <value>PermissionCode</value>
+  </data>
+  <data name="PermissionManage" xml:space="preserve">
+    <value>Permission Manage</value>
+  </data>
+  <data name="PermissionPage" xml:space="preserve">
+    <value>Permis</value>
+  </data>
+  <data name="PermissionType" xml:space="preserve">
+    <value>PermissionType</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>PhoneNumber</value>
+  </data>
+  <data name="PictureInPicture" xml:space="preserve">
+    <value>Picture In Picture</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="PreviousFolder" xml:space="preserve">
+    <value>PreviousFolder</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="RaleName" xml:space="preserve">
+    <value>RaleName</value>
+  </data>
+  <data name="Recording" xml:space="preserve">
+    <value>Recording</value>
+  </data>
+  <data name="Remarks" xml:space="preserve">
+    <value>Remarks</value>
+  </data>
+  <data name="ResolutionRatio" xml:space="preserve">
+    <value>Resolution Ratio</value>
+  </data>
+  <data name="RoleManage" xml:space="preserve">
+    <value>RoleManage</value>
+  </data>
+  <data name="RoleName" xml:space="preserve">
+    <value>RoleName</value>
+  </data>
+  <data name="RolePage" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="RolePermission" xml:space="preserve">
+    <value>RolePermission</value>
+  </data>
+  <data name="RunTime" xml:space="preserve">
+    <value>Total system running time</value>
+  </data>
+  <data name="RunTimeTitle" xml:space="preserve">
+    <value>Run time</value>
+  </data>
+  <data name="Screenshot" xml:space="preserve">
+    <value>Screenshot</value>
+  </data>
+  <data name="ScreenStretchDirection" xml:space="preserve">
+    <value>Screen Stretch Direction</value>
+  </data>
+  <data name="SearchBox" xml:space="preserve">
+    <value>Search Keywords...</value>
+  </data>
+  <data name="SegmentDuration" xml:space="preserve">
+    <value>Segment Duration</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SelectAddPatient" xml:space="preserve">
+    <value>Select/Add Patient</value>
+  </data>
+  <data name="SelectPatientToView" xml:space="preserve">
+    <value>Select patient to view</value>
+  </data>
+  <data name="SelectVideoDevice" xml:space="preserve">
+    <value>Select Video Device</value>
+  </data>
+  <data name="SettingsPage" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Sex:</value>
+  </data>
+  <data name="ShowPictureInPicture" xml:space="preserve">
+    <value>Show Picture In Picture</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="StoragePath" xml:space="preserve">
+    <value>StoragePath:</value>
+  </data>
+  <data name="SystemControl" xml:space="preserve">
+    <value>System Control</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>VCMS视频系统 v1.0.0</value>
+  </data>
+  <data name="Uniform" xml:space="preserve">
+    <value>Uniform</value>
+  </data>
+  <data name="UniformToFill" xml:space="preserve">
+    <value>UniformToFill</value>
+  </data>
+  <data name="UpdatePermission" xml:space="preserve">
+    <value>Update Permission</value>
+  </data>
+  <data name="UploadFiles" xml:space="preserve">
+    <value>UploadFiles</value>
+  </data>
+  <data name="UploadFolder" xml:space="preserve">
+    <value>UploadFolder</value>
+  </data>
+  <data name="UpOnly" xml:space="preserve">
+    <value>UpOnly</value>
+  </data>
+  <data name="Url" xml:space="preserve">
+    <value>URL:</value>
+  </data>
+  <data name="UserCount" xml:space="preserve">
+    <value>System user count statistics</value>
+  </data>
+  <data name="UserCountTitle" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="UserManage" xml:space="preserve">
+    <value>UserManage</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>UserName</value>
+  </data>
+  <data name="UserPage" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="VideoCount" xml:space="preserve">
+    <value>Video storage statistics</value>
+  </data>
+  <data name="VideoManagePage" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="VideoRecording" xml:space="preserve">
+    <value>Video Recording</value>
+  </data>
+  <data name="VideoStorageSpaceDes" xml:space="preserve">
+    <value>Remaining free space for current video storage</value>
+  </data>
+  <data name="VideoStorageSpaceTitle" xml:space="preserve">
+    <value>Video storage space 1000/GB</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="ViewRemark" xml:space="preserve">
+    <value>View Remark</value>
+  </data>
+  <data name="VisitNumber" xml:space="preserve">
+    <value>VisitNumber:</value>
+  </data>
+  <data name="VisitTime" xml:space="preserve">
+    <value>VisitTime:</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome to Dorisoy!</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+</root>

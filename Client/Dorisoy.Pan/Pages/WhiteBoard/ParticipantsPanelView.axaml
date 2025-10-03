@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             mc:Ignorable="d"
+             x:Class="Dorisoy.PanClient.Pages.ParticipantsPanelView"
+             x:CompileBindings="False"
+             x:DataType="vm:ParticipantsPanelViewModel">
+
+    <UserControl.Styles>
+        <Style Selector="Border.label">
+            <Setter Property="Margin"
+                    Value="0 0 0 10" />
+        </Style>
+        <Style Selector="Border.label TextBlock">
+            <Setter Property="FontSize"
+                    Value="16" />
+        </Style>
+
+        <Style Selector="Border.participant">
+            <Setter Property="Background"
+                    Value="#004883" />
+            <Setter Property="CornerRadius"
+                    Value="5" />
+            <Setter Property="Padding"
+                    Value="15 10" />
+            <Setter Property="Margin"
+                    Value="0 0 0 8" />
+        </Style>
+        <Style Selector="Border.participant Ellipse.drawingIndicator">
+            <Setter Property="Width"
+                    Value="10" />
+            <Setter Property="Height"
+                    Value="10" />
+            <Setter Property="Fill"
+                    Value="#ccc" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Right" />
+        </Style>
+        <Style Selector="Border.participant Ellipse.drawingIndicator.active">
+            <Setter Property="Fill"
+                    Value="{StaticResource GreenColor}" />
+        </Style>
+    </UserControl.Styles>
+
+
+    <StackPanel>
+        <ItemsControl ItemsSource="{Binding Participants}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="vm:ParticipantModel">
+                    <Border Classes="participant">
+                        <DockPanel>
+                            <TextBlock Text="{Binding Nickname}" Foreground="#FFFFFF"/>
+                            <Ellipse Classes="drawingIndicator"
+                                     Classes.active="{Binding Drawing}" />
+                        </DockPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</UserControl>

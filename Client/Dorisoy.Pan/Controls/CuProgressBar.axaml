@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:aup="using:Avalonia.Controls.Shapes"
+             mc:Ignorable="d"
+             x:Class="Dorisoy.PanClient.Controls.CuProgressBar" 
+             x:CompileBindings="False">
+
+    <Grid Width="{Binding Width}"
+          Height="{Binding Height}"
+          Margin="0">
+
+        <!-- 圆形进度条背景 -->
+        <Ellipse Width="{Binding Width}"
+          Height="{Binding Height}"
+                 Stroke="#00aaeb"
+                 StrokeThickness="5" />
+
+        <!--请注意，StrokeLineCap="Round" 将使进度条的开始和结束位置更加平滑，但这是根据个人喜好而定-->
+        <Arc x:Name="ProgressBar"
+             Width="60"
+             Height="60"
+             Stroke="#f7901a"
+             StrokeThickness="5"
+             StartAngle="0"
+             SweepAngle="0"
+             StrokeLineCap="Round"
+             HorizontalAlignment="Center"
+             VerticalAlignment="Center"/>
+
+        <!-- 显示百分比的文本 -->
+        <TextBlock x:Name="ProgressBarText"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="{Binding FontSize}"
+                   FontWeight="Bold"
+                   Foreground="#f7901a"
+                   FontStyle="Normal"
+                   TextAlignment="Center"/>
+    </Grid>
+</UserControl>

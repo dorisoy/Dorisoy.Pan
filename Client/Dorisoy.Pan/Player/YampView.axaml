@@ -1,0 +1,70 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vlcsharp="clr-namespace:Dorisoy.PanClient.Player;assembly=Dorisoy.PanClient"
+             xmlns:views="clr-namespace:Dorisoy.PanClient.Views;assembly=Dorisoy.PanClient"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:CompileBindings="False"
+             x:DataType="vm:YampViewModel"
+             x:Class="Dorisoy.PanClient.Player.YampView">
+
+    <Grid Margin="0"
+          RowDefinitions="*"
+          ColumnDefinitions="*">
+
+        <Panel
+            Grid.Row="0"
+            Margin="0"
+            Background="Black"
+            x:Name="MPContainer"
+            IsVisible="{Binding !IsStopped}"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+
+            <vlcsharp:VideoView2
+                x:Name="VideoViewer"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch">
+                <!-- 工具栏 -->
+                <Panel
+                    VerticalAlignment="Bottom"
+                    Opacity="0.8"
+                    Background="Transparent">
+                    <vlcsharp:YampToolView/>
+                </Panel>
+            </vlcsharp:VideoView2>
+
+        </Panel>
+
+        <!-- 缩略图面板 -->
+        <Panel
+            Grid.Row="0"
+            Margin="0"
+            IsVisible="{Binding IsStopped}"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+            <Border
+                CornerRadius="0"
+                ClipToBounds="True">
+                <Panel
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <Image
+                        Source="{Binding Cover}"
+                        Stretch="Uniform" />
+                    <Panel IsVisible="{Binding Cover, Converter={x:Static ObjectConverters.IsNull}}">
+                        <ui:SymbolIcon Symbol="PlayFilled"
+                                       Foreground="#FFFFFF"
+                                       FontSize="35"
+                                       VerticalAlignment="Center"/>
+                    </Panel>
+                </Panel>
+            </Border>
+        </Panel>
+    </Grid>
+</UserControl>

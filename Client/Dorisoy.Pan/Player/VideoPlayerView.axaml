@@ -1,0 +1,67 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:player="using:Dorisoy.PanClient.Player"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+              x:CompileBindings="False"
+             x:DataType="vm:VideoPlayerViewModel"
+             x:Class="Dorisoy.PanClient.Player.VideoPlayerView">
+
+    <Grid Margin="5,5,5,5"
+          RowDefinitions="*"
+          ColumnDefinitions="*">
+        <!-- Player Panel -->
+        <Panel
+            Grid.Row="0"
+            Margin="0"
+            Background="Black"
+            x:Name="MPContainer"
+            IsVisible="{Binding !IsStopped}"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+
+            <player:VideoView
+                x:Name="VideoViewer"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch">
+
+                <!-- Content -->
+                <Panel
+                    VerticalAlignment="Bottom"
+                    Opacity="0.8"
+                    Background="Transparent">
+                    <player:VideoPlayerToolView/>
+                </Panel>
+
+            </player:VideoView>
+
+        </Panel>
+
+        <!-- Thumbnail Panel -->
+        <Panel
+            Grid.Row="0"
+            Margin="0"
+            IsVisible="{Binding IsStopped}"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+            <Border
+                CornerRadius="0"
+                ClipToBounds="True">
+                <Panel
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <Image
+                        Source="{Binding Cover}"
+                        Stretch="Uniform" />
+                    <!--<Panel IsVisible="{Binding Cover, Converter={x:Static ObjectConverters.IsNull}}">
+						<PathIcon Height="75" Width="75" Data="{StaticResource video_regular}" />
+					</Panel>-->
+                </Panel>
+            </Border>
+        </Panel>
+    </Grid>
+</UserControl>

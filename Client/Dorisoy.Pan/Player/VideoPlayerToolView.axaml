@@ -1,0 +1,163 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:controls="using:Dorisoy.PanClient.Player"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             mc:Ignorable="d" 
+             d:DesignWidth="800" 
+             d:DesignHeight="450"
+             x:CompileBindings="False"
+             x:DataType="vm:VideoPlayerToolViewModel"
+             x:Class="Dorisoy.PanClient.Player.VideoPlayerToolView">
+
+	<UserControl.Styles>
+		<Style Selector="Button.CloseButton:pointerover /template/ ContentPresenter">
+			<Setter Property="BorderBrush" Value="Transparent"/>
+			<Setter Property="InputElement.Cursor" Value="Hand"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Background" Value="Transparent"/>
+		</Style>
+
+		<Style Selector="Button.Controls:pointerover /template/ ContentPresenter">
+			<Setter Property="BorderBrush" Value="Transparent"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Background" Value="Transparent"/>
+		</Style>
+
+		<Style Selector="PathIcon.ControlsIcon:pointerover">
+			<Setter Property="Foreground" Value="Yellow"/>
+		</Style>
+	</UserControl.Styles>
+
+
+	<controls:FlyoutPanel
+		x:Name="ControlsPanel"
+		Background="Gray">
+		<!-- Controls Panel -->
+		<StackPanel>
+			<!-- Top Text -->
+			<Grid
+				RowDefinitions="Auto,Auto"
+				Margin="0,8,0,0">
+				<TextBlock
+					Grid.Row="0"
+					FontSize="14"
+					HorizontalAlignment="Center"
+					Text="{Binding VideoTitle}" 
+                    FontWeight="Bold"
+					Foreground="#F9F9F9"/>
+				<TextBlock
+					Grid.Row="1"
+					FontSize="10"
+					HorizontalAlignment="Center"
+					Text="{Binding VideoDurationString}"
+					Foreground="#F9F9F9"/>
+			</Grid>
+
+			<!-- Buttons -->
+
+			<!-- Grid Player Buttons -->
+			<Grid
+				HorizontalAlignment="Stretch"
+				ColumnDefinitions="18,20,18,20,1*,6*,18,Auto"
+				RowDefinitions="Auto">
+
+				<Button x:Name="Rewind"
+					Classes="Controls"
+					Grid.Column="0"
+					Grid.Row="0"
+					Width="18"
+					Margin="5,3,0,0"
+					Background="Transparent"
+					ToolTip.Tip="Rewind"
+					VerticalAlignment="Center"
+					Command="{Binding Rewind}">
+					<!--<PathIcon Classes="ControlsIcon" Height="18" Width="18" Data="{StaticResource rewind_regular}" />-->
+				</Button>
+
+				<Button x:Name="Play"
+						Classes="Controls"
+						Grid.Column="1"
+						Grid.Row="0"
+						Width="20"
+						Margin="10,3,0,0"
+						Background="Transparent"
+						ToolTip.Tip="Play"
+						IsVisible="{Binding !IsPlaying, Mode=TwoWay}"
+						VerticalAlignment="Center"
+						Command="{Binding Play}">
+					<!--<PathIcon Classes="ControlsIcon" Height="20" Width="20" Data="{StaticResource play_regular}" />-->
+				</Button>
+
+				<Button x:Name="Pause"
+						Classes="Controls"
+						Grid.Column="1"
+						Grid.Row="0"
+						Width="20"
+						Margin="10,3,0,0"
+						Background="Transparent"
+						ToolTip.Tip="Pause"
+						IsVisible="{Binding IsPlaying, Mode=TwoWay}"
+						VerticalAlignment="Center"
+						Command="{Binding Pause}">
+					<!--<PathIcon Classes="ControlsIcon" Height="20" Width="20" Data="{StaticResource pause_regular}" />-->
+				</Button>
+
+				<Button x:Name="Seek"
+						Classes="Controls"
+						Grid.Column="2"
+						Grid.Row="0"
+						Width="18"
+						Margin="10,3,0,0"
+						Background="Transparent"
+						ToolTip.Tip="Seek"
+						VerticalAlignment="Center"
+						Command="{Binding Seek}">
+					<!--<PathIcon Classes="ControlsIcon" Height="18" Width="18" Data="{StaticResource fast_forward_regular}" />-->
+				</Button>
+
+				<Button x:Name="Stop"
+						Classes="Controls"
+						Grid.Column="3"
+						Grid.Row="0"
+						Width="20"
+						Margin="10,3,0,0"
+						Background="Transparent"
+						ToolTip.Tip="Stop"
+						VerticalAlignment="Center"
+						Command="{Binding Stop}">
+					<!--<PathIcon Classes="ControlsIcon" Height="20" Width="20" Data="{StaticResource stop_regular}" />-->
+				</Button>
+
+				<Slider x:Name="SliderVolume"
+						Classes="Volume"
+						Grid.Row="0"
+						Grid.Column="4"
+						Margin="10,0,0,0"
+						VerticalAlignment="Top"
+						HorizontalAlignment="Stretch"
+						Value="{Binding XVolume}"
+						Minimum="0"
+						Maximum="100"
+						MinWidth="30">
+				</Slider>
+
+				<Slider x:Name="SliderTime"
+						Grid.Row="0"
+						Grid.Column="5"
+						Margin="10,0,0,0"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Top"
+						Value="{Binding XTime}"
+						Minimum="0"
+						Maximum="{Binding VideoDuration}"
+						MinWidth="70">
+				</Slider>
+
+			</Grid>
+		</StackPanel>
+		<!-- Controls Panel END -->
+	</controls:FlyoutPanel>
+</UserControl>

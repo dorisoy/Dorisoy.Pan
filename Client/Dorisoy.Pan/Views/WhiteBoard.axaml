@@ -1,0 +1,200 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="using:Dorisoy.PanClient.Pages"
+        x:Class="Dorisoy.PanClient.Views.WhiteBoard"
+        xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+        xmlns:paz="using:Avalonia.Controls.PanAndZoom"
+        x:DataType="vm:WhiteBoardViewModel"
+        x:CompileBindings="False"
+        Icon="/Assets/logo.ico"
+        Foreground="#ffffff"
+        Background="#ffffff"
+        mc:Ignorable="d"
+        Title="白板协同" >
+
+    <Window.Resources>
+        <ImageBrush x:Key="BackgroundBrush"
+                    Source="avares://Dorisoy.PanClient/Assets/Images/grid.png"
+                    Stretch="UniformToFill"
+                    TileMode="FlipXY">
+        </ImageBrush>
+    </Window.Resources>
+    
+    <Window.Styles>
+
+        <Style Selector="Border.canvasContainer">
+            <Setter Property="Background"
+                    Value="#f5f5f5" />
+        </Style>
+        
+        <Style Selector="Canvas">
+            <Setter Property="Background"
+                    Value="White" />
+            <Setter Property="Width"
+                    Value="1280" />
+            <Setter Property="Height"
+                    Value="720" />
+        </Style>
+        
+        <Style Selector="Canvas:disabled">
+            <Setter Property="Opacity"
+                    Value="0.4" />
+        </Style>
+
+        <Style Selector="Border.panelLabel">
+            <Setter Property="Margin"
+                    Value="0 0 0 10" />
+        </Style>
+        <Style Selector="Border.panelLabel TextBlock">
+            <Setter Property="FontSize"
+                    Value="16" />
+        </Style>
+
+        <Style Selector="Border.toolsPanel">
+            <Setter Property="Background"
+                    Value="#eee" />
+            <Setter Property="Padding"
+                    Value="15 15 15 20" />
+        </Style>
+
+        <Style Selector="Border.participantsPanel">
+            <Setter Property="Background"
+                    Value="#FFFFFF" />
+            <Setter Property="Padding"
+                    Value="10" />
+            <Setter Property="VerticalAlignment"
+                    Value="Stretch" />
+        </Style>
+
+        <Style Selector="Border.eventsPanel">
+            <Setter Property="Background"
+                    Value="#eee" />
+            <Setter Property="Padding"
+                    Value="10" />
+            <Setter Property="VerticalAlignment"
+                    Value="Stretch" />
+        </Style>
+
+        <Style Selector="Border.footer">
+            <Setter Property="Background"
+                    Value="#004883" />
+            <Setter Property="Padding"
+                    Value="15 0" />
+        </Style>
+        <Style Selector="Border.roomNameSection">
+            <Setter Property="Height"
+                    Value="37" />
+            <Setter Property="Background"
+                    Value="#fff" />
+            <Setter Property="CornerRadius"
+                    Value="5" />
+            <Setter Property="Padding"
+                    Value="10 0 5 0" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+        </Style>
+        <Style Selector="Border.roomNameSection TextBlock">
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Foreground"
+                    Value="#888" />
+        </Style>
+        <Style Selector="Border.roomNameSection TextBlock.roomName">
+            <Setter Property="Foreground"
+                    Value="{StaticResource GreenColor}" />
+            <Setter Property="FontWeight"
+                    Value="Medium" />
+        </Style>
+        <Style Selector="Border.roomNameSection Button">
+            <Setter Property="Background"
+                    Value="#ccc" />
+            <Setter Property="Padding"
+                    Value="10 3" />
+            <Setter Property="Margin"
+                    Value="12 0 0 0" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Foreground"
+                    Value="#fff" />
+            <Setter Property="FontSize"
+                    Value="14" />
+        </Style>
+    </Window.Styles>
+
+    
+    <Grid RowDefinitions="*,60">
+        <Grid Grid.Row="0"
+              ColumnDefinitions="250,*">
+            
+            <!--工具栏-->
+            <StackPanel Grid.Column="0" 
+                        Background="#FFFFFF"
+                        Spacing="8">
+
+                <Expander Header="工具"
+                          IsExpanded="True"
+                          FontWeight="Bold" 
+                          Margin="8,8,8,0">
+                    <controls:ToolsPanelView DataContext="{Binding ToolsPanel}" />
+                </Expander>
+
+                <Expander Header="参与人"
+                          IsExpanded="True"
+                          FontWeight="Bold"
+                          Margin="8,8,8,0">
+                    <controls:ParticipantsPanelView DataContext="{Binding ParticipantsPanel}" />
+                </Expander>
+
+                <Expander Header="事件"
+                          IsExpanded="True"
+                          FontWeight="Bold"
+                          Margin="8,8,8,0">
+                    <controls:EventsPanelView DataContext="{Binding EventsPanel}" />
+                </Expander>
+            </StackPanel>
+
+ 
+            <!--画板-->
+            <paz:ZoomBorder Grid.Column="1"
+                            x:Name="ZoomBorder1"
+                            Stretch="None"
+                            ZoomSpeed="1.5"
+                            PanButton="Right"
+                            EnableConstrains="False"
+                            Background="{DynamicResource BackgroundBrush}"
+                            RenderOptions.BitmapInterpolationMode="HighQuality"
+                            ClipToBounds="True"
+                            Focusable="True"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch">
+                <Canvas x:Name="canvas"
+                        DataContext="{Binding Path=ConnectionStatus}"
+                        IsEnabled="{Binding Connected}"
+                        PointerPressed="Canvas_PointerPressed"
+                        PointerReleased="Canvas_PointerReleased"/>
+            </paz:ZoomBorder>
+
+        </Grid>
+
+        <Border Grid.Row="1"
+                Classes="footer">
+
+            <DockPanel>
+                <Border Classes="roomNameSection">
+                    <DockPanel>
+                        <TextBlock Text="小组: "/>
+                        <TextBlock Text="{Binding Room}"
+                                   Classes="roomName" />
+                        <Button Command="{Binding CopyRoom}">复制</Button>
+                    </DockPanel>
+                </Border>
+
+                <!--连接状态-->
+                <controls:ConnectionStatusView DataContext="{Binding ConnectionStatus}" />
+            </DockPanel>
+
+        </Border>
+    </Grid>
+</Window>

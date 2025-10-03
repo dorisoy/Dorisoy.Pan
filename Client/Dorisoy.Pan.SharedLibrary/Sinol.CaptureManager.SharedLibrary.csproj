@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp8.0</TargetFrameworks>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="Data\DataObject - 复制.cs" />
+    <Compile Remove="Data\Models\AudioFrameModel.cs" />
+    <Compile Remove="Data\Models\UserModel.cs" />
+    <Compile Remove="Data\UDPData\NewAudioFrame.cs" />
+    <Compile Remove="Data\UDPData\NewVideoFrame.cs" />
+    <Compile Remove="SerDes\Serializer.cs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Macross.Json.Extensions" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="MessagePack" />
+    <PackageReference Include="System.Drawing.Common" />
+  </ItemGroup>
+
+</Project>

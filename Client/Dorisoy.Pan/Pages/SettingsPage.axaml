@@ -1,0 +1,328 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             xmlns:lc="using:Dorisoy.PanClient.Localization"
+             xmlns:ctrls="using:Dorisoy.PanClient.Controls"
+             mc:Ignorable="d"
+             x:Class="Dorisoy.PanClient.Pages.SettingsPage"
+             x:CompileBindings="False"
+             x:DataType="vm:SettingsPageViewModel"
+             Background="{DynamicResource SettingBackgroundBrush}">
+
+    <UserControl.Resources>
+        <!--页面背景-->
+        <ImageBrush x:Key="SettingBackgroundBrush"
+                    Source="avares://Dorisoy.PanClient/Assets/screen.png"
+                    AlignmentY="Bottom"
+                    AlignmentX="Right"
+                    Stretch="UniformToFill">
+        </ImageBrush>
+    </UserControl.Resources>
+
+    <ScrollViewer Padding="{StaticResource SampleAppPageMargin}">
+        <StackPanel Spacing="8">
+
+            <!--版权信息-->
+            <Grid Margin="0 0 0 10"
+                  ColumnDefinitions="*,Auto"
+                  RowDefinitions="*,Auto">
+                <DockPanel>
+                    <Image Source="/Assets/logo.ico"
+                           DockPanel.Dock="Left"
+                           Height="78"
+                           RenderOptions.BitmapInterpolationMode="HighQuality"/>
+
+                    <StackPanel Spacing="0"
+                                Margin="12 0">
+                        <TextBlock Text="{LxaString Title}"
+                                   Theme="{StaticResource TitleTextBlockStyle}" />
+
+
+                        <TextBlock Text="{LxaString Company}"
+                                   Theme="{StaticResource CaptionTextBlockStyle}" />
+
+                        <TextBlock Theme="{StaticResource CaptionTextBlockStyle}"
+                                   Text="http://Dorisoy.com"
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </DockPanel>
+                <DockPanel x:Name="HeaderRightContent"
+                           Grid.Column="1"
+                           Opacity="1">
+                    <DockPanel.RenderTransform>
+                        <TranslateTransform X="0"
+                                            Y="0" />
+                    </DockPanel.RenderTransform>
+                    <Image Source="/Assets/Dorisoy.png"
+                           DockPanel.Dock="Left"
+                           Height="48"
+                           RenderOptions.BitmapInterpolationMode="HighQuality"/>
+
+                </DockPanel>
+            </Grid>
+
+            <!--tab 面板-->
+            <ui:TabView
+               IsAddTabButtonVisible="False"
+               SelectedIndex="0"
+               Background="Transparent">
+                <!--系统配置-->
+                <ui:TabViewItem Header="系统配置"
+                                IconSource="Setting"
+                                IsClosable="False" 
+                                Background="Transparent">
+
+                    <StackPanel Spacing="8" Margin="0,10,0,0">
+
+                        <!--布局方向-->
+                        <ui:SettingsExpander Header="{LxaString CurrentFlowDirection}"
+                                             IconSource="DockRightFilled"
+                                             Description="{LxaString CurrentFlowDirectionDes}">
+
+                            <ui:SettingsExpander.Footer>
+                                <ComboBox SelectedItem="{Binding CurrentFlowDirection}"
+                                          ItemsSource="{Binding AppFlowDirections}"
+                                           HorizontalAlignment="Stretch"
+                                          MinWidth="200" />
+                            </ui:SettingsExpander.Footer>
+
+                        </ui:SettingsExpander>
+
+
+                        <!--默认设备-->
+                        <ui:SettingsExpander Header="默认设备"
+                                             IconSource="VideoFilled"
+                                             Description="在这里配置你常用连接的视频设备">
+
+                            <ui:SettingsExpander.Footer>
+                                <ComboBox PlaceholderText="{LxaString SelectVideoDevice}"
+                                          FontWeight="Normal"
+                                          HorizontalAlignment="Stretch"
+                                          ItemsSource="{Binding CameraDevices}"
+                                          SelectedItem="{Binding SelectCamera}"
+                                          MinWidth="200">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </ui:SettingsExpander.Footer>
+
+                        </ui:SettingsExpander>
+
+
+
+                        <!--高级-->
+                        <ui:SettingsExpander Header="高级"
+                                             IconSource="SettingsFilled"
+                                             Description="应用程序高级配置"
+                                             IsExpanded="True">
+
+                            <ui:SettingsExpander.Footer>
+                                <Button
+                                    Margin="0,0,0,0"
+                                    ToolTip.Tip="保存"
+                                    BorderBrush="Transparent"
+                                    HorizontalAlignment="Stretch"
+                                    Command="{Binding SaveRSTPServer}">
+                                    <ui:SymbolIcon Symbol="SaveFilled"
+                                                   FontSize="18"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"/>
+                                </Button>
+                            </ui:SettingsExpander.Footer>
+
+                            <ui:SettingsExpanderItem>
+
+                                <Grid ColumnDefinitions="Auto,*"
+                                      RowDefinitions="*,*,*,*,*,*"
+                                      HorizontalAlignment="Stretch">
+
+                                    <TextBlock Grid.Column="0"
+                                               Grid.Row="0"
+                                               Text="远程服务器地址："
+                                               FontWeight="Normal"
+                                               VerticalAlignment="Center"
+                                               Margin="5"/>
+                                    <TextBox Grid.Column="1"
+                                             Grid.Row="0"
+                                             Text="{Binding HostUrl}"
+                                             FontWeight="Normal"
+                                             Margin="5"/>
+
+                                    <TextBlock Grid.Column="0"
+                                               Grid.Row="1"
+                                               Text="远程主机地址："
+                                               FontWeight="Normal"
+                                               VerticalAlignment="Center"
+                                               Margin="5"/>
+                                    <TextBox Grid.Column="1"
+                                             Grid.Row="1"
+                                             Text="{Binding ServerHost}"
+                                             FontWeight="Normal"
+                                             Margin="5"/>
+
+                                    <TextBlock Grid.Column="0"
+                                               Grid.Row="2"
+                                               Text="远程服务器UDP端口："
+                                               FontWeight="Normal"
+                                               VerticalAlignment="Center"
+                                               Margin="5"/>
+                                    <TextBox Grid.Column="1"
+                                             Grid.Row="2"
+                                             Text="{Binding ServerUdpPort}"
+                                             FontWeight="Normal"
+                                             Margin="5"/>
+
+                                    <TextBlock Grid.Column="0"
+                                               Grid.Row="3"
+                                               Text="TCP发送接收端口："
+                                               FontWeight="Normal"
+                                               VerticalAlignment="Center"
+                                               Margin="5"/>
+                                    <TextBox Grid.Column="1"
+                                             Grid.Row="3"
+                                             Text="{Binding TCPSendReceiver}"
+                                             FontWeight="Normal"
+                                             Margin="5"/>
+
+
+                                    <TextBlock Grid.Column="0"
+                                               Grid.Row="4"
+                                               Text="RTMP服务器地址："
+                                               FontWeight="Normal"
+                                               VerticalAlignment="Center"
+                                               Margin="5"/>
+                                    <TextBox Grid.Column="1"
+                                             Grid.Row="4"
+                                             Text="{Binding RSTPServer}"
+                                             FontWeight="Normal"
+                                             Margin="5"/>
+
+                                    <TextBlock Grid.Column="0"
+                                               Grid.Row="5"
+                                               Text="远程数据库连接："
+                                               FontWeight="Normal"
+                                               VerticalAlignment="Center"
+                                               Margin="5"/>
+                                    <TextBox Grid.Column="1"
+                                             Grid.Row="5"
+                                             Text="{Binding DB_Conn}"
+                                             FontWeight="Normal"
+                                             Margin="5"/>
+
+                                </Grid>
+
+                            </ui:SettingsExpanderItem>
+
+                        </ui:SettingsExpander>
+
+
+                        <!--公司信息-->
+                        <ui:SettingsExpander Header="{LxaString About}"
+                                             IconSource="TagFilled"
+                                             IsExpanded="False">
+
+                            <ui:SettingsExpanderItem>
+
+                                <Grid ColumnDefinitions="Auto,*">
+                                    <StackPanel Grid.Column="0">
+                                        <Image Source="avares://Dorisoy.PanClient/Assets/QRcode.png"
+                                               Width="180"
+                                               Margin="0,0,30,0"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1"
+                                                Spacing="4">
+
+                                        <TextBlock Text="{LxaString Company}" />
+
+                                        <TextBlock TextWrapping="Wrap"
+                                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                   FontWeight="Normal"
+                                                   LineHeight="25"
+                                                   Margin="0,8,0,0"
+                                                   Text="{LxaString CompanyInfo}"/>
+
+                                        <DockPanel>
+                                            <TextBlock Text="{LxaString Connects}"
+                                                       Margin="0,0,5,0"/>
+                                            <TextBlock Text="029-33243717"
+                                                       FontWeight="Normal"/>
+                                        </DockPanel>
+
+                                        <DockPanel>
+                                            <TextBlock Text="{LxaString Url}"
+                                                       Margin="0,0,5,0"/>
+                                            <TextBlock Text="www.Dorisoy.cn"
+                                                       FontWeight="Normal"/>
+                                        </DockPanel>
+
+                                        <DockPanel>
+                                            <TextBlock Text="{LxaString Addr}"
+                                                       Margin="0,0,5,0"/>
+                                            <TextBlock Text="{LxaString AddrInfo}"
+                                                       FontWeight="Normal"/>
+                                        </DockPanel>
+                                    </StackPanel>
+
+                                </Grid>
+
+                            </ui:SettingsExpanderItem>
+
+                        </ui:SettingsExpander>
+
+                    </StackPanel>
+
+                </ui:TabViewItem>
+                
+                <!--异步上传任务-->
+                <!--<ui:TabViewItem Header="同步任务"
+                                IconSource="Video"
+                                IsClosable="False"
+                                Background="Transparent">
+                    <ItemsRepeater x:Name="syncUploadTasks"
+                                      ItemsSource="{Binding Patient.Images}"
+                                      Margin="0,10,0,0">
+                        <ItemsRepeater.Layout>
+                            <StackLayout Spacing="8" />
+                        </ItemsRepeater.Layout>
+
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate>
+                                <Border Grid.Column="0"
+                                        ClipToBounds="True"
+                                        Padding="0"
+                                        Background="#000"
+                                        CornerRadius="10">
+                                    <Grid ColumnDefinitions="*,*">
+                                        <ProgressBar
+                                            Grid.Column="0"
+                                            Value="50"
+                                            Maximum="70"
+                                            Foreground="#f7901a"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            Orientation="Horizontal"/>
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            Text="50%"
+                                            FontWeight="Bold"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            Margin="10,0,0,0"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </ui:TabViewItem>-->
+                
+            </ui:TabView>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

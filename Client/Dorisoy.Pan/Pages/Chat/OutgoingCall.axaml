@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:gif="clr-namespace:AvaloniaGif;assembly=Dorisoy.PanClient"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="Dorisoy.PanClient.Pages.Chat.OutgoingCall"
+             x:DataType="vm:MainViewViewModel"
+             x:CompileBindings="False">
+
+    <Grid RowDefinitions="*,*,0.8*">
+
+        <gif:GifImage  Grid.Row="0"
+                       Grid.RowSpan="2"
+                       Height="60"
+                       SourceUriRaw="avares://Dorisoy.PanClient/Assets/Outgoing.gif"
+                       Stretch="Uniform"
+                       StretchDirection="Both"/>
+
+        <Grid HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="呼叫中..."
+                       HorizontalAlignment="Center"
+                       FontSize="16"
+                       Margin="0, 5"
+                       IsVisible="{Binding Disconnected}"/>
+
+            <TextBlock Text="等待接受"
+                       HorizontalAlignment="Center"
+                       FontSize="16"
+                       Margin="0, 5" 
+                       IsVisible="{Binding Connected}"/>
+
+            <TextBlock Text="{Binding RemoteIP}"
+                     Grid.Row="1"
+                     FontSize="28"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"/>
+        </Grid>
+
+        <!--<Button HorizontalAlignment="Center"
+                Content="结束通话"
+                FontSize="16"
+                Grid.Row="2"
+                Command="{Binding EndCallCommand}"/>-->
+        <Button
+            Grid.Row="2"
+            Classes="IncomingCall"
+            Width="60"
+            Height="60"
+            Cursor="Hand"
+            CornerRadius="50"
+            Background="#f7901a"
+            HorizontalAlignment="Center"
+            Command="{Binding EndCallCommand}">
+            <ui:SymbolIcon Symbol="IncomingCall"
+                           Foreground="White"
+                           FontSize="30"
+                           VerticalAlignment="Center"/>
+        </Button>
+
+    </Grid>
+</UserControl>
