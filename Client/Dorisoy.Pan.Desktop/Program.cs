@@ -27,20 +27,20 @@ internal class Program
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
         //注册FFmpeg
-        if (Debugger.IsAttached)
-        {
-            Debug.WriteLine("当前目录: " + Environment.CurrentDirectory);
-            Debug.WriteLine("运行在 {0}-bit 模式.", Environment.Is64BitProcess ? "64" : "32");
-        }
+        //if (Debugger.IsAttached)
+        //{
+        //    Debug.WriteLine("当前目录: " + Environment.CurrentDirectory);
+        //    Debug.WriteLine("运行在 {0}-bit 模式.", Environment.Is64BitProcess ? "64" : "32");
+        //}
 
         //FFmpegBinariesHelper.RegisterFFmpegBinaries();
-        DynamicallyLoadedBindings.Initialize();
+        //DynamicallyLoadedBindings.Initialize();
 
-        if (Debugger.IsAttached)
-        {
-            Debug.WriteLine($"FFmpeg version info: {ffmpeg.av_version_info()}");
-            //SetupLogging();
-        }
+        //if (Debugger.IsAttached)
+        //{
+        //    Debug.WriteLine($"FFmpeg version info: {ffmpeg.av_version_info()}");
+        //    //SetupLogging();
+        //}
 
         try
         {
@@ -59,25 +59,25 @@ internal class Program
     }
 
 
-    private static unsafe void SetupLogging()
-    {
-        ffmpeg.av_log_set_level(ffmpeg.AV_LOG_VERBOSE);
+    //private static unsafe void SetupLogging()
+    //{
+    //    ffmpeg.av_log_set_level(ffmpeg.AV_LOG_VERBOSE);
 
-        av_log_set_callback_callback logCallback = (p0, level, format, vl) =>
-        {
-            if (level > ffmpeg.av_log_get_level())
-                return;
+    //    av_log_set_callback_callback logCallback = (p0, level, format, vl) =>
+    //    {
+    //        if (level > ffmpeg.av_log_get_level())
+    //            return;
 
-            var lineSize = 1024;
-            var lineBuffer = stackalloc byte[lineSize];
-            var printPrefix = 1;
-           ffmpeg.av_log_format_line(p0, level, format, vl, lineBuffer, lineSize, &printPrefix);
-            var line = Marshal.PtrToStringAnsi((IntPtr)lineBuffer);
-            Debug.Write(line);
-        };
+    //        var lineSize = 1024;
+    //        var lineBuffer = stackalloc byte[lineSize];
+    //        var printPrefix = 1;
+    //       ffmpeg.av_log_format_line(p0, level, format, vl, lineBuffer, lineSize, &printPrefix);
+    //        var line = Marshal.PtrToStringAnsi((IntPtr)lineBuffer);
+    //        Debug.Write(line);
+    //    };
 
-        ffmpeg.av_log_set_callback(logCallback);
-    }
+    //    ffmpeg.av_log_set_callback(logCallback);
+    //}
 
 
 
