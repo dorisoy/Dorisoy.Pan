@@ -186,9 +186,7 @@ public class BdtpClient : IDisposable
             //有客户端成功连接
             Connected = (client, e) => { return EasyTask.CompletedTask; },
             //有客户端正在断开连接，只有当主动断开时才有效。
-            Disconnecting = (client, e) => { return EasyTask.CompletedTask; },
-            //有客户端断开连接
-            Disconnected = (client, e) => { return EasyTask.CompletedTask; }
+            
         };
 
         //载入配置
@@ -215,9 +213,7 @@ public class BdtpClient : IDisposable
         //成功连接到服务器
         tcpClient.Connected = (client, e) => { return EasyTask.CompletedTask; };
         //即将从服务器断开连接。此处仅主动断开才有效。
-        tcpClient.Disconnecting = (client, e) => { return EasyTask.CompletedTask; };
-        //从服务器断开连接，当连接不成功时不会触发。
-        tcpClient.Disconnected = (client, e) => { return EasyTask.CompletedTask; };
+        
         //载入配置
         tcpClient.Setup(new TorchSocketConfig()
             .ConfigureContainer(a =>

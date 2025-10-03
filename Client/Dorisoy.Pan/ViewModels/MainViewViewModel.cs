@@ -444,7 +444,7 @@ public class MainViewViewModel : ViewModelBase, IRoutableViewModel
                 if (filePaths != null && filePaths.Count > 0)
                 {
                     var progressReporter = new Progress<double>(ReportProgress);
-                    await vcm.fileShare.StartSend(this, filePaths, progressReporter, Cts.Token);
+                    //await vcm.fileShare.StartSend(this, filePaths, progressReporter, Cts.Token);
                 }
             }
         }

@@ -670,12 +670,7 @@ public class MonitorPageViewModel : MainPageViewModelBase
                  .SetUdpDataHandlingAdapter(() => new UdpPackageAdapter())
                  .ConfigureContainer(a =>
                  {
-                     a.SetSingletonLogger(new LoggerGroup(new EasyLogger((msg) =>
-                     {
-                         //日志
-                         Debug.WriteLine(msg);
-
-                     }), new FileLogger()));
+                   
                  }));
     }
 

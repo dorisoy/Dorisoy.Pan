@@ -33,7 +33,7 @@ internal class Program
             Debug.WriteLine("运行在 {0}-bit 模式.", Environment.Is64BitProcess ? "64" : "32");
         }
 
-        FFmpegBinariesHelper.RegisterFFmpegBinaries();
+        //FFmpegBinariesHelper.RegisterFFmpegBinaries();
         DynamicallyLoadedBindings.Initialize();
 
         if (Debugger.IsAttached)

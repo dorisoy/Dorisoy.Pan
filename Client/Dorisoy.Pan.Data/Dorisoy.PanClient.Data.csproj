@@ -30,11 +30,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dorisoy.Pan.Common\Dorisoy.Pan.Common.csproj" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\Dorisoy.Pan.Common\Dorisoy.PanClient.Common.csproj" />
   </ItemGroup>
 
 </Project>

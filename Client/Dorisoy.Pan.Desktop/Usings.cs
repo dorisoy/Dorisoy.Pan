@@ -14,7 +14,6 @@ global using FFmpeg.AutoGen.Abstractions;
 global using FFmpeg.AutoGen.Bindings.DynamicallyLoaded;
 global using ReactiveUI;
 global using Dorisoy.PanClient.Player;
-global using Dorisoy.PanClient.VideoStream;
 global using Dorisoy.PanClient.ViewModels;
 global using Dorisoy.PanClient.Views;
 global using Splat;

@@ -13,7 +13,7 @@ public class ScreenSharing : DataSharing
     private CancellationTokenSource _cts;
     private PrintScreen _printScreen;
     private VoiceChatModel _chatModel;
-    private ScreenShareHandlerH264 _screenShareHandlerH264;
+    //private ScreenShareHandlerH264 _screenShareHandlerH264;
 
     private int secondaryCanvasBusy = 0;
     private int primaryCanvasBusy = 0;
@@ -24,116 +24,10 @@ public class ScreenSharing : DataSharing
         LineIndex = 3;
 
         _printScreen = new PrintScreen();
-        _screenShareHandlerH264 = new ScreenShareHandlerH264();
+       // _screenShareHandlerH264 = new ScreenShareHandlerH264();
 
         //本地屏幕图像
-        _screenShareHandlerH264.LocalImageAvailable += (image) =>
-        {
-            if (Interlocked.CompareExchange(ref secondaryCanvasBusy, 1, 0) == 1)
-                return;
-
-            Dispatcher.UIThread.Invoke(() =>
-            {
-                try
-                {
-                    if (image == null)
-                        _chatModel.mvvm.ScreenFrame = null;
-
-                    else if (image.Width == 0 || image.Height == 0)
-                        return;
-                    else if (_chatModel.mvvm.ScreenFrame == null)
-                    {
-
-                        // 创建 WriteableBitmap
-                        var writeableBitmap = new WriteableBitmap(
-                           new PixelSize(image.Width, image.Height),    // 图像大小，这里是 100x100 像素
-                           new Vector(96, 96),                          // DPI（每英寸点数），一般使用 96 DPI
-                           Avalonia.Platform.PixelFormat.Bgra8888,      // 像素格式，BGRA8888 是常用格式
-                           AlphaFormat.Premul);                         // Alpha 格式，预乘 Alpha
-
-                        _chatModel.mvvm.ScreenFrame = writeableBitmap;
-                    }
-                    else
-                    {
-                        // 创建一个WriteableBitmap
-                        //var bitmapSize = new Avalonia.Size(image.Width, image.Height);
-                        //var rectangle = new Rect(0, 0, image.Width, image.Height);
-
-                        PixelBufferExt.CopyIntPtrToWriteableBitmap(_chatModel.mvvm.ScreenFrame, image.DataStart, image.Width, image.Height, image.Stride);
-
-                        image.ReturnImage.Invoke();
-
-                        _chatModel.ScreenLocalFrameReceived();
-                    }
-                }
-                finally
-                {
-                    Interlocked.Exchange(ref secondaryCanvasBusy, 0);
-                }
-            });
-
-        };
-
-        //获取到有效字节是发送远程
-        _screenShareHandlerH264.OnBytesAvailable = (byte[] bytes, int count, bool isKeyFrame) =>
-        {
-            Debug.WriteLine($"OnBytesAvailable -> {bytes.Length}");
-            bool isReliable = isKeyFrame;
-            using var bb = new ByteBlock(bytes);
-            BdtpClient.Send(bb, LineIndex);
-        };
-
-        _screenShareHandlerH264.DecodedFrameWithAction = (writeBufferAction, count, isKeyFrame) =>
-        {
-            Debug.WriteLine($"DecodedFrameWithAction -> {count}");
-        };
-
-        _screenShareHandlerH264.KeyFrameRequested = () =>
-        { 
-        
-        };
-
-        _screenShareHandlerH264.RemoteImageAvailable += (image) =>
-        {
-            if (Interlocked.CompareExchange(ref primaryCanvasBusy, 1, 0) == 1)
-                return;
-
-            Dispatcher.UIThread.Invoke(() =>
-            {
-                try
-                {
-                    if (image == null)
-                        return;
-
-                    if (image.Width == 0 || image.Height == 0)
-                    {
-                        return;
-                    }
-                    else if (_chatModel.mvvm.RemoteScreenFrame == null || image.Width == 0 || image.Height == 0)
-                    {
-
-                        // 创建 WriteableBitmap
-                        var writeableBitmap = new WriteableBitmap(
-                           new PixelSize(image.Width, image.Height),    // 图像大小，这里是 100x100 像素
-                           new Vector(96, 96),                          // DPI（每英寸点数），一般使用 96 DPI
-                           Avalonia.Platform.PixelFormat.Bgra8888,      // 像素格式，BGRA8888 是常用格式
-                           AlphaFormat.Premul);                         // Alpha 格式，预乘 Alpha
-
-                        _chatModel.mvvm.RemoteScreenFrame = writeableBitmap;
-                    }
-
-                    PixelBufferExt.CopyIntPtrToWriteableBitmap(_chatModel.mvvm.RemoteScreenFrame, image.DataStart, image.Width, image.Height, image.Stride);
-
-                    image.ReturnImage.Invoke();
-
-                    _chatModel.ScreenRemoteFrameReceived();
-                }
-                finally
-                {
-                    Interlocked.Exchange(ref primaryCanvasBusy, 0);
-                }
-            });
-        };
+       
     }
 
     public override void BeginSend()
@@ -166,17 +60,7 @@ public class ScreenSharing : DataSharing
                     try
                     {
                         // 接收数据包
-                        byte[] data = [.. e.ByteBlock];
-                        if (data.Length > 0)
-                        {
-                            var bitmap = BitmapExtensions.ToBitmap(data);
-                            if (bitmap != null)
-                            {
-                                _chatModel.mvvm.RemoteFrame = bitmap;
-                                //_chatModel.ScreenRemoteFrameReceived();
-                            }
-                        }
-
+                        
                         //_screenShareHandlerH264.HandleNetworkImageBytes(DateTime.Now, e.ByteBlock,0, e.ByteBlock.Len);
                     }
                     catch (Exception)
@@ -224,8 +108,8 @@ public class ScreenSharing : DataSharing
                         {
                             _chatModel.mvvm.LocalFrame = BitmapExtensions.ToBitmap(byteArray);
 
-                            using var bb = new ByteBlock(byteArray);
-                            BdtpClient.Send(bb, LineIndex);
+                            //using var bb = new ByteBlock(byteArray);
+                            //BdtpClient.Send(bb, LineIndex);
                         }
 
                     }

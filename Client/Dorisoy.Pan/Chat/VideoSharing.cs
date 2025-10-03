@@ -72,13 +72,7 @@ public class VideoSharing : DataSharing
         LineIndex = 1;
 
         services = ServiceHub.Instance;
-        services.VideoHandler.OnLocalImageAvailable += (img) => { };
-        services.VideoHandler.OnBytesAvailable += (imageBytes, lenght, isKeyFrame) => { };
-        services.VideoHandler.OnBytesAvailableAction += (action, lenght, isKeyFrame) => { };
-        services.VideoHandler.OnRemoteImageAvailable += (img) => { };
-        services.VideoHandler.KeyFrameRequested += () => { };
-        services.VideoHandler.LtrRecoveryRequest += (arg1, arg2, arg3) => { };
-        services.VideoHandler.MarkingFeedback += (arg1, arg2, arg3) => { };
+        
     }
 
     /// <summary>
@@ -287,8 +281,7 @@ public class VideoSharing : DataSharing
     {
         _cts = new CancellationTokenSource();
         // 叫接收者不应该在呼叫请求时激活摄像头，只有当呼叫完成时。
-        Task.Run(() => services.VideoHandler.ObtainCamera(), _cts.Token)
-            .ContinueWith((t) => services.VideoHandler.StartCapturing());
+//
     }
 
     public void StopOpenCvCapture2()
@@ -298,7 +291,7 @@ public class VideoSharing : DataSharing
 
         _cts.Cancel();
 
-        services.VideoHandler.CloseCamera();
+        //services.VideoHandler.CloseCamera();
     }
 
     /// <summary>

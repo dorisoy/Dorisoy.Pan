@@ -6,9 +6,20 @@
     <AvaloniaVersion>11.0.3</AvaloniaVersion>
   </PropertyGroup>
   <ItemGroup>
-
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.2.1" />
-    <!--Avalonia-->
+    <PackageVersion Include="Protobuf.Network.Library" Version="3.0.1" />
+    <PackageVersion Include="NAudio.Extras" Version="2.2.1"/>
+    <PackageVersion Include="NAudio.WinMM" Version="2.2.1"/>
+    <PackageVersion Include="NAudio" Version="2.2.1"/>
+    <PackageVersion Include="TorchSocketPro" Version="2.0.1"/>
+    <PackageVersion Include="H264Sharp" Version="1.6.0" />
+    <PackageVersion Include="Portable.BouncyCastle" Version="1.9.0"/>
+    <PackageVersion Include="Serilog.Sinks.File" Version=""/>
+    <PackageVersion Include="SharpDX.Direct2D1" Version="4.2.0"/>
+    <PackageVersion Include="SharpDX.Direct3D11" Version="4.2.0"/>
+    <PackageVersion Include="SharpDX.DXGI" Version="4.2.0"/>
+    <PackageVersion Include="System.IO.Hashing" Version="9.0.9"/>
+    <PackageVersion Include="System.Management" Version="9.0.9"/>
     <PackageVersion Include="EPPlus" Version="6.2.9" />
     <PackageVersion Include="JetBrains.Annotations" Version="2023.2.0" />
     <PackageVersion Include="PdfSharpCore" Version="1.3.60" />

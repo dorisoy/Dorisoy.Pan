@@ -114,8 +114,7 @@ public class AppSettings
 /// </summary>
 public class Globals
 {
-    public static ConcurrentDictionary<Guid, SharedLibrary.Data.Models.UserModel> _onlineUsers { get; set; } = new();
-
+ 
     public static Guid ReferenceUserId { get; set; }
 
     public static CultureInfo CultureInfo { get; set; } = new CultureInfo("zh");

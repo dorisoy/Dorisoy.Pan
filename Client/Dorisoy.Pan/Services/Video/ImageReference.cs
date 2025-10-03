@@ -84,17 +84,14 @@ public class ImageReference
     }
     internal void Update(RgbImage mat)
     {
-        Create(mat, mat.ImageBytes, mat.Width, mat.Height, mat.Stride, ReturnImage);
+        //Create(mat, mat.ImageBytes, mat.Width, mat.Height, mat.Stride, ReturnImage);
     }
     public static ImageReference FromMat(Mat mat,Action<ImageReference> whenReturning)
     {
         return new ImageReference(mat, mat.DataStart, mat.Width, mat.Height,(int)mat.Step(), whenReturning);
     }
 
-    public static ImageReference FromRgbImage(RgbImage rgb, Action<ImageReference> whenReturning)
-    {
-        return new ImageReference(rgb, rgb.ImageBytes, rgb.Width, rgb.Height, rgb.Stride, whenReturning);
-    }
+   
 
     public void Release()
     {
