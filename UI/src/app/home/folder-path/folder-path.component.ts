@@ -7,6 +7,7 @@ import { ObservableService } from '../../core/services/observable.service';
 import { HomeService } from '../home.service';
 
 @Component({
+  // 选择器
   selector: 'app-folder-path',
   templateUrl: './folder-path.component.html',
   styleUrls: ['./folder-path.component.scss']
@@ -40,14 +41,21 @@ export class FolderPathComponent extends BaseComponent implements OnInit {
       if (id) {
         this.getPath(id);
       } else {
+        //folderPaths
         this.folderPaths = [];
       }
     });
   }
   getPath(id){
     this.sub$.sink = this.homeService.getFolderParentsById(id)
-    .subscribe((path: FolderPath[]) => {
-      this.folderPaths = path;
+    .subscribe((paths: FolderPath[]) => {
+      //this.folderPaths = paths;
+      this.folderPaths = paths.map((path) => {
+        if (path.name === "All FIles") {
+          return { ...path, name: "全部" };
+        }
+        return path;
+      });
     });
   }
 

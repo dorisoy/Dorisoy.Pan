@@ -51,8 +51,7 @@
     <div class="row mt-3 user-search">
       <div class="col-md-12">
         <div class="form-group">
-          <input class="form-control" placeholder="搜索用户" [matAutocomplete]="autoForUser"
-            formControlName="userName" />
+          <input class="form-control" placeholder="搜索用户" [matAutocomplete]="autoForUser" formControlName="userName" />
         </div>
         <mat-autocomplete #autoForUser="matAutocomplete">
           <mat-option (click)="selectUser(user)" *ngFor="let user of users$ | async" [value]="user">
@@ -61,7 +60,7 @@
         </mat-autocomplete>
       </div>
       <div class="col-md-12" formArrayName="usersArray">
-        <span class="mb-3" *ngIf="usersArray.controls.length">Selected User:</span>
+        <span class="mb-3" *ngIf="usersArray.controls.length">选择用户:</span>
         <mat-chip-list>
           <mat-chip *ngFor="let user of usersArray.controls; let i=index">
             <ng-container [formGroupName]="i">

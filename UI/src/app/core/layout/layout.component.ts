@@ -75,13 +75,13 @@ export class LayoutComponent extends BaseComponent implements OnInit {
         }
       });
   }
+
   getFolder(id: string) {
     this.sub$.sink = this.commonService.getFolderDetailById(id)
       .subscribe((c: Folder) => {
         this.treeViewService.setRefreshTreeView(c);
       });
   }
-
 
   getFromResolveParam() {
     this.sub$.sink = this.activeRoute.data.subscribe(

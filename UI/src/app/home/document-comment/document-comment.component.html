@@ -4,7 +4,7 @@
             folder
         </span>
         <div>
-            <div class="fw-600 fs-17 text-dark">评论</div>
+            <div class="fw-600 fs-17 text-dark">备注</div>
         </div>
     </div>
     <div class="close-icon" (click)="closeDialog()">
@@ -17,7 +17,7 @@
     <div class="row align-items-center justify-content-between">
         <div class="col-md-auto col-sm-auto">
             <div class="content-header">
-                <h3>{{data.name}} 评论</h3>
+                <h3>{{data.name}} 的批注</h3>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
                             {{comment.createdDate | date:"dd/MM/yyyy hh:mm a"}}
                         </small>
                         <small class="text-primary">
-                          {{comment.userName}}
+                            {{comment.userName}}
                         </small>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                     <textarea class="form-control" formControlName="comment" rows="3"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" (click)="addComment()">
-                    Add Comment
+                    添加标记
                 </button>
             </form>
         </div>
