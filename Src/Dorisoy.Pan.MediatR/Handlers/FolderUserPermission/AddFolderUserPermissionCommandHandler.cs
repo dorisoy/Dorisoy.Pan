@@ -91,7 +91,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             //{
             //    return ServiceResponse<bool>.Return500();
             //}
-            return ServiceResponse<bool>.ReturnResultWith200(true);
+            return await Task.FromResult(ServiceResponse<bool>.ReturnResultWith200(true));
         }
     }
 }

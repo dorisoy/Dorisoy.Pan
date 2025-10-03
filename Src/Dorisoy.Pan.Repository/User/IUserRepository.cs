@@ -12,7 +12,7 @@ namespace Dorisoy.Pan.Repository
     public interface IUserRepository : IGenericRepository<User>
     {
         Task<UserList> GetUsers(UserResource userResource);
-        Task<UserAuthDto> BuildUserAuthObject(User appUser, IList<Claim> claims);
+        UserAuthDto BuildUserAuthObject(User appUser, IList<Claim> claims);
         Task<UserList> GetSharedUsers(UserResource userResource, List<Guid> folderUsers, List<Guid> documentUsers);
     }
 }

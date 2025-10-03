@@ -14,172 +14,162 @@ import { BreakpointsService } from '@core/services/breakpoints.service';
 import { fromEvent, of, Subscription } from 'rxjs';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { tap } from 'rxjs/operators';
+import { Download } from '@core/utils/file-helper';
 
 @Component({
-  selector: 'app-document-list',
-  templateUrl: './document-list.component.html',
-  styleUrls: ['./document-list.component.scss'],
+    selector: 'app-document-list',
+    templateUrl: './document-list.component.html',
+    styleUrls: ['./document-list.component.scss']
 })
 export class DocumentListComponent extends DocumentBaseComponent implements OnInit, AfterViewInit {
+    @Input() listView: string;
+    @ViewChildren('checkboxes') public checkboxes: MatCheckbox[];
 
-  @Input() listView: string;
-  @ViewChildren('checkboxes') public checkboxes: MatCheckbox[];
+    menuSubscription: Subscription;
+    windowClickSubscription: Subscription;
 
-  menuSubscription: Subscription;
-  windowClickSubscription: Subscription;
+    contextMenuPosition = { x: 0, y: 0 };
+    @ViewChild('documentMenuTrigger') contextMenuTrigger: MatMenuTrigger;
 
-  contextMenuPosition = { x: 0, y: 0 };
-  @ViewChild('documentMenuTrigger') contextMenuTrigger: MatMenuTrigger;
+    disabled: boolean = false;
+    constructor(public toastrService: ToastrService, public homeService: HomeService, public commonService: CommonService, public overlay: OverlayPanel, public dialog: MatDialog, public commonDialogService: CommonDialogService, public clonerService: ClonerService, public observableService: ObservableService, private breakpointsService: BreakpointsService) {
+        super(overlay, commonService, homeService, toastrService, dialog, commonDialogService, clonerService, observableService);
+    }
 
+    ngOnInit(): void {
+        this.folderClickNotification();
+        this.isMobileOrTabletDevice();
+        super.rootFolderSubscription();
+        this.unCheckAllCheckbox();
+        this.moveDocumentSubscription();
+        this.windowSubscription();
+    }
+    checkAllSubscription() {
+        this.sub$.sink = this.observableService.mainCheckBox$.subscribe(c => {
+            this.isCheck = c;
+        });
+    }
 
-  disabled: boolean = false;
-  constructor(
-    public toastrService: ToastrService,
-    public homeService: HomeService,
-    public commonService: CommonService,
-    public overlay: OverlayPanel,
-    public dialog: MatDialog,
-    public commonDialogService: CommonDialogService,
-    public clonerService: ClonerService,
-    public observableService: ObservableService,
-    private breakpointsService: BreakpointsService
-  ) {
-    super(overlay, commonService, homeService, toastrService, dialog,
-      commonDialogService, clonerService, observableService);
-  }
+    ngAfterViewInit() {
+        this.subscribeCheckAll();
+    }
 
-  ngOnInit(): void {
-    this.folderClickNotification();
-    this.isMobileOrTabletDevice();
-    super.rootFolderSubscription();
-    this.unCheckAllCheckbox();
-    this.moveDocumentSubscription();
-    this.windowSubscription();
-  }
-  checkAllSubscription() {
-    this.sub$.sink = this.observableService.mainCheckBox$.subscribe(c => {
-      this.isCheck = c;
-    });
-  }
+    subscribeCheckAll() {
+        this.sub$.sink = this.observableService.checkAll$.subscribe(c => {
+            if (this.documents) {
+                this.documents.forEach(c => {
+                    this.observableService.setDocumentOrFolderIdAll({
+                        documentId: c.id,
+                        folderId: ''
+                    });
+                });
+            }
+            this.checkboxes.forEach(element => {
+                element.checked = c;
+            });
+        });
+    }
 
-  ngAfterViewInit() {
-    this.subscribeCheckAll();
-  }
+    onDocumentView(document: Documents) {
+        super.onDocumentView(document, this.documents);
+    }
 
-  subscribeCheckAll() {
-    this.sub$.sink = this.observableService.checkAll$.subscribe(c => {
-      if (this.documents) {
+    async onDownload(document: Documents) {
+        await Download(document);
+    }
+
+    windowSubscription() {
+        this.sub$.sink = fromEvent(window, 'click').subscribe(_ => {
+            if (this.contextMenuTrigger && this.contextMenuTrigger.menuOpen) {
+                this.contextMenuTrigger.closeMenu();
+                this.documents.forEach(c => {
+                    c.isRightClicked = false;
+                });
+            }
+        });
+    }
+
+    folderClickNotification() {
+        this.sub$.sink = this.observableService.selectedFolder$.subscribe(c => {
+            if (this.documents && this.documents.length > 0) {
+                this.documents.forEach(c => {
+                    c.isRightClicked = false;
+                });
+            }
+        });
+    }
+
+    onClickDocument(document: Documents) {
         this.documents.forEach(c => {
-          this.observableService.setDocumentOrFolderIdAll({
-            documentId: c.id,
-            folderId: '',
-          });
+            if (c.id === document.id) {
+                c.isRightClicked = true;
+            } else {
+                c.isRightClicked = false;
+            }
         });
-      }
-      this.checkboxes.forEach((element) => {
-        element.checked = c;
-      });
-    })
-  }
+        this.observableService.setSelectedDocument(document);
+    }
 
-  onDocumentView(document: Documents) {
-    super.onDocumentView(document, this.documents);
-  }
-
-  windowSubscription() {
-    this.sub$.sink = fromEvent(window, 'click').subscribe((_) => {
-      if (this.contextMenuTrigger && this.contextMenuTrigger.menuOpen) {
-        this.contextMenuTrigger.closeMenu();
-        this.documents.forEach(c => {
-          c.isRightClicked = false;
+    onContextMenu(event: MouseEvent, selectDocument: Documents) {
+        event.preventDefault();
+        this.observableService.setSelectedDocument(selectDocument);
+        this.documents.map(c => {
+            if (c.id === selectDocument.id) {
+                c.isRightClicked = true;
+            } else {
+                c.isRightClicked = false;
+            }
         });
-      }
-    });
-  }
+        this.menuSubscription && this.menuSubscription.unsubscribe();
+        this.menuSubscription = of(1)
+            .pipe(
+                tap(() => {
+                    this.contextMenuTrigger.closeMenu();
+                    this.contextMenuPosition.x = event.clientX;
+                    this.contextMenuPosition.y = event.clientY;
+                    this.contextMenuTrigger.menuData = {
+                        document: selectDocument,
+                        type: 'file'
+                    };
+                    this.contextMenuTrigger.openMenu();
+                    let backdrop: HTMLElement = null;
+                })
+            )
+            .subscribe();
+    }
 
-  folderClickNotification() {
-    this.sub$.sink = this.observableService.selectedFolder$
-      .subscribe(c => {
-        if (this.documents && this.documents.length > 0) {
-          this.documents.forEach(c => {
-            c.isRightClicked = false;
-          });
-        }
-      });
-  }
-
-  onClickDocument(document: Documents) {
-    this.documents.forEach(c => {
-      if (c.id === document.id) {
-        c.isRightClicked = true;
-      } else {
-        c.isRightClicked = false;
-      }
-    });
-    this.observableService.setSelectedDocument(document);
-  }
-
-  onContextMenu(event: MouseEvent, selectDocument: Documents) {
-    event.preventDefault();
-    this.observableService.setSelectedDocument(selectDocument);
-    this.documents.map(c => {
-      if (c.id === selectDocument.id) {
-        c.isRightClicked = true;
-      } else {
-        c.isRightClicked = false;
-      }
-    });
-    this.menuSubscription && this.menuSubscription.unsubscribe();
-    this.menuSubscription = of(1)
-      .pipe(
-        tap(() => {
-          this.contextMenuTrigger.closeMenu();
-          this.contextMenuPosition.x = event.clientX;
-          this.contextMenuPosition.y = event.clientY;
-          this.contextMenuTrigger.menuData = { document: selectDocument, type: 'file' };
-          this.contextMenuTrigger.openMenu();
-          let backdrop: HTMLElement = null;
-        })
-      )
-      .subscribe();
-  }
-
-
-  isMobileOrTabletDevice() {
-    this.sub$.sink = this.breakpointsService.isMobile$
-      .subscribe(c => {
-        if (c) {
-          this.disabled = c;
-        }
-      });
-    this.sub$.sink = this.breakpointsService.isTablet$
-      .subscribe(c => {
-        if (c) {
-          this.disabled = c;
-        }
-      });
-  }
-
-  moveDocumentSubscription() {
-    this.sub$.sink = this.commonService.moveDocumentNotification$.subscribe(c => {
-      if (c) {
-        this.documents = this.documents.filter(f => f.id != c);
-      }
-    })
-  }
-
-
-  unCheckAllCheckbox() {
-    this.sub$.sink = this.observableService.unCheckAllCheckBox.subscribe(() => {
-      if (this.checkboxes) {
-        this.checkboxes.forEach(element => {
-          element.checked = false;
+    isMobileOrTabletDevice() {
+        this.sub$.sink = this.breakpointsService.isMobile$.subscribe(c => {
+            if (c) {
+                this.disabled = c;
+            }
         });
-      }
-    });
-  }
+        this.sub$.sink = this.breakpointsService.isTablet$.subscribe(c => {
+            if (c) {
+                this.disabled = c;
+            }
+        });
+    }
 
-  public trackById(index: number, entry: Documents): string {
-    return entry.id;
-  }
+    moveDocumentSubscription() {
+        this.sub$.sink = this.commonService.moveDocumentNotification$.subscribe(c => {
+            if (c) {
+                this.documents = this.documents.filter(f => f.id != c);
+            }
+        });
+    }
+
+    unCheckAllCheckbox() {
+        this.sub$.sink = this.observableService.unCheckAllCheckBox.subscribe(() => {
+            if (this.checkboxes) {
+                this.checkboxes.forEach(element => {
+                    element.checked = false;
+                });
+            }
+        });
+    }
+
+    public trackById(index: number, entry: Documents): string {
+        return entry.id;
+    }
 }

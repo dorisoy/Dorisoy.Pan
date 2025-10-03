@@ -28,18 +28,18 @@ namespace Dorisoy.Pan.API.Controllers.Folder
             _pathHelper = pathHelper;
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Gets the folders.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        //[HttpGet("{id}", Name = "GetFolders")]
-        //public async Task<IActionResult> GetFolders(Guid id)
-        //{
-        //    var getActionQuery = new GetVirtualFoldersQuery { Id = id };
-        //    var result = await _mediator.Send(getActionQuery);
-        //    return Ok(result);
-        //}
+        [HttpGet("{id}", Name = "GetFolders")]
+        public async Task<IActionResult> GetFolders(Guid id)
+        {
+            var getActionQuery = new GetVirtualFoldersQuery { Id = id };
+            var result = await _mediator.Send(getActionQuery);
+            return Ok(result);
+        }*/
 
         /// <summary>
         /// Get Folder Parents by Id
@@ -80,13 +80,21 @@ namespace Dorisoy.Pan.API.Controllers.Folder
         /// Uploads the documents.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="index">当前分片</param>
+        /// <param name="total">总分片</param>
+        /// <param name="md5">文件md5</param>
+        /// <param name="size"></param>
         /// <returns></returns>
-        [HttpPost("{id}"), DisableRequestSizeLimit]
-        public async Task<IActionResult> UploadDocuments(Guid id)
+        [HttpPost("{id}/{index}/{total}/{md5}/{size}")]
+        public async Task<IActionResult> UploadDocuments(Guid id, int index, int total, string md5, long size)
         {
             var updateUserProfilePhotoCommand = new UploadDocumentCommand()
             {
                 FolderId = id,
+                Index = index,
+                Total = total,
+                Md5 = md5,
+                Size = size,
                 Documents = Request.Form.Files,
             };
             if (Request.Form.TryGetValue("FullPath", out var fullName))

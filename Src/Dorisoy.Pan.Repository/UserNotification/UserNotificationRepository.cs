@@ -32,7 +32,7 @@ namespace Dorisoy.Pan.Repository
             _pathHelper = pathHelper;
         }
 
-        public async Task SaveUserNotification(Guid? folderId, Guid? documentId, List<Guid> users, ActionEnum action)
+        public void SaveUserNotification(Guid? folderId, Guid? documentId, List<Guid> users, ActionEnum action)
         {
             List<UserNotification> lstUserNotification = new List<UserNotification>();
             UserNotification UserNotification;

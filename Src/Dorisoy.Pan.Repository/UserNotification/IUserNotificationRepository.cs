@@ -9,7 +9,7 @@ namespace Dorisoy.Pan.Repository
 {
     public interface IUserNotificationRepository : IGenericRepository<UserNotification>
     {
-        Task SaveUserNotification(Guid? folderId, Guid? documentId, List<Guid> users, ActionEnum action);
+        void SaveUserNotification(Guid? folderId, Guid? documentId, List<Guid> users, ActionEnum action);
         Task<UserNotificationList> GetUserNotifications(NotificationSource notificationSource);
     }
 }

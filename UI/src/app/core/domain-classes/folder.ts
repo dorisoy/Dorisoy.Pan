@@ -1,6 +1,5 @@
-
-import { Documents } from "./document";
-import { User } from "./user";
+import { Documents } from './document';
+import { User } from './user';
 
 export class Folder {
   id: string;
@@ -15,5 +14,5 @@ export class Folder {
   isRestore?: boolean;
   isShared?: boolean;
   isStarred?: boolean;
-  isRightClicked?:boolean;
+  isRightClicked?: boolean;
 }

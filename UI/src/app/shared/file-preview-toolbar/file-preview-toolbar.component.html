@@ -3,7 +3,7 @@
     <button *ngIf="!currentDocument.isBackDisabled" mat-icon-button class="back-button" (click)="closeToolbar()">
       <mat-icon class="back-arrow"> arrow_back</mat-icon>
     </button>
-    <span class="file-name">{{currentDocument.name}}</span>
+    <span class="file-name" [title]="currentDocument.name">{{currentDocument.name}}</span>
   </div>
   <div class="aligncenter text-light" *ngIf="documentsPreview.otherDocuments?.length>0">
     <button mat-icon-button class="back-button" (click)="onPreviousClick()">

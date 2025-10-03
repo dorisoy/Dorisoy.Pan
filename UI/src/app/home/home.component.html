@@ -1,100 +1,87 @@
 <app-folder-path (onPathClickEvent)="onFolderClickEvent($event)"></app-folder-path>
 <div class="box box-primary">
-  <div class="box-body">
-    <div class="form-row mb-3 align-items-center">
-      <div class="col-md-auto col-auto">
-        <app-upload-file-folder [selectedFolder]="selectedFolder" (uploadDocumentEvent)="onDoucmentUploadEvent($event)"
-          (uploadFolderEvent)="onFolderUploadEvent($event)">
-        </app-upload-file-folder>
-      </div>
-      <div class="col-md-auto col-auto d-none d-sm-block">
-        <button *hasClaim="'IsFolderCreate'" class="btn btn-secondary" (click)="addFolder()">
-          <span class="material-icons-outlined">
-            add
-          </span> 创建文件夹
-        </button>
-      </div>
-      <div class="col-md-auto col-auto d-block d-sm-none align-top">
-        <button *hasClaim="'IsFolderCreate'" class="btn btn-secondary" (click)="addFolder()">
-          <span class="material-icons-outlined">
-            add
-          </span> 文件夹
-        </button>
-      </div>
-      <div class="col-md-auto col-auto">
-        <app-tool-bar [selectedFolder]="selectedFolder"></app-tool-bar> <!-- for download copy move -->
-      </div>
-      <div class="col-md-auto ml-auto col-auto">
-        <div class="form-row">
-          <div class="col-md-auto text-primary" *ngIf="listView=='list'" (click)="setListView('grid')">
-            <span class="material-icons cursor-pointer d-flex">
-              apps
-            </span>
-          </div>
-          <div class="col-md-auto text-primary" *ngIf="listView=='grid'" (click)="setListView('list')">
-            <span class="material-icons cursor-pointer d-flex">
-              view_list
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="loading-shade" *ngIf="isDocumentLoading || isFolderLoading">
-      <mat-spinner></mat-spinner>
-    </div>
-    <div class="table-responsive">
-      <table class="table">
-        <thead matSort *ngIf="listView=='list'" (matSortChange)="sortData($event)">
-          <tr class="d-flex">
-            <th class="col-auto">
-              <mat-checkbox #checkboxes color="primary" [checked]="isCheck" (change)="onAllChecked($event)">
-              </mat-checkbox>
-            </th>
-            <th class="col" mat-sort-header="name">名称</th>
-            <th class="d-none d-sm-table-cell col-3" scope="col" mat-sort-header="createdDate">上次修改时间</th>
-            <th class="d-none d-sm-table-cell col-2">可见成员</th>
-            <th class="col-1"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <div cdkDropListGroup>
-            <app-folder-list [listView]="listView" [folders]="selectedFolder?.children"
-              [selectedFolder]="selectedFolder" (onFolderClickEvent)="onFolderClickEvent($event)"
-              (deleteFolderEvent)="deleteFolderEvent($event)">
-            </app-folder-list>
-            <app-document-list [listView]="listView" [isMove]="true" [isCopy]="true" [selectFolder]="selectedFolder"
-              [documents]="selectedFolder?.documents" (copyDocumentEvent)="onCopyDocumentEvent($event)"
-              (deleteDocumentEvent)=deleteDocumentEvent($event)>
-            </app-document-list>
-            <ng-container *ngIf="selectedFolder">
-              <div class="card border-primary text-center upload-file-folder mt-1" [appDragDrop]="selectedFolder"
-                [rootFolder]="rootFolder">
-                <div class="card-body">
-                  <div>
-                    <p>
-                      <span>
-                        <i class="fa fa-upload text-primary fa-5x" aria-hidden="true"></i>
-                      </span>
-                    </p>
-                    <h5 class="text-dark">将要上载到的文件或文件夹拖放到此处 <span class="text-primary">
-                        {{selectedFolder?.name}} </span>
-                    </h5>
-                    <h5> <span class="text-danger"> 或者</span></h5>
-                    <p class="text-center">
-                      <button *hasClaim="'IsFileUpload'" (click)="fileInput.click()" type="button"
-                        class="btn btn-danger">
-                        <i class="fas fa-file"></i> 浏览文件
-                      </button>
-                      <input (change)="fileEvent($event)" hidden #fileInput multiple name="file" type="file"
-                        name="Upload File" fxFlex="30">
-                    </p>
-                  </div>
+    <div class="box-body">
+        <div class="form-row mb-3 align-items-center">
+            <div class="col-md-auto col-auto">
+                <app-upload-file-folder [selectedFolder]="selectedFolder" (uploadDocumentEvent)="onDoucmentUploadEvent($event)" (uploadFolderEvent)="onFolderUploadEvent($event)"></app-upload-file-folder>
+            </div>
+            <div class="col-md-auto col-auto d-none d-sm-block">
+                <button *hasClaim="'IsFolderCreate'" class="btn btn-secondary" (click)="addFolder()">
+                    <span class="material-icons-outlined">add</span>
+                    创建文件夹
+                </button>
+            </div>
+            <div class="col-md-auto col-auto d-block d-sm-none align-top">
+                <button *hasClaim="'IsFolderCreate'" class="btn btn-secondary" (click)="addFolder()">
+                    <span class="material-icons-outlined">add</span>
+                    文件夹
+                </button>
+            </div>
+            <div class="col-md-auto col-auto">
+                <app-tool-bar [selectedFolder]="selectedFolder"></app-tool-bar>
+                <!-- for download copy move -->
+            </div>
+            <div class="col-md-auto ml-auto col-auto">
+                <div class="form-row">
+                    <div class="col-md-auto text-primary" *ngIf="listView == 'list'" (click)="setListView('grid')">
+                        <span class="material-icons cursor-pointer d-flex">apps</span>
+                    </div>
+                    <div class="col-md-auto text-primary" *ngIf="listView == 'grid'" (click)="setListView('list')">
+                        <span class="material-icons cursor-pointer d-flex">view_list</span>
+                    </div>
                 </div>
-              </div>
-            </ng-container>
-          </div>
-        </tbody>
-      </table>
+            </div>
+        </div>
+        <div class="loading-shade" *ngIf="isDocumentLoading || isFolderLoading">
+            <mat-spinner></mat-spinner>
+        </div>
+        <div class="table-responsive">
+            <div>
+                <table class="table">
+                    <thead matSort *ngIf="listView == 'list'" (matSortChange)="sortData($event)">
+                        <tr class="d-flex">
+                            <th class="col-auto">
+                                <mat-checkbox #checkboxes color="primary" [checked]="isCheck" (change)="onAllChecked($event)"></mat-checkbox>
+                            </th>
+                            <th class="col" mat-sort-header="name">名称</th>
+                            <th class="d-none d-sm-table-cell col-3" scope="col" mat-sort-header="createdDate">上次修改时间</th>
+                            <th class="d-none d-sm-table-cell col-2">可见成员</th>
+                            <th class="col-1"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div>
+                <app-folder-list [listView]="listView" [folders]="selectedFolder?.children" [selectedFolder]="selectedFolder" (onFolderClickEvent)="onFolderClickEvent($event)" (deleteFolderEvent)="deleteFolderEvent($event)"></app-folder-list>
+                <app-document-list [listView]="listView" [isMove]="true" [isCopy]="true" [selectFolder]="selectedFolder" [documents]="selectedFolder?.documents" (copyDocumentEvent)="onCopyDocumentEvent($event)" (deleteDocumentEvent)="deleteDocumentEvent($event)"></app-document-list>
+                <ng-container *ngIf="selectedFolder">
+                    <div class="card border-primary text-center upload-file-folder mt-1" [appDragDrop]="selectedFolder" [rootFolder]="rootFolder">
+                        <div class="card-body">
+                            <div>
+                                <p>
+                                    <span>
+                                        <i class="fa fa-upload text-primary fa-5x" aria-hidden="true"></i>
+                                    </span>
+                                </p>
+                                <h5 class="text-dark">
+                                    将要上载到的文件或文件夹拖放到此处
+                                    <span class="text-primary">
+                                        {{ selectedFolder?.name }}
+                                    </span>
+                                </h5>
+                                <h5><span class="text-danger">或者</span></h5>
+                                <p class="text-center">
+                                    <button *hasClaim="'IsFileUpload'" (click)="fileInput.click()" type="button" class="btn btn-danger">
+                                        <i class="fas fa-file"></i>
+                                        浏览文件
+                                    </button>
+                                    <input (change)="fileEvent($event)" hidden #fileInput multiple name="file" type="file" name="Upload File" fxFlex="30" />
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

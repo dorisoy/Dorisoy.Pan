@@ -62,7 +62,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             //    _documentUserPermissionRepository.AddRange(lstUserPermission);
             //}
 
-            return true;
+            return await Task.FromResult(true);
         }
     }
 }

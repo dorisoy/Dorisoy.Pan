@@ -86,7 +86,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                .FirstOrDefaultAsync();
             if (existingEntity != null)
             {
-                _logger.LogError("Folder is Already Exists.", request);
+                _logger.LogError("Folder is Already Exists.{0}", request);
                 return ServiceResponse<VirtualFolderInfoDto>.ReturnFailed(409, "Folder is Already Exists.");
             }
             // Physical folder
@@ -119,12 +119,12 @@ namespace Dorisoy.Pan.MediatR.Handlers
                 return ServiceResponse<VirtualFolderInfoDto>.Return500();
             }
             // Create Directory
-            var folderPath = await _physicalFolderRepository.GetParentFolderPath(request.PhysicalFolderId);
-            var fullFolderPath = Path.Combine(_pathHelper.ContentRootPath,_pathHelper.DocumentPath,_userInfoToken.Id.ToString());
-            if (!Directory.Exists(fullFolderPath))
-            {
-                Directory.CreateDirectory(fullFolderPath);
-            }
+            //var folderPath = await _physicalFolderRepository.GetParentFolderPath(request.PhysicalFolderId);
+            //var fullFolderPath = Path.Combine(_pathHelper.ContentRootPath,_pathHelper.DocumentPath,_userInfoToken.Id.ToString());
+            //if (!Directory.Exists(fullFolderPath))
+            //{
+            //    Directory.CreateDirectory(fullFolderPath);
+            //}
             return await GetVirtualFolderInfoDto(virtualFolderReturn.Id);
         }
         private async Task<ServiceResponse<VirtualFolderInfoDto>> GetVirtualFolderInfoDto(Guid id, bool isRestore = false)

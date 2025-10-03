@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpParams, HttpRequest, HttpResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEvent,
+  HttpParams,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
 import { CommonError } from '@core/error-handler/common-error';
 import { CommonHttpErrorService } from '@core/error-handler/common-http-error.service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -19,14 +25,18 @@ import { Email } from '@core/domain-classes/email';
 
 @Injectable({ providedIn: 'root' })
 export class CommonService {
-  public searchString$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  public searchString$: BehaviorSubject<string> = new BehaviorSubject<string>(
+    ''
+  );
   constructor(
     private httpClient: HttpClient,
     private commonHttpErrorService: CommonHttpErrorService,
     private treeViewService: TreeViewService,
-    private observableService: ObservableService) { }
+    private observableService: ObservableService
+  ) {}
 
-  private _moveDocumentNotification$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private _moveDocumentNotification$: BehaviorSubject<string> =
+    new BehaviorSubject<string>('');
 
   public get moveDocumentNotification$(): Observable<string> {
     return this._moveDocumentNotification$.asObservable();
@@ -40,28 +50,32 @@ export class CommonService {
 
   getAllUsers(): Observable<User[] | CommonError> {
     const url = `user/getAllUsers`;
-    return this.httpClient.get<User[]>(url)
+    return this.httpClient
+      .get<User[]>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
   getRootFolder(): Observable<Folder | CommonError> {
     const url = `virtualFolder/root`;
-    return this.httpClient.get<Folder>(url)
-      .pipe(
-        tap(c => {
-          this.treeViewService.setSelectedFolder(c)
-          this.observableService.setRootFolder(c);
-        }),
-        catchError(this.commonHttpErrorService.handleError));
+    return this.httpClient.get<Folder>(url).pipe(
+      tap((c) => {
+        this.treeViewService.setSelectedFolder(c);
+        this.observableService.setRootFolder(c);
+      }),
+      catchError(this.commonHttpErrorService.handleError)
+    );
   }
 
   getNewNotifications() {
     const url = `UserNotification/new`;
-    return this.httpClient.get<Notification[]>(url)
+    return this.httpClient
+      .get<Notification[]>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
-  getAllNotifications(resource: NotificationResource): Observable<HttpResponse<Notification[]> | CommonError> {
+  getAllNotifications(
+    resource: NotificationResource
+  ): Observable<HttpResponse<Notification[]> | CommonError> {
     const url = `UserNotification/all`;
     const customParams = new HttpParams()
       .set('Fields', resource.fields)
@@ -69,21 +83,25 @@ export class CommonService {
       .set('PageSize', resource.pageSize.toString())
       .set('Skip', resource.skip.toString());
 
-      return this.httpClient.get<Notification[]>(url, {
+    return this.httpClient
+      .get<Notification[]>(url, {
         params: customParams,
-        observe: 'response'
-      }).pipe(catchError(this.commonHttpErrorService.handleError));
+        observe: 'response',
+      })
+      .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
   getUserNotificationCount() {
     const url = `UserNotification/count`;
-    return this.httpClient.get<number>(url)
+    return this.httpClient
+      .get<number>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
   markAsReadNotification(id: string) {
     const url = `UserNotification/${id}`;
-    return this.httpClient.post(url, {})
+    return this.httpClient
+      .post(url, {})
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
@@ -103,34 +121,42 @@ export class CommonService {
       .set('phoneNumber', resource.phone_number.toString())
       .set('FolderId', resource.physicalFolderId.toString())
       .set('type', resource.type.toString())
-      .set('isActive', resource.is_active ? '1' : '0')
+      .set('isActive', resource.is_active ? '1' : '0');
 
     return this.httpClient.get<User[]>(url, {
-      params: customParams
+      params: customParams,
     });
   }
 
   getDocumentById(documentId: string): Observable<Documents | CommonError> {
     const url = `document/${documentId}`;
-    return this.httpClient.get<Documents>(url)
+    return this.httpClient
+      .get<Documents>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
-  sendNotification(notification: UserNotification): Observable<boolean | CommonError> {
+  sendNotification(
+    notification: UserNotification
+  ): Observable<boolean | CommonError> {
     const url = `Folder/notification`;
-    return this.httpClient.post<boolean>(url, notification)
+    return this.httpClient
+      .post<boolean>(url, notification)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
-  addRecentActivity(recentActivity: RecentActivity): Observable<boolean | CommonError> {
+  addRecentActivity(
+    recentActivity: RecentActivity
+  ): Observable<boolean | CommonError> {
     const url = `RecentActivity`;
-    return this.httpClient.post<boolean>(url, recentActivity)
+    return this.httpClient
+      .post<boolean>(url, recentActivity)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
   getRecentActivities(): Observable<RecentActivity[] | CommonError> {
     const url = `RecentActivity`;
-    return this.httpClient.get<RecentActivity[]>(url)
+    return this.httpClient
+      .get<RecentActivity[]>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
@@ -147,7 +173,8 @@ export class CommonService {
   }
   getFolderDetailById(id: string): Observable<Folder | CommonError> {
     const url = `VirtualFolder/detail/${id}`;
-    return this.httpClient.get<Folder>(url)
+    return this.httpClient
+      .get<Folder>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
@@ -158,41 +185,54 @@ export class CommonService {
 
   isParentChildShared(id: string): Observable<HierarchyShared> {
     const url = `VirtualFolder/${id}/parentchild/shared`;
-    return this.httpClient.get<HierarchyShared>(url)
+    return this.httpClient.get<HierarchyShared>(url);
   }
 
   isParentShared(id: string): Observable<HierarchyShared> {
     const url = `VirtualFolder/${id}/parent/shared`;
-    return this.httpClient.get<HierarchyShared>(url)
+    return this.httpClient.get<HierarchyShared>(url);
   }
 
-  uploadFolderDocument(form: FormData, folderId: string): Observable<HttpEvent<any>> {
-    const url = `folder/${folderId}`;
+  uploadFolderDocument(
+    form: FormData,
+    folderId: string,
+    index: number,
+    total: number,
+    md5: string,
+    size: number
+  ): Observable<HttpEvent<any>> {
+    const url = `folder/${folderId}/${index}/${total}/${md5}/${size}`;
     const request = new HttpRequest('POST', url, form, {
       reportProgress: true,
     });
     return this.httpClient.request(request);
   }
 
-  createChildFoders(paths: string[], folderId: string, physicalFolderId: string): Observable<Folder[] | CommonError> {
+  createChildFoders(
+    paths: string[],
+    folderId: string,
+    physicalFolderId: string
+  ): Observable<Folder[] | CommonError> {
     const url = `folder/folder/${folderId}`;
-    return this.httpClient.post<Folder[]>(url, {
-      paths,
-      physicalFolderId
-    })
+    return this.httpClient
+      .post<Folder[]>(url, {
+        paths,
+        physicalFolderId,
+      })
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
   sendDocumentEmail(email: Email): Observable<void | CommonError> {
     const url = 'Email/SendDocument';
-    return this.httpClient.post<void>(url, email)
+    return this.httpClient
+      .post<void>(url, email)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
 
   sendFolderEmail(email: Email): Observable<void | CommonError> {
     const url = 'Email/SendFolder';
-    return this.httpClient.post<void>(url, email)
+    return this.httpClient
+      .post<void>(url, email)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
-
 }

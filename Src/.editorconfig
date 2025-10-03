@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CA2200: 再次引发以保留堆栈详细信息
+dotnet_diagnostic.CA2200.severity = none

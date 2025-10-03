@@ -361,7 +361,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
 
         }

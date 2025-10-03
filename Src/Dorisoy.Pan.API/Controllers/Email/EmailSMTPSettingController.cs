@@ -63,7 +63,8 @@ namespace Dorisoy.Pan.API.Controllers.Email
         /// <summary>
         /// Update an Email SMTP Configuration.
         /// </summary>
-        /// <param name="addEmailSMTPSettingCommand"></param>
+        /// <param name="id"></param>
+        /// <param name="updateEmailSMTPSettingCommand"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
         [Produces("application/json", "application/xml", Type = typeof(EmailSMTPSettingDto))]
@@ -77,7 +78,7 @@ namespace Dorisoy.Pan.API.Controllers.Email
         /// <summary>
         /// Delete an Email SMTP Configuration.
         /// </summary>
-        /// <param name="addEmailSMTPSettingCommand"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
         [Produces("application/json", "application/xml", Type = typeof(EmailSMTPSettingDto))]

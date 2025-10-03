@@ -9,6 +9,9 @@ using System.IO;
 using System.Threading.Tasks;
 using Dorisoy.Pan.Helper;
 using System.Text;
+using Dorisoy.Pan.Common;
+using System.Web;
+using System.Linq;
 
 namespace Dorisoy.Pan.API.Controllers
 {
@@ -184,6 +187,7 @@ namespace Dorisoy.Pan.API.Controllers
         /// <param name="isVersion"></param>
         /// <returns></returns>
         [HttpGet("{id}/download")]
+        // [AllowAnonymous]
         public async Task<IActionResult> DownloadDocument(Guid id, bool isVersion)
         {
             var commnad = new DownloadDocumentCommand
@@ -197,29 +201,36 @@ namespace Dorisoy.Pan.API.Controllers
             if (!System.IO.File.Exists(filePath))
                 return NotFound("File not found");
 
-            byte[] newBytes;
-            using (var stream = new FileStream(filePath, FileMode.Open))
+
+            await Download(id,filePath);
+            return new EmptyResult();
+        }
+
+        private async Task Download(Guid id,string filePath)
+        {
+            var docCommand = new GetDocumentCommand()
             {
+                DocumentId = id
+            };
+            var doc = await _mediator.Send(docCommand);
 
-                byte[] bytes = new byte[stream.Length];
-                int numBytesToRead = (int)stream.Length;
-                int numBytesRead = 0;
-                while (numBytesToRead > 0)
+            var fileName = HttpUtility.UrlEncode(Path.GetFileName(filePath));
+            Response.ContentType = GetContentType(filePath);
+            Response.ContentLength = doc.Size;
+            if (Request.Headers["User-Agent"].FirstOrDefault()?.ToLower().IndexOf("firefox") != -1)
+                Response.Headers.Add(new System.Collections.Generic.KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues>("Content-Disposition", "attachment; filename*=UTF-8''" + fileName));
+            else
+                Response.Headers.Add(new System.Collections.Generic.KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues>("content-disposition", "attachment; filename=" + fileName));
+            LargeFileEncryptor.DecryptFile(filePath, _pathHelper.EncryptionKey, async (buff) =>
+            {
+                if (Request.HttpContext.RequestAborted.IsCancellationRequested)
                 {
-                    // Read may return anything from 0 to numBytesToRead.
-                    int n = stream.Read(bytes, numBytesRead, numBytesToRead);
-
-                    // Break when the end of the file is reached.
-                    if (n == 0)
-                        break;
-
-                    numBytesRead += n;
-                    numBytesToRead -= n;
+                    return false;
                 }
-                newBytes = AesOperation.DecryptStream(bytes, _pathHelper.EncryptionKey);
-            }
-
-            return File(newBytes, GetContentType(filePath), filePath);
+                await Response.Body.WriteAsync(buff);
+                await Response.Body.FlushAsync();
+                return true;
+            });
         }
 
         /// <summary>
@@ -230,7 +241,7 @@ namespace Dorisoy.Pan.API.Controllers
         /// <param name="isVersion"></param>
         /// <returns></returns>
         [HttpGet("{id}/download/token/{token}")]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<IActionResult> DownloadDocument(Guid id, string token, bool isVersion)
         {
             var commnad = new DownloadDocumentCommand
@@ -246,29 +257,9 @@ namespace Dorisoy.Pan.API.Controllers
             if (!System.IO.File.Exists(filePath))
                 return NotFound("File not found.");
 
-            byte[] newBytes;
-            using (var stream = new FileStream(filePath, FileMode.Open))
-            {
+            await Download(id,filePath);
 
-                byte[] bytes = new byte[stream.Length];
-                int numBytesToRead = (int)stream.Length;
-                int numBytesRead = 0;
-                while (numBytesToRead > 0)
-                {
-                    // Read may return anything from 0 to numBytesToRead.
-                    int n = stream.Read(bytes, numBytesRead, numBytesToRead);
-
-                    // Break when the end of the file is reached.
-                    if (n == 0)
-                        break;
-
-                    numBytesRead += n;
-                    numBytesToRead -= n;
-                }
-                newBytes = AesOperation.DecryptStream(bytes, _pathHelper.EncryptionKey);
-            }
-
-            return File(newBytes, GetContentType(filePath), filePath);
+            return new EmptyResult();
         }
 
         /// <summary>
@@ -290,7 +281,6 @@ namespace Dorisoy.Pan.API.Controllers
 
             if (!System.IO.File.Exists(filePath))
                 return NotFound();
-
             byte[] newBytes;
             var memory = new MemoryStream();
             using (var stream = new FileStream(filePath, FileMode.Open))

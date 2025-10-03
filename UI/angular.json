@@ -32,7 +32,8 @@
 								"glob": "**/*",
 								"input": "node_modules/ngx-extended-pdf-viewer/assets/",
 								"output": "/assets/"
-							}
+							},
+							"src/streamsaver"
 						],
 						"styles": [
 							"src/assets/styles/blue-theme.scss",

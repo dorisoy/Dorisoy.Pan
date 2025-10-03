@@ -92,7 +92,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                     File.Move(originalThumbPath, containerThumbPath, true);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }

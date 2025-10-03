@@ -88,7 +88,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
 
             }
 
-            await _userNotificationRepository.SaveUserNotification(Id, null, request.Users, ActionEnum.Shared);
+            _userNotificationRepository.SaveUserNotification(Id, null, request.Users, ActionEnum.Shared);
 
             if (await _uow.SaveAsync() <= 0)
             {
