@@ -1,10 +1,10 @@
 using System.Drawing;
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 using Bitmap = System.Drawing.Bitmap;
 using Color = Avalonia.Media.Color;
 using Point = Avalonia.Point;
 
-namespace Dorisoy.PanClient.Pages;
+namespace Dorisoy.Pan.Pages;
 
 public partial class ImagePage : ReactiveUserControl<ImagePageViewModel>
 {

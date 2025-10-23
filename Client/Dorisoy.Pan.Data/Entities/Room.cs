@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dorisoy.PanClient.Data.Entities;
+namespace Dorisoy.Pan.Data.Entities;
 
 [Table("Connections")]
 public class Connections

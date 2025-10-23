@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:aup="using:Avalonia.Controls.Shapes"
              mc:Ignorable="d"
-             x:Class="Dorisoy.PanClient.Controls.CuProgressBar" 
+             x:Class="Dorisoy.Pan.Controls.CuProgressBar" 
              x:CompileBindings="False">
 
     <Grid Width="{Binding Width}"

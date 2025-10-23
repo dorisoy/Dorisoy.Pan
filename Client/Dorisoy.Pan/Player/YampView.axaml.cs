@@ -1,6 +1,6 @@
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 
-namespace Dorisoy.PanClient.Player;
+namespace Dorisoy.Pan.Player;
 
 public partial class YampView : ReactiveUserControl<YampViewModel>
 {
@@ -25,7 +25,7 @@ public partial class YampView : ReactiveUserControl<YampViewModel>
 
         DataContext = ViewModel;
 
-        //ÊÓÆµÔ¤ÀÀ
+        //ï¿½ï¿½ÆµÔ¤ï¿½ï¿½
         _videoViewer = this.Get<VideoView2>("VideoViewer");
 
         this.WhenActivated(disposable => { });
@@ -37,7 +37,7 @@ public partial class YampView : ReactiveUserControl<YampViewModel>
     }
 
     /// <summary>
-    /// ÉèÖÃ²¥·Å¾ä±ú
+    /// ï¿½ï¿½ï¿½Ã²ï¿½ï¿½Å¾ï¿½ï¿½
     /// </summary>
     public void SetPlayerHandle()
     {
@@ -50,7 +50,7 @@ public partial class YampView : ReactiveUserControl<YampViewModel>
     }
 
     /// <summary>
-    /// ³õÊ¼»¯¹¤¾ßÀ¸
+    /// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     private void VideoPlayerViewControl_Init()
     {
@@ -69,7 +69,7 @@ public partial class YampView : ReactiveUserControl<YampViewModel>
     {
         if (null != videoUrl)
         {
-            //³õÊ¼»¯¹¤¾ßÀ¸
+            //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             VideoPlayerViewControl_Init();
             ControlsView.ViewModel.VideoDurationString = videoDuration;
             ControlsView.ViewModel.VideoTitle = videoTitle;

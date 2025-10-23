@@ -4,7 +4,7 @@ using Avalonia.Metadata;
 using Avalonia.VisualTree;
 using Point = Avalonia.Point;
 
-namespace Dorisoy.PanClient.Player;
+namespace Dorisoy.Pan.Player;
 
 public class NativeVideoPresenter : NativeControlHost
 {

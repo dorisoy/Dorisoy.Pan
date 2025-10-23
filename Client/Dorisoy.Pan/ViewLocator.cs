@@ -1,6 +1,6 @@
 ﻿using Avalonia.Controls.Templates;
 
-namespace Dorisoy.PanClient;
+namespace Dorisoy.Pan;
 
 
 public sealed class ViewLocator : IDataTemplate

@@ -1,6 +1,6 @@
-﻿using Dorisoy.PanClient.ViewModels;
+﻿using Dorisoy.Pan.ViewModels;
 
-namespace Dorisoy.PanClient.Pages.Upload;
+namespace Dorisoy.Pan.Pages.Upload;
 
 public partial class AddCommentView : ReactiveUserControl<AddCommentViewModel>
 {

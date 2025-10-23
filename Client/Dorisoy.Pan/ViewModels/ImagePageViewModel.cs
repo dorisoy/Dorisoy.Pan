@@ -4,7 +4,7 @@ using Path = Avalonia.Controls.Shapes.Path;
 using Point = Avalonia.Point;
 
 
-namespace Dorisoy.PanClient.ViewModels;
+namespace Dorisoy.Pan.ViewModels;
 
 /// <summary>
 /// 图片预览

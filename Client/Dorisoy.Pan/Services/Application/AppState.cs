@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.Services;
+﻿namespace Dorisoy.Pan.Services;
 
 public interface IAppState
 {
@@ -13,7 +13,7 @@ public class AppState : IAppState
 {
     public AppState()
     {
-        BrushSettings = new("avares://Dorisoy.PanClient/Assets/Images/Cursors");
+        BrushSettings = new("avares://Dorisoy.Pan/Assets/Images/Cursors");
     }
 
     public string Nickname { get; set; }

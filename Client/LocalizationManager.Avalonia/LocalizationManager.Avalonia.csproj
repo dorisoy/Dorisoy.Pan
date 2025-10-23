@@ -45,10 +45,6 @@
     <PackageReference Include="System.Reactive" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-  </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\LocalizationManager.Core\LocalizationManager.Core.csproj" />
   </ItemGroup>

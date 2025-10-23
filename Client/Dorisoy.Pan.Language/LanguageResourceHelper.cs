@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.Language;
+﻿namespace Dorisoy.Pan.Language;
 
 public static class LanguageResourceHelper
 {

@@ -1,7 +1,7 @@
 ﻿using AsyncAwaitBestPractices;
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 
-namespace Dorisoy.PanClient;
+namespace Dorisoy.Pan;
 
 //[SuppressMessage("ReSharper", "VirtualMemberNeverOverridden.Global")]
 public class AppWindowBase : AppWindow

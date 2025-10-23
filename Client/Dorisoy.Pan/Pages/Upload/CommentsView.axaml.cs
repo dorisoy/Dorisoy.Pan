@@ -1,8 +1,8 @@
 ﻿using FluentAvalonia.UI.Navigation;
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 using Frame = FluentAvalonia.UI.Controls.Frame;
 
-namespace Dorisoy.PanClient.Pages.Upload;
+namespace Dorisoy.Pan.Pages.Upload;
 
 public partial class CommentsView : ReactiveUserControl<CommentsViewModel>
 {

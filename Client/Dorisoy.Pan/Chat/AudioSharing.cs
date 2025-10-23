@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.Chat;
+﻿namespace Dorisoy.Pan.Chat;
 
 /// <summary>
 /// 表示音频共享

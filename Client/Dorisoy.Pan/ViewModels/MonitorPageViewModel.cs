@@ -1,6 +1,6 @@
-﻿using Utilities = Dorisoy.PanClient.Utils.Utilities;
+﻿using Utilities = Dorisoy.Pan.Utils.Utilities;
 
-namespace Dorisoy.PanClient.ViewModels;
+namespace Dorisoy.Pan.ViewModels;
 
 [SupportedOSPlatform("windows")]
 public class MonitorPageViewModel : MainPageViewModelBase

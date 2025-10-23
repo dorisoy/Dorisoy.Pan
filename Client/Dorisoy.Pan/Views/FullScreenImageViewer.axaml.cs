@@ -1,7 +1,7 @@
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 
 
-namespace Dorisoy.PanClient.Views;
+namespace Dorisoy.Pan.Views;
 
 public partial class FullScreenImageViewer : ReactiveWindow<FullScreenImageViewerViewModel>
 {
@@ -13,10 +13,10 @@ public partial class FullScreenImageViewer : ReactiveWindow<FullScreenImageViewe
 
         //_this = this;
 
-        this.ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome; // ÒÆ³ýÈÎºÎ¶îÍâµÄ×°ÊÎÔªËØ
-        this.ExtendClientAreaTitleBarHeightHint = -1; // ±êÌâÀ¸¸ß¶ÈÉèÖÃÎª¸ºÖµ¿ÉÒÔÒþ²Ø±êÌâÀ¸
+        this.ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome; // ï¿½Æ³ï¿½ï¿½ÎºÎ¶ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½Ôªï¿½ï¿½
+        this.ExtendClientAreaTitleBarHeightHint = -1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        // ×¢²á´°¿Ú´ò¿ªÊÂ¼þ´¦Àí³ÌÐòÒÔÉèÖÃÈ«ÆÁ
+        // ×¢ï¿½á´°ï¿½Ú´ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½
         this.Opened += HandleOpened;
         this.WhenActivated(disposables => { });
     }
@@ -29,8 +29,8 @@ public partial class FullScreenImageViewer : ReactiveWindow<FullScreenImageViewe
         this.Width = screen.Bounds.Width;
         this.Height = screen.Bounds.Height;
 
-        // µ¥»÷ÈÎºÎµØ·½¹Ø±ÕÔ¤ÀÀ
-        // ¿ÉÒÔ¸ù¾Ý×Ô¼ºµÄÇé¿öÑ¡ÔñºÏÊÊµÄ¹Ø±Õ»úÖÆ£¬ÀýÈçË«»÷»ò°´ÌØ¶¨¼ü
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ÎºÎµØ·ï¿½ï¿½Ø±ï¿½Ô¤ï¿½ï¿½
+        // ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ÊµÄ¹Ø±Õ»ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½Ë«ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½
         PointerPressed += (s, e) =>
         {
             this.Close();

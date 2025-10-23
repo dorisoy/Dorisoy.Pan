@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.Player;
+﻿namespace Dorisoy.Pan.Player;
 
 public enum LibVLCAvaloniaRenderingOptions
 {

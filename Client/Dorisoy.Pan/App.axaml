@@ -1,9 +1,9 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:sty="using:FluentAvalonia.Styling"
-             xmlns:local="using:Dorisoy.PanClient"
-             xmlns:conv="using:Dorisoy.PanClient.Converters"
-             x:Class="Dorisoy.PanClient.App">
+             xmlns:local="using:Dorisoy.Pan"
+             xmlns:conv="using:Dorisoy.Pan.Converters"
+             x:Class="Dorisoy.Pan.App">
 
     <Application.DataTemplates>
         <local:ViewLocator/>
@@ -13,7 +13,7 @@
         <ResourceDictionary>
             <FontFamily x:Key="MainFontFamily">Microsoft YaHei,Simsun,苹方-简,宋体-简</FontFamily>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="avares://Dorisoy.PanClient/Styling/Resources.axaml" />
+                <ResourceInclude Source="avares://Dorisoy.Pan/Styling/Resources.axaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!--自定义颜色-->
@@ -38,11 +38,11 @@
         <sty:FluentAvaloniaTheme PreferSystemTheme="True"
                                  PreferUserAccentColor="True" />
         <!--当前控件-->
-        <StyleInclude Source="avares://Dorisoy.PanClient/Styling/CustomControlsStyles.axaml" />
+        <StyleInclude Source="avares://Dorisoy.Pan/Styling/CustomControlsStyles.axaml" />
         <!--播放器-->
-        <StyleInclude Source="avares://Dorisoy.PanClient/Player/Styles.xaml" />
+        <StyleInclude Source="avares://Dorisoy.Pan/Player/Styles.xaml" />
         <!--画图板-->
-        <StyleInclude Source="avares://Dorisoy.PanClient/Assets/Icons.axaml" />
+        <StyleInclude Source="avares://Dorisoy.Pan/Assets/Icons.axaml" />
 
         <Style Selector="TextBox">
             <Setter Property="CornerRadius"

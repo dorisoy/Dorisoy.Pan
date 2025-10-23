@@ -172,11 +172,9 @@
     <value>评论时间:</value>
   </data>
   <data name="Company" xml:space="preserve">
-    <value>xx集团有限公司（Dorisoy）</value>
+    <value>XXX（Dorisoy）</value>
   </data>
-  <data name="CompanyInfo" xml:space="preserve">
-    <value>公司成立于...</value>
-  </data>
+
   <data name="Connects" xml:space="preserve">
     <value>电话:</value>
   </data>

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace Dorisoy.PanClient.Data
+namespace Dorisoy.Pan.Data
 {
     public interface IJsonSerializerOptions
     {

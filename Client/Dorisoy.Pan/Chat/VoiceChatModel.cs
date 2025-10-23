@@ -1,6 +1,6 @@
-﻿using Dorisoy.PanClient.ViewModels;
+﻿using Dorisoy.Pan.ViewModels;
 
-namespace Dorisoy.PanClient.Chat;
+namespace Dorisoy.Pan.Chat;
 
 /// <summary>
 /// 确认标记
@@ -89,8 +89,7 @@ public class VoiceChatModel : ReactiveObject, IDisposable
     private MediaSounds mediaSounds;
     public AudioSharing audio;
     public VideoSharing video;
-    //public FileSharing fileShare;
-    public ScreenSharing screenSharing;
+    public FileSharing fileShare;
 
     public IPAddress LocalIP => bdtpClient.LocalIP;
     public bool Connected => bdtpClient.Connected;
@@ -141,10 +140,8 @@ public class VoiceChatModel : ReactiveObject, IDisposable
         mediaSounds = new MediaSounds(this);
 
         // 创建文件共享实例
-        //fileShare = new FileSharing(this);
+        fileShare = new FileSharing(this);
 
-        //创建屏幕共享实例
-        screenSharing = new ScreenSharing(this);
 
         // 计时器
         callTimer = new CallTimer();
@@ -366,10 +363,8 @@ public class VoiceChatModel : ReactiveObject, IDisposable
 
             video.BeginReceive();
 
-            //fileShare.BeginReceive();
+            fileShare.BeginReceive();
 
-            //screenSharing.BeginSend();
-            screenSharing.BeginReceive();
         }
         catch (Exception ex)
         {
@@ -390,8 +385,6 @@ public class VoiceChatModel : ReactiveObject, IDisposable
         video.EndSend();
         video.EndReceive();
         video.ClearFrames();
-
-        screenSharing.EndSend();
 
         callTimer.Stop();
     }

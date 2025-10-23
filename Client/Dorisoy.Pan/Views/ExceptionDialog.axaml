@@ -2,8 +2,8 @@
                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                        xmlns:dialogs="clr-namespace:Dorisoy.PanClient.ViewModels"
-                        xmlns:controls="clr-namespace:Dorisoy.PanClient"
+                        xmlns:dialogs="clr-namespace:Dorisoy.Pan.ViewModels"
+                        xmlns:controls="clr-namespace:Dorisoy.Pan"
                         x:DataType="dialogs:ExceptionViewModel"
                         mc:Ignorable="d"
                         d:DesignWidth="800"
@@ -11,8 +11,8 @@
                         Icon="/Assets/logo.ico"
                         Width="800"
                         Height="550"
-                        Title="Dorisoy.PanClient - Unexpected Error"
-                        x:Class="Dorisoy.PanClient.Views.ExceptionDialog">
+                        Title="Dorisoy.Pan - Unexpected Error"
+                        x:Class="Dorisoy.Pan.Views.ExceptionDialog">
 
     <Grid RowDefinitions="auto,*,auto">
         <Grid Grid.Row="1"

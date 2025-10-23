@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
-using Dorisoy.PanClient.Models;
+using Dorisoy.Pan.Models;
 using Path = System.IO.Path;
 
-namespace Dorisoy.PanClient;
+namespace Dorisoy.Pan;
 
 /// <summary>
 /// 程序配置
@@ -37,7 +37,7 @@ public class AppSettings
     /// <summary>
     /// 远程数据库连接字符串
     /// </summary>
-    public string DB_Conn { get; set; } = "data source={0};Port=3306;Initial Catalog=vcms;user id=root;password=racing.1";
+    public string DB_Conn { get; set; } = "data source={0};Port=3306;Initial Catalog=vcms;user id=root;password=xxx";
 
     /// <summary>
     /// 应用程序标识
@@ -114,7 +114,8 @@ public class AppSettings
 /// </summary>
 public class Globals
 {
- 
+    public static ConcurrentDictionary<Guid, SharedLibrary.Data.Models.UserModel> _onlineUsers { get; set; } = new();
+
     public static Guid ReferenceUserId { get; set; }
 
     public static CultureInfo CultureInfo { get; set; } = new CultureInfo("zh");

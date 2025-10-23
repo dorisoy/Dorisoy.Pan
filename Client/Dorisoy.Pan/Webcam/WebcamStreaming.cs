@@ -1,8 +1,8 @@
-﻿using Dorisoy.PanClient.Models;
+﻿using Dorisoy.Pan.Models;
 using static Emgu.CV.VideoCapture;
 using Image = Avalonia.Controls.Image;
 
-namespace Dorisoy.PanClient.Webcam;
+namespace Dorisoy.Pan.Webcam;
 
 [SupportedOSPlatform("windows")]
 public class WebcamPlayReadEventArgs : EventArgs

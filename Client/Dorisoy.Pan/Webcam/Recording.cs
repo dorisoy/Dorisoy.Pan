@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.Webcam;
+﻿namespace Dorisoy.Pan.Webcam;
 
 using System;
 //using System.Diagnostics;
@@ -13,7 +13,7 @@ using System.Timers;
 using Emgu.CV;
 //using Emgu.CV.Structure;
 using Serilog;
-using Dorisoy.PanClient.Models;
+using Dorisoy.Pan.Models;
 using TorchSocket.Core;
 //using TorchSocket.Sockets;
 using static Emgu.CV.VideoCapture;

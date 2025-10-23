@@ -1,6 +1,6 @@
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 
-namespace Dorisoy.PanClient.Pages.Chat;
+namespace Dorisoy.Pan.Pages.Chat;
 
 public partial class IncomingCall : ReactiveUserControl<MainViewViewModel>
 {

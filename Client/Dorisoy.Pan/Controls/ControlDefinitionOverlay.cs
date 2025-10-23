@@ -8,7 +8,7 @@ using AvaloniaEdit.TextMate;
 using FluentAvalonia.Core.Attributes;
 using Cue = Avalonia.Animation.Cue;
 
-namespace Dorisoy.PanClient.Controls;
+namespace Dorisoy.Pan.Controls;
 
 
 public class ControlDefinitionOverlay : TemplatedControl

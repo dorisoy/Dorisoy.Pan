@@ -1,6 +1,6 @@
 ﻿using Avalonia.Data.Converters;
 
-namespace Dorisoy.PanClient.Converters;
+namespace Dorisoy.Pan.Converters;
 public class ResourceKeyToIconConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

@@ -2,9 +2,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="using:Dorisoy.PanClient.Pages"
-        x:Class="Dorisoy.PanClient.Views.WhiteBoard"
-        xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+        xmlns:controls="using:Dorisoy.Pan.Pages"
+        x:Class="Dorisoy.Pan.Views.WhiteBoard"
+        xmlns:vm="using:Dorisoy.Pan.ViewModels"
         xmlns:paz="using:Avalonia.Controls.PanAndZoom"
         x:DataType="vm:WhiteBoardViewModel"
         x:CompileBindings="False"
@@ -16,7 +16,7 @@
 
     <Window.Resources>
         <ImageBrush x:Key="BackgroundBrush"
-                    Source="avares://Dorisoy.PanClient/Assets/Images/grid.png"
+                    Source="avares://Dorisoy.Pan/Assets/Images/grid.png"
                     Stretch="UniformToFill"
                     TileMode="FlipXY">
         </ImageBrush>

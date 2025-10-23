@@ -1,6 +1,6 @@
 ﻿using Refit;
 
-namespace Dorisoy.PanClient.Services;
+namespace Dorisoy.Pan.Services;
 
 [Headers("Authorization: Bearer")]
 public interface IUserApi

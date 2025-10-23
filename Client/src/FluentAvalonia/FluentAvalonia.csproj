@@ -35,11 +35,6 @@
     <AvaloniaXaml Remove="Styling\StylesV2\Fluentv2 - 复制.axaml" />
   </ItemGroup>
 
-
-  <PropertyGroup>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-  </PropertyGroup>
-  
   <ItemGroup>
     <PackageReference Include="Splat" />
     <PackageReference Include="Avalonia.ReactiveUI" />

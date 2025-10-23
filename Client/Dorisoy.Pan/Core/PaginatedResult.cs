@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient;
+﻿namespace Dorisoy.Pan;
 
 public class PaginatedResult<T> : Result
 {

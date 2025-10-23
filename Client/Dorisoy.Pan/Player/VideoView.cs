@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls.Primitives;
 using Image = Avalonia.Controls.Image;
 
-namespace Dorisoy.PanClient.Player;
+namespace Dorisoy.Pan.Player;
 
 
 /// <summary>

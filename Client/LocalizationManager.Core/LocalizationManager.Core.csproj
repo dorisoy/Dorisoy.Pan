@@ -26,9 +26,4 @@
     </PackageReference>
   </ItemGroup>
 
-
-  <PropertyGroup>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-  </PropertyGroup>
-
 </Project>

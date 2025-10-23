@@ -2,15 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             xmlns:vm="using:Dorisoy.Pan.ViewModels"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
-             xmlns:converters="clr-namespace:Dorisoy.PanClient.Converters"
-             xmlns:gif="clr-namespace:AvaloniaGif;assembly=Dorisoy.PanClient"
-             xmlns:m="using:Dorisoy.PanClient.Models"
+             xmlns:converters="clr-namespace:Dorisoy.Pan.Converters"
+             xmlns:gif="clr-namespace:AvaloniaGif;assembly=Dorisoy.Pan"
+             xmlns:m="using:Dorisoy.Pan.Models"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
-             x:Class="Dorisoy.PanClient.Pages.Chat.Talk"
+             x:Class="Dorisoy.Pan.Pages.Chat.Talk"
              x:DataType="vm:MainViewViewModel"
              x:CompileBindings="False">
 
@@ -100,7 +100,7 @@
                         Width="100"
                         Height="100"
                         VerticalAlignment="Center"
-                       Source="avares://Dorisoy.PanClient/Assets/Avatar.png"/>
+                       Source="avares://Dorisoy.Pan/Assets/Avatar.png"/>
             </Grid>
 
             <!--远程视频（全屏）-->

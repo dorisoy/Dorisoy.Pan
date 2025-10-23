@@ -10,11 +10,11 @@
 
   <!-- Add Package Icon -->
   <PropertyGroup>
-    <PackageIcon>Dorisoy.png</PackageIcon>
+    <PackageIcon>dorisoy.png</PackageIcon>
   </PropertyGroup>
   
   <ItemGroup Label="PackageIcon">
-    <None Include="$(MSBuildThisFileDirectory)/../Assets/Dorisoy.png" Pack="true" Visible="false" PackagePath=""/>
+    <None Include="$(MSBuildThisFileDirectory)/../Assets/dorisoy.png" Pack="true" Visible="false" PackagePath=""/>
   </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)/SourceLink.props"/>

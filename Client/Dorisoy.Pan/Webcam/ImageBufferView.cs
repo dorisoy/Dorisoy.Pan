@@ -1,6 +1,6 @@
 ﻿using Size = Avalonia.Size;
 
-namespace Dorisoy.PanClient;
+namespace Dorisoy.Pan;
 
 /// <summary>
 /// 用于二进制流图片预览

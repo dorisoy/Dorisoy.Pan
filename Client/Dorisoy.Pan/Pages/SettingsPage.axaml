@@ -3,11 +3,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
-             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
-             xmlns:lc="using:Dorisoy.PanClient.Localization"
-             xmlns:ctrls="using:Dorisoy.PanClient.Controls"
+             xmlns:vm="using:Dorisoy.Pan.ViewModels"
+             xmlns:lc="using:Dorisoy.Pan.Localization"
+             xmlns:ctrls="using:Dorisoy.Pan.Controls"
              mc:Ignorable="d"
-             x:Class="Dorisoy.PanClient.Pages.SettingsPage"
+             x:Class="Dorisoy.Pan.Pages.SettingsPage"
              x:CompileBindings="False"
              x:DataType="vm:SettingsPageViewModel"
              Background="{DynamicResource SettingBackgroundBrush}">
@@ -15,7 +15,7 @@
     <UserControl.Resources>
         <!--页面背景-->
         <ImageBrush x:Key="SettingBackgroundBrush"
-                    Source="avares://Dorisoy.PanClient/Assets/screen.png"
+                    Source="avares://Dorisoy.Pan/Assets/screen.png"
                     AlignmentY="Bottom"
                     AlignmentX="Right"
                     Stretch="UniformToFill">
@@ -45,7 +45,7 @@
                                    Theme="{StaticResource CaptionTextBlockStyle}" />
 
                         <TextBlock Theme="{StaticResource CaptionTextBlockStyle}"
-                                   Text="http://Dorisoy.com"
+                                   Text="http://dorisoy.com"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
                     </StackPanel>
                 </DockPanel>
@@ -56,7 +56,7 @@
                         <TranslateTransform X="0"
                                             Y="0" />
                     </DockPanel.RenderTransform>
-                    <Image Source="/Assets/Dorisoy.png"
+                    <Image Source="/Assets/dorisoy.png"
                            DockPanel.Dock="Left"
                            Height="48"
                            RenderOptions.BitmapInterpolationMode="HighQuality"/>
@@ -231,7 +231,7 @@
 
                                 <Grid ColumnDefinitions="Auto,*">
                                     <StackPanel Grid.Column="0">
-                                        <Image Source="avares://Dorisoy.PanClient/Assets/QRcode.png"
+                                        <Image Source="avares://Dorisoy.Pan/Assets/QRcode.png"
                                                Width="180"
                                                Margin="0,0,30,0"/>
                                     </StackPanel>
@@ -258,7 +258,7 @@
                                         <DockPanel>
                                             <TextBlock Text="{LxaString Url}"
                                                        Margin="0,0,5,0"/>
-                                            <TextBlock Text="www.Dorisoy.cn"
+                                            <TextBlock Text="www.dorisoy.cn"
                                                        FontWeight="Normal"/>
                                         </DockPanel>
 

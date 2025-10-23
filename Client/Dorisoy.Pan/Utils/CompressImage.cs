@@ -5,7 +5,7 @@ using Bitmap = System.Drawing.Bitmap;
 using Encoder = System.Drawing.Imaging.Encoder;
 using Rectangle = System.Drawing.Rectangle;
 
-namespace Dorisoy.PanClient.Utils;
+namespace Dorisoy.Pan.Utils;
 
 public class CompressImage
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Dorisoy.PanClient.Services
+namespace Dorisoy.Pan.Services
 {
     public interface IDbContextFactory<T> where T : DbContext
     {

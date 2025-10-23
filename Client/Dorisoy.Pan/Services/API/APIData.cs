@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.Services.API;
+﻿namespace Dorisoy.Pan.Services.API;
 
 public class ServiceResponse<T>
 {

@@ -5,7 +5,7 @@ using Path = System.IO.Path;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using Rectangle = System.Drawing.Rectangle;
 
-namespace Dorisoy.PanClient.Webcam;
+namespace Dorisoy.Pan.Webcam;
 
 [SupportedOSPlatform("windows")]
 public static class BitmapExtensions

@@ -1,6 +1,6 @@
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 
-namespace Dorisoy.PanClient.Views;
+namespace Dorisoy.Pan.Views;
 
 public partial class LoginView : ReactiveUserControl<LoginViewModel>
 {
@@ -21,9 +21,9 @@ public partial class LoginView : ReactiveUserControl<LoginViewModel>
             if (App.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 var win = desktop.MainWindow;
-                //È«ÆÁ×î´ó»¯
+                //È«ï¿½ï¿½ï¿½ï¿½ï¿½
                 win.WindowState = WindowState.Maximized;
-                //ÏÔÊ¾×î´ó×îÐ¡»¯
+                //ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½
                 win.ExtendClientAreaToDecorationsHint = true;
             }
 

@@ -1,22 +1,22 @@
-namespace Dorisoy.PanClient.ViewModels;
+namespace Dorisoy.Pan.ViewModels;
 
 public class FullScreenImageViewerViewModel : ViewModelBase
 {
     private int _target;
 
     /// <summary>
-    /// »­ÖÐ»­¼àÊÓ
+    /// ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     [Reactive] public WebcamStreamingPlayer PipWebcam { get; set; }
     [Reactive] public Avalonia.Media.Imaging.Bitmap PipWebcamViewSource { get; set; }
 
     /// <summary>
-    /// »­Ãæ±ÈÀý
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     [Reactive] public Stretch SelectetStretch { get; set; } = Stretch.UniformToFill;
 
     /// <summary>
-    /// ÃèÊöËõ·ÅÄÚÈÝÊ±¿ÉÒÔÊ¹ÓÃµÄËõ·ÅÀàÐÍ
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     [Reactive] public StretchDirection SelectetStretchDirection { get; set; } = StretchDirection.Both;
 
@@ -28,7 +28,7 @@ public class FullScreenImageViewerViewModel : ViewModelBase
 
     private CancellationTokenSource _mainCaptureCts = new();
     /// <summary>
-    /// ²¥·ÅÊÓÆµ
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµ
     /// </summary>
     public async void CallOpenPlayer(MonitorPageViewModel mpvm)
     {

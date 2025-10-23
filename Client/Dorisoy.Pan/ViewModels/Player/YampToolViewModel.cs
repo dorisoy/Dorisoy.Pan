@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.ViewModels;
+﻿namespace Dorisoy.Pan.ViewModels;
 
 //[View(typeof(YampToolView))]
 public class YampToolViewModel : ViewModelBase

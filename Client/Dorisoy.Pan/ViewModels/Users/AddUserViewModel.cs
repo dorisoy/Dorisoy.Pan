@@ -1,8 +1,8 @@
-﻿using Spinner = Dorisoy.PanClient.Views.Spinner;
+﻿using Spinner = Dorisoy.Pan.Views.Spinner;
 using ValidationContext = ReactiveUI.Validation.Contexts.ValidationContext;
 using Path = System.IO.Path;
 
-namespace Dorisoy.PanClient.ViewModels;
+namespace Dorisoy.Pan.ViewModels;
 
 //[View(typeof(AddUserView))]
 public class AddUserViewModel : ViewModelBase, IValidatableViewModel
@@ -53,7 +53,7 @@ public class AddUserViewModel : ViewModelBase, IValidatableViewModel
             Model = new UserModel()
             {
                 UserName = CommonHelper.GenerateStr(8),
-                Email = $"{CommonHelper.GenerateStr(5)}@Dorisoy.com",
+                Email = $"{CommonHelper.GenerateStr(5)}@dorisoy.com",
                 PhoneNumber = $"1300292{CommonHelper.Number(4, false)}",
                 Password = "123456",
             };

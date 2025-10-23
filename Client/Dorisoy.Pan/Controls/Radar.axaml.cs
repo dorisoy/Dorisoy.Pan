@@ -1,7 +1,7 @@
 using Color = Avalonia.Media.Color;
 using Point = Avalonia.Point;
 
-namespace Dorisoy.PanClient.Controls;
+namespace Dorisoy.Pan.Controls;
 
 
 public partial class Radar : UserControl
@@ -19,7 +19,7 @@ public partial class Radar : UserControl
         set
         {
             SetAndRaise(ValueProperty, ref _value, value);
-            // ÏÖÔÚÖ±½Ó¸üÐÂ½ø¶È¶ø²»´«Èë²ÎÊý
+            // ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó¸ï¿½ï¿½Â½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             UpdateStatus(_value);
             InvalidateVisual();
         }
@@ -38,7 +38,7 @@ public partial class Radar : UserControl
 
     private const int MaxCircles = 5;
 
-    //×î´ó°ë¾¶Òò×Ó
+    //ï¿½ï¿½ï¿½ë¾¶ï¿½ï¿½ï¿½ï¿½
     private const double MaxRadiusFactor = 0.8;
 
 
@@ -47,7 +47,7 @@ public partial class Radar : UserControl
         InitializeComponent();
         _myRadar = this.FindControl<TextBlock>("myRadar");
 
-        // Éè¶¨¶¯»­Ð§¹ûµÄÊ±¼ä¼ä¸ô£¬¶©ÔÄÒ»¸ö³ÖÐøµÄÊ±¼äÁ÷
+        // ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
         Wacth();
 
     }
@@ -59,7 +59,7 @@ public partial class Radar : UserControl
 
         double maxRadius = Math.Min(Bounds.Width, Bounds.Height) / 2 * MaxRadiusFactor;
 
-        //¸üÐÂ¶¯»­µÄµ±Ç°°ë¾¶
+        //ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½ï¿½Äµï¿½Ç°ï¿½ë¾¶
         _currentRadius += 1.0;
 
         if (_currentRadius > maxRadius)
@@ -67,7 +67,7 @@ public partial class Radar : UserControl
             _currentRadius -= maxRadius;
         }
 
-        // Ô²µÄÖÐÐÄµã
+        // Ô²ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½
         var center = new Point(Bounds.Width / 2, Bounds.Height / 2);
         for (int i = 0; i < MaxCircles; i++)
         {
@@ -79,7 +79,7 @@ public partial class Radar : UserControl
 
             double opacity = 1 - (radius / maxRadius);
             var brush = new SolidColorBrush(Color.Parse("#00aaeb"), opacity);
-            //»æÖÆÔ²
+            //ï¿½ï¿½ï¿½ï¿½Ô²
             context.DrawEllipse(brush, null, center, radius, radius);
         }
 
@@ -106,7 +106,7 @@ public partial class Radar : UserControl
     private bool _disposed = false;
     protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
     {
-        // ´Ó¿ÉÊÓ»¯Ê÷ÖÐÉ¾³ý¿Ø¼þÊ±´¦Àí¼ÆÊ±Æ÷¶©ÔÄ£¬ÒÔ·ÀÖ¹ÄÚ´æÐ¹Â©
+        // ï¿½Ó¿ï¿½ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½Ø¼ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½Ô·ï¿½Ö¹ï¿½Ú´ï¿½Ð¹Â©
         _timerSubscription.Dispose();
         _disposed = true;
         base.OnDetachedFromVisualTree(e);
@@ -117,27 +117,27 @@ public partial class Radar : UserControl
     {
         for (int i = 1; i <= 5; i++)
         {
-            // Ö¸¶¨Ô²µÄ³õÊ¼´óÐ¡ºÍÍ¸Ã÷¶È
+            // Ö¸ï¿½ï¿½Ô²ï¿½Ä³ï¿½Ê¼ï¿½ï¿½Ð¡ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
             double initialScale = 0.1;
             double initialOpacity = 1.0;
 
-            // ÒÔ¶¯»­ÐÎÊ½µÝÔöÕâÐ©Öµ
+            // ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð©Öµ
             double finalScale = 1.0;
             double finalOpacity = 0.0;
 
-            // ´´½¨Ô²ÐÎ»­Ë¢
+            // ï¿½ï¿½ï¿½ï¿½Ô²ï¿½Î»ï¿½Ë¢
             var brush = new SolidColorBrush(Color.FromRgb(255, 255, 255));
 
-            // ´´½¨Ô²ÐÎÂ·¾¶
+            // ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½Â·ï¿½ï¿½
             var geometry = new EllipseGeometry(new Rect(0, 0, 10, 10));
 
-            // »æÖÆÃ¿¸öÔ²ÐÎ
+            // ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½Ô²ï¿½ï¿½
             this.RenderTransform = new ScaleTransform(initialScale, initialScale);
 
 
             //context.DrawGeometry(brush, null, geometry);
 
-            // ´´½¨Ëõ·Å¶¯»­
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¶ï¿½ï¿½ï¿½
             var scaleAnimation = new Animation
             {
                 Duration = TimeSpan.FromSeconds(2),
@@ -162,12 +162,12 @@ public partial class Radar : UserControl
                 Cue = new Cue(1d)
             });
 
-            // ¿ªÊ¼Ëõ·Å¶¯»­
+            // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Å¶ï¿½ï¿½ï¿½
             scaleAnimation.RunAsync(this, new CancellationToken());
 
 
 
-            // ´´½¨Í¸Ã÷¶È¶¯»­
+            // ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½
             var opacityAnimation = new Animation
             {
                 Duration = TimeSpan.FromSeconds(2),
@@ -176,21 +176,21 @@ public partial class Radar : UserControl
                 FillMode = FillMode.Both
             };
 
-            // ³õÊ¼¹Ø¼ü×Ö (opacity from 1)
+            // ï¿½ï¿½Ê¼ï¿½Ø¼ï¿½ï¿½ï¿½ (opacity from 1)
             opacityAnimation.Children.Add(new KeyFrame
             {
                 Setters = { new Setter(Visual.OpacityProperty, initialOpacity) },
                 Cue = new Cue(0d)
             });
 
-            // Final ¹Ø¼ü×Ö (opacity to 0)
+            // Final ï¿½Ø¼ï¿½ï¿½ï¿½ (opacity to 0)
             opacityAnimation.Children.Add(new KeyFrame
             {
                 Setters = { new Setter(Visual.OpacityProperty, finalOpacity) },
                 Cue = new Cue(1d)
             });
 
-            // ¿ªÊ¼Í¸Ã÷¶È¶¯»­
+            // ï¿½ï¿½Ê¼Í¸ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½
             opacityAnimation.RunAsync(this, new CancellationToken());
         }
     }

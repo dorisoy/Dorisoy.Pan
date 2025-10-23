@@ -4,14 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
-             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
-             xmlns:local="using:Dorisoy.PanClient.Controls"
-             xmlns:conv="using:Dorisoy.PanClient.Converters"
-             xmlns:em="using:Dorisoy.PanClient.Common"
+             xmlns:vm="using:Dorisoy.Pan.ViewModels"
+             xmlns:local="using:Dorisoy.Pan.Controls"
+             xmlns:conv="using:Dorisoy.Pan.Converters"
+             xmlns:em="using:Dorisoy.Pan.Common"
              mc:Ignorable="d"
              d:DesignWidth="1280"
              d:DesignHeight="720"
-             x:Class="Dorisoy.PanClient.Views.LoginView"
+             x:Class="Dorisoy.Pan.Views.LoginView"
              x:DataType="vm:LoginViewModel"
              x:CompileBindings="False"
              Background="{DynamicResource BackgroundBrush}"
@@ -19,7 +19,7 @@
 
     <UserControl.Resources>
         <ImageBrush x:Key="BackgroundBrush"
-                    Source="avares://Dorisoy.PanClient/Assets/Images/login_bg.png"
+                    Source="avares://Dorisoy.Pan/Assets/Images/login_bg.png"
                     AlignmentY="Bottom"
                     AlignmentX="Right"
                     Stretch="UniformToFill">
@@ -154,7 +154,7 @@
         <StackPanel Orientation="Vertical"
                     Spacing="15">
 
-            <Image Source="avares://Dorisoy.PanClient/Assets/Images/logo.png"
+            <Image Source="avares://Dorisoy.Pan/Assets/Images/logo.png"
                    Stretch="Fill"
                    Width="120"
                    HorizontalAlignment="Center"

@@ -3,7 +3,7 @@ using Point = Avalonia.Point;
 using Image = Avalonia.Controls.Image;
 using Size = Avalonia.Size;
 using Disposable = System.Reactive.Disposables.Disposable;
-namespace Dorisoy.PanClient.Player;
+namespace Dorisoy.Pan.Player;
 
 
 /// <summary>

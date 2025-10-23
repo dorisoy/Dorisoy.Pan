@@ -1,6 +1,6 @@
 ﻿using Image = Avalonia.Controls.Image;
 
-namespace Dorisoy.PanClient.Webcam;
+namespace Dorisoy.Pan.Webcam;
 
 /// <summary>
 /// 自定义网络摄像机

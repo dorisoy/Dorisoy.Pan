@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.Utils;
+﻿namespace Dorisoy.Pan.Utils;
 
 
 public class DoubleClickHelper

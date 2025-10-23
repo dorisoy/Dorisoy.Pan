@@ -5,7 +5,7 @@ using Color = Avalonia.Media.Color;
 using Point = Avalonia.Point;
 using Size = Avalonia.Size;
 
-namespace Dorisoy.PanClient.Controls;
+namespace Dorisoy.Pan.Controls;
 
 public partial class SoundVisualizer : UserControl
 {
@@ -23,7 +23,7 @@ public partial class SoundVisualizer : UserControl
         set
         {
             _data = value;
-            // ÔÚÕâÀï´¥·¢ÖØ»æ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï´¥ï¿½ï¿½ï¿½Ø»ï¿½
             InvalidateVisual();
         }
     }
@@ -33,7 +33,7 @@ public partial class SoundVisualizer : UserControl
         InitializeComponent();
     }
 
-    // ÖØÐ´OnRenderº¯Êý£¬ÔÚÕâÀï»æÖÆÖùÐÎÍ¼
+    // ï¿½ï¿½Ð´OnRenderï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
     public override void Render(DrawingContext context)
     {
         base.Render(context);
@@ -41,32 +41,32 @@ public partial class SoundVisualizer : UserControl
         /*
         if (Data != null)
         {
-            // ¼Ù¶¨ÖùÐÎÍ¼µÄ×î´ó¸ß¶ÈµÈÓÚ¿Ø¼þµÄ¸ß¶È
+            // ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ß¶Èµï¿½ï¿½Ú¿Ø¼ï¿½ï¿½Ä¸ß¶ï¿½
             double maxHeight = this.Bounds.Height;
             double maxWidth = this.Bounds.Width;
 
-            // Ñ­»·±éÀúV1µ½V20£¬»æÖÆÃ¿¸öÖùÐÎÌõ
-            double barWidth = maxWidth / 20;// ÖùÐÎÌõµÄ¿í¶È
+            // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½V1ï¿½ï¿½V20ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            double barWidth = maxWidth / 20;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
             for (int i = 0; i < 20; i++)
             {
                 var valueProperty = Data.GetType().GetProperty($"V{i + 1}");
                 if (valueProperty != null)
                 {
                     int value = (int)valueProperty.GetValue(Data);
-                    double barHeight = (value / 100.0) * maxHeight;// ¼ÙÉèÖµÓòÊÇ0µ½100
+                    double barHeight = (value / 100.0) * maxHeight;// ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½100
 
-                    // ¼ÆËãÖùÐÎÌõµÄÎ»ÖÃºÍ´óÐ¡
-                    double x = i * (barWidth + 2);// °üÀ¨ÖùÐÎÌõÖ®¼äµÄ¼ä¾à£¬ÕâÀïÉèÎª2
-                    double y = maxHeight - barHeight;// ´Óµ×²¿ÏòÉÏ»æÖÆ
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ÃºÍ´ï¿½Ð¡
+                    double x = i * (barWidth + 2);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ä¼ï¿½à£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª2
+                    double y = maxHeight - barHeight;// ï¿½Óµ×²ï¿½ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½
 
-                    // »æÖÆµ¥¸öÖùÐÎÌõ
+                    // ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     var rect = new Rect(x, y, barWidth, barHeight);
 
-                    // ÉèÖÃ»­Ë¢ÑÕÉ«ÎªÀ¶É«
+                    // ï¿½ï¿½ï¿½Ã»ï¿½Ë¢ï¿½ï¿½É«Îªï¿½ï¿½É«
                     var brush = Brushes.Blue;
 
 
-                    // Ê¹ÓÃÖ¸¶¨µÄ»­Ë¢Ìî³ä¾ØÐÎ
+                    // Ê¹ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ä»ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     context.FillRectangle(brush, rect);
                 }
             }
@@ -78,9 +78,9 @@ public partial class SoundVisualizer : UserControl
             double maxHeight = this.Bounds.Height;
             double maxWidth = this.Bounds.Width;
 
-            double spacing = 2;   // ÖùÐÎÌõÖ®¼äµÄ¼ä¾à
-            double barWidth = (maxWidth / 20) - 2;  // ÖùÐÎÌõµÄ¿í¶È
-            double cornerRadius = 4;// Ô²½Ç°ë¾¶
+            double spacing = 2;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ä¼ï¿½ï¿½
+            double barWidth = (maxWidth / 20) - 2;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
+            double cornerRadius = 4;// Ô²ï¿½Ç°ë¾¶
 
 
             for (int i = 0; i < 20; i++)
@@ -97,13 +97,13 @@ public partial class SoundVisualizer : UserControl
 
                     using (var ctx = geometry.Open())
                     {
-                        // ¿ªÊ¼µãÔÚ×óÏÂ½Ç
+                        // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½
                         ctx.BeginFigure(new Point(x, maxHeight), true);
 
-                        // Ö±Ïßµ½×óÉÏ½Ç£¨Ô²½ÇµÄ¿ªÊ¼£©
+                        // Ö±ï¿½ßµï¿½ï¿½ï¿½ï¿½Ï½Ç£ï¿½Ô²ï¿½ÇµÄ¿ï¿½Ê¼ï¿½ï¿½
                         ctx.LineTo(new Point(x, y + cornerRadius));
 
-                        // ´´½¨Ô²½Ç - ×óÉÏ½Ç
+                        // ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ - ï¿½ï¿½ï¿½Ï½ï¿½
                         ctx.ArcTo(
                             new Point(x + cornerRadius, y),
                             new Size(cornerRadius, cornerRadius),
@@ -113,10 +113,10 @@ public partial class SoundVisualizer : UserControl
 
                         );
 
-                        // Ö±Ïßµ½ÓÒÉÏ½Ç£¨Ô²½ÇµÄ½áÊø£©
+                        // Ö±ï¿½ßµï¿½ï¿½ï¿½ï¿½Ï½Ç£ï¿½Ô²ï¿½ÇµÄ½ï¿½ï¿½ï¿½ï¿½ï¿½
                         ctx.LineTo(new Point(x + barWidth - cornerRadius, y));
 
-                        // ´´½¨Ô²½Ç - ÓÒÉÏ½Ç
+                        // ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ - ï¿½ï¿½ï¿½Ï½ï¿½
                         ctx.ArcTo(
                             new Point(x + barWidth, y + cornerRadius),
                             new Size(cornerRadius, cornerRadius),
@@ -125,17 +125,17 @@ public partial class SoundVisualizer : UserControl
                             SweepDirection.Clockwise
                         );
 
-                        // Ö±Ïßµ½ÓÒÏÂ½Ç
+                        // Ö±ï¿½ßµï¿½ï¿½ï¿½ï¿½Â½ï¿½
                         ctx.LineTo(new Point(x + barWidth, maxHeight));
 
-                        // Íê³É¸ÃÐÎ×´µÄ±ÕºÏ
+                        // ï¿½ï¿½É¸ï¿½ï¿½ï¿½×´ï¿½Ä±Õºï¿½
                         ctx.LineTo(new Point(x, maxHeight));
                     }
 
-                    // ÉèÖÃ»­Ë¢ÑÕÉ«ÎªÀ¶É«
+                    // ï¿½ï¿½ï¿½Ã»ï¿½Ë¢ï¿½ï¿½É«Îªï¿½ï¿½É«
                     var brushe = new SolidColorBrush(Color.Parse("#00aaeb"));
 
-                    // Ê¹ÓÃÖ¸¶¨µÄ»­Ë¢Ìî³äÔ²½Ç¾ØÐÎ
+                    // Ê¹ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ä»ï¿½Ë¢ï¿½ï¿½ï¿½Ô²ï¿½Ç¾ï¿½ï¿½ï¿½
                     context.DrawGeometry(brushe, null, geometry);
                 }
             }

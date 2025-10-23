@@ -55,3 +55,9 @@ Src/Dorisoy.Pan.API/Documents/
 Src/Dorisoy.Pan.API/wwwroot/Documents/
 Src/Dorisoy.Pan.API/appsettings.Development.json
 .vs/
+Pan_Server&Client-All.zip
+Client/Dorisoy.Pan.SharedLibrary/
+Server/Dorisoy.Pan.API/
+Server/Dorisoy.Pan.ChatServer/
+Server/Dorisoy.Pan.SharedLibrary/
+Client/Dorisoy.Pan.Desktop/libvlc.dylib

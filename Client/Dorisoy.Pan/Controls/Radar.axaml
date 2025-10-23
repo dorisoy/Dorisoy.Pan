@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ac="using:Avalonia.Controls.Shapes"
              mc:Ignorable="d"
-             x:Class="Dorisoy.PanClient.Controls.Radar">
+             x:Class="Dorisoy.Pan.Controls.Radar">
     <Grid Margin="0">
         <ac:Ellipse Width="50"  Height="50" Fill="#0b2432" Opacity=".8"/>
         <TextBlock  x:Name="myRadar"

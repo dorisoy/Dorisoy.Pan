@@ -3,14 +3,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
-			 xmlns:controls="using:Dorisoy.PanClient.Player"
-             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+			 xmlns:controls="using:Dorisoy.Pan.Player"
+             xmlns:vm="using:Dorisoy.Pan.ViewModels"
              mc:Ignorable="d" 
              d:DesignWidth="800" 
              d:DesignHeight="450"
              x:CompileBindings="False"
              x:DataType="vm:YampToolViewModel"
-             x:Class="Dorisoy.PanClient.Player.YampToolView">
+             x:Class="Dorisoy.Pan.Player.YampToolView">
 
 	<UserControl.Styles>
 		<Style Selector="Button.CloseButton:pointerover /template/ ContentPresenter">

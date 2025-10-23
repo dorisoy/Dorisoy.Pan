@@ -3,7 +3,7 @@ using Polly.Retry;
 using LogLevel = Splat.LogLevel;
 
 
-namespace Dorisoy.PanClient;
+namespace Dorisoy.Pan;
 
 /// <summary>
 /// 负责网络请求服务

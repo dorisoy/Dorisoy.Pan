@@ -1,7 +1,7 @@
-namespace Dorisoy.PanClient.Player;
+namespace Dorisoy.Pan.Player;
 
 /// <summary>
-/// ×Ô¶¨Òåµ¯³öÊ½Ãæ°å
+/// ï¿½Ô¶ï¿½ï¿½åµ¯ï¿½ï¿½Ê½ï¿½ï¿½ï¿½
 /// </summary>
 public class FlyoutPanel : Panel
 {

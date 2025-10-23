@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Dorisoy.PanClient.Common;
+using Dorisoy.Pan.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dorisoy.PanClient.Data;
+namespace Dorisoy.Pan.Data;
 
 /// <summary>
 /// 用户实体

@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient;
+﻿namespace Dorisoy.Pan;
 
 /// <summary>
 /// 一个执行器对象，尤其是音频和MIDI设备需要此功能。

@@ -1,4 +1,4 @@
-namespace Dorisoy.PanClient.Controls;
+namespace Dorisoy.Pan.Controls;
 public static class Dialog
 {
     public static async void Save(string title, string defaultFilename, Action<string> saveAction)

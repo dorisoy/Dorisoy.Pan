@@ -2,7 +2,7 @@
 using Avalonia.VisualTree;
 using FluentAvalonia.UI.Controls.Primitives;
 
-namespace Dorisoy.PanClient.Services;
+namespace Dorisoy.Pan.Services;
 
 public class DialogHelper
 {

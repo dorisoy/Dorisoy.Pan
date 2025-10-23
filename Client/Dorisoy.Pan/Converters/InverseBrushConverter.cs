@@ -2,7 +2,7 @@
 using Avalonia.Data.Converters;
 using Color = Avalonia.Media.Color;
 
-namespace Dorisoy.PanClient.Converters;
+namespace Dorisoy.Pan.Converters;
 
 public class InverseBrushConverter : IValueConverter
 {

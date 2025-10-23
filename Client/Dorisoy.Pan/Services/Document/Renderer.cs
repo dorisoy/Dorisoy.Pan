@@ -3,7 +3,7 @@ using Ellipse = Avalonia.Controls.Shapes.Ellipse;
 using Path = Avalonia.Controls.Shapes.Path;
 using Point = Avalonia.Point;
 
-namespace Dorisoy.PanClient.Services;
+namespace Dorisoy.Pan.Services;
 
 public interface IRenderer
 {

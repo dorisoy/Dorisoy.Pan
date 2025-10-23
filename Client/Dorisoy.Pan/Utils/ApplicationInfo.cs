@@ -1,6 +1,6 @@
-﻿using Dorisoy.PanClient.Core;
+﻿using Dorisoy.Pan.Core;
 
-namespace Dorisoy.PanClient.Utils;
+namespace Dorisoy.Pan.Utils;
 
 /// <summary>
 /// 获取应用程序基本信息
@@ -16,7 +16,7 @@ public class ApplicationInfo : IApplicationInfo
 
     public ApplicationInfo(Assembly assembly)
     {
-        Name = assembly.GetCustomAttribute<AssemblyProductAttribute>()?.Product ?? "Dorisoy.PanClient";
+        Name = assembly.GetCustomAttribute<AssemblyProductAttribute>()?.Product ?? "Dorisoy.Pan";
         Organization = assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company ?? "";
         Copyright = assembly.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright ?? "";
         Version = assembly.GetName()?.Version.ToString();

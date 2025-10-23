@@ -1,6 +1,6 @@
-﻿using Dorisoy.PanClient.Data.Contexts;
+﻿using Dorisoy.Pan.Data.Contexts;
 
-namespace Dorisoy.PanClient.Services;
+namespace Dorisoy.Pan.Services;
 
 public class CaptureManagerDbContextFactory : IDbContextFactory<CaptureManagerContext>
 {

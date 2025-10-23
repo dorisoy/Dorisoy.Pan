@@ -3,11 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Dorisoy.PanClient.Data.Contexts;
+using Dorisoy.Pan.Data.Contexts;
 
 #nullable disable
 
-namespace Dorisoy.PanClient.Data.Migrations
+namespace Dorisoy.Pan.Data.Migrations
 {
     [DbContext(typeof(CaptureManagerContext))]
     partial class CaptureManagerContextModelSnapshot : ModelSnapshot
@@ -19,7 +19,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                 .HasAnnotation("ProductVersion", "7.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Audit", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Audit", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,7 +75,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("Audits", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Department", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Department", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -134,7 +134,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("Departments", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Document", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Document", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -200,7 +200,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("Documents", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentAuditTrail", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentAuditTrail", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -240,7 +240,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("DocumentAuditTrails", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentComment", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentComment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -286,7 +286,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("DocumentComments");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentDeleted", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentDeleted", b =>
                 {
                     b.Property<Guid>("DocumentId")
                         .HasColumnType("char(36)");
@@ -331,7 +331,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("DocumentDeleteds");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentReminder", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentReminder", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -377,7 +377,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("DocumentReminders", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentShareableLink", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentShareableLink", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -408,7 +408,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("DocumentShareableLinks", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentStarred", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentStarred", b =>
                 {
                     b.Property<Guid>("DocumentId")
                         .HasColumnType("char(36)");
@@ -423,7 +423,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("DocumentStarreds", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentToken", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentToken", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -446,7 +446,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("DocumentTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentVersion", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentVersion", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -498,7 +498,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("DocumentVersions", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.EmailSMTPSetting", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.EmailSMTPSetting", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -557,7 +557,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("EmailSMTPSettings", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.EmailTemplate", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.EmailTemplate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -598,7 +598,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("EmailTemplates", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.HierarchyFolder", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.HierarchyFolder", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -627,7 +627,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("HierarchyFolders");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Operate", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Operate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -682,7 +682,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("Actions", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Page", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Page", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -729,7 +729,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("Pages", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Patient", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Patient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -785,7 +785,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("Patients", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.PhysicalFolder", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.PhysicalFolder", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -845,7 +845,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.PhysicalFolderUser", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.PhysicalFolderUser", b =>
                 {
                     b.Property<Guid>("FolderId")
                         .HasColumnType("char(36)");
@@ -867,7 +867,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.RecentActivity", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.RecentActivity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -899,7 +899,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("RecentActivities", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Role", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Role", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1004,7 +1004,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.RoleClaim", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.RoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1263,7 +1263,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.SharedDocumentUser", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.SharedDocumentUser", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
@@ -1278,7 +1278,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("SharedDocumentUser");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.User", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1396,7 +1396,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "25af6e12-9a7d-4898-ba3d-3c6b0383a335",
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "admin@Dorisoy.com",
+                            Email = "admin@dorisoy.com",
                             EmailConfirmed = false,
                             IsActive = false,
                             IsAdmin = true,
@@ -1418,7 +1418,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "784e5a8f-af1f-4347-944b-e594d31dea08",
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "test@Dorisoy.com",
+                            Email = "test@dorisoy.com",
                             EmailConfirmed = false,
                             IsActive = false,
                             IsAdmin = false,
@@ -1436,7 +1436,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.UserClaim", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.UserClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1463,7 +1463,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("UserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.UserDocumentClaim", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.UserDocumentClaim", b =>
                 {
                     b.Property<Guid>("DocumentId")
                         .HasColumnType("char(36)");
@@ -1504,7 +1504,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("UserPermissions", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.UserNotification", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.UserNotification", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1546,7 +1546,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.ToTable("UserNotifications", (string)null);
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.UserRole", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.UserRole", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
@@ -1568,7 +1568,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.VirtualFolder", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.VirtualFolder", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1634,7 +1634,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.VirtualFolderUser", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.VirtualFolderUser", b =>
                 {
                     b.Property<Guid>("FolderId")
                         .HasColumnType("char(36)");
@@ -1696,32 +1696,32 @@ namespace Dorisoy.PanClient.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Department", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Department", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.Department", null)
+                    b.HasOne("Dorisoy.Pan.Data.Department", null)
                         .WithMany("Children")
                         .HasForeignKey("DepartmentId");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Document", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Document", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.User", "CreatedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "DeletedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "DeletedByUser")
                         .WithMany()
                         .HasForeignKey("DeletedBy")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "ModifiedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "ModifiedByUser")
                         .WithMany()
                         .HasForeignKey("ModifiedBy")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Dorisoy.PanClient.Data.PhysicalFolder", "Folder")
+                    b.HasOne("Dorisoy.Pan.Data.PhysicalFolder", "Folder")
                         .WithMany()
                         .HasForeignKey("PhysicalFolderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1736,9 +1736,9 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("ModifiedByUser");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentAuditTrail", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentAuditTrail", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.Document", "Document")
+                    b.HasOne("Dorisoy.Pan.Data.Document", "Document")
                         .WithMany()
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1747,26 +1747,26 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("Document");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentComment", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentComment", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.User", "CreatedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "DeletedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "DeletedByUser")
                         .WithMany()
                         .HasForeignKey("DeletedBy")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Dorisoy.PanClient.Data.Document", "Document")
+                    b.HasOne("Dorisoy.Pan.Data.Document", "Document")
                         .WithMany()
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "ModifiedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "ModifiedByUser")
                         .WithMany()
                         .HasForeignKey("ModifiedBy")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -1780,31 +1780,31 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("ModifiedByUser");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentDeleted", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentDeleted", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.User", "CreatedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "DeletedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "DeletedByUser")
                         .WithMany()
                         .HasForeignKey("DeletedBy")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Dorisoy.PanClient.Data.Document", "Document")
+                    b.HasOne("Dorisoy.Pan.Data.Document", "Document")
                         .WithMany("DocumentDeleteds")
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "ModifiedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "ModifiedByUser")
                         .WithMany()
                         .HasForeignKey("ModifiedBy")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "User")
+                    b.HasOne("Dorisoy.Pan.Data.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1821,9 +1821,9 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentReminder", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentReminder", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.Document", "Document")
+                    b.HasOne("Dorisoy.Pan.Data.Document", "Document")
                         .WithMany()
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1832,9 +1832,9 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("Document");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentShareableLink", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentShareableLink", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.Document", "Document")
+                    b.HasOne("Dorisoy.Pan.Data.Document", "Document")
                         .WithMany()
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1843,15 +1843,15 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("Document");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentStarred", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentStarred", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.Document", "Document")
+                    b.HasOne("Dorisoy.Pan.Data.Document", "Document")
                         .WithMany("DocumentStarreds")
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "User")
+                    b.HasOne("Dorisoy.Pan.Data.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1862,26 +1862,26 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.DocumentVersion", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.DocumentVersion", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.User", "CreatedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "DeletedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "DeletedByUser")
                         .WithMany()
                         .HasForeignKey("DeletedBy")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Dorisoy.PanClient.Data.Document", "Document")
+                    b.HasOne("Dorisoy.Pan.Data.Document", "Document")
                         .WithMany()
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "ModifiedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "ModifiedByUser")
                         .WithMany()
                         .HasForeignKey("ModifiedBy")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -1895,20 +1895,20 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("ModifiedByUser");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.EmailSMTPSetting", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.EmailSMTPSetting", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.User", "CreatedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "DeletedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "DeletedByUser")
                         .WithMany()
                         .HasForeignKey("DeletedBy")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "ModifiedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "ModifiedByUser")
                         .WithMany()
                         .HasForeignKey("ModifiedBy")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -1920,23 +1920,23 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("ModifiedByUser");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Operate", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Operate", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.User", "CreatedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "DeletedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "DeletedByUser")
                         .WithMany()
                         .HasForeignKey("DeletedBy");
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "ModifiedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "ModifiedByUser")
                         .WithMany()
                         .HasForeignKey("ModifiedBy");
 
-                    b.HasOne("Dorisoy.PanClient.Data.Page", "Page")
+                    b.HasOne("Dorisoy.Pan.Data.Page", "Page")
                         .WithMany("Actions")
                         .HasForeignKey("PageId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1950,19 +1950,19 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("Page");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Page", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Page", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.User", "CreatedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "DeletedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "DeletedByUser")
                         .WithMany()
                         .HasForeignKey("DeletedBy");
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "ModifiedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "ModifiedByUser")
                         .WithMany()
                         .HasForeignKey("ModifiedBy");
 
@@ -1973,9 +1973,9 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("ModifiedByUser");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.PhysicalFolder", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.PhysicalFolder", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.PhysicalFolder", "Parent")
+                    b.HasOne("Dorisoy.Pan.Data.PhysicalFolder", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1983,14 +1983,14 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.PhysicalFolderUser", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.PhysicalFolderUser", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.PhysicalFolder", "PhysicalFolder")
+                    b.HasOne("Dorisoy.Pan.Data.PhysicalFolder", "PhysicalFolder")
                         .WithMany("PhysicalFolderUsers")
                         .HasForeignKey("FolderId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "User")
+                    b.HasOne("Dorisoy.Pan.Data.User", "User")
                         .WithMany("Folders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2001,19 +2001,19 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.RecentActivity", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.RecentActivity", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.Document", "Document")
+                    b.HasOne("Dorisoy.Pan.Data.Document", "Document")
                         .WithMany()
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Dorisoy.PanClient.Data.VirtualFolder", "VirtualFolder")
+                    b.HasOne("Dorisoy.Pan.Data.VirtualFolder", "VirtualFolder")
                         .WithMany()
                         .HasForeignKey("FolderId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "User")
+                    b.HasOne("Dorisoy.Pan.Data.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2026,19 +2026,19 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("VirtualFolder");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Role", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Role", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.User", "CreatedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "DeletedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "DeletedByUser")
                         .WithMany()
                         .HasForeignKey("DeletedBy")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "ModifiedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "ModifiedByUser")
                         .WithMany()
                         .HasForeignKey("ModifiedBy")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -2050,9 +2050,9 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("ModifiedByUser");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.RoleClaim", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.RoleClaim", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.Role", "Role")
+                    b.HasOne("Dorisoy.Pan.Data.Role", "Role")
                         .WithMany("RoleClaims")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2061,15 +2061,15 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.SharedDocumentUser", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.SharedDocumentUser", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.Document", "Document")
+                    b.HasOne("Dorisoy.Pan.Data.Document", "Document")
                         .WithMany("SharedDocumentUsers")
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "User")
+                    b.HasOne("Dorisoy.Pan.Data.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2080,15 +2080,15 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.UserClaim", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.UserClaim", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.Operate", "Action")
+                    b.HasOne("Dorisoy.Pan.Data.Operate", "Action")
                         .WithMany()
                         .HasForeignKey("ActionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "User")
+                    b.HasOne("Dorisoy.Pan.Data.User", "User")
                         .WithMany("UserClaims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2099,15 +2099,15 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.UserDocumentClaim", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.UserDocumentClaim", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.Document", "Document")
+                    b.HasOne("Dorisoy.Pan.Data.Document", "Document")
                         .WithMany()
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "User")
+                    b.HasOne("Dorisoy.Pan.Data.User", "User")
                         .WithMany("UserDocumentClaims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2118,14 +2118,14 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.UserNotification", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.UserNotification", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.Document", "Document")
+                    b.HasOne("Dorisoy.Pan.Data.Document", "Document")
                         .WithMany()
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Dorisoy.PanClient.Data.VirtualFolder", "VirtualFolder")
+                    b.HasOne("Dorisoy.Pan.Data.VirtualFolder", "VirtualFolder")
                         .WithMany()
                         .HasForeignKey("FolderId");
 
@@ -2134,15 +2134,15 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("VirtualFolder");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.UserRole", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.UserRole", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.Role", "Role")
+                    b.HasOne("Dorisoy.Pan.Data.Role", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "User")
+                    b.HasOne("Dorisoy.Pan.Data.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2153,14 +2153,14 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.VirtualFolder", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.VirtualFolder", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.VirtualFolder", "Parent")
+                    b.HasOne("Dorisoy.Pan.Data.VirtualFolder", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Dorisoy.PanClient.Data.PhysicalFolder", "PhysicalFolder")
+                    b.HasOne("Dorisoy.Pan.Data.PhysicalFolder", "PhysicalFolder")
                         .WithMany()
                         .HasForeignKey("PhysicalFolderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2171,30 +2171,30 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("PhysicalFolder");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.VirtualFolderUser", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.VirtualFolderUser", b =>
                 {
-                    b.HasOne("Dorisoy.PanClient.Data.User", "CreatedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "DeletedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "DeletedByUser")
                         .WithMany()
                         .HasForeignKey("DeletedBy")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Dorisoy.PanClient.Data.VirtualFolder", "VirtualFolder")
+                    b.HasOne("Dorisoy.Pan.Data.VirtualFolder", "VirtualFolder")
                         .WithMany("VirtualFolderUsers")
                         .HasForeignKey("FolderId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "ModifiedByUser")
+                    b.HasOne("Dorisoy.Pan.Data.User", "ModifiedByUser")
                         .WithMany()
                         .HasForeignKey("ModifiedBy")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Dorisoy.PanClient.Data.User", "User")
+                    b.HasOne("Dorisoy.Pan.Data.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2211,12 +2211,12 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("VirtualFolder");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Department", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Department", b =>
                 {
                     b.Navigation("Children");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Document", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Document", b =>
                 {
                     b.Navigation("DocumentDeleteds");
 
@@ -2225,26 +2225,26 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("SharedDocumentUsers");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Page", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Page", b =>
                 {
                     b.Navigation("Actions");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.PhysicalFolder", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.PhysicalFolder", b =>
                 {
                     b.Navigation("Children");
 
                     b.Navigation("PhysicalFolderUsers");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.Role", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.Role", b =>
                 {
                     b.Navigation("RoleClaims");
 
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.User", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.User", b =>
                 {
                     b.Navigation("Folders");
 
@@ -2255,7 +2255,7 @@ namespace Dorisoy.PanClient.Data.Migrations
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("Dorisoy.PanClient.Data.VirtualFolder", b =>
+            modelBuilder.Entity("Dorisoy.Pan.Data.VirtualFolder", b =>
                 {
                     b.Navigation("Children");
 

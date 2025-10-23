@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="using:Dorisoy.PanClient.Controls"
+                    xmlns:local="using:Dorisoy.Pan.Controls"
                     xmlns:ui="using:FluentAvalonia.UI.Controls"
                     xmlns:sty="using:FluentAvalonia.Styling">
 
@@ -38,7 +38,7 @@
                               Offset="1" />
             </LinearGradientBrush>
             <!--<ImageBrush x:Key="PageHeaderBackgroundBrush"
-                        Source="avares://Dorisoy.PanClient/Assets/Images/FAHeaderBackground_Dark.png"
+                        Source="avares://Dorisoy.Pan/Assets/Images/FAHeaderBackground_Dark.png"
                         AlignmentY="Center"
                         Stretch="UniformToFill">
             </ImageBrush>-->

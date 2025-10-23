@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.Core;
+﻿namespace Dorisoy.Pan.Core;
 
 /// <summary>
 /// 获取应用程序基本信息

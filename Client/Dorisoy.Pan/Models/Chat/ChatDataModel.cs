@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Dorisoy.PanClient.Models;
+namespace Dorisoy.Pan.Models;
 
 /// <summary>
 /// 表示Chat消息数据模型

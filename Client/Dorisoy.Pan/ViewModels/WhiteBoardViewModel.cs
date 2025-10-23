@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.ViewModels;
+﻿namespace Dorisoy.Pan.ViewModels;
 
 using Point = Avalonia.Point;
 public class WhiteBoardViewModel : ViewModelBase

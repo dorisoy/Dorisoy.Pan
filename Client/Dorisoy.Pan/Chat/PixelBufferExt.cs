@@ -1,7 +1,7 @@
 ﻿using System.Drawing.Imaging;
 
 
-namespace Dorisoy.PanClient;
+namespace Dorisoy.Pan;
 
 public static class PixelBufferExt
 {

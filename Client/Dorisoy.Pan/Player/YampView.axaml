@@ -2,16 +2,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vlcsharp="clr-namespace:Dorisoy.PanClient.Player;assembly=Dorisoy.PanClient"
-             xmlns:views="clr-namespace:Dorisoy.PanClient.Views;assembly=Dorisoy.PanClient"
+             xmlns:vlcsharp="clr-namespace:Dorisoy.Pan.Player;assembly=Dorisoy.Pan"
+             xmlns:views="clr-namespace:Dorisoy.Pan.Views;assembly=Dorisoy.Pan"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
-             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+             xmlns:vm="using:Dorisoy.Pan.ViewModels"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
              x:CompileBindings="False"
              x:DataType="vm:YampViewModel"
-             x:Class="Dorisoy.PanClient.Player.YampView">
+             x:Class="Dorisoy.Pan.Player.YampView">
 
     <Grid Margin="0"
           RowDefinitions="*"

@@ -1,11 +1,11 @@
 using FluentAvalonia.UI.Navigation;
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 using Frame = FluentAvalonia.UI.Controls.Frame;
-namespace Dorisoy.PanClient.Pages;
+namespace Dorisoy.Pan.Pages;
 
 
 /// <summary>
-/// 项目信息
+/// 锟斤拷目锟斤拷息
 /// </summary>
 public partial class PatientPage : ReactiveUserControl<PatientPageViewModel>
 {

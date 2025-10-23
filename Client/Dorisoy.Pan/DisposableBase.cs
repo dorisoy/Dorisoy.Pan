@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient;
+﻿namespace Dorisoy.Pan;
 
 public abstract class DisposableBase : IDisposable
 {

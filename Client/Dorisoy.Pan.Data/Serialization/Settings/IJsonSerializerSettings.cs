@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Dorisoy.PanClient.Data
+namespace Dorisoy.Pan.Data
 {
     public interface IJsonSerializerSettings
     {

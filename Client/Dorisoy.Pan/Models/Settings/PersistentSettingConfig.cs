@@ -3,7 +3,7 @@ using System.Text.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using Path = System.IO.Path;
 
-namespace Dorisoy.PanClient.Models;
+namespace Dorisoy.Pan.Models;
 
 //{"Ip":"82.61.88.82","Port":"20011","Name":"CinnamonBun"}
 // all props goes to disk as json

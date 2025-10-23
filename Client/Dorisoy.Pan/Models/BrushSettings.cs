@@ -1,6 +1,6 @@
 ﻿using Color = Avalonia.Media.Color;
 
-namespace Dorisoy.PanClient.Models;
+namespace Dorisoy.Pan.Models;
 
 /// <summary>
 /// 画笔设置

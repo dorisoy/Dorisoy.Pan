@@ -1,7 +1,7 @@
 using Avalonia.Skia;
 using AvaloniaEdit.Utils;
 
-namespace Dorisoy.PanClient.PrintToPDF;
+namespace Dorisoy.Pan.PrintToPDF;
 
 public static class Print
 {
@@ -17,7 +17,7 @@ public static class Print
                     var bounds = visual.Bounds;
                     var pixelSize = new PixelSize((int)bounds.Width, (int)bounds.Height);
 
-                    //文本模式 Antialias
+                    //锟侥憋拷模式 Antialias
                     RenderOptions.SetTextRenderingMode(visual, TextRenderingMode.Antialias);
 
                     using var renderBitmap = new RenderTargetBitmap(pixelSize, SkiaPlatform.DefaultDpi);

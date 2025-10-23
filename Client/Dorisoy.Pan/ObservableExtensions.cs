@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
-namespace Dorisoy.PanClient;
+namespace Dorisoy.Pan;
 
 public static class ObservableExtensions
 {

@@ -1,6 +1,6 @@
 ﻿using Disposable = System.Reactive.Disposables.Disposable;
 
-namespace Dorisoy.PanClient.ViewModels;
+namespace Dorisoy.Pan.ViewModels;
 
 public class UserPageViewModel : MainPageViewModelBase, IValidatableViewModel, IRoutableViewModel
 {

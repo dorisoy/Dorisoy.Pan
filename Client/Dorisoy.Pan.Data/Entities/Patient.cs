@@ -1,8 +1,8 @@
-﻿using Dorisoy.PanClient.Common;
+﻿using Dorisoy.Pan.Common;
 using System;
 using System.Collections.Generic;
 
-namespace Dorisoy.PanClient.Data;
+namespace Dorisoy.Pan.Data;
 
 /// <summary>
 /// 患者信息

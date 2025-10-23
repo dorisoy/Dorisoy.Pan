@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Dorisoy.PanClient.Data.Contexts;
+using Dorisoy.Pan.Data.Contexts;
 
 
-namespace Dorisoy.PanClient.Services;
+namespace Dorisoy.Pan.Services;
 
 public class DocumentCommentService : IDocumentCommentService
 {

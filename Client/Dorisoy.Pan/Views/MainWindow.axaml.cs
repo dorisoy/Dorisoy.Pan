@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using FluentAvalonia.Styling;
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 
-namespace Dorisoy.PanClient.Views;
+namespace Dorisoy.Pan.Views;
 
 public partial class MainWindow : ReactiveCoreWindow<MainWindowViewModel>
 {
@@ -26,12 +26,12 @@ public partial class MainWindow : ReactiveCoreWindow<MainWindowViewModel>
         //myProcess = new Process();
         //myProcess.StartInfo.FileName = @".\ScreenRecording\ScreenRecording.exe";
 
-        //È«ÆÁ×î´ó»¯
+        //È«ï¿½ï¿½ï¿½ï¿½ï¿½
         this.WindowState = WindowState.Maximized;
-        //ÏÔÊ¾×î´ó×îÐ¡»¯
+        //ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½
         this.ExtendClientAreaToDecorationsHint = true;
 
-        // ´¦Àí´°¿Ú¹Ø±ÕÊÂ¼þ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹Ø±ï¿½ï¿½Â¼ï¿½
         this.Closing += MainWindow_Closing;
 
     }
@@ -69,7 +69,7 @@ public partial class MainWindow : ReactiveCoreWindow<MainWindowViewModel>
     {
         base.OnOpened(e);
 
-        // »ñÈ¡Ö÷ÆÁÄ»µÄ±ß½çÐÅÏ¢
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ä»ï¿½Ä±ß½ï¿½ï¿½ï¿½Ï¢
         PrimaryScreenBounds = Screens.Primary.Bounds;
 
         App.MainWindow = this;
@@ -105,7 +105,7 @@ public partial class MainWindow : ReactiveCoreWindow<MainWindowViewModel>
 
 
     /// <summary>
-    /// ¹Ø±ÕÊ±Kill myProcess
+    /// ï¿½Ø±ï¿½Ê±Kill myProcess
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>

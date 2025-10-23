@@ -1,7 +1,7 @@
 ﻿using Ellipse = Avalonia.Controls.Shapes.Ellipse;
 using Point = Avalonia.Point;
 
-namespace Dorisoy.PanClient.Utils;
+namespace Dorisoy.Pan.Utils;
 
 
 /// <summary>

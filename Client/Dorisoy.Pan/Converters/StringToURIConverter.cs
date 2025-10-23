@@ -1,6 +1,6 @@
 ﻿using Avalonia.Data.Converters;
 
-namespace Dorisoy.PanClient.Converters;
+namespace Dorisoy.Pan.Converters;
 
 public class StringToURIConverter : IValueConverter
 {
@@ -11,7 +11,7 @@ public class StringToURIConverter : IValueConverter
 
         if (!value.ToString().StartsWith(avares))
         {
-            value = $"avares://Dorisoy.PanClient{value}";
+            value = $"avares://Dorisoy.Pan{value}";
         }
 
         try

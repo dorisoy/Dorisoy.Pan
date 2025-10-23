@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.Models
+﻿namespace Dorisoy.Pan.Models
 {
     /// <summary>
     /// 角色权限

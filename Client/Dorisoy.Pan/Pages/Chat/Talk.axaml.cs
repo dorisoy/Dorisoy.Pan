@@ -1,6 +1,6 @@
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 
-namespace Dorisoy.PanClient.Pages.Chat;
+namespace Dorisoy.Pan.Pages.Chat;
 
 public partial class Talk : ReactiveUserControl<MainViewViewModel>
 {
@@ -32,7 +32,7 @@ public partial class Talk : ReactiveUserControl<MainViewViewModel>
                 //this.OneWayBind(ViewModel, vm => vm.CameraDevices, v => v.CameraDevicesComboBox.ItemsSource)
                 //.DisposeWith(disposable);
 
-                //¹ö¶¯µ½½áÊøÁÄÌì´°¿Ú
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì´°ï¿½ï¿½
                 ViewModel.SrollToEndChatWindow += () =>
                 {
                     chatScrollViewer.ScrollToEnd();
@@ -56,7 +56,7 @@ public partial class Talk : ReactiveUserControl<MainViewViewModel>
 
 
     /// <summary>
-    ///  ÔÚµ±Ç°¹â±êÎ»ÖÃ²åÈëÒ»¸ö×Ö·û
+    ///  ï¿½Úµï¿½Ç°ï¿½ï¿½ï¿½Î»ï¿½Ã²ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½
     /// </summary>
     /// <param name="input"></param>
     /// <exception cref="NotImplementedException"></exception>
@@ -66,29 +66,29 @@ public partial class Talk : ReactiveUserControl<MainViewViewModel>
     }
 
     /// <summary>
-    /// ÔÚµ±Ç°¹â±êÎ»ÖÃ²åÈëÒ»¸ö×Ö·û
+    /// ï¿½Úµï¿½Ç°ï¿½ï¿½ï¿½Î»ï¿½Ã²ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½
     /// </summary>
     /// <param name="insertText"></param>
     public void InsertTextAtCaret(string insertText)
     {
-        // »ñÈ¡¹â±êµÄµ±Ç°Î»ÖÃ
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½Äµï¿½Ç°Î»ï¿½ï¿½
         var caretIndex = txtLimitedInput.CaretIndex;
 
-        // »ñÈ¡ÎÄ±¾¿òÏÖÓÐµÄÎÄ±¾
+        // ï¿½ï¿½È¡ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ä±ï¿½
         var text = txtLimitedInput.Text ?? string.Empty;
 
-        // ½«ÎÄ±¾·Ö¸î³ÉÁ½²¿·Ö£¬²¢ÔÚÖÐ¼ä²åÈëÏ£ÍûÌí¼ÓµÄÎÄ±¾
+        // ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½Ä±ï¿½
         var newText = text.Substring(0, caretIndex) + insertText + text.Substring(caretIndex);
 
-        // ÉèÖÃÎÄ±¾¿òµÄÐÂÄÚÈÝ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         txtLimitedInput.Text = newText;
 
-        // ¸üÐÂ¹â±êµÄÎ»ÖÃ£¬Ê¹ÆäÎ»ÓÚ²åÈëµÄÎÄ±¾Ö®ºó
+        // ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½Î»ï¿½Ã£ï¿½Ê¹ï¿½ï¿½Î»ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½Ö®ï¿½ï¿½
         txtLimitedInput.CaretIndex = caretIndex + insertText.Length;
     }
 
     /// <summary>
-    /// ä¯ÀÀÆ÷´ò¿ª£¨Windows£©
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò¿ª£ï¿½Windowsï¿½ï¿½
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -121,7 +121,7 @@ public partial class Talk : ReactiveUserControl<MainViewViewModel>
     }
 
     /// <summary>
-    /// »Ø³µ·¢ËÍÏûÏ¢
+    /// ï¿½Ø³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>

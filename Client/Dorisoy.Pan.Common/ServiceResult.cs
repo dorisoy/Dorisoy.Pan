@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dorisoy.PanClient.Common;
+namespace Dorisoy.Pan.Common;
 
 public class ServiceResult
 {

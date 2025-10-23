@@ -1,7 +1,7 @@
 ﻿using ProtoBuf;
 using Protobuff;
 
-namespace Dorisoy.PanClient.Models;
+namespace Dorisoy.Pan.Models;
 
 /// <summary>
 /// 表示Chat序列化数据模型

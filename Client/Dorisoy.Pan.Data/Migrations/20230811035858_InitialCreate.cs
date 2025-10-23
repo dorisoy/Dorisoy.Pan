@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Dorisoy.PanClient.Data.Migrations
+namespace Dorisoy.Pan.Data.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -1085,8 +1085,8 @@ namespace Dorisoy.PanClient.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "CreatedBy", "CreatedDate", "DeletedBy", "DeletedDate", "DepartmentId", "Email", "EmailConfirmed", "IsActive", "IsAdmin", "IsDeleted", "LockoutEnabled", "LockoutEnd", "ModifiedBy", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePhoto", "Provider", "RaleName", "SecurityStamp", "Sex", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("03cd9f6a-cadb-4ad9-97dc-c94b7f8a273b"), 0, null, "784e5a8f-af1f-4347-944b-e594d31dea08", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, "test@Dorisoy.com", false, false, false, false, false, null, null, null, null, "AQAAAAEAACcQAAAAEEkx5K65gWhkIDvtcI3QVCom8fFRVWBIVlDWGqPujKdUWwSs2/0bB2fFzTaAq8z3pA==", "13002929018", false, null, null, "王思聪", "VIMQCBRWFS24UODE2URSTWPFEXKNDJRP", 0, false, "测试" },
-                    { new Guid("115ce6fb-eaeb-49c9-9842-583ace34aa91"), 0, null, "25af6e12-9a7d-4898-ba3d-3c6b0383a335", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, "admin@Dorisoy.com", false, false, true, false, false, null, null, null, null, "AQAAAAEAACcQAAAAEEkx5K65gWhkIDvtcI3QVCom8fFRVWBIVlDWGqPujKdUWwSs2/0bB2fFzTaAq8z3pA==", "13002929017", false, null, null, "Dorisoy", "VIMQCBRWFS24UODE2URSTWPFEXKNDJRP", 0, false, "administrator" }
+                    { new Guid("03cd9f6a-cadb-4ad9-97dc-c94b7f8a273b"), 0, null, "784e5a8f-af1f-4347-944b-e594d31dea08", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, "test@dorisoy.com", false, false, false, false, false, null, null, null, null, "AQAAAAEAACcQAAAAEEkx5K65gWhkIDvtcI3QVCom8fFRVWBIVlDWGqPujKdUWwSs2/0bB2fFzTaAq8z3pA==", "13002929018", false, null, null, "王思聪", "VIMQCBRWFS24UODE2URSTWPFEXKNDJRP", 0, false, "测试" },
+                    { new Guid("115ce6fb-eaeb-49c9-9842-583ace34aa91"), 0, null, "25af6e12-9a7d-4898-ba3d-3c6b0383a335", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, "admin@dorisoy.com", false, false, true, false, false, null, null, null, null, "AQAAAAEAACcQAAAAEEkx5K65gWhkIDvtcI3QVCom8fFRVWBIVlDWGqPujKdUWwSs2/0bB2fFzTaAq8z3pA==", "13002929017", false, null, null, "Dorisoy", "VIMQCBRWFS24UODE2URSTWPFEXKNDJRP", 0, false, "administrator" }
                 });
 
             migrationBuilder.InsertData(

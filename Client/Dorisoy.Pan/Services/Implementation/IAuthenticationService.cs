@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.Services;
+﻿namespace Dorisoy.Pan.Services;
 public interface IAuthenticationService
 {
     Task<UserAuthDto> LoginAsync(string userName, string password, string remoteIp, CancellationToken calToken = default);

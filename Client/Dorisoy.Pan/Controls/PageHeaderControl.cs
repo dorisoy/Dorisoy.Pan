@@ -1,6 +1,6 @@
 ﻿using Avalonia.Controls.Primitives;
 
-namespace Dorisoy.PanClient.Controls;
+namespace Dorisoy.Pan.Controls;
 
 public class PageHeaderControl : TemplatedControl
 {

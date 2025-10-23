@@ -7,10 +7,10 @@
              d:DesignHeight="720"
              Background="#FFFFFF"
              RenderOptions.BitmapInterpolationMode="HighQuality"
-             x:Class="Dorisoy.PanClient.Views.MainAppSplashContent">
+             x:Class="Dorisoy.Pan.Views.MainAppSplashContent">
     <UserControl.Resources>
         <ImageBrush x:Key="BackgroundBrush"
-                    Source="avares://Dorisoy.PanClient/Assets/Images/login_bg.png"
+                    Source="avares://Dorisoy.Pan/Assets/Images/login_bg.png"
                     AlignmentY="Top"
                     AlignmentX="Left"
                     Stretch="UniformToFill">
@@ -19,7 +19,7 @@
     <Grid RowDefinitions="*">
         <Panel Grid.Row="0">
 
-            <Image Source="avares://Dorisoy.PanClient/Assets/logo.png"
+            <Image Source="avares://Dorisoy.Pan/Assets/logo.png"
                    Stretch="Fill"
                    Width="748"
                    Height="649"

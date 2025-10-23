@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dorisoy.PanClient.Data;
+namespace Dorisoy.Pan.Data;
 
 /// <summary>
 /// 文档模型

@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.Models;
+﻿namespace Dorisoy.Pan.Models;
 
 public readonly record struct JoinRoomValidationResult(bool RoomExists = true, bool RoomIsFull = false, bool NicknameIsTaken = false);
 

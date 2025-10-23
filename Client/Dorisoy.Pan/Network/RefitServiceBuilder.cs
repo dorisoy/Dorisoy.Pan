@@ -3,7 +3,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Refit;
 
-namespace Dorisoy.PanClient;
+namespace Dorisoy.Pan;
 
 public class RefitServiceBuilder
 {

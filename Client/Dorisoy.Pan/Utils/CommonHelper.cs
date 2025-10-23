@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using FileShare = System.IO.FileShare;
 
-namespace Dorisoy.PanClient;
+namespace Dorisoy.Pan;
 
 /// <summary>
 /// 公共辅助方法
@@ -953,7 +953,7 @@ public static class CommonHelper
                 email.Priority = MailPriority.Normal;
                 var stmp = new SmtpClient("smtp.163.com", 25);
                 stmp.UseDefaultCredentials = true;
-                stmp.Credentials = new NetworkCredential("czhcom@163.com", "racing.1");
+                stmp.Credentials = new NetworkCredential("czhcom@163.com", "xxx");
                 stmp.EnableSsl = false;
                 stmp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 stmp.Send(email);

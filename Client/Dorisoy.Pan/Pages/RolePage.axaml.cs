@@ -1,7 +1,7 @@
 using FluentAvalonia.UI.Navigation;
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 using Frame = FluentAvalonia.UI.Controls.Frame;
-namespace Dorisoy.PanClient.Pages;
+namespace Dorisoy.Pan.Pages;
 
 public partial class RolePage : ReactiveUserControl<RolePageViewModel>
 {

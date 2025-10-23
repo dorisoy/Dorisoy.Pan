@@ -1,8 +1,8 @@
 using FluentAvalonia.UI.Navigation;
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 using Frame = FluentAvalonia.UI.Controls.Frame;
 
-namespace Dorisoy.PanClient.Pages;
+namespace Dorisoy.Pan.Pages;
 
 public partial class DocumentPage : ReactiveUserControl<DocumentPageViewModel>
 {
@@ -13,7 +13,7 @@ public partial class DocumentPage : ReactiveUserControl<DocumentPageViewModel>
         AddHandler(Frame.NavigatingFromEvent, OnNavigatingFrom, RoutingStrategies.Direct);
         AddHandler(Frame.NavigatedToEvent, OnNavigatedTo, RoutingStrategies.Direct);
 
-        //Ë«»÷
+        //Ë«ï¿½ï¿½
         this.myDataGrid.DoubleTapped += (sender, args) =>
         {
             if (sender != null)

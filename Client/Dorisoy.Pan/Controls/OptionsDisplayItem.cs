@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 
-namespace Dorisoy.PanClient.Controls;
+namespace Dorisoy.Pan.Controls;
 
 public class OptionsDisplayItem : TemplatedControl
 {

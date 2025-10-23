@@ -1,7 +1,7 @@
 ﻿using FluentAvalonia.UI.Media.Animation;
 using Frame = FluentAvalonia.UI.Controls.Frame;
 
-namespace Dorisoy.PanClient.Services;
+namespace Dorisoy.Pan.Services;
 
 
 /// <summary>

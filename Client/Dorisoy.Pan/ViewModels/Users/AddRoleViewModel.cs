@@ -1,6 +1,6 @@
 ﻿using ValidationContext = ReactiveUI.Validation.Contexts.ValidationContext;
 
-namespace Dorisoy.PanClient.ViewModels;
+namespace Dorisoy.Pan.ViewModels;
 
 //[View(typeof(AddRoleView))]
 public class AddRoleViewModel : ViewModelBase, IValidatableViewModel

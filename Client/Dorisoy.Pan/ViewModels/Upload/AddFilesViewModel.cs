@@ -1,6 +1,6 @@
 ﻿using AvaloniaEdit.Utils;
 
-namespace Dorisoy.PanClient.ViewModels;
+namespace Dorisoy.Pan.ViewModels;
 
 //[View(typeof(AddFilesView))]
 public class AddFilesViewModel : ReactiveObject, IActivatableViewModel
@@ -289,8 +289,8 @@ public class AddFilesViewModel : ReactiveObject, IActivatableViewModel
                 //目标文件
                 var detinationFile = Path.Combine(versionPath, versionFileName);
 
-                //D:\\MAUI\\Dorisoy\\Dorisoy.PanClient\\Dorisoy.PanClient\\bin\\Debug\\net7.0\\Documents\\115ce6fb-eaeb-49c9-9842-583ace34aa91\\6d3fc311-f8d6-4d62-a1ee-14a4aee6ac8b.xlsx
-                //D:\\MAUI\\Dorisoy\\Dorisoy.PanClient\\Dorisoy.PanClient\\bin\\Debug\\net7.0\\Documents\\115ce6fb-eaeb-49c9-9842-583ace34aa91\\6d3fc311-f8d6-4d62-a1ee-14a4aee6ac8b.xlsx
+                //D:\\MAUI\\Dorisoy\\Dorisoy.Pan\\Dorisoy.Pan\\bin\\Debug\\net7.0\\Documents\\115ce6fb-eaeb-49c9-9842-583ace34aa91\\6d3fc311-f8d6-4d62-a1ee-14a4aee6ac8b.xlsx
+                //D:\\MAUI\\Dorisoy\\Dorisoy.Pan\\Dorisoy.Pan\\bin\\Debug\\net7.0\\Documents\\115ce6fb-eaeb-49c9-9842-583ace34aa91\\6d3fc311-f8d6-4d62-a1ee-14a4aee6ac8b.xlsx
 
                 //这里更新替换已经存在的文件，并记录版本
                 var checkf = new FileInfo(sourceFile);

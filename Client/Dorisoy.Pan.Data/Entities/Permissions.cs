@@ -2,7 +2,7 @@
 using System.ComponentModel;
 
 
-namespace Dorisoy.PanClient.Data;
+namespace Dorisoy.Pan.Data;
 
 public static class ApplicationClaimTypes
 {

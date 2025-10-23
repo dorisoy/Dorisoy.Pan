@@ -1,6 +1,6 @@
 ﻿using System.Net.NetworkInformation;
 using Path = System.IO.Path;
-namespace Dorisoy.PanClient.Utils;
+namespace Dorisoy.Pan.Utils;
 
 public class Utilities
 {

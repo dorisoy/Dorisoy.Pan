@@ -1,6 +1,6 @@
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 
-namespace Dorisoy.PanClient.Player;
+namespace Dorisoy.Pan.Player;
 
 public partial class YampToolView : ReactiveUserControl<YampToolViewModel>
 {

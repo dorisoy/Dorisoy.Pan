@@ -1,7 +1,7 @@
 ﻿using Color = Avalonia.Media.Color;
 
 
-namespace Dorisoy.PanClient.ViewModels;
+namespace Dorisoy.Pan.ViewModels;
 
 public class SettingsPageViewModel : MainPageViewModelBase
 {

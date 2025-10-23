@@ -2,7 +2,7 @@
 using PixelFormat = Avalonia.Platform.PixelFormat;
 using Disposable = System.Reactive.Disposables.Disposable;
 
-namespace Dorisoy.PanClient.Webcam;
+namespace Dorisoy.Pan.Webcam;
 
 public sealed class WebcamVlcSharpWriteableBitmap : Bitmap
 {

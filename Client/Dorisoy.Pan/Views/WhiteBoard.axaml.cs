@@ -1,8 +1,8 @@
 using Avalonia.Controls.PanAndZoom;
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 using Point = Avalonia.Point;
 
-namespace Dorisoy.PanClient.Views;
+namespace Dorisoy.Pan.Views;
 
 public partial class WhiteBoard : ReactiveCoreWindow<WhiteBoardViewModel>
 {
@@ -72,14 +72,14 @@ public partial class WhiteBoard : ReactiveCoreWindow<WhiteBoardViewModel>
 
 
     ///// <summary>
-    ///// Êó±ê¹öÂÖËõ·Å»­²¼ MouseWheel
+    ///// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å»ï¿½ï¿½ï¿½ MouseWheel
     ///// </summary>
     ///// <param name="sender"></param>
     ///// <param name="e"></param>
     ///// <exception cref="NotImplementedException"></exception>
     //private void Canvas_PointerWheelChanged(object sender, PointerWheelEventArgs e)
     //{
-    //    //¹öÂÖ¹ö¶¯Ê±¿ØÖÆ ·Å´óµÄ±¶Êý,Ã»ÓÐ¹Ì¶¨µÄÖµ£¬¿ÉÒÔ¸ù¾ÝÐèÒªÐÞ¸Ä¡£
+    //    //ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ ï¿½Å´ï¿½Ä±ï¿½ï¿½ï¿½,Ã»ï¿½Ð¹Ì¶ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Þ¸Ä¡ï¿½
     //    //double scale = e.Delta.WithX * 0.002
     //    var x = e.Delta.X;
     //    var y = e.Delta.Y
@@ -109,7 +109,7 @@ public partial class WhiteBoard : ReactiveCoreWindow<WhiteBoardViewModel>
             //var vm = DataContext as WhiteBoardViewModel;
             //_ = vm.SignalRService.DrawLineAsync(points);
 
-            //»æÖÆ
+            //ï¿½ï¿½ï¿½ï¿½
             var vm = this.ViewModel;
 
             //await vm._whiteBoardService.DrawLineAsync(points);
@@ -148,7 +148,7 @@ public partial class WhiteBoard : ReactiveCoreWindow<WhiteBoardViewModel>
     {
         currentPoint = e.GetPosition(canvas);
         pressed = true;
-        //¸üÐÂ»­±ÊÇøÓò·¶Î§
+        //ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§
         _appState.BrushSettings.UpdateBrushPoint();
     }
 
@@ -169,7 +169,7 @@ public partial class WhiteBoard : ReactiveCoreWindow<WhiteBoardViewModel>
     }
 
     /// <summary>
-    /// ¹â±êÒÆ¶¯ºó
+    /// ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -203,7 +203,7 @@ public partial class WhiteBoard : ReactiveCoreWindow<WhiteBoardViewModel>
 
 
     /// <summary>
-    /// Á¬½Ó¹Ø±ÕÊ±
+    /// ï¿½ï¿½ï¿½Ó¹Ø±ï¿½Ê±
     /// </summary>
     /// <param name="arg"></param>
     /// <returns></returns>
@@ -217,7 +217,7 @@ public partial class WhiteBoard : ReactiveCoreWindow<WhiteBoardViewModel>
             var vm = DataContext as WhiteBoardViewModel;
             //if (vm._whiteBoardService.Connection.State == HubConnectionState.Disconnected)
             //{
-            //    vm.MessageBox("ÄúÒÑ¶Ï¿ªÁ¬½Ó£º£¨Çë¼ì²éÄúµÄ»¥ÁªÍøÁ¬½Ó£¬»òÉÔºóÔÙÊÔ)");
+            //    vm.MessageBox("ï¿½ï¿½ï¿½Ñ¶Ï¿ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½Ôºï¿½ï¿½ï¿½ï¿½ï¿½)");
             //}
         };
 
@@ -227,7 +227,7 @@ public partial class WhiteBoard : ReactiveCoreWindow<WhiteBoardViewModel>
     }
 
     /// <summary>
-    /// ¹Ø±Õ´°ÌåÊ±
+    /// ï¿½Ø±Õ´ï¿½ï¿½ï¿½Ê±
     /// </summary>
     /// <param name="e"></param>
     protected override void OnClosing(WindowClosingEventArgs e)

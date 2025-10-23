@@ -1,8 +1,8 @@
 using FluentAvalonia.UI.Navigation;
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 using Frame = FluentAvalonia.UI.Controls.Frame;
 using Image = Avalonia.Controls.Image;
-namespace Dorisoy.PanClient.Pages;
+namespace Dorisoy.Pan.Pages;
 
 public partial class MonitorPage : ReactiveUserControl<MonitorPageViewModel>
 {
@@ -66,19 +66,19 @@ public partial class MonitorPage : ReactiveUserControl<MonitorPageViewModel>
     }
 
     /// <summary>
-    /// 正在导航到的页面
+    /// 锟斤拷锟节碉拷锟斤拷锟斤拷锟斤拷页锟斤拷
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
     private void OnNavigatedTo(object sender, NavigationEventArgs e)
     {
-        System.Diagnostics.Debug.Print($"到达:------>-------MonitorPage");
+        System.Diagnostics.Debug.Print($"锟斤拷锟斤拷:------>-------MonitorPage");
         //if (Globals.LastSelectCamera != null)
         //    ViewModel.StartCapture(Globals.LastSelectCamera);
     }
 
     /// <summary>
-    /// 指示要离开的页面
+    /// 指示要锟诫开锟斤拷页锟斤拷
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -87,13 +87,13 @@ public partial class MonitorPage : ReactiveUserControl<MonitorPageViewModel>
         ViewModel?.StopReceived();
         ViewModel?.StopCapture();
         ViewModel?.StopPipWebcam();
-        System.Diagnostics.Debug.Print($"离开:------>-------MonitorPage");
+        System.Diagnostics.Debug.Print($"锟诫开:------>-------MonitorPage");
     }
 
     private bool isScaleX, isScaleY;
 
     /// <summary>
-    /// 水平翻转
+    /// 水平锟斤拷转
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="args"></param>
@@ -101,14 +101,14 @@ public partial class MonitorPage : ReactiveUserControl<MonitorPageViewModel>
     {
         var scaleTransform = new ScaleTransform
         {
-            ScaleX = isScaleX ? 1 : -1, // 水平翻转
+            ScaleX = isScaleX ? 1 : -1, // 水平锟斤拷转
             ScaleY = 1
         };
         isScaleX = scaleTransform.ScaleX != 1;
         mainWebcamViewer.RenderTransform = scaleTransform;
     }
     /// <summary>
-    /// 垂直翻转
+    /// 锟斤拷直锟斤拷转
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="args"></param>
@@ -118,7 +118,7 @@ public partial class MonitorPage : ReactiveUserControl<MonitorPageViewModel>
         var scaleTransform = new ScaleTransform
         {
             ScaleX = 1,
-            ScaleY = isScaleY ? 1 : -1 // 垂直翻转
+            ScaleY = isScaleY ? 1 : -1 // 锟斤拷直锟斤拷转
         };
         isScaleY = scaleTransform.ScaleY != 1;
         mainWebcamViewer.RenderTransform = scaleTransform;

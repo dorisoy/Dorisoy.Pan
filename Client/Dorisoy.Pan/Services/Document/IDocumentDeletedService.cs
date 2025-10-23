@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.Services;
+﻿namespace Dorisoy.Pan.Services;
 public interface IDocumentDeletedService
 {
     IObservable<IChangeSet<DocumentFolderModel, Guid>> Connect();

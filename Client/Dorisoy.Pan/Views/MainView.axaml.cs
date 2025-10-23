@@ -2,12 +2,12 @@ using Avalonia.Animation;
 using FluentAvalonia.Core;
 using FluentAvalonia.UI.Media.Animation;
 using FluentAvalonia.UI.Navigation;
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 using Cue = Avalonia.Animation.Cue;
 using Frame = FluentAvalonia.UI.Controls.Frame;
 using Image = Avalonia.Controls.Image;
 
-namespace Dorisoy.PanClient.Views;
+namespace Dorisoy.Pan.Views;
 
 public partial class MainView : ReactiveUserControl<MainViewViewModel>
 {

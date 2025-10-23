@@ -1,5 +1,5 @@
 ﻿
-namespace Dorisoy.PanClient.Commands;
+namespace Dorisoy.Pan.Commands;
 
 public class MoveFolderCommand
 {

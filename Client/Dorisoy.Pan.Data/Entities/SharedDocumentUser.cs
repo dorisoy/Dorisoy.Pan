@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dorisoy.PanClient.Data;
+namespace Dorisoy.Pan.Data;
 
 public class SharedDocumentUser
 {

@@ -1,6 +1,6 @@
-﻿using Dorisoy.PanClient.Core;
+﻿using Dorisoy.Pan.Core;
 
-namespace Dorisoy.PanClient.ViewModels;
+namespace Dorisoy.Pan.ViewModels;
 
 public class LoginViewModel : ViewModelBase, IRoutableViewModel
 {
@@ -19,7 +19,7 @@ public class LoginViewModel : ViewModelBase, IRoutableViewModel
     [Reactive] public string LoginButtonLabel { get; set; } = "登录";
 
     public string Version => string.Format("Version {0}", _applicationInfo.Version);
-    public string DevelopedBy => $"Dorisoy 版权所有 © 2020-{DateTime.Now.Year}";
+    public string DevelopedBy => $"XXX器械集团（Dorisoy）版权所有 © 1956-{DateTime.Now.Year}";
 
     public ReactiveCommand<Unit, Unit> Login { get; }
     public ReactiveCommand<Unit, Unit> Exit { get; }
@@ -52,13 +52,13 @@ public class LoginViewModel : ViewModelBase, IRoutableViewModel
         ClientMode = _settingsProvider.Settings.ClientMode;
 
 #if LOCALHOST
-        Username = "admin@Dorisoy.com";
+        Username = "admin@dorisoy.com";
         Password = "admin@123";
 #elif REMOTEHOST
-        Username = "test@Dorisoy.com";
+        Username = "test@dorisoy.com";
         Password = "admin@123";
 #else
-        Username = "test@Dorisoy.com";
+        Username = "test@dorisoy.com";
         Password = "admin@123";
 #endif
 

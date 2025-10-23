@@ -1,6 +1,6 @@
 ﻿using Avalonia.Data.Converters;
 
-namespace Dorisoy.PanClient.Converters;
+namespace Dorisoy.Pan.Converters;
 
 public class StringToBitmapConverter : IValueConverter
 {

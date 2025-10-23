@@ -1,4 +1,4 @@
-namespace Dorisoy.PanClient.ViewModels;
+namespace Dorisoy.Pan.ViewModels;
 
 public class WAMPlayerViewModel : ViewModelBase
 {
@@ -155,7 +155,7 @@ public class WAMPlayerViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// ²¥·ÅÊÓÆµ
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµ
     /// </summary>
     public void CallOpenPlayer()
     {
@@ -220,7 +220,7 @@ public class WAMPlayerViewModel : ViewModelBase
 
                 playerView = YampView.GetInstance();
 
-                //ÊÓÆµ²¥·ÅµØÖ·
+                //ï¿½ï¿½Æµï¿½ï¿½ï¿½Åµï¿½Ö·
                 playerView.videoUrl = tempMediaFile;
                 playerView.coverUrl = string.Empty;
                 var dur = TimeSpan.FromSeconds(probedDuration);
@@ -229,7 +229,7 @@ public class WAMPlayerViewModel : ViewModelBase
                 playerView.videoWidth = Convert.ToInt32(probedWidth);
                 playerView.videoHeight = Convert.ToInt32(probedHeight);
                 playerView.videoAspectRatio = probedAspectRatio;
-                //²¥·ÅÊÓÆµ
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµ
                 playerView.VideoPlayerViewControl_Play();
 
             });
@@ -239,7 +239,7 @@ public class WAMPlayerViewModel : ViewModelBase
             await Dispatcher.UIThread.InvokeAsync(() =>
             {
                 IsLoading = false;
-                MediaFile = "ERROR! ÎÞ·¨²¥·Å´ËÊÓÆµ£¬ÇëÏòÖ§³ÖÍÅ¶Ó±¨¸æÊ¹ÓÃµÄÁ´½Ó.";
+                MediaFile = "ERROR! ï¿½Þ·ï¿½ï¿½ï¿½ï¿½Å´ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½ï¿½Å¶Ó±ï¿½ï¿½ï¿½Ê¹ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½.";
             });
         }
     }

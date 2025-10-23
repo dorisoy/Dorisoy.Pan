@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Dorisoy.PanClient.Common;
-using Dorisoy.PanClient.Data.Entities;
+using Dorisoy.Pan.Common;
+using Dorisoy.Pan.Data.Entities;
 
-namespace Dorisoy.PanClient.Data.Contexts;
+namespace Dorisoy.Pan.Data.Contexts;
 
 /// <summary>
 /// 数据库上下文
@@ -229,10 +229,10 @@ public class CaptureManagerContext : IdentityDbContext<User, Role, Guid, UserCla
             {
                 Id = Guid.Parse("115CE6FB-EAEB-49C9-9842-583ACE34AA91"),
                 ProfilePhoto = "face.jpg",
-                Email = "admin@Dorisoy.com",
-                NormalizedUserName = "ADMIN@Dorisoy.COM",
-                NormalizedEmail = "ADMIN@Dorisoy.COM",
-                UserName = "admin@Dorisoy.com",
+                Email = "admin@dorisoy.com",
+                NormalizedUserName = "ADMIN@SINOL.COM",
+                NormalizedEmail = "ADMIN@SINOL.COM",
+                UserName = "admin@dorisoy.com",
                 PasswordHash = "AQAAAAEAACcQAAAAEEkx5K65gWhkIDvtcI3QVCom8fFRVWBIVlDWGqPujKdUWwSs2/0bB2fFzTaAq8z3pA==",
                 SecurityStamp = "VIMQCBRWFS24UODE2URSTWPFEXKNDJRP",
                 PhoneNumber = "13002929017",
@@ -243,10 +243,10 @@ public class CaptureManagerContext : IdentityDbContext<User, Role, Guid, UserCla
             {
                 Id = Guid.Parse("03CD9F6A-CADB-4AD9-97DC-C94B7F8A273B"),
                 ProfilePhoto = "face.jpg",
-                Email = "test@Dorisoy.com",
-                NormalizedUserName = "TEST@Dorisoy.COM",
-                NormalizedEmail = "TEST@Dorisoy.COM",
-                UserName = "test@Dorisoy.com",
+                Email = "test@dorisoy.com",
+                NormalizedUserName = "TEST@SINOL.COM",
+                NormalizedEmail = "TEST@SINOL.COM",
+                UserName = "test@dorisoy.com",
                 PasswordHash = "AQAAAAEAACcQAAAAEEkx5K65gWhkIDvtcI3QVCom8fFRVWBIVlDWGqPujKdUWwSs2/0bB2fFzTaAq8z3pA==",
                 SecurityStamp = "VIMQCBRWFS24UODE2URSTWPFEXKNDJRP",
                 PhoneNumber = "13002929018",

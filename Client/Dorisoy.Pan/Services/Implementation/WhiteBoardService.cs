@@ -1,5 +1,5 @@
 ﻿
-namespace Dorisoy.PanClient.Services;
+namespace Dorisoy.Pan.Services;
 
 /// <summary>
 /// 白板服务

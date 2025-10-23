@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dorisoy.PanClient.Common;
+namespace Dorisoy.Pan.Common;
 
 public class ServiceError
 {

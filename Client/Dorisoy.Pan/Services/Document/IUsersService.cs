@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Role = Dorisoy.PanClient.Data.Role;
+using Role = Dorisoy.Pan.Data.Role;
 
-namespace Dorisoy.PanClient.Services;
+namespace Dorisoy.Pan.Services;
 
 public interface IUsersService
 {

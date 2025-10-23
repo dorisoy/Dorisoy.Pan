@@ -1,6 +1,6 @@
 ﻿using PixelFormat = Avalonia.Platform.PixelFormat;
 
-namespace Dorisoy.PanClient.Webcam;
+namespace Dorisoy.Pan.Webcam;
 
 /// <summary>
 /// 可以提供Avalonia图像源以显示视频的类

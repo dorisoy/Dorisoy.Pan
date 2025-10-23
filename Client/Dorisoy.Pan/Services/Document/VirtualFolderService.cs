@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
-using Dorisoy.PanClient.Data.Contexts;
+using Dorisoy.Pan.Data.Contexts;
 using Path = System.IO.Path;
 
-namespace Dorisoy.PanClient.Services;
+namespace Dorisoy.Pan.Services;
 
 public class VirtualFolderService : IVirtualFolderService
 {

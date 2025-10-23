@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text.Json;
 
-namespace Dorisoy.PanClient.Common;
+namespace Dorisoy.Pan.Common;
 
 public class JsonSettingsProvider<T> : ISettingsProvider<T>
 {

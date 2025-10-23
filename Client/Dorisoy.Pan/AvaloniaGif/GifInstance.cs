@@ -92,7 +92,7 @@ public class GifInstance : IDisposable
                 "The URI provided is not currently supported.");
 
         //var assetLocator = Locator.Current.GetService<IAssetLoader>();
-        //{avares://Dorisoy.PanClient/Assets/Outgoing.gif}
+        //{avares://Dorisoy.Pan/Assets/Outgoing.gif}
         //if (assetLocator is null)
         //    throw new InvalidDataException(
         //        "The resource URI was not found in the current assembly.");

@@ -2,7 +2,7 @@
 using Disposable = System.Reactive.Disposables.Disposable;
 using Path = System.IO.Path;
 
-namespace Dorisoy.PanClient.ViewModels;
+namespace Dorisoy.Pan.ViewModels;
 
 /// <summary>
 /// 主视图页模型
@@ -242,10 +242,6 @@ public class MainViewViewModel : ViewModelBase, IRoutableViewModel
         //开启视频
         VideoSharingCommand = ReactiveCommand.Create(() => 
         {
-            //先中断屏幕
-            if (vcm.screenSharing.IsSending)
-                vcm.screenSharing.SwitchSendingState();
-
             vcm.video.SwitchSendingState();
         });
 
@@ -261,7 +257,6 @@ public class MainViewViewModel : ViewModelBase, IRoutableViewModel
             if (vcm.video.IsSending)
                 vcm.video.SwitchSendingState();
 
-            vcm.screenSharing.SwitchSendingState();
         });
 
         //清理
@@ -619,11 +614,7 @@ public class MainViewViewModel : ViewModelBase, IRoutableViewModel
             IsAudioSending = vcm.audio.IsSending;
         };
 
-        vcm.screenSharing.PropertyChanged += (sender, e) =>
-        {
-            OnPropertyChanged("IsScreenSending");
-            IsScreenSending = vcm.screenSharing.IsSending;
-        };
+
 
     }
     /// <summary>
@@ -668,21 +659,11 @@ public class MainViewViewModel : ViewModelBase, IRoutableViewModel
         permission.NavHeader = "PermissionPage";
         permission.IconKey = "DefenderAppIconFilled";
 
-        //检查
-        monitor.NavHeader = "MonitorPage";
-        monitor.IconKey = "PlaybackRateOtherIconFilled";
 
         //存储
         document.NavHeader = "DocumentPage";
         document.IconKey = "FolderIconFilled";
 
-        //录制
-        video.NavHeader = "VideoManagePage";
-        video.IconKey = "VideoIconFilled";
-
-        //图像
-        image.NavHeader = "ImagePage";
-        image.IconKey = "ImageIconFilled";
 
         //设置
         settings.NavHeader = "SettingsPage";
@@ -705,10 +686,6 @@ public class MainViewViewModel : ViewModelBase, IRoutableViewModel
         //permission 
         if (canRoleClaimsView)
             mainPages.Add(permission);
-
-        //monitor
-        if (canVideosView)
-            mainPages.Add(monitor);
 
         //document
         if (canDocumentsView)

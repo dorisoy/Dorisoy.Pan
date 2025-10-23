@@ -1,7 +1,7 @@
 ﻿using Refit;
-using Dorisoy.PanClient.Services.API;
+using Dorisoy.Pan.Services.API;
 
-namespace Dorisoy.PanClient.Services;
+namespace Dorisoy.Pan.Services;
 
 public class FolderService : IFolderService
 {

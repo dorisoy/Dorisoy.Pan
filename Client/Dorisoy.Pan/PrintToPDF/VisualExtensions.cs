@@ -2,7 +2,7 @@ using Avalonia.Layout;
 using Avalonia.VisualTree;
 using Size = Avalonia.Size;
 
-namespace Dorisoy.PanClient.PrintToPDF;
+namespace Dorisoy.Pan.PrintToPDF;
 
 public static class VisualExtensions
 {

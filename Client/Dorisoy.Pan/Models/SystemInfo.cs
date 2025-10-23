@@ -1,6 +1,6 @@
 ﻿using System.Management;
 
-namespace Dorisoy.PanClient.Models;
+namespace Dorisoy.Pan.Models;
 
 /// <summary>
 /// 用于描述系统信息

@@ -2,15 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:controls="using:Dorisoy.PanClient.Player"
-             xmlns:vm="using:Dorisoy.PanClient.ViewModels"
+			 xmlns:controls="using:Dorisoy.Pan.Player"
+             xmlns:vm="using:Dorisoy.Pan.ViewModels"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
              mc:Ignorable="d" 
              d:DesignWidth="800" 
              d:DesignHeight="450"
              x:CompileBindings="False"
              x:DataType="vm:VideoPlayerToolViewModel"
-             x:Class="Dorisoy.PanClient.Player.VideoPlayerToolView">
+             x:Class="Dorisoy.Pan.Player.VideoPlayerToolView">
 
 	<UserControl.Styles>
 		<Style Selector="Button.CloseButton:pointerover /template/ ContentPresenter">

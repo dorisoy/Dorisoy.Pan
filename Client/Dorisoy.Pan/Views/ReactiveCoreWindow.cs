@@ -1,6 +1,6 @@
 ﻿using Avalonia.Data;
 
-namespace Dorisoy.PanClient;
+namespace Dorisoy.Pan;
 
 public class ReactiveCoreWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IViewFor, IActivatableView where TViewModel : class
 {

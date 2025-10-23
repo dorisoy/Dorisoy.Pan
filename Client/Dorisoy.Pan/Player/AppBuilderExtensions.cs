@@ -1,7 +1,7 @@
 ﻿using Path = System.IO.Path;
 using LibVLCSharp.Shared;
 
-namespace Dorisoy.PanClient.Player;
+namespace Dorisoy.Pan.Player;
 
 public static class AppBuilderExtensions
 {

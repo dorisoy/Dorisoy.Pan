@@ -1,7 +1,7 @@
 ﻿using PixelFormat = Avalonia.Platform.PixelFormat;
 using VLC = LibVLCSharp.Shared;
 
-namespace Dorisoy.PanClient.Player;
+namespace Dorisoy.Pan.Player;
 
 /// <summary>
 /// 用于表示VideoSource 提供器

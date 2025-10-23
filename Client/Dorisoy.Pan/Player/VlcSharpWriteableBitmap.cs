@@ -2,7 +2,7 @@
 using PixelFormat = Avalonia.Platform.PixelFormat;
 using Size = Avalonia.Size;
 
-namespace Dorisoy.PanClient.Player;
+namespace Dorisoy.Pan.Player;
 
 
 public class VlcSharpWriteableBitmap : WriteableBitmap //Bitmap

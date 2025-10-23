@@ -1,7 +1,7 @@
 ﻿
 using Avalonia.Controls;
 
-namespace Dorisoy.PanClient.Chat;
+namespace Dorisoy.Pan.Chat;
 
 
 /// <summary>
@@ -179,27 +179,7 @@ public class BdtpClient : IDisposable
     /// </summary>
     private void InitTcpService()
     {
-        tcpService = new TcpService
-        {
-            //有客户端正在连接
-            Connecting = (client, e) => { return EasyTask.CompletedTask; },
-            //有客户端成功连接
-            Connected = (client, e) => { return EasyTask.CompletedTask; },
-            //有客户端正在断开连接，只有当主动断开时才有效。
-            
-        };
 
-        //载入配置
-        tcpService.Setup(new TorchSocketConfig()
-            .SetListenIPHosts(new IPHost(LocalIP, TcpPort + 1))
-            .ConfigureContainer(a =>//容器的配置顺序应该在最前面
-            {
-                //添加一个控制台日志注入（注意：在maui中控制台日志不可用）
-                a.AddConsoleLogger();
-            }));
-
-        //启动
-        tcpService.Start();
     }
 
     /// <summary>
@@ -208,19 +188,6 @@ public class BdtpClient : IDisposable
     private void InitTcpClient()
     {
         tcpClient = new TorchSocket.Sockets.TcpClient();
-        //即将连接到服务器，此时已经创建socket，但是还未建立tcp
-        tcpClient.Connecting = (client, e) => { return EasyTask.CompletedTask; };
-        //成功连接到服务器
-        tcpClient.Connected = (client, e) => { return EasyTask.CompletedTask; };
-        //即将从服务器断开连接。此处仅主动断开才有效。
-        
-        //载入配置
-        tcpClient.Setup(new TorchSocketConfig()
-            .ConfigureContainer(a =>
-            {
-                //添加一个日志注入
-                a.AddConsoleLogger();
-            }));
     }
 
     /// <summary>

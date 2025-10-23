@@ -1,6 +1,6 @@
-﻿using Role = Dorisoy.PanClient.Data.Role;
+﻿using Role = Dorisoy.Pan.Data.Role;
 
-namespace Dorisoy.PanClient.Mapping;
+namespace Dorisoy.Pan.Mapping;
 
 public class MappingProfile : Profile
 {

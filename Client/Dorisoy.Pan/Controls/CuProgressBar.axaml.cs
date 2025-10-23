@@ -1,4 +1,4 @@
-namespace Dorisoy.PanClient.Controls;
+namespace Dorisoy.Pan.Controls;
 
 public partial class CuProgressBar : UserControl
 {
@@ -6,7 +6,7 @@ public partial class CuProgressBar : UserControl
     private TextBlock _progressBarText;
 
     /// <summary>
-    /// Ö±½ÓÊôÐÔ£¬ÕâÑùÍâ²¿¿Ø¼þ¾Í¿ÉÒÔ°ó¶¨µ½Ëü£¬ÎÒÃÇµÄ¿Ø¼þµÄUI¸üÐÂÂß¼­ÏÖÔÚ¹ØÁªµ½Õâ¸öÐÂµÄÊôÐÔ¡£
+    /// Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â²¿ï¿½Ø¼ï¿½ï¿½Í¿ï¿½ï¿½Ô°ó¶¨µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÇµÄ¿Ø¼ï¿½ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½Ô¡ï¿½
     /// </summary>
     public static readonly DirectProperty<CuProgressBar, double> ProgressValueProperty =
            AvaloniaProperty.RegisterDirect<CuProgressBar, double>(
@@ -22,7 +22,7 @@ public partial class CuProgressBar : UserControl
         set
         {
             SetAndRaise(ProgressValueProperty, ref _progressValue, value);
-            // ÏÖÔÚÖ±½Ó¸üÐÂ½ø¶È¶ø²»´«Èë²ÎÊý
+            // ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó¸ï¿½ï¿½Â½ï¿½ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             UpdateProgress();
         }
     }
@@ -31,7 +31,7 @@ public partial class CuProgressBar : UserControl
     {
         InitializeComponent();
 
-        // °ó¶¨¿Ø¼þ
+        // ï¿½ó¶¨¿Ø¼ï¿½
         _progressBar = this.FindControl<Avalonia.Controls.Shapes.Arc>("ProgressBar");
         _progressBarText = this.FindControl<TextBlock>("ProgressBarText");
 
@@ -56,10 +56,10 @@ public partial class CuProgressBar : UserControl
         _progressBar.Height = this.Height;
         _progressBarText.FontSize = this.FontSize;
 
-        // ´Ë´¦¸üÐÂArcµÄSweepAngleÒÔ±íÊ¾°Ù·Ö±È
+        // ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½Arcï¿½ï¿½SweepAngleï¿½Ô±ï¿½Ê¾ï¿½Ù·Ö±ï¿½
         _progressBar.SweepAngle = 360.0 * (percentage / 100.0);
         _progressBar.StartAngle = 0;
-        // ¸üÐÂÎÄ±¾ÏÔÊ¾½ø¶È
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
         _progressBarText.Text = $"{percentage}";
     }
 }

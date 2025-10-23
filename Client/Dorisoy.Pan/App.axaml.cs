@@ -1,10 +1,10 @@
 using FluentAvalonia.Styling;
 using OfficeOpenXml;
-using Dorisoy.PanClient.Language;
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.Language;
+using Dorisoy.Pan.ViewModels;
 using Color = Avalonia.Media.Color;
 
-namespace Dorisoy.PanClient;
+namespace Dorisoy.Pan;
 
 public partial class App : Application
 {
@@ -24,7 +24,7 @@ public partial class App : Application
     public override void RegisterServices()
     {
         base.RegisterServices();
-        //×¢²á±¾µØ»¯¹ÜÀí
+        //×¢ï¿½á±¾ï¿½Ø»ï¿½ï¿½ï¿½ï¿½ï¿½
         LocalizationManagerBuilder.Initialize(() =>
         {
             return LocalizationProviderExtensions.MakeResourceProvider(LanguageResourceHelper.LanguageResourceManager);
@@ -47,7 +47,7 @@ public partial class App : Application
             this.desktop.MainWindow = new MainWindow()
             {
                 DataContext = new MainWindowViewModel(),
-                //ÆÁÄ»¾ÓÖÐ
+                //ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½
                 WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
 
@@ -75,7 +75,7 @@ public partial class App : Application
     }
 
     /// <summary>
-    /// ÅäÖÃSuspensionDrive
+    /// ï¿½ï¿½ï¿½ï¿½SuspensionDrive
     /// </summary>
     private void ConfigureSuspensionDriver()
     {

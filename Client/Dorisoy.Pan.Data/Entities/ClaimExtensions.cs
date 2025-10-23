@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Dorisoy.PanClient.Data
+namespace Dorisoy.Pan.Data
 {
     public static class ClaimsHelper
     {

@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.ViewModels;
+﻿namespace Dorisoy.Pan.ViewModels;
 
 /// <summary>
 /// 视频预览

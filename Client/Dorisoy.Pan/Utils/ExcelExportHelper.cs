@@ -3,7 +3,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
 
-namespace Dorisoy.PanClient;
+namespace Dorisoy.Pan;
 
 
 /// <summary>

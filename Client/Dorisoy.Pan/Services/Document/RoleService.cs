@@ -2,10 +2,10 @@
 using AvaloniaEdit.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Dorisoy.PanClient.Data.Contexts;
-using Role = Dorisoy.PanClient.Data.Role;
+using Dorisoy.Pan.Data.Contexts;
+using Role = Dorisoy.Pan.Data.Role;
 
-namespace Dorisoy.PanClient.Services;
+namespace Dorisoy.Pan.Services;
 
 public class RoleService : IRoleService
 {

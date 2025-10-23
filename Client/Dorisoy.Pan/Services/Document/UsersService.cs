@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Dorisoy.PanClient.Data.Contexts;
-using Role = Dorisoy.PanClient.Data.Role;
+using Dorisoy.Pan.Data.Contexts;
+using Role = Dorisoy.Pan.Data.Role;
 
-namespace Dorisoy.PanClient.Services;
+namespace Dorisoy.Pan.Services;
 
 public class UsersService : IUsersService
 {
@@ -368,7 +368,7 @@ public class UsersService : IUsersService
 
         var user = await FindByIdAsync(request.UserId);
 
-        if (user.Email == "admin@Dorisoy.com")
+        if (user.Email == "admin@dorisoy.com")
             return await Result.FailAsync("不允许操作.");
 
         //获取当前选择用户的角色

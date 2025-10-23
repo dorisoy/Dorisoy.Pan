@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.Data
+﻿namespace Dorisoy.Pan.Data
 {
     public interface IJsonSerializer
     {

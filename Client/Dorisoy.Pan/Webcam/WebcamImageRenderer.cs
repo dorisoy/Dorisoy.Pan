@@ -5,7 +5,7 @@
 //using Size = Avalonia.Size;
 //using Disposable = System.Reactive.Disposables.Disposable;
 
-//namespace Dorisoy.PanClient.Webcam;
+//namespace Dorisoy.Pan.Webcam;
 
 ///// <summary>
 ///// 自定义图像渲染器

@@ -3,8 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
-             xmlns:local="using:Dorisoy.PanClient.Controls"
-             x:Class="Dorisoy.PanClient.Controls.NullDataView"
+             xmlns:local="using:Dorisoy.Pan.Controls"
+             x:Class="Dorisoy.Pan.Controls.NullDataView"
              x:CompileBindings="False">
 
     <ui:InfoBar

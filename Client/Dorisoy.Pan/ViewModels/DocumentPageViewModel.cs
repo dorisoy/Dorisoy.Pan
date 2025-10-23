@@ -1,6 +1,6 @@
-﻿using Spinner = Dorisoy.PanClient.Views.Spinner;
+﻿using Spinner = Dorisoy.Pan.Views.Spinner;
 
-namespace Dorisoy.PanClient.ViewModels;
+namespace Dorisoy.Pan.ViewModels;
 
 
 public class DocumentPageViewModel : MainPageViewModelBase

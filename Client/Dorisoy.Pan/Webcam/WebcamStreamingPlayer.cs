@@ -1,5 +1,5 @@
 ﻿using static Emgu.CV.VideoCapture;
-namespace Dorisoy.PanClient.Webcam;
+namespace Dorisoy.Pan.Webcam;
 
 [SupportedOSPlatform("windows")]
 public sealed class WebcamStreamingPlayer : IDisposable

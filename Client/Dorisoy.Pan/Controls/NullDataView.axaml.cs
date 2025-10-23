@@ -1,4 +1,4 @@
-namespace Dorisoy.PanClient.Controls;
+namespace Dorisoy.Pan.Controls;
 
 using Avalonia.Controls;
 

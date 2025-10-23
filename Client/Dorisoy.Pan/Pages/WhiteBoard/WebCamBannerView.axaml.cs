@@ -1,6 +1,6 @@
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.ViewModels;
 
-namespace Dorisoy.PanClient.Pages;
+namespace Dorisoy.Pan.Pages;
 
 public partial class WebCamBannerView : ReactiveUserControl<WebCamBannerViewModel>
 {
@@ -14,25 +14,25 @@ public partial class WebCamBannerView : ReactiveUserControl<WebCamBannerViewMode
     }
 
     ///// <summary>
-    ///// ÕýÔÚµ¼º½µ½µÄÒ³Ãæ
+    ///// ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½
     ///// </summary>
     ///// <param name="sender"></param>
     ///// <param name="e"></param>
     //private void OnNavigatedTo(object sender, NavigationEventArgs e)
     //{
-    //    System.Diagnostics.Debug.Print($"µ½´ï:------>-------WebCamBannerView");
+    //    System.Diagnostics.Debug.Print($"ï¿½ï¿½ï¿½ï¿½:------>-------WebCamBannerView");
     //    var vm = ViewModel;
     //    vm?.StartCamera();
     //}
 
     ///// <summary>
-    ///// Ö¸Ê¾ÒªÀë¿ªµÄÒ³Ãæ
+    ///// Ö¸Ê¾Òªï¿½ë¿ªï¿½ï¿½Ò³ï¿½ï¿½
     ///// </summary>
     ///// <param name="sender"></param>
     ///// <param name="e"></param>
     //private void OnNavigatingFrom(object sender, NavigatingCancelEventArgs e)
     //{
-    //    System.Diagnostics.Debug.Print($"Àë¿ª:------>-------WebCamBannerView");
+    //    System.Diagnostics.Debug.Print($"ï¿½ë¿ª:------>-------WebCamBannerView");
     //    var vm = ViewModel;
     //    vm?.StopCamera();
     //}

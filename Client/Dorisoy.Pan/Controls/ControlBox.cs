@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls.Primitives;
 using FluentAvalonia.Core;
 
-namespace Dorisoy.PanClient.Controls;
+namespace Dorisoy.Pan.Controls;
 
 public class ControlBoxSubstitution : AvaloniaObject
 {

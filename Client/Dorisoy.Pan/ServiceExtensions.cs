@@ -1,14 +1,14 @@
 ﻿using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
-using Dorisoy.PanClient.Core;
-using Dorisoy.PanClient.Data.Contexts;
-using Dorisoy.PanClient.Mapping;
-using Dorisoy.PanClient.ViewModels;
+using Dorisoy.Pan.Core;
+using Dorisoy.Pan.Data.Contexts;
+using Dorisoy.Pan.Mapping;
+using Dorisoy.Pan.ViewModels;
 using Splat.Serilog;
 using ILogger = Splat.ILogger;
 using Locator = Splat.Locator;
 using Path = System.IO.Path;
-namespace Dorisoy.PanClient;
+namespace Dorisoy.Pan;
 
 public static class ServiceExtensions
 {
@@ -21,8 +21,6 @@ public static class ServiceExtensions
         IReadonlyDependencyResolver resolver)
     {
         services.InitializeSplat();
-
-        services.InitializeReactiveUI(RegistrationNamespace.Avalonia);
 
         services.RegisterConstant(RxApp.TaskpoolScheduler, "Taskpool");
 
@@ -172,7 +170,7 @@ public static class ServiceExtensions
         var serverVersion = new MySqlServerVersion(new Version(8, 0, 26));
         optionsBuilder
             .UseLazyLoadingProxies()
-            .UseMySql(conn, serverVersion, options => options.MigrationsAssembly("Dorisoy.PanClient.Data"))
+            .UseMySql(conn, serverVersion, options => options.MigrationsAssembly("Dorisoy.Pan.Data"))
             .EnableSensitiveDataLogging();
 
         services.Register(() => new CaptureManagerContext(optionsBuilder.Options));

@@ -121,11 +121,9 @@
     <value>关于我们</value>
   </data>
   <data name="Company" xml:space="preserve">
-    <value>xx集团有限公司（Dorisoy）</value>
+    <value>XXX（Dorisoy）</value>
   </data>
-  <data name="CompanyInfo" xml:space="preserve">
-    <value>公司成立于...</value>
-  </data>
+
   <data name="CurrentAppLanguage" xml:space="preserve">
     <value>语言设置</value>
   </data>

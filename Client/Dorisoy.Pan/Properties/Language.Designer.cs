@@ -70,7 +70,7 @@ namespace Dorisoy.Pan.Properties {
         }
         
         /// <summary>
-        ///   查找类似 xx集团有限公司（Dorisoy） 的本地化字符串。
+        ///   查找类似 XXX（Dorisoy） 的本地化字符串。
         /// </summary>
         public static string Company {
             get {
@@ -78,14 +78,7 @@ namespace Dorisoy.Pan.Properties {
             }
         }
         
-        /// <summary>
-        ///   查找类似 
-        /// </summary>
-        public static string CompanyInfo {
-            get {
-                return ResourceManager.GetString("CompanyInfo", resourceCulture);
-            }
-        }
+
         
         /// <summary>
         ///   查找类似 语言设置 的本地化字符串。

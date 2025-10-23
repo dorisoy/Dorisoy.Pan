@@ -1,7 +1,7 @@
 ﻿using DirectShowLib;
-using Dorisoy.PanClient.Models;
+using Dorisoy.Pan.Models;
 
-namespace Dorisoy.PanClient.Webcam;
+namespace Dorisoy.Pan.Webcam;
 
 /// <summary>
 /// 以与OpenCv相同的顺序枚举摄影机。使用OpenCv，您无法通过名称连接到相机，必须使用索引。

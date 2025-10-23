@@ -1,7 +1,7 @@
 ﻿using Dialog = FluentAvalonia.UI.Controls.Dialog;
 using Frame = FluentAvalonia.UI.Controls.Frame;
 
-namespace Dorisoy.PanClient.ViewModels;
+namespace Dorisoy.Pan.ViewModels;
 
 public abstract class ViewModelBase : ReactiveObject, IValidatableViewModel, IFrameNavigatedFrom, IDisposable
 {
@@ -392,7 +392,7 @@ public abstract class MainPageViewModelBase : ViewModelBase
                         ext = ".xlsx";
                         var name = $"Export_{DateTime.Now.ToString("yyyyMMdd")}{ext}";
                         byte[] filecontent = ExcelExportHelper.ExportExcel(data, "", false, columns);
-                        Dorisoy.PanClient.Controls.Dialog.Save("导出Excel数据", name, filename =>
+                        Dorisoy.Pan.Controls.Dialog.Save("导出Excel数据", name, filename =>
                         {
                             using var fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
                             fs.Write(filecontent, 0, filecontent.Length);
@@ -404,7 +404,7 @@ public abstract class MainPageViewModelBase : ViewModelBase
                     {
                         ext = ".csv";
                         var name = $"Export_{DateTime.Now.ToString("yyyyMMdd")}{ext}";
-                        Dorisoy.PanClient.Controls.Dialog.Save("导出Excel数据", name, filename =>
+                        Dorisoy.Pan.Controls.Dialog.Save("导出Excel数据", name, filename =>
                         {
                             ExcelExportHelper.ExportExcel(data, filename, columns);
                             MessageBox($"导出成功！");
@@ -425,7 +425,7 @@ public abstract class MainPageViewModelBase : ViewModelBase
     /// <param name="pageName"></param>
     public void Printing(string pageName)
     {
-        Dorisoy.PanClient.Controls.Dialog.Save("将当前页面另存为图片", $"{pageName}.png", filename =>
+        Dorisoy.Pan.Controls.Dialog.Save("将当前页面另存为图片", $"{pageName}.png", filename =>
         {
             var overlayHost = App.MainWindow.FindAllVisuals<Frame>();
             var ok = Print.ToFile(filename, overlayHost);

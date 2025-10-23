@@ -1,10 +1,10 @@
-﻿namespace Dorisoy.PanClient.Chat;
+﻿namespace Dorisoy.Pan.Chat;
 
 public class MediaSounds
 {
     private readonly VoiceChatModel model;
-    private readonly string raing = "avares://Dorisoy.PanClient/Assets/ringtone.mp3";
-    private readonly string dial = "avares://Dorisoy.PanClient/Assets/dialtone.mp3";
+    private readonly string raing = "avares://Dorisoy.Pan/Assets/ringtone.mp3";
+    private readonly string dial = "avares://Dorisoy.Pan/Assets/dialtone.mp3";
     private CancellationTokenSource _cts;
     private Task playTask;
 

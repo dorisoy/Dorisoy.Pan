@@ -1,6 +1,6 @@
 ﻿using ProtoBuf;
 
-namespace Dorisoy.PanClient.Models;
+namespace Dorisoy.Pan.Models;
 
 public class UserModel : ReactiveObject
 {

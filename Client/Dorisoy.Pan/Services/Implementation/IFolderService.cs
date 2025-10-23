@@ -1,6 +1,6 @@
-﻿using Dorisoy.PanClient.Services.API;
+﻿using Dorisoy.Pan.Services.API;
 
-namespace Dorisoy.PanClient.Services;
+namespace Dorisoy.Pan.Services;
 public interface IFolderService
 {
     Task<ServiceResponse<DocumentDto>> UploadDocuments(FileInfo file, string fullFileName, Guid fid, Guid uid, Guid pid, CancellationToken calToken = default);

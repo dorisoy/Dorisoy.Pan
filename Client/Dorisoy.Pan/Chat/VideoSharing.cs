@@ -1,4 +1,4 @@
-﻿namespace Dorisoy.PanClient.Chat;
+﻿namespace Dorisoy.Pan.Chat;
 
 /// <summary>
 /// 表示视频共享
@@ -72,7 +72,7 @@ public class VideoSharing : DataSharing
         LineIndex = 1;
 
         services = ServiceHub.Instance;
-        
+
     }
 
     /// <summary>
@@ -280,8 +280,6 @@ public class VideoSharing : DataSharing
     public void StartOpenCvCapture2()
     {
         _cts = new CancellationTokenSource();
-        // 叫接收者不应该在呼叫请求时激活摄像头，只有当呼叫完成时。
-//
     }
 
     public void StopOpenCvCapture2()
@@ -291,7 +289,6 @@ public class VideoSharing : DataSharing
 
         _cts.Cancel();
 
-        //services.VideoHandler.CloseCamera();
     }
 
     /// <summary>

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using Dorisoy.PanClient.Data;
+using Dorisoy.Pan.Data;
 
-namespace Dorisoy.PanClient.Data;
+namespace Dorisoy.Pan.Data;
 
 public abstract class BaseEntity
 {
