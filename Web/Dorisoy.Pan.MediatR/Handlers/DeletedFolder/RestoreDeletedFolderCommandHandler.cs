@@ -56,7 +56,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             var virtualFolderUsersToRestore = _virtualFolderUserRepository.All
                 .IgnoreQueryFilters()
                 .Where(c => c.UserId == _userInfoToken.Id
-                    && virtualFolderIdsToRestore.Contains(c.FolderId)
+                    && EF.Constant(virtualFolderIdsToRestore).Contains(c.FolderId)
                     && c.IsDeleted).ToList();
 
             virtualFolderUsersToRestore.ForEach(user =>

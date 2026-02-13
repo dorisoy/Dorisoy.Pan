@@ -52,7 +52,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                           }).ToListAsync();
 
             var allUsersIds = entities.Select(c => c.FromUserId).ToList();
-            var allUsers = _userRepository.All.Where(c => allUsersIds.Contains(c.Id)).Select(cs => new UserInfoDto
+            var allUsers = _userRepository.All.Where(c => EF.Constant(allUsersIds).Contains(c.Id)).Select(cs => new UserInfoDto
             {
                 Id = cs.Id,
                 FirstName = cs.FirstName,

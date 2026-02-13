@@ -2,6 +2,7 @@
 using Dorisoy.Pan.MediatR.Queries;
 using Dorisoy.Pan.Repository;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             var entities = await _userNotificationRepository.GetUserNotifications(request.NotificationSource);
 
             var allUsersIds = entities.Select(c => c.FromUserId).ToList();
-            var allUsers = _userRepository.All.Where(c => allUsersIds.Contains(c.Id)).Select(cs => new UserInfoDto
+            var allUsers = _userRepository.All.Where(c => EF.Constant(allUsersIds).Contains(c.Id)).Select(cs => new UserInfoDto
             {
                 Id = cs.Id,
                 FirstName = cs.FirstName,

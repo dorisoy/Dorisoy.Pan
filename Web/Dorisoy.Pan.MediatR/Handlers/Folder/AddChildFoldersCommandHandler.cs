@@ -184,7 +184,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                   .Include(c => c.PhysicalFolder)
                   .ThenInclude(c => c.PhysicalFolderUsers)
                   .ThenInclude(c => c.User)
-                  .Where(c => folderIdsToReturn.Contains(c.Id))
+                  .Where(c => EF.Constant(folderIdsToReturn).Contains(c.Id))
                   .Select(c => new VirtualFolderInfoDto
                   {
                       Id = c.Id,

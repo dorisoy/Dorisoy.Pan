@@ -1,6 +1,6 @@
 {
   "name": "dorisoy.pan",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "scripts": {
     "ng": "ng",
     "start": "SET NODE_OPTIONS=--openssl-legacy-provider && ng serve",

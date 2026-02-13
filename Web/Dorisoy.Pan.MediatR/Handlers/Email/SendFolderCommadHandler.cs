@@ -68,7 +68,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             parentOriginalPath = string.Join(Path.DirectorySeparatorChar, parentOriginalPath.Split(Path.DirectorySeparatorChar).SkipLast(1).ToList()) + Path.DirectorySeparatorChar;
             var folderIdsToDownload = new List<Guid> { request.Id };
             folderIdsToDownload.AddRange(childs.Select(c => c.Id).ToList());
-            var documentsToAdd = await _documentRepository.All.Where(c => folderIdsToDownload.Contains(c.PhysicalFolderId))
+            var documentsToAdd = await _documentRepository.All.Where(c => EF.Constant(folderIdsToDownload).Contains(c.PhysicalFolderId))
                 .Select(c => new DownloadDocumentDto
                 {
                     Name = c.Name,

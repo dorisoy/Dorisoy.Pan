@@ -22,6 +22,9 @@ dist/
 # Maven
 target/
 dist/
+appsettings.Development.json
+appsettings.json
+
 
 # JetBrains IDE
 .idea/

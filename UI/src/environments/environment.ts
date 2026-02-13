@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'http://localhost:8081/',
+    apiUrl: 'http://localhost:5000/',
     officeDocumentExtensions: ['.doc', '.docx', '.ppt', '.pptx', '.xls', '.xlsx'],
     imageExtensions: ['.jpg', '.jpeg', '.png', '.gif', '.tiff', '.psd', '.bmp', '.webp', '.raw', '.bmp', '.heif', '.indd', '.svg', '.ai', '.eps'],
     audioFileExtension: ['.3gp', '.aa', '.aac', '.aax', '.act', '.aiff', '.alac', '.amr', '.ape', '.au', '.awb', '.dss', '.dvf', '.flac', '.gsm', '.iklx', '.ivs', '.m4a', '.m4b', '.m4p', '.mmf', '.mp3', '.mpc', '.msv', '.nmf', '.ogg', '.oga', '.mogg', '.opus', '.org', '.ra', '.rm', '.raw', '.rf64', '.sln', '.tta', '.voc', '.vox', '.wav', '.wma', '.wv', '.webm'],

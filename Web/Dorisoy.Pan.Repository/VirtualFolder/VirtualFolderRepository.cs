@@ -3,7 +3,7 @@ using Dorisoy.Pan.Common.UnitOfWork;
 using Dorisoy.Pan.Data;
 using Dorisoy.Pan.Domain;
 using Microsoft.EntityFrameworkCore;
-using MySqlConnector;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;

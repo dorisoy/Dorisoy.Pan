@@ -68,18 +68,17 @@ namespace Dorisoy.Pan.API
             services.AddScoped(c => new UserInfoToken() { Id = Guid.NewGuid() });
             services.AddNewLifeRedis();
 
-            //���ݿ�
+            //数据库
             services.AddDbContextPool<DocumentContext>(options =>
             {
-                //MySQl
-                var serverVersion = new MySqlServerVersion(new Version(8, 0, 31));
-                options.UseMySql(Configuration.GetConnectionString("DocumentDbConnectionString"), serverVersion)
+                //MySQL
+                options.UseMySQL(Configuration.GetConnectionString("DocumentDbConnectionString"))
                 .EnableSensitiveDataLogging();
                 options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
                 options.UseLoggerFactory(LoggerFactory.Create(build =>
                 {
-                    build.AddConsole();  // ���ڿ���̨��������
+                    build.AddConsole();
                 }));
             });
 

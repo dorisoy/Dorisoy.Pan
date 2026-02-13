@@ -52,7 +52,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             virtualFolderIdsToDelete.AddRange(virtualChildFolder.Select(c => c.Id));
 
             var virtualFolderUsersToDelete = _virtualFolderUserRepository.All
-                .Where(c => c.UserId == _userInfoToken.Id && virtualFolderIdsToDelete.Contains(c.FolderId)).ToList();
+                .Where(c => c.UserId == _userInfoToken.Id && EF.Constant(virtualFolderIdsToDelete).Contains(c.FolderId)).ToList();
 
             virtualFolderUsersToDelete.ForEach(user => user.IsDeleted = true);
             _virtualFolderUserRepository.UpdateRange(virtualFolderUsersToDelete);
