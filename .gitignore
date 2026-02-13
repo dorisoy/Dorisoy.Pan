@@ -66,3 +66,17 @@ Server/Dorisoy.Pan.SharedLibrary/
 Client/Dorisoy.Pan.Desktop/libvlc.dylib
 /Web/Dorisoy.Pan.API/appsettings.Development.json
 /Web/Dorisoy.Pan.API/appsettings.Development.json
+Web/Dorisoy.Pan.API/bin/
+Web/Dorisoy.Pan.Data/obj/
+Web/Dorisoy.Pan.Domain/obj/
+Web/Dorisoy.Pan.Helper/obj/
+Web/Dorisoy.Pan.MediatR/bin/
+Web/Dorisoy.Pan.MediatR/obj/
+Web/Dorisoy.Pan.Repository/bin/
+Web/Dorisoy.Pan.Repository/obj/
+Web/Dorisoy.Pan.Domain/bin/
+Web/Dorisoy.Pan.Common/obj/
+Web/Dorisoy.Pan.Common/bin/
+Web/Dorisoy.Pan.API/obj/
+Web/Dorisoy.Pan.Data/bin/
+Web/Dorisoy.Pan.Helper/bin/
