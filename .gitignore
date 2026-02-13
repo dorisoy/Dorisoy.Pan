@@ -64,3 +64,5 @@ Server/Dorisoy.Pan.API/
 Server/Dorisoy.Pan.ChatServer/
 Server/Dorisoy.Pan.SharedLibrary/
 Client/Dorisoy.Pan.Desktop/libvlc.dylib
+/Web/Dorisoy.Pan.API/appsettings.Development.json
+/Web/Dorisoy.Pan.API/appsettings.Development.json
