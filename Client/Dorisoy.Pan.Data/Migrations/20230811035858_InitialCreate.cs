@@ -1067,7 +1067,7 @@ namespace Dorisoy.Pan.Data.Migrations
             migrationBuilder.InsertData(
                 table: "PhysicalFolders",
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "DeletedBy", "DeletedDate", "IsDeleted", "ModifiedBy", "ModifiedDate", "Name", "ParentId", "Size", "SystemFolderName" },
-                values: new object[] { new Guid("79073ec1-51e2-4772-95e6-9b06075a174b"), new Guid("115ce6fb-eaeb-49c9-9842-583ace34aa91"), new DateTime(2023, 8, 11, 11, 58, 58, 120, DateTimeKind.Local).AddTicks(7553), null, null, false, null, null, "All Files", null, "", 1L });
+                values: new object[] { new Guid("79073ec1-51e2-4772-95e6-9b06075a174b"), new Guid("115ce6fb-eaeb-49c9-9842-583ace34aa91"), new DateTime(2023, 8, 11, 11, 58, 58, 120, DateTimeKind.Local).AddTicks(7553), null, null, false, null, null, "全部", null, "", 1L });
 
             migrationBuilder.InsertData(
                 table: "Roles",
@@ -1125,7 +1125,7 @@ namespace Dorisoy.Pan.Data.Migrations
             migrationBuilder.InsertData(
                 table: "VirtualFolders",
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "DeletedBy", "DeletedDate", "IsDeleted", "IsShared", "ModifiedBy", "ModifiedDate", "Name", "ParentId", "PhysicalFolderId", "Size" },
-                values: new object[] { new Guid("a4d06132-d76c-49b5-8472-2bf78ac4147e"), new Guid("115ce6fb-eaeb-49c9-9842-583ace34aa91"), new DateTime(2023, 8, 11, 11, 58, 58, 121, DateTimeKind.Local).AddTicks(846), null, null, false, false, null, null, "All Files", null, new Guid("79073ec1-51e2-4772-95e6-9b06075a174b"), "" });
+                values: new object[] { new Guid("a4d06132-d76c-49b5-8472-2bf78ac4147e"), new Guid("115ce6fb-eaeb-49c9-9842-583ace34aa91"), new DateTime(2023, 8, 11, 11, 58, 58, 121, DateTimeKind.Local).AddTicks(846), null, null, false, false, null, null, "全部", null, new Guid("79073ec1-51e2-4772-95e6-9b06075a174b"), "" });
 
             migrationBuilder.InsertData(
                 table: "VirtualFolderUsers",

@@ -21,7 +21,7 @@ public static class Dialog
                 {
                 new FilePickerFileType("PDF files (.pdf)"){ Patterns = new List<string> { "pdf" } },
                 new FilePickerFileType("Excel files (.xlsx)"){ Patterns = new List<string> { "xlsx", "Cvs" } },
-                new FilePickerFileType("All files (.*)"){ Patterns = new List<string> { "mp4", "jepg", "*" } }
+                new FilePickerFileType("全部 (.*)"){ Patterns = new List<string> { "mp4", "jepg", "*" } }
                 },
                 SuggestedFileName = defaultFilename
             };

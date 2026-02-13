@@ -260,6 +260,34 @@ namespace Dorisoy.Pan.API
 
             app.UseSwagger();
 
+            // 自动补齐数据库缺失列（代码实体新增字段但数据库未同步）
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<DocumentContext>();
+                try
+                {
+                    db.Database.ExecuteSqlRaw(@"
+                        SET @dbname = DATABASE();
+                        SET @tablename = 'documents';
+                        SET @columnname = 'Md5';
+                        SET @preparedStatement = (SELECT IF(
+                            (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS
+                             WHERE TABLE_SCHEMA = @dbname AND TABLE_NAME = @tablename AND COLUMN_NAME = @columnname) = 0,
+                            CONCAT('ALTER TABLE `', @tablename, '` ADD COLUMN `', @columnname, '` VARCHAR(255) NULL;'),
+                            'SELECT 1;'
+                        ));
+                        PREPARE stmt FROM @preparedStatement;
+                        EXECUTE stmt;
+                        DEALLOCATE PREPARE stmt;
+                    ");
+                }
+                catch (Exception ex)
+                {
+                    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Startup>>();
+                    logger.LogWarning(ex, "Auto-migration: failed to add missing columns, may already exist.");
+                }
+            }
+
             app.UseSwaggerUI(c =>
             {
                 c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);

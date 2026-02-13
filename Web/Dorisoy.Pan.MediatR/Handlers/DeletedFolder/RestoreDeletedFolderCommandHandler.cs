@@ -1,4 +1,5 @@
-﻿using Dorisoy.Pan.Common.UnitOfWork;
+﻿using Dorisoy.Pan.Common;
+using Dorisoy.Pan.Common.UnitOfWork;
 using Dorisoy.Pan.Data.Dto;
 using Dorisoy.Pan.Domain;
 using Dorisoy.Pan.Helper;
@@ -55,9 +56,8 @@ namespace Dorisoy.Pan.MediatR.Handlers
 
             var virtualFolderUsersToRestore = _virtualFolderUserRepository.All
                 .IgnoreQueryFilters()
-                .Where(c => c.UserId == _userInfoToken.Id
-                    && EF.Constant(virtualFolderIdsToRestore).Contains(c.FolderId)
-                    && c.IsDeleted).ToList();
+                .Where(c => c.UserId == _userInfoToken.Id && c.IsDeleted)
+                .WhereContains(c => c.FolderId, virtualFolderIdsToRestore).ToList();
 
             virtualFolderUsersToRestore.ForEach(user =>
             {

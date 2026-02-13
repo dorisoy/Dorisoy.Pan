@@ -84,7 +84,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                     IsOwner = true,
                     ProfilePhoto = Path.Combine(_pathHelper.UserProfilePath, user.ProfilePhoto)
                 });
-                entity.Users = entity.Users.Where(c => !EF.Constant(entity.DeletedUserIds).Contains(c.Id)).ToList();
+                entity.Users = entity.Users.Where(c => !entity.DeletedUserIds.Contains(c.Id)).ToList();
             });
             return entitiesDto;
         }

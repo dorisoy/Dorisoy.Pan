@@ -80,3 +80,5 @@ Web/Dorisoy.Pan.Common/bin/
 Web/Dorisoy.Pan.API/obj/
 Web/Dorisoy.Pan.Data/bin/
 Web/Dorisoy.Pan.Helper/bin/
+Web/Dorisoy.Pan.API/temp/
+Web/Dorisoy.Pan.API/wwwroot/

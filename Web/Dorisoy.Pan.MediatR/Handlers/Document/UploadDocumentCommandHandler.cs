@@ -119,33 +119,54 @@ namespace Dorisoy.Pan.MediatR.Handlers
         }
         private bool CanLock(string md5)
         {
-            if (!_redis.ContainsKey(md5))
+            try
+            {
+                if (!_redis.ContainsKey(md5))
+                    return false;
+                return _redis.ListGetAll<Guid>(md5).Count > 1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Redis unavailable in CanLock, falling back to no-lock mode.");
                 return false;
-            return _redis.ListGetAll<Guid>(md5).Count > 1;
+            }
         }
         private void SetCache(string md5)
         {
-            lock (cache)
+            try
             {
-                if (_redis.ContainsKey(md5))
+                lock (cache)
                 {
-                    var user = _redis.ListIndexOf(md5, _userInfoToken.Id);
-                    if (user == -1)
+                    if (_redis.ContainsKey(md5))
+                    {
+                        var user = _redis.ListIndexOf(md5, _userInfoToken.Id);
+                        if (user == -1)
+                        {
+                            _redis.ListAdd(md5, _userInfoToken.Id);
+                        }
+                    }
+                    else
                     {
                         _redis.ListAdd(md5, _userInfoToken.Id);
                     }
                 }
-                else
-                {
-                    _redis.ListAdd(md5, _userInfoToken.Id);
-                }
             }
-
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Redis unavailable in SetCache, skipping cache.");
+            }
         }
         private void RemoveCache(string md5)
         {
-            if (_redis.ContainsKey(md5))
-                _redis.Remove(md5);
+            try
+            {
+                if (_redis.ContainsKey(md5))
+                    _redis.Remove(md5);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Redis unavailable in RemoveCache, skipping.");
+            }
         }
 
         private void WriteFile(string path, byte[] bytes)
@@ -233,7 +254,10 @@ namespace Dorisoy.Pan.MediatR.Handlers
             if (old != null && oldDocument != null)
             {
                 //并发上传一份文件处理
-                if (_redis.ContainsKey(request.Md5) && _redis.ListGetAll<string>(request.Md5).Count > 0)
+                var isRedisKeyExists = false;
+                try { isRedisKeyExists = _redis.ContainsKey(request.Md5) && _redis.ListGetAll<string>(request.Md5).Count > 0; }
+                catch { /* Redis unavailable, skip */ }
+                if (isRedisKeyExists)
                 {
                     RemoveCache(request.Md5);
                     var oldDocumentDto = _mapper.Map<DocumentDto>(oldDocument);

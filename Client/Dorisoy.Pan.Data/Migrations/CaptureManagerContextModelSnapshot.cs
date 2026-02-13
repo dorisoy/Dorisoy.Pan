@@ -839,7 +839,7 @@ namespace Dorisoy.Pan.Data.Migrations
                             CreatedBy = new Guid("115ce6fb-eaeb-49c9-9842-583ace34aa91"),
                             CreatedDate = new DateTime(2023, 8, 11, 11, 58, 58, 120, DateTimeKind.Local).AddTicks(7553),
                             IsDeleted = false,
-                            Name = "All Files",
+                            Name = "全部",
                             Size = "",
                             SystemFolderName = 1L
                         });
@@ -1628,7 +1628,7 @@ namespace Dorisoy.Pan.Data.Migrations
                             CreatedDate = new DateTime(2023, 8, 11, 11, 58, 58, 121, DateTimeKind.Local).AddTicks(846),
                             IsDeleted = false,
                             IsShared = false,
-                            Name = "All Files",
+                            Name = "全部",
                             PhysicalFolderId = new Guid("79073ec1-51e2-4772-95e6-9b06075a174b"),
                             Size = ""
                         });

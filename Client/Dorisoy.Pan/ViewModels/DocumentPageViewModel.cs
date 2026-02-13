@@ -96,7 +96,7 @@ public class DocumentPageViewModel : MainPageViewModelBase
                     AllowMultiple = true,
                     FileTypeFilter = new FilePickerFileType[]
                     {
-                      new FilePickerFileType("All files (.*)")
+                      new FilePickerFileType("全部 (.*)")
                       {
                         Patterns = new List<string> { "mp4", "jepg", "*" }
                       }

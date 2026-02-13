@@ -483,7 +483,7 @@ namespace Dorisoy.Pan.Domain
           .HasData(new PhysicalFolder()
           {
               Id = Guid.Parse("79073EC1-51E2-4772-95E6-9B06075A174B"),
-              Name = "All Files",
+              Name = "全部",
               SystemFolderName = 1,
               ParentId = null,
               Size = "",
@@ -504,7 +504,7 @@ namespace Dorisoy.Pan.Domain
             .HasData(new VirtualFolder()
             {
                 Id = Guid.Parse("A4D06132-D76C-49B5-8472-2BF78AC4147E"),
-                Name = "All Files",
+                Name = "全部",
                 ParentId = null,
                 Size = "",
                 IsShared = false,

@@ -416,7 +416,7 @@ public class MainViewViewModel : ViewModelBase, IRoutableViewModel
                 {
                     Title = "上传文件",
                     AllowMultiple = true,
-                    FileTypeFilter = [new FilePickerFileType("All files (.*)")
+                    FileTypeFilter = [new FilePickerFileType("全部 (.*)")
                     {
                         Patterns = ["mp4", "jepg", "*"]
                     }]

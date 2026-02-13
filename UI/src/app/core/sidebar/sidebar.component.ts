@@ -85,7 +85,7 @@ export class SidebarComponent extends BaseComponent implements OnInit, OnDestroy
   ngOnInit() {
     this.getTotalSize();
     this.treeControl = new FlatTreeControl<TreeViewFolder>(this.getLevel, this.isExpandable);
-    if (this.rootFolder.name === "All FIles") {
+    if (this.rootFolder.name === "全部") {
       this.rootFolder.name = "全部";
     }
     this.dataSource = new TreeViewDataSource(this.treeControl, this.treeViewService, this.cloneService, this.rootFolder);

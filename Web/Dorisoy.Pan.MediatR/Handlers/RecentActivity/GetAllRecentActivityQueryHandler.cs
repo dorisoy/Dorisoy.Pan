@@ -86,7 +86,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
             {
                 if (c.DocumentId != null)
                 {
-                    c.Users = c.Users.Where(d => EF.Constant(c.DeletedUserIds).Any(du => du == d.Id)).ToList();
+                    c.Users = c.Users.Where(d => c.DeletedUserIds.Any(du => du == d.Id)).ToList();
                     if (!c.Users.Any(u => u.Id == c.CreatedByUser.Id))
                     {
                         c.Users.Add(

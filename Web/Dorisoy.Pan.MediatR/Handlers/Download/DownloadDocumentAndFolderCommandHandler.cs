@@ -1,4 +1,5 @@
-﻿using Dorisoy.Pan.Data.Dto;
+﻿using Dorisoy.Pan.Common;
+using Dorisoy.Pan.Data.Dto;
 using Dorisoy.Pan.Helper;
 using Dorisoy.Pan.MediatR.Commands;
 using Dorisoy.Pan.Repository;
@@ -45,7 +46,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                 parentOriginalPath = string.Join(Path.DirectorySeparatorChar, parentOriginalPath.Split(Path.DirectorySeparatorChar).SkipLast(1).ToList()) + Path.DirectorySeparatorChar;
                 var folderIdsToDownload = new List<Guid> { id };
                 folderIdsToDownload.AddRange(childs.Select(c => c.Id).ToList());
-                var documentsToAdd = await _documentRepository.All.Where(c => EF.Constant(folderIdsToDownload).Contains(c.PhysicalFolderId))
+                var documentsToAdd = await _documentRepository.All.WhereContains(c => c.PhysicalFolderId, folderIdsToDownload)
                     .Select(c => new DownloadDocumentDto
                     {
                         Name = c.Name,
@@ -73,7 +74,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                 result.AddRange(documentsToAdd);
             }
 
-            var documents = await _documentRepository.All.Where(c => EF.Constant(request.DocumentIds).Contains(c.Id)).ToListAsync();
+            var documents = await _documentRepository.All.WhereContains(c => c.Id, request.DocumentIds).ToListAsync();
             foreach (var document in documents)
             {
                 var path = await _physicalFolderRepository.GetParentOriginalFolderPath(document.PhysicalFolderId);

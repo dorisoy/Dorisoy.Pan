@@ -91,10 +91,10 @@ namespace Dorisoy.Pan.MediatR.Handlers
                 }
                 entity.CreatedByUserInfo = null;
                 var userIds = entity.Users.Select(c => c.Id);
-                var usersToAdd = entity.PhysicalUsers.Where(c => !EF.Constant(userIds).Contains(c.Id)).ToList();
+                var usersToAdd = entity.PhysicalUsers.Where(c => !userIds.Contains(c.Id)).ToList();
                 entity.Users.AddRange(usersToAdd);
                 entity.PhysicalUsers = null;
-                entity.Users = entity.Users.Where(c => !EF.Constant(entity.DeletedUserIds).Contains(c.Id)).ToList();
+                entity.Users = entity.Users.Where(c => !entity.DeletedUserIds.Contains(c.Id)).ToList();
             });
             return documents;
         }

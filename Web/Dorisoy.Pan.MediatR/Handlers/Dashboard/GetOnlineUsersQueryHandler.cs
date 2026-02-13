@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Dorisoy.Pan.Common;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
         public async Task<List<UserDto>> Handle(GetOnlineUsersQuery request, CancellationToken cancellationToken)
         {
             var allUserIds = _connectionMappingRepository.GetAllUsersExceptThis(_userInfoToken).Select(c => c.Id).ToList();
-            var users = await _userRepository.All.Where(c => EF.Constant(allUserIds).Contains(c.Id))
+            var users = await _userRepository.All.WhereContains(c => c.Id, allUserIds)
                 .Select(cs => new UserDto
                 {
                     Id = cs.Id,

@@ -51,7 +51,7 @@ export class FolderPathComponent extends BaseComponent implements OnInit {
     .subscribe((paths: FolderPath[]) => {
       //this.folderPaths = paths;
       this.folderPaths = paths.map((path) => {
-        if (path.name === "All FIles") {
+        if (path.name === "全部") {
           return { ...path, name: "全部" };
         }
         return path;

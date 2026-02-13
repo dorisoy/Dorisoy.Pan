@@ -1,4 +1,5 @@
-﻿using Dorisoy.Pan.Common.UnitOfWork;
+﻿using Dorisoy.Pan.Common;
+using Dorisoy.Pan.Common.UnitOfWork;
 using Dorisoy.Pan.Data;
 using Dorisoy.Pan.Data.Dto;
 using Dorisoy.Pan.Domain;
@@ -184,7 +185,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                   .Include(c => c.PhysicalFolder)
                   .ThenInclude(c => c.PhysicalFolderUsers)
                   .ThenInclude(c => c.User)
-                  .Where(c => EF.Constant(folderIdsToReturn).Contains(c.Id))
+                  .WhereContains(c => c.Id, folderIdsToReturn)
                   .Select(c => new VirtualFolderInfoDto
                   {
                       Id = c.Id,

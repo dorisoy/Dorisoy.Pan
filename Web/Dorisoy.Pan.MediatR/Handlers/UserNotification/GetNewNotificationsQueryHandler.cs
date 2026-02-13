@@ -1,4 +1,5 @@
-﻿using Dorisoy.Pan.Data.Dto;
+﻿using Dorisoy.Pan.Common;
+using Dorisoy.Pan.Data.Dto;
 using Dorisoy.Pan.Helper;
 using Dorisoy.Pan.MediatR.Queries;
 using Dorisoy.Pan.Repository;
@@ -53,7 +54,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                           }).ToListAsync();
 
             var allUsersIds = entities.Where(x => x.FromUserId != Guid.Empty).Select(x => x.FromUserId).Distinct().ToList();
-            var allUsers = _userRepository.All.Where(c => EF.Constant(allUsersIds).Contains(c.Id)).Select(cs => new UserInfoDto
+            var allUsers = _userRepository.All.WhereContains(c => c.Id, allUsersIds).Select(cs => new UserInfoDto
             {
                 Id = cs.Id,
                 FirstName = cs.FirstName,

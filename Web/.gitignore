@@ -31,7 +31,7 @@ msbuild.wrn
 # Visual Studio 2015
 .vs/
 /YourDrive.API/temp
-/YourDrive.API/Documents/All Files
+/YourDrive.API/Documents/全部
 /YourDrive.API/Documents
 /YourDrive.API/wwwroot/Documents/1
 /YourDrive.API/wwwroot/Documents
