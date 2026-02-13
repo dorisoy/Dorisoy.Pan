@@ -5045,3 +5045,9 @@ Error Number:233,State:0,Class:20
    at NLog.Targets.DatabaseTarget.SetConnectionType()
    at NLog.Targets.DatabaseTarget.InitializeTarget()
    at NLog.Targets.Target.Initialize(LoggingConfiguration configuration)
+2026-02-13 09:14:45.1718 Error Failed to create Target with unknown type-alias: 'Database' - Extension NLog.Database not included? Exception: NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'Database' - Extension NLog.Database not included?
+   at NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   at NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)
+2026-02-13 09:14:47.4731 Error Failed to create Target with unknown type-alias: 'Database' - Extension NLog.Database not included? Exception: NLog.NLogConfigurationException: Failed to create Target with unknown type-alias: 'Database' - Extension NLog.Database not included?
+   at NLog.Config.FactoryExtensions.CreateInstance[TBaseType](IFactory`1 factory, String typeAlias)
+   at NLog.Config.LoggingConfigurationParser.FactoryCreateInstance[T](String typeName, IFactory`1 factory)

@@ -17,9 +17,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -67,7 +68,7 @@ namespace Dorisoy.Pan.API
             services.AddScoped(c => new UserInfoToken() { Id = Guid.NewGuid() });
             services.AddNewLifeRedis();
 
-            //Êý¾Ý¿â
+            //ï¿½ï¿½ï¿½Ý¿ï¿½
             services.AddDbContextPool<DocumentContext>(options =>
             {
                 //MySQl
@@ -78,7 +79,7 @@ namespace Dorisoy.Pan.API
 
                 options.UseLoggerFactory(LoggerFactory.Create(build =>
                 {
-                    build.AddConsole();  // ÓÃÓÚ¿ØÖÆÌ¨³ÌÐòµÄÊä³ö
+                    build.AddConsole();  // ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 }));
             });
 
@@ -102,13 +103,13 @@ namespace Dorisoy.Pan.API
             services.AddJwtAutheticationConfiguration(settings);
 
 
-            //¿çÓòÖ§³Ö
+            //ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½
             services.AddCors(options =>
             {
                 options.AddPolicy("ExposeResponseHeaders",
                     builder =>
                     {
-                        //ÖÁÔÊÐí WebApplicationUrl ¿çÓò·ÃÎÊ
+                        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ WebApplicationUrl ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                         builder.WithOrigins(pathHelper.WebApplicationUrl)
                                .WithExposedHeaders("X-Pagination")
                                .AllowAnyHeader()
@@ -131,7 +132,7 @@ namespace Dorisoy.Pan.API
             //    });
             //});
 
-            ////¿çÓòÖ§³Ö
+            ////ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½
             //services.AddCors(options =>
             //{
             //    options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -152,7 +153,7 @@ namespace Dorisoy.Pan.API
 
 
 
-            //Ìí¼ÓSignalR·þÎñ
+            //ï¿½ï¿½ï¿½ï¿½SignalRï¿½ï¿½ï¿½ï¿½
             services.AddSignalR(opt =>
             {
                 opt.EnableDetailedErrors = true;
@@ -196,19 +197,10 @@ namespace Dorisoy.Pan.API
                 });
 
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-                   {
-                     new OpenApiSecurityScheme
-                     {
-                       Reference = new OpenApiReference
-                       {
-                         Type = ReferenceType.SecurityScheme,
-                         Id = "Bearer"
-                       }
-                      },
-                      new string[] { }
-                    }
-                  });
+                c.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+                {
+                    [new OpenApiSecuritySchemeReference("Bearer", document)] = new List<string>()
+                });
 
                 //Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -220,13 +212,13 @@ namespace Dorisoy.Pan.API
 
             //services.AddSpaStaticFiles(c =>
             //{
-            //    //ÕâÀïÉèÖÃÂ·ÓÉ
+            //    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
             //    c.RootPath = "ClientApp/dist";
             //});
 
             //services.AddSpaStaticFiles(configuration =>
             //{
-            //    //ÕâÀïÉèÖÃÂ·ÓÉ
+            //    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
             //    configuration.RootPath = "ClientApp";
             //});
 
@@ -262,15 +254,12 @@ namespace Dorisoy.Pan.API
             }
 
 
-            //ÆôÓÃ swagger
+            //ï¿½ï¿½ï¿½ï¿½ swagger
             var option = new RewriteOptions();
             option.AddRedirect("^$", "swagger");
             app.UseRewriter(option);
 
-            app.UseSwagger(c =>
-            {
-                c.SerializeAsV2 = true;
-            });
+            app.UseSwagger();
 
             app.UseSwaggerUI(c =>
             {
@@ -290,11 +279,11 @@ namespace Dorisoy.Pan.API
 
 
 
-            //Ê¹ÓÃ Https ÖØ¶¨Ïò
+            //Ê¹ï¿½ï¿½ Https ï¿½Ø¶ï¿½ï¿½ï¿½
             //app.UseHttpsRedirection();
 
 
-            //ÔÚÕâÀïÄú¿ÉÒÔ¿´µ½£¬ÎÒÃÇÈ·±£Ëü²»ÊÇÒÔ/api¿ªÍ·µÄ£¬Èç¹ûËüÊÇÒÔ/api¿ªÍ·µÄ£¬ÄÇÃ´Ëü½«ÔÚ404Ö®ÄÚ¡£Èç¹ûÕÒ²»µ½Ëü£¬ÇëÊ¹ÓÃNET
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/apiï¿½ï¿½Í·ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/apiï¿½ï¿½Í·ï¿½Ä£ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½404Ö®ï¿½Ú¡ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½NET
             //app.MapWhen(x => !x.Request.Path.Value.StartsWith("/api"), builder =>
             //{
             //    builder.UseRouting();
@@ -310,14 +299,14 @@ namespace Dorisoy.Pan.API
             app.UseStaticFiles();
 
 
-            ////Ê¹ÓÃspa ¾²Ì¬ÎÄ¼þ
+            ////Ê¹ï¿½ï¿½spa ï¿½ï¿½Ì¬ï¿½Ä¼ï¿½
             //app.UseSpaStaticFiles();
 
 
 
             //app.UseSpa(spa =>
             //{
-            //    //ÕâÀïÊÇangularÏîÄ¿µÄ¸ùÄ¿Â¼
+            //    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½angularï¿½ï¿½Ä¿ï¿½Ä¸ï¿½Ä¿Â¼
             //    spa.Options.SourcePath = "ClientApp";
             //    //if (env.IsDevelopment())
             //    //{
