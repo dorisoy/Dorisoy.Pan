@@ -52,7 +52,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
                               Extension = c.DocumentId.HasValue ? c.Document.Extension : "",
                           }).ToListAsync();
 
-            var allUsersIds = entities.Where(x => x.FromUserId != Guid.Empty).Distinct().ToList();
+            var allUsersIds = entities.Where(x => x.FromUserId != Guid.Empty).Select(x => x.FromUserId).Distinct().ToList();
             var allUsers = _userRepository.All.Where(c => EF.Constant(allUsersIds).Contains(c.Id)).Select(cs => new UserInfoDto
             {
                 Id = cs.Id,
