@@ -27,7 +27,7 @@ namespace Dorisoy.Pan.MediatR.Handlers
         {
             var entities = await _userNotificationRepository.GetUserNotifications(request.NotificationSource);
 
-            var allUsersIds = entities.Where(x => x.FromUserId != null && x.FromUserId != Guid.Empty).Select(c => c.FromUserId.Value).Distinct().ToList();
+            var allUsersIds = entities.Where(x => x.FromUserId != Guid.Empty).Distinct().ToList();
             var allUsers = _userRepository.All.Where(c => EF.Constant(allUsersIds).Contains(c.Id)).Select(cs => new UserInfoDto
             {
                 Id = cs.Id,
